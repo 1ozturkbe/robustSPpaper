@@ -11,6 +11,7 @@
 \usepackage{verbatim}
 \usepackage{tikz}
 \usepackage{tkz-kiviat}
+\usetikzlibrary{arrows}
 
 \usepackage{geometry}
  \geometry{
@@ -531,7 +532,7 @@ The weight of the aircraft is the sum of the payload weight, wing weight, and th
 \begin{figure}
 \centering
 \caption{\label{fig:liftweight} Wing lift is equal and opposite to the wing weight, payload weight, and total fuel weight.}
-\includegraphics[width=0.8\textwidth]{liftweight.PNG}
+\includegraphics[width=0.8\textwidth]{liftweight.png}
 \end{figure}
 
 \subsection{Wing Structure}
@@ -545,7 +546,7 @@ The fuel in the aircraft can be stored either in the wing or the fuselage. The s
 V_f \leq V_{f_{wing}} + V_{f_{fuse}} 
 \end{equation}
 
-where $V_{f_{wing}$ and $V_{f_{fuse}}$ represent the fuel volume available in the wing and the fuselage respectively. They are each represented by the following monomials. 
+where $V_{f_{wing}}$ and $V_{f_{fuse}}$ represent the fuel volume available in the wing and the fuselage respectively. They are each represented by the following monomials. 
 
 \begin{equation}
 \label{eq:fuelwing}
@@ -572,18 +573,18 @@ The uncertainties for the different constants in the problem have been determine
 \begin{tabular}{c c c c}
 \hline
 Constant & Description & Value & \% Uncert. ($3\sigma$) \\
-$S_{wetratio}$ & wetted area ratio & 2.075 & 3\\
-e & span efficiency & 0.92 & 3\\
-$\mu$ & viscosity of air & 1.775e-5 kg/(ms) & 4 \\
-$\rho$ & air density & 1.23 kg/m^3 & 5 \\
+$S_{wetratio}$ & wetted area ratio & 2.075 & 3 \\
+e & span efficiency & 0.92 & 3 \\
+$\mu$ & viscosity of air & $1.775e-5 kg/(ms)$ & 4 \\
+$\rho$ & air density & $1.23 kg/m^3$ & 5 \\
 $C_{L_{max}}$ & stall lift coefficient & 1.6 & 5\\
 k & fuselage form factor & 1.17 & 10\\
 $\tau$ & airfoil thickness ratio & 0.12 & 10\\
 $N_{ult}$ & ultimate load factor & 3.3 & 15\\
 $V_{min}$ & takeoff speed & 25 m/s & 20\\
 $W_0$ & payload weight & 6250 N & 20\\
-$W_{w_{coeff1}}$ & wing weight coefficient 1 & 2e-5 1/m & 20\\
-$W_{w_{coeff2}}$ & wing weight coefficient 2 & 60 N/m^2 & 20\\
+$W_{w_{coeff1}}$ & wing weight coefficient 1 & $2e-5 1/m$ & 20\\
+$W_{w_{coeff2}}$ & wing weight coefficient 2 & $60 N/m^2$ & 20\\
 \hline
 \end{tabular}
 \end{center}
