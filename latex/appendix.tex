@@ -1,0 +1,75 @@
+\section*{Appendix}
+
+\subsection{Robust Linear Programming: A Quick Review}
+
+As mentioned earlier, robust linear programming will be used to formulate an approximate robust geometric program.\\[12pt]
+Consider the system of linear constraints
+
+\begin{equation*}
+    \mathbb{A}\vec{x} + \vec{b} \leq 0
+\end{equation*}
+
+where
+
+\begin{equation*}
+\begin{aligned}
+\mathbb{A} &\text{ is $m \times n$}\\
+\vec{x} &\text{ is $n \times 1$}\\
+\vec{b} &\text{ is $m \times 1$}\\
+\end{aligned}
+\end{equation*}
+
+where that data is uncertain and is given by equations \eqref{Data} and \eqref{perturbation_set}.
+
+\subsubsection{Box Uncertainty Set}
+If the perturbation set $\mathcal{Z}$ given in equation \eqref{perturbation_set} is a box uncertainty set, i.e. $\|\vec{\zeta}\|_{\infty} \leq \Gamma$, then the robust formulation of the $i^{th}$ constraint is equivalent to
+\begin{equation}
+\Gamma \textstyle{\sum}_{l=1}^L |- {b}^l_{i} - \vec{a}^l_i\vec{x}| + \vec{a}^0_i\vec{x} + b^0_i \leq 0
+\label{box_absolute}
+\end{equation}
+If only $b$ is uncertain, i.e. $A^l = 0 \quad \forall l = 1,2,...,L$, then equation \eqref{box_absolute} will become
+\begin{equation}
+\textstyle{\sum}_{l=1}^L \vec{a}^0_{i}\vec{x} + b^0_{i} + \Gamma \textstyle{\sum}_{l=1}^L |b^l_{i}| \leq 0
+\label{box_coeff}
+\end{equation}
+which is a linear constraint\\
+On the other hand, if $A$ is uncertain, then equation \eqref{box_absolute} is equivalent to the following set of linear constraints
+\begin{equation}
+\begin{aligned}
+\Gamma \textstyle{\sum}_{l=1}^L w^l_{i} + \vec{a}^0_{i}\vec{x} + b^0_{i} &\leq 0\\
+- b^l_{i} - \vec{a}^l_{i}\vec{x} &\leq w^l_{i} &&\forall l \in 1,...,L\\
+b^l_{i} + \vec{a}^l_{i}\vec{x} &\leq w^l_{i} &&\forall l \in 1,...,L\\
+\end{aligned}
+\label{box_linear}
+\end{equation}
+
+\subsubsection{Elliptical Uncertainty Set}
+Briefly, if the perturbation set $\mathcal{Z}$ is an elliptical, i.e. $\textstyle{\sum}_{l=1}^L\frac{\zeta_l^2}{\sigma_l^2} \leq \Gamma^2$, then the robust formulation of the $i^{th}$ constraint is equivalent to
+\begin{equation}
+\Gamma \sqrt{\textstyle{\sum}_{l=1}^L \sigma_l^2(- b^l_{i} - \vec{a}^l_{i}\vec{x})^2} + \vec{a}^0_{i}\vec{x} + b^0_{i} \leq 0
+\label{ell_absolute}
+\end{equation}
+which is a second order conic constraint.\\
+If only $b$ is uncertain, i.e. $\mathbb{A}^l = 0 \quad \forall l = 1,2,...,L$, then equation \eqref{ell_absolute} will become
+\begin{equation}
+\textstyle{\sum}_{l=1}^L \vec{a}^0_{i}\vec{x} + b^0_{i} + \Gamma \sqrt{\textstyle{\sum}_{l=1}^L \sigma_l^2(b^l_{i})^2} \leq 0
+\label{ell_coeff}
+\end{equation}
+which is a linear constraint.
+\subsubsection{Norm-1 Uncertainty Sets}
+Briefly, if the perturbation set represented by $\mathcal{Z}$ is a norm-1 uncertainty set, i.e. $\|\vec{\zeta}\|_1 \leq \Gamma$, then the robust constraint is
+\begin{equation}
+\textstyle{\sum}_{l=1}^L \vec{a}^0_{i}\vec{x} + b^0_{i} + \Gamma \max_{l=1,..,L} |b^l_{i}| \leq 0
+\label{rom_coeff}
+\end{equation}
+when $\mathbb{A}^l = 0$, and 
+\begin{equation}
+\begin{aligned}
+\Gamma w_{i} + \vec{a}^0_{i}\vec{x} + b^0_{i} &\leq 0\\
+- b^l_{i} - \vec{a}^l_{i}\vec{x} &\leq w_{i} &&\forall l \in 1,...,L\\
+b^l_{i} + \vec{a}^l_{i}\vec{x} &\leq w_{i} &&\forall l \in 1,...,L\\
+\end{aligned}
+\label{rom_linear}
+\end{equation}
+if $\mathbb{A}^l \neq 0$\\
+Note that for this type of uncertainty, the robust constraints are linear.
