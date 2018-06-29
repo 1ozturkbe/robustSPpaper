@@ -1,9 +1,7 @@
-\input{templateComments}
+%\input{templateComments}
 
 \typeout{}\typeout{If latex fails to find aiaa-tc, read the README file!}
 %
-
-
 \documentclass[]{aiaa-tc}% insert '[draft]' option to show overfull boxes
 
 \input{shared}
@@ -34,10 +32,8 @@
 
 \input{acknowledgement}
 
-\begin{thebibliography}{9}% maximum number of references (for label width)
- \bibitem{rebek:82bk}
- Rebek, A., {\it Fickle Rocks}, Fink Publishing, Chesapeake, 1982.
-\end{thebibliography}
+\bibliographystyle{aiaa}
+\bibliography{main}
 
 \end{document}
 

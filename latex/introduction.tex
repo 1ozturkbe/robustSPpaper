@@ -1,4 +1,4 @@
-\section{introduction}
+\section{Introduction}
 Robust optimization methods provide tractable methods to capture uncertainty in design.
 
 TODO: Motivate the use of robust opt. for aircraft design over traditional methods, and stochastic/UQ.
@@ -6,6 +6,8 @@ TODO: Motivate the use of robust opt. for aircraft design over traditional metho
 Geometric programs [GPs] are a method of log-convex optimization for which robust formulations exist. However, their stringent mathematical requirements limit their application in non-log-convex problems. In this paper, we propose a tractable robust signomial program [RSP] which we solve as a sequential robust geometric program, allowing us to implement robustness in non-log-convex problems.
 
 We implement the RSP formulation on a simple aircraft design problem with 19 free variables, 12 uncertain parameters and 17 constraints to demonstrate its potential. We believe that aircraft design problems can especially benefit from robustness. Oftentimes, aerospace engineers will implement margins in the design process to account for uncertainties in parameters that a design may be sensitive to, without explicit knowledge of the trade-off between robustness and optimality. A robust aircraft design formulation will allow designers to allocate margin more effectively to obtain better-performing designs with feasibility guarantees.
+
+\cite{yao2011}
 
 \subsection{Geometric Programs}
 
