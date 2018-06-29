@@ -3,15 +3,31 @@ Robust optimization methods provide tractable methods to capture uncertainty in 
 
 TODO: Motivate the use of robust opt. for aircraft design over traditional methods, and stochastic/UQ.
 
-Geometric programs [GPs] are a method of log-convex optimization for which robust formulations exist. However, their stringent mathematical requirements limit their application in non-log-convex problems. In this paper, we propose a tractable robust signomial program [RSP] which we solve as a sequential robust geometric program, allowing us to implement robustness in non-log-convex problems.
+Geometric programming is a method of log-convex optimization for which robust formulations exist.
+However, the stringent mathematical requirements of a \gls{gp} limits its application to non-log-convex problems.
+The \gls{sp} is the difference-of-log-convex extension of the \gls{GP} which can be applied to
+solve this larger set of problems, albeit with the loss of some mathematical guarantees compared to the \gls{gp}.
+In this paper, we propose a tractable \gls{rsp} which we solve as a sequential \gls{rgp},
+allowing us to implement robustness in non-log-convex problems.
 
-We implement the RSP formulation on a simple aircraft design problem with 19 free variables, 12 uncertain parameters and 17 constraints to demonstrate its potential. We believe that aircraft design problems can especially benefit from robustness. Oftentimes, aerospace engineers will implement margins in the design process to account for uncertainties in parameters that a design may be sensitive to, without explicit knowledge of the trade-off between robustness and optimality. A robust aircraft design formulation will allow designers to allocate margin more effectively to obtain better-performing designs with feasibility guarantees.
+We implement the \gls{rsp} formulation on a simple aircraft design problem with 19 free variables,
+12 uncertain parameters and 17 constraints to demonstrate its potential. We believe that aircraft design
+problems can especially benefit from robustness. Oftentimes, aerospace engineers will implement
+margins in the design process to account for uncertainties in parameters that a design may be sensitive to,
+without explicit knowledge of the trade-off between robustness and optimality~\cite{yao2011}.
 
-\cite{yao2011}
+#TODO: More depth/references as to methods for UQ/RO in aircraft design.
+
+A robust aircraft design formulation will allow designers to allocate margin more effectively
+to obtain better-performing designs with feasibility guarantees.
 
 \subsection{Geometric Programs}
 
-Geometric programs are a method for log-convex optimization. They offer globally optimal solutions with no initial guesses, and allow engineers and designers to solve large-scale ($>$10,000 variables) nonlinear problems on the order of $\sim1$ second, given some stringent mathematical requirements. Given the general optimization problem below:
+Geometric programming is a method for log-convex optimization.
+\gls{gp}s offer globally optimal solutions with no initial guesses,
+and allow engineers and designers to solve large-scale ($>$10,000 variables) nonlinear problems
+on the order of $\sim1$ second, given some stringent mathematical requirements.
+Given the general optimization problem below:
 
 \begin{align}
 \label{e:gpform}
@@ -20,7 +36,7 @@ Geometric programs are a method for log-convex optimization. They offer globally
 g_i (\mathbf{x}) &= 1, i = 1,...,p \nonumber
 \end{align}
 
-In a GP, $f_{i}$s and $g_{i}$s must have special posynomial and monomial forms below, with strictly positive coefficients:
+In a \gls{gp}, $f_{i}$s and $g_{i}$s must have special posynomial and monomial forms below, with strictly positive coefficients:
 
 A monomial is a function of the form
 \begin{equation}\label{e:monomial}
@@ -32,9 +48,11 @@ A posynomial is a function of the form
 \begin{equation}\label{e:posynomial}
 f(\mathbf{x}) = \sum_{k=1}^{K}e^{\mathbf{a}_k\mathbf{x} + b_k}
 \end{equation}
-where $\vec{a}_k \in \mathbb{R}^n, b_k \in \mathbb{R}$ and $\vec{x} \in \mathbb{R}^n$. A posynomial is a sum of monomials. Therefore, all monomials are also one-term posynomials.
+where $\vec{a}_k \in \mathbb{R}^n, b_k \in \mathbb{R}$ and $\vec{x} \in \mathbb{R}^n$.
+A posynomial is a sum of monomials. Therefore, all monomials are also one-term posynomials.
 
-Any monomial constraint $g(\vec{x}) = 1$ can be represented as $g(\vec{x}) \leq 1$ and $\frac{1}{g(\vec{x})} \leq 1$, therefore, the standard GP can be written in the inequality constrained form as follows:
+Any monomial constraint $g(\vec{x}) = 1$ can be represented as $g(\vec{x}) \leq 1$ and $\frac{1}{g(\vec{x})} \leq 1$,
+therefore, the standard \gls{gp} can be written in the inequality constrained form as follows:
 
 \begin{equation}
 \begin{aligned}
@@ -44,12 +62,20 @@ Any monomial constraint $g(\vec{x}) = 1$ can be represented as $g(\vec{x}) \leq 
 \label{GP_inequality}
 \end{equation}
 
-A tractable approximation of robust GPs (RGPs) exists and will be discussed, and have been formulated with polyhedral and ellipsoidal uncertainty sets. RGPs allow for uncertainty in both the coefficients $b_k$ and the exponents $\mathbf{a}_{k}$. However, the restriction on the sign of the coefficients limits GPs (and consequently RGPs) to certain classes of problems. Signomials are constraints of the same form as $f(x)$, but allow for negative coefficients in $f(x)$. To be able to find robust solutions to signomial programs [SPs], we would like to create a framework to generalize the uncertainty sets used in RGPs to RSPs.
+A tractable approximation of the \gls{rgp} exists and will be discussed, and has been formulated with polyhedral
+and ellipsoidal uncertainty sets. \gls{rgp}s allow for uncertainty in both the coefficients $b_k$ and the exponents $\mathbf{a}_{k}$.
+However, the restriction on the sign of the coefficients limits \gls{gp}s (and consequently \gls{rgp}s) to certain classes of problems.
+Signomials are constraints of the same form as $f(x)$, but allow for negative coefficients in $f(x)$.
+To be able to find robust solutions to \gls{sp}s, we would like to create a framework to generalize the
+uncertainty sets used in \gls{rgp}s to \gls{rsp}s.
 
 
 \subsection{Signomial Programs}
 
-Signomials allow us to solve non-log-convex problems as sequential geometric programs. Signomials are a difference of posynomials shown in Equation~\ref{e:posynomial}. The log transform of an SP is not a convex optimization problem, but instead a difference of convex optimization problem that can be written in log-space as
+Signomials allow us to solve non-log-convex problems as sequential geometric programs.
+Signomials are a difference of posynomials shown in Equation~\ref{e:posynomial}.
+The log transform of an SP is not a convex optimization problem, but instead a
+difference of convex optimization problem that can be written in log-space as
 
 \begin{equation}
 \begin{aligned}
@@ -58,7 +84,11 @@ Signomials allow us to solve non-log-convex problems as sequential geometric pro
 \end{aligned}
 \end{equation}
 
-where $f_{i}$ and $h_{i}$ are posynomials. This problem can be reliably solved iteratively by taking the monomial approximation of $g_{i}$ with a solution or initial guess $x_{i}$, solving this GP approximation to obtain a new solution $x_{i+1}$, and repeating the process until some convergence parameter is satisfied in the objective function.
+where $f_{i}$ and $h_{i}$ are posynomials. This problem can be reliably solved
+iteratively by taking the monomial approximation of $g_{i}$ with a solution or
+initial guess $x_{i}$, solving this \gls{gp} approximation to obtain a new solution $x_{i+1}$,
+and repeating the process until some convergence parameter is satisfied in the objective function.
 
-The SP algorithm is well-studied, reliably solving SPs with an initial guess of all 1’s. SPs are guaranteed to be sub-optimal but feasible solutions to a general non-linear problem.
+The SP algorithm is well-studied, reliably solving SPs with an initial guess of all 1’s.
+SPs are guaranteed to be sub-optimal but feasible solutions to a general non-linear problem.
 

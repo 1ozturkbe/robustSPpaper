@@ -4,6 +4,15 @@
 %
 \documentclass[]{aiaa-tc}% insert '[draft]' option to show overfull boxes
 
+\usepackage[acronyms]{glossaries}
+\makeglossaries
+
+\newacronym{gp}{GP}{Geometric Program}
+\newacronym{sp}{SP}{Signomial Program}
+\newacronym{rgp}{RGP}{Robust Geometric Program}
+\newacronym{rsp}{RSP}{Robust Signomial Program}
+\newacronym{ro}{RO}{Robust Optimization}
+
 \input{shared}
 
 \begin{document}
@@ -13,6 +22,8 @@
 \input{abstract}
 
 \input{nomenclature}
+
+\printglossary
 
 \input{introduction}
 

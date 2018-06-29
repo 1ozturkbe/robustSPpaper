@@ -1,22 +1,24 @@
-\section{Approach to Solving RSPs}
+\section{Approach to Solving \gls{rsp}s}
 
-Our approach to solving the RSP is the following: 
+Our approach to solving the \gls{rsp} is the following:
 
 \begin{enumerate}
-    \item Solve the SP with no uncertainty, initialized by a vector of 1's. We call this solution $x_0$.
-    \item Solve the SP with a chosen uncertainty set, using $x_0$ as the initial guess. 
+    \item Solve the \gls{sp} with no uncertainty, initialized by a vector of 1's. We call this solution $x_0$.
+    \item Solve the \gls{sp} with a chosen uncertainty set, using $x_0$ as the initial guess.
 \end{enumerate}
 
-Step 2 requires the retuning of the SP algorithm as follows:
+Step 2 requires the retuning of the \gls{sp} algorithm as follows:
 \newline
 \newline
 Initialize $x_0 = \vec{1}$ \newline
  While $reltol \geq 1e-4$:
     \begin{enumerate}
-        \item Substitute $x_i$ as the initial guess to the SP. 
-        \item Find the RGP approximation to the SP with guess $x_i$.
-        \item Solve the RGP to obtain $x_{i+1}$. 
+        \item Substitute $x_i$ as the initial guess to the \gls{sp}.
+        \item Find the \gls{rgp} approximation to the \gls{sp} with guess $x_i$.
+        \item Solve the \gls{rgp} to obtain $x_{i+1}$.
         \item Calculate $reltol$.
     \end{enumerate}
 
-$reltol$ is the relative change in the objective function value for the GP. The RSP algorithm solves reliably for a range of $reltol$s, but a value of $1e-4$ was chosen for the models evaluated in this paper. 
+$reltol$ is the relative change in the objective function value for the \gls{gp}.
+The \gls{rsp} algorithm solves reliably for a range of $reltol$s,
+but a value of $1e-4$ was chosen for the models evaluated in this paper.
