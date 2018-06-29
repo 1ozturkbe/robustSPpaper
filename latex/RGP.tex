@@ -1,7 +1,9 @@
 \section{Robust Geometric Programming}
 
 \subsection{Decoupled Form}
-WOLG the objective function could be assumed linear (one dimensional variable) and deprived of any data (epigraph formulation), therefore the cost will be ignored throughout this report. Moreover, the GP will be represented as follows
+WOLG the objective function could be assumed linear (one dimensional variable) and
+deprived of any data (epigraph formulation), therefore the cost will be ignored throughout this report.
+Moreover, the GP will be represented as follows
 
 \begin{equation}
 \begin{aligned}
@@ -38,7 +40,9 @@ The GP in equation \eqref{GP_decoupled} in convex form is represented as follows
 \label{GP_convex}
 \end{equation}
 \subsection{Robust Counterpart}
-In robust optimization, a formulation that is immune to the uncertainty in the system's data should be derived. The data will be assumed living in an uncertainty set $\mathcal{U}$, where $\mathcal{U}$ is parameterized affinly by a perturbation vector $\vec{\zeta}$ as follows
+In robust optimization, a formulation that is immune to the uncertainty in the system's
+data should be derived. The data will be assumed living in an uncertainty set $\mathcal{U}$, where $\mathcal{U}$
+is parameterized affinly by a perturbation vector $\vec{\zeta}$ as follows
 \begin{equation}
 \mathcal{U} = \left\{[\mat{A};\vec{b}] = [\mat{A}^0;\vec{b}^0] + \textstyle{\sum_{l=1}^{L}\zeta_l[\mat{A}^l;\vec{b}^l]}\right\}
 \label{Data}
@@ -73,10 +77,14 @@ e^{\vec{a}_{i1}\vec{x} + b_{i1}} &\leq 1 &&\forall i \in \mathbf{N} && \forall \
 \end{equation}
 \end{multicols}
 
-The above two sets of constraints state that the robust optimal solution should be feasible for all possible realizations of the perturbation vector $\vec{\zeta}$. Unfortunately, the robust counterpart of a geometric program is intractable using current solvers. Throughout this report, an approximate formulation will be derived using robust linear programming.\\ [12pt]
+The above two sets of constraints state that the robust optimal solution should be
+feasible for all possible realizations of the perturbation vector $\vec{\zeta}$.
+Unfortunately, the robust counterpart of a geometric program is intractable using current solvers.
+Throughout this report, an approximate formulation will be derived using robust linear programming.\\ [12pt]
 
 \subsection{Conservative Tractable Formulation} \label{Conservative}
-Since it is intractable to solve a robust geometric program, this section will discuss a simple approximate formulation of the robust counterparts given by \eqref{GP_counterparts_finite}.\\[12pt]
+Since it is intractable to solve a robust geometric program,
+this section will discuss a simple approximate formulation of the robust counterparts given by \eqref{GP_counterparts_finite}.\\[12pt]
 The constraints corresponding to the set $\mathbf{M}$ of constraints are linear and therefore tractable, as a result, we should deal with the sets $\mathbf{P}$ and $\mathbf{N}$ only.\\[12pt]
 The fact that $\max_{\vec{\zeta} \in \mathcal{Z}} \left\{\textstyle{\sum}_{k=1}^{K_i}e^{\vec{a}_{ik}\vec{x} + b_{ik}}\right\} \leq \sum_{k=1}^{K_i}\max_{\vec{\zeta} \in \mathcal{Z}} \left\{e^{\vec{a}_{ik}\vec{x} + b_{ik}}\right\}$ suggests the following safe constraints for the constraints corresponding to elements in $\mathbf{P}$ and $\mathbf{N}$
 \begin{equation}
@@ -114,8 +122,11 @@ In log-space, Equation \eqref{GP_safe_decoupled} is
 \label{GP_safe_convex}
 \end{equation}
 
-It can be observed that the convex constraints in equation \eqref{GP_safe_convex} are deprived of data and uncertainty is only present in the linear constraints. As a result, this problem is tractable using robust linear programming.\\[12pt]
-Although this formulation might seem too conservative for some problems due to the fact that monomials are being decoupled, however, it is exact for a wide range of problems that satisfy the following criteria
+It can be observed that the convex constraints in equation \eqref{GP_safe_convex}
+are deprived of data and uncertainty is only present in the linear constraints.
+As a result, this problem is tractable using robust linear programming.\\[12pt]
+Although this formulation might seem too conservative for some problems due to the fact that monomials are being decoupled,
+however, it is exact for a wide range of problems that satisfy the following criteria
 \begin{itemize}
 \item $C_1$: The perturbation set is independent, e.g. $\mathcal{Z} = \left\{ \vec{\zeta} \in \mathbb{R}^L: \|\vec{\zeta}\|_{\infty} \leq \Gamma\right\}$
 \item $C_2$: The monomials in each posynomial are independent, and if dependence only exists between the $'b'$s, then it should be "good" dependence, e.g. if $b_{11} = b_{11}^0 + \zeta_1$, $b_{12} = b_{12}^0 + \zeta_1 - \zeta_2$, and $b_{13} = b_{13}^0 + \zeta_2$, then $b_{11}$ and $b_{12}$ are dependent, but the dependence is good since the sign of the coefficients multiplied by the perturbation $\zeta_1$ are the same. However, $b_{12}$ and $b_{13}$ are dependent, but in a bad way due to the fact that the signs of the coefficients multiplied by the perturbation $\zeta_2$ are different
@@ -127,7 +138,10 @@ $$
 and the "conservative" formulation is no longer conservative, but exact.\\
 
 \subsection{Robust Two Term Posynomials} \label{twoTerm}
-The focus now will be on modifying the methodology provided in section \ref{Conservative} so that the solution is less conservative. This section will review Boyd's work on approximating two term posynomials in log-space using piece-wise linear functions \footnote{ Kan-Lin Hsiung, Seung-Jean Kim, and Stephen Boyd. Tractable approximate robust geometric programming. \textit{Optimization and Engineering}, 9(2):95118, Apr 2007}.\\[12pt]
+The focus now will be on modifying the methodology provided in section \ref{Conservative}
+so that the solution is less conservative. This section will review Boyd's work on approximating two term
+posynomials in log-space using piece-wise linear functions \footnote{ Kan-Lin Hsiung, Seung-Jean Kim, and Stephen Boyd.
+Tractable approximate robust geometric programming. \textit{Optimization and Engineering}, 9(2):95118, Apr 2007}.\\[12pt]
 Consider the convex function $\phi(x) = \log(1 + e^x)$, then the unique best r-term piece-wise linear convex lower approximation of $\phi$ is
 \begin{equation}
 \underline{\phi}_r =

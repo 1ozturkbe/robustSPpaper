@@ -22,7 +22,8 @@ where
 where that data is uncertain and is given by equations \eqref{Data} and \eqref{perturbation_set}.
 
 \subsubsection{Box Uncertainty Set}
-If the perturbation set $\mathcal{Z}$ given in equation \eqref{perturbation_set} is a box uncertainty set, i.e. $\|\vec{\zeta}\|_{\infty} \leq \Gamma$, then the robust formulation of the $i^{th}$ constraint is equivalent to
+If the perturbation set $\mathcal{Z}$ given in equation \eqref{perturbation_set} is a box
+uncertainty set, i.e. $\|\vec{\zeta}\|_{\infty} \leq \Gamma$, then the robust formulation of the $i^{th}$ constraint is equivalent to
 \begin{equation}
 \Gamma \textstyle{\sum}_{l=1}^L |- {b}^l_{i} - \vec{a}^l_i\vec{x}| + \vec{a}^0_i\vec{x} + b^0_i \leq 0
 \label{box_absolute}
@@ -44,7 +45,8 @@ b^l_{i} + \vec{a}^l_{i}\vec{x} &\leq w^l_{i} &&\forall l \in 1,...,L\\
 \end{equation}
 
 \subsubsection{Elliptical Uncertainty Set}
-Briefly, if the perturbation set $\mathcal{Z}$ is an elliptical, i.e. $\textstyle{\sum}_{l=1}^L\frac{\zeta_l^2}{\sigma_l^2} \leq \Gamma^2$, then the robust formulation of the $i^{th}$ constraint is equivalent to
+Briefly, if the perturbation set $\mathcal{Z}$ is an elliptical, i.e. $\textstyle{\sum}_{l=1}^L\frac{\zeta_l^2}{\sigma_l^2} \leq \Gamma^2$,
+then the robust formulation of the $i^{th}$ constraint is equivalent to
 \begin{equation}
 \Gamma \sqrt{\textstyle{\sum}_{l=1}^L \sigma_l^2(- b^l_{i} - \vec{a}^l_{i}\vec{x})^2} + \vec{a}^0_{i}\vec{x} + b^0_{i} \leq 0
 \label{ell_absolute}
@@ -57,7 +59,8 @@ If only $b$ is uncertain, i.e. $\mathbb{A}^l = 0 \quad \forall l = 1,2,...,L$, t
 \end{equation}
 which is a linear constraint.
 \subsubsection{Norm-1 Uncertainty Sets}
-Briefly, if the perturbation set represented by $\mathcal{Z}$ is a norm-1 uncertainty set, i.e. $\|\vec{\zeta}\|_1 \leq \Gamma$, then the robust constraint is
+Briefly, if the perturbation set represented by $\mathcal{Z}$ is a norm-1 uncertainty set, i.e. $\|\vec{\zeta}\|_1 \leq \Gamma$,
+then the robust constraint is
 \begin{equation}
 \textstyle{\sum}_{l=1}^L \vec{a}^0_{i}\vec{x} + b^0_{i} + \Gamma \max_{l=1,..,L} |b^l_{i}| \leq 0
 \label{rom_coeff}
