@@ -21,38 +21,37 @@ TODO: More depth/references as to methods for UQ/RO in aircraft design.
 A robust aircraft design formulation will allow designers to allocate margin more effectively
 to obtain better-performing designs with feasibility guarantees.
 
-\subsection{Geometric Programs}
+\subsection{Geometric Programming}
 
-Geometric programming is a method for log-convex optimization.
-\gls{gp}s offer globally optimal solutions with no initial guesses,
-and allow engineers and designers to solve large-scale ($>$10,000 variables) nonlinear problems
-on the order of $\sim1$ second, given some stringent mathematical requirements.
-Given the general optimization problem below:
-
-\begin{align}
-\label{e:gpform}
-\textrm{minimize } f_0(\mathbf{x}) & \nonumber \\
-\textrm{subject to } f_i(\mathbf{x}) &\leq 1, i=1,...,m \\
-g_i (\mathbf{x}) &= 1, i = 1,...,p \nonumber
-\end{align}
-
-In a \gls{gp}, $f_{i}$s and $g_{i}$s must have special posynomial and monomial forms below, with strictly positive coefficients:
-
-A monomial is a function of the form
-\begin{equation}\label{e:monomial}
-g(\mathbf{x}) = e^{\mathbf{a}\mathbf{x} + b}
+In its \textbf{natural form}, a \gls{gp} is a log-convex optimization problem of the form
+\begin{equation}
+\begin{aligned}
+	& \text{minimize} && f_0 \left(\vec{u}\right) \\
+	& \text{subject to} && f_i \left(\vec{u}\right) \leq 1, i = 1,...,m_p\\
+	& && h_i \left(\vec{u}\right) = 1, i = 1, ...,m_e\\
+\end{aligned}
+\label{GP_standard}
 \end{equation}
-where $\mathbf{a} \in \mathbb{R}^n, b \in \mathbb{R}$ and $\mathbf{x} \in \mathbb{R}^n$.
+where each $f_i$ is a {\em posynomial} and each $h_i$ is a {\em monomial}. A monomial $h(\vec{u})$ is a function of the form
+\begin{displaymath}
+	h(\vec{u}) = e^{b}\textstyle{\prod}_{j=1}^{n}{u_j}^{a_j}
+\end{displaymath}
+where $\vec{a}$ is a row vector in $\mathbb{R}^n$, $\vec{u}$ is a column vector in $\mathbb{R}^n_+$ , and $b$ is in $\mathbb{R}$. A posynomial $f(\vec{u})$ is the sum of $K \in \mathbb{Z}^+$ monomials
+\begin{displaymath}
+	f(\vec{u}) = \textstyle{\sum_{k=1}^{K}}e^{b_{kj}}\prod_{j=1}^{n}{u_j}^{a_{kj}}
+\end{displaymath}
+where $\vec{a_{k}}$ is a row vector in $\mathbb{R}^n$, $\vec{u}$ is a column vector in $\mathbb{R}^n_+$, and $b_{k}$ is in $\mathbb{R}$ \cite{GP_tutorial}.\\
+A logarithmic change of the variables $x_j = \log(u_j)$ would convert the \gls{gp} into its \textbf{exponential form}. A monomial $h_i(\vec{x})$ would then become a function of the form
+\begin{displaymath}
+    h_i(\vec{x}) = e^{\vec{a_i}\vec{x} + b_i}
+\end{displaymath}
+where $\vec{a_i}$ is a row vector in $\mathbb{R}^n$, $\vec{x}$ is a column vector in $\mathbb{R}^n$ , and $b_i$ is in $\mathbb{R}$. While a posynomial $f_i(\vec{x})$ would become a function of the form
+\begin{displaymath}
+    f_i(\vec{x}) = \textstyle{\sum_{k=1}^{K_i}}e^{\vec{a_{ik}}\vec{x} + b_{ik}}
+\end{displaymath}
+where $\vec{a_{ik}}$ is a row vector in $\mathbb{R}^n$, $\vec{x}$ is a column vector in $\mathbb{R}^n$, and $b_{ik}$ is in $\mathbb{R}$.
 
-A posynomial is a function of the form
-\begin{equation}\label{e:posynomial}
-f(\mathbf{x}) = \sum_{k=1}^{K}e^{\mathbf{a}_k\mathbf{x} + b_k}
-\end{equation}
-where $\vec{a}_k \in \mathbb{R}^n, b_k \in \mathbb{R}$ and $\vec{x} \in \mathbb{R}^n$.
-A posynomial is a sum of monomials. Therefore, all monomials are also one-term posynomials.
-
-Any monomial constraint $g(\vec{x}) = 1$ can be represented as $g(\vec{x}) \leq 1$ and $\frac{1}{g(\vec{x})} \leq 1$,
-therefore, the standard \gls{gp} can be written in the inequality constrained form as follows:
+Any monomial constraint $h(\vec{x}) = 1$ can be replaced by $h(\vec{x}) \leq 1$ and $\frac{1}{h(\vec{x})} \leq 1$. Indeed, this replacement leads to the following \textbf{inequality form} of a \gls{gp}
 
 \begin{equation}
 \begin{aligned}
@@ -62,33 +61,20 @@ therefore, the standard \gls{gp} can be written in the inequality constrained fo
 \label{GP_inequality}
 \end{equation}
 
-A tractable approximation of the \gls{rgp} exists and will be discussed, and has been formulated with polyhedral
-and ellipsoidal uncertainty sets. \gls{rgp}s allow for uncertainty in both the coefficients $b_k$ and the exponents $\mathbf{a}_{k}$.
-However, the restriction on the sign of the coefficients limits \gls{gp}s (and consequently \gls{rgp}s) to certain classes of problems.
-Signomials are constraints of the same form as $f(x)$, but allow for negative coefficients in $f(x)$.
-To be able to find robust solutions to \gls{sp}s, we would like to create a framework to generalize the
-uncertainty sets used in \gls{rgp}s to \gls{rsp}s.
+% A tractable approximation of the \gls{rgp} exists and will be discussed, and has been formulated with polyhedral and ellipsoidal uncertainty sets. \gls{rgp}s allow for uncertainty in both the coefficients $b_k$ and the exponents $\mathbf{a}_{k}$. However, t
 
+The positive nature of exponential functions restricts the space spanned by posynomials and limits the applications of \gls{gp}s to certain classes of problems. The limited applicability of \gls{gp}s has motivated the introduction of signomials.
+% To be able to find robust solutions to \gls{sp}s, we would like to create a framework to generalize the
+% uncertainty sets used in \gls{rgp}s to \gls{rsp}s.
+\subsection{Signomial Programming}
 
-\subsection{Signomial Programs}
-
-Signomials allow us to solve non-log-convex problems as sequential geometric programs.
-Signomials are a difference of posynomials shown in Equation~\ref{e:posynomial}.
-The log transform of an SP is not a convex optimization problem, but instead a
-difference of convex optimization problem that can be written in log-space as
-
+A {\em signomial} can be defined as the difference between two posynomials, consequently, an \gls{sp} is a non-log-convex optimization problem of the form
 \begin{equation}
 \begin{aligned}
-\text{minimize }f_{0}(\mathbf{x})& \\
-\text{subject to }f_{i}(\mathbf{x}) - h_{i}(\mathbf{x})& \leq 0, i = 1, ...., m \\
+&\text{minimize } && f_{0}(\vec{x}) \\
+&\text{subject to } && f_{i}(\vec{x}) - g_{i}(\vec{x})& \leq 0, i = 1, ...., m \\
 \end{aligned}
-\end{equation}
+\end{equation} 
+where $f_{i}$ and $g_{i}$ are both posynomials. This problem can be solved as sequential geometric programs, i.e. by taking the monomial approximation of $g_{i}$ at a solution or initial guess $x_{i}$, solving the resulting \gls{gp} approximation to obtain a new solution $x_{i+1}$, and repeating the process until some convergence parameter is satisfied.
 
-where $f_{i}$ and $h_{i}$ are posynomials. This problem can be reliably solved
-iteratively by taking the monomial approximation of $g_{i}$ with a solution or
-initial guess $x_{i}$, solving this \gls{gp} approximation to obtain a new solution $x_{i+1}$,
-and repeating the process until some convergence parameter is satisfied in the objective function.
-
-The SP algorithm is well-studied, reliably solving SPs with an initial guess of all 1’s.
-SPs are guaranteed to be sub-optimal but feasible solutions to a general non-linear problem.
-
+The SP algorithm is well-studied, reliably solving \gls{sp}s with an initial guess of all 1’s. Moreover, \gls{sp}s are guaranteed to be sub-optimal but feasible solutions to a general non-linear problem.
