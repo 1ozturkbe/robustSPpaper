@@ -2,6 +2,10 @@ from gplibrary.SP.SimPleAC.SimPleAC_mission import Mission, SimPleAC
 from robust.robust_gp_tools import SameModel
 from gpkit import Model, Variable, units
 from gpkit.constraints.bounded import Bounded
+from gpkit.small_scripts import mag
+
+# for radar charts
+from radar import *
 
 def removesubs(d, keyList):
     a = dict(d)
@@ -22,14 +26,14 @@ subs = {
 
 # Putting in objectives and associated substitutions
 # in a dictionary
-objectives = {m['W_{f_m}'] :                      {'added': {}, 'removed': {}},
-              m['C_m']*m['t_m'] :                 {'added': {}, 'removed': {}},
+objectives = {#m['W_{f_m}'] :                      {'name': 'Total fuel', 'added': {}, 'removed': {}},
+              #m['C_m']*m['t_m'] :                 {'name': 'Time cost', 'added': {}, 'removed': {}},
               #m['V_{min_m}'] :                    {'added': {}, 'removed': [m['V_{min_m}']]},
-              m['W']:                             {'added': {}, 'removed': {}},
-              m['A']:                             {'added': {}, 'removed': {}},
-              m['W_e']:                           {'added': {}, 'removed': {}},
-              m['W']/m['S']:                      {'added': {}, 'removed': {}},
-              m['W_{f_m}']*units('1/N')+m['C_m']*m['t_m'] :    {'added': {}, 'removed': {}},
+              m['W']:                             {'name': 'Takeoff weight', 'added': {}, 'removed': {}},
+              m['A']:                             {'name': 'Aspect ratio', 'added': {}, 'removed': {}},
+              m['W_e']:                           {'name': 'Empty weight', 'added': {}, 'removed': {}},
+              m['W']/m['S']:                      {'name': 'Wing loading', 'added': {}, 'removed': {}},
+              #m['W_{f_m}']*units('1/N')+m['C_m']*m['t_m'] :    {'name': 'Total cost', 'added': {}, 'removed': {}},
               }
 models = {}
 solutions = {}
@@ -44,3 +48,48 @@ for i in objectives.iterkeys():
     m = Model(i, Bounded(m))
     models[i] = m
     solutions[i] = m.localsolve(verbosity=2)
+
+# Generating data amenable to radar plotting
+data =[]
+data.append([objectives[j]['name'] for j in objectives.iterkeys()])
+for i in objectives.iterkeys():
+    case = objectives[i]['name'] + ' optimized'
+    caseData = []
+    caseData = [mag(solutions[i](j)) for j in objectives.iterkeys()]
+    data.append((case, [caseData]))
+
+# Plotting
+N = len(solutions)
+theta = radar_factory(N, frame='polygon')
+spoke_labels = data.pop(0)
+
+fig, axes = plt.subplots(figsize=(7,7), nrows=2, ncols=2,
+                         subplot_kw=dict(projection='radar'))
+fig.subplots_adjust(wspace=0.25, hspace=0.20, top=0.85, bottom=0.05)
+
+colors = ['b', 'r', 'g', 'm', 'y', 'c', 'o']
+
+# Plot the four cases from the example data on separate axes
+for ax, (title, case_data) in zip(axes.flatten(), data):
+    ax.set_rgrids([0.2, 0.4, 0.6, 0.8])
+    ax.set_title(title, weight='bold', size='medium', position=(0.5, 1.1),
+                 horizontalalignment='center', verticalalignment='center')
+    for d, color in zip(case_data, colors):
+        ax.plot(theta, d, color=color)
+        ax.fill(theta, d, facecolor=color, alpha=0.25)
+    ax.set_varlabels(spoke_labels)
+
+# add legend relative to top-left plot
+ax = axes[0, 0]
+labels = spoke_labels
+legend = ax.legend(labels, loc=(0.9, .95),
+                   labelspacing=0.1, fontsize='small')
+
+# fig.text(0.5, 0.965, '5-Factor Solution Profiles Across Four Scenarios',
+#          horizontalalignment='center', color='black', weight='bold',
+#          size='large')
+
+plt.show()
+
+
+
