@@ -37,17 +37,15 @@ objectives = {m['W_{f_m}'] :                      {'name': 'Total fuel', 'added'
               }
 models = {}
 solutions = {}
-minimizer=1
+
+# Adding minimizer to make sure all objectives are 'tight' at optima
+minimizer=10**-15
 for i in objectives.iterkeys():
     if i.unitstr() == 'N':
         minimizer = minimizer*i
-minimizer = 10**-15*minimizer
+
+ # Solving the optimization problems
 for i in objectives.iterkeys():
-    #m = Mission(a, 4)
-    #substitutions = {}
-    #substitutions.update(subs)
-    #substitutions.update(objectives[i]['added'])
-    #substitutions = removesubs(substitutions,objectives[i]['removed'])
     m.substitutions.update(subs)
     try:
         m = Model(i+minimizer/minimizer.units*i.units, Bounded(m))
@@ -59,6 +57,7 @@ for i in objectives.iterkeys():
 # Generating data amenable to radar plotting
 data =[]
 data.append([objectives[j]['name'] for j in objectives.iterkeys()])
+
 maxesindata = np.zeros(len(objectives))
 for i in objectives.iterkeys():
     case = objectives[i]['name']
@@ -68,7 +67,7 @@ for i in objectives.iterkeys():
         caseData.append(mag(solutions[i](j)))
         if mag(solutions[i](j)) >= maxesindata[count]:
             maxesindata[count] = mag(solutions[i](j))
-            count +=1
+        count +=1
     data.append((case, [caseData]))
 
 # Plotting
@@ -87,8 +86,9 @@ for ax, (title, case_data) in zip(axes.flatten(), data):
     ax.set_title(title, weight='bold', size='medium', position=(0.5, 1.1),
                  horizontalalignment='center', verticalalignment='center')
     for d, color in zip(case_data, colors):
+        print d/maxesindata
         ax.plot(theta, d/maxesindata, color=color)
-        ax.fill(theta, d, facecolor=color, alpha=0.25)
+        ax.fill(theta, d/maxesindata, facecolor=color, alpha=0.25)
     ax.set_varlabels(spoke_labels)
 
 # add legend relative to top-left plot
