@@ -1,29 +1,6 @@
 \section{Introduction}
-Robust optimization methods provide tractable methods to capture uncertainty in design.
-
-TODO: Motivate the use of robust opt. for aircraft design over traditional methods, and stochastic/UQ.
-
-Geometric programming is a method of log-convex optimization for which robust formulations exist.
-However, the stringent mathematical requirements of a \gls{gp} limits its application to non-log-convex problems.
-The \gls{sp} is the difference-of-log-convex extension of the \gls{gp} which can be applied to
-solve this larger set of problems, albeit with the loss of some mathematical guarantees compared to the \gls{gp}.
-In this paper, we propose a tractable \gls{rsp} which we solve as a sequential \gls{rgp},
-allowing us to implement robustness in non-log-convex problems.
-
-We implement the \gls{rsp} formulation on a simple aircraft design problem with 19 free variables,
-12 uncertain parameters and 17 constraints to demonstrate its potential. We believe that aircraft design
-problems can especially benefit from robustness. Oftentimes, aerospace engineers will implement
-margins in the design process to account for uncertainties in parameters that a design may be sensitive to,
-without explicit knowledge of the trade-off between robustness and optimality~\cite{yao2011}.
-
-TODO: More depth/references as to methods for UQ/RO in aircraft design.
-
-A robust aircraft design formulation will allow designers to allocate margin more effectively
-to obtain better-performing designs with feasibility guarantees.
-
 \subsection{Geometric Programming}
-
-In its \textbf{natural form}, a \gls{gp} is a log-convex optimization problem of the form
+A \textbf{geometric program in posynomial form} is a log-convex optimization problem of the form:
 \begin{equation}
 \begin{aligned}
 	& \text{minimize} && f_0 \left(\vec{u}\right) \\
@@ -32,49 +9,47 @@ In its \textbf{natural form}, a \gls{gp} is a log-convex optimization problem of
 \end{aligned}
 \label{GP_standard}
 \end{equation}
-where each $f_i$ is a {\em posynomial} and each $h_i$ is a {\em monomial}. A monomial $h(\vec{u})$ is a function of the form
+where each $f_i$ is a {\em posynomial}, each $h_i$ is a {\em monomial}, $m_p$ is the number of posynomials, and $m_e$ is the number of monomials. A monomial $h(\vec{u})$ is a function of the form:
 \begin{displaymath}
-	h(\vec{u}) = e^{b}\textstyle{\prod}_{j=1}^{n}{u_j}^{a_j}
+	h_i(\vec{u}) = e^{b_i}\textstyle{\prod}_{j=1}^{n}{u_j}^{a_{ij}}
 \end{displaymath}
-where $\vec{a}$ is a row vector in $\mathbb{R}^n$, $\vec{u}$ is a column vector in $\mathbb{R}^n_+$ , and $b$ is in $\mathbb{R}$. A posynomial $f(\vec{u})$ is the sum of $K \in \mathbb{Z}^+$ monomials
+where $a_{ij}$ is the $j^{th}$ component of a row vector $\vec{a_i}$ in $\mathbb{R}^n$, $u_j$ is the $j^{th}$ component of a column vector $\vec{u}$ in $\mathbb{R}^n_+$ , and $b_i$ is in $\mathbb{R}$. A posynomial $f(\vec{u})$ is the sum of $K \in \mathbb{Z}^+$ monomials:
 \begin{displaymath}
-	f(\vec{u}) = \textstyle{\sum_{k=1}^{K}}e^{b_{kj}}\prod_{j=1}^{n}{u_j}^{a_{kj}}
+	f_i(\vec{u}) = \textstyle{\sum_{k=1}^{K}}e^{b_{ikj}}\prod_{j=1}^{n}{u_j}^{a_{ikj}}
 \end{displaymath}
-where $\vec{a_{k}}$ is a row vector in $\mathbb{R}^n$, $\vec{u}$ is a column vector in $\mathbb{R}^n_+$, and $b_{k}$ is in $\mathbb{R}$ \cite{GP_tutorial}.\\
-A logarithmic change of the variables $x_j = \log(u_j)$ would convert the \gls{gp} into its \textbf{exponential form}. A monomial $h_i(\vec{x})$ would then become a function of the form
+where $a_{ikj}$ is the $j^{th}$ component of a row vector $\vec{a_{ik}}$ in $\mathbb{R}^n$, $u_j$ is the $j^{th}$ component of a column vector $\vec{u}$ in $\mathbb{R}^n_+$, and $b_{ik}$ is in $\mathbb{R}$ \cite{GP_tutorial}.\\
+A logarithmic change of the variables $x_j = \log(u_j)$ would turn a monomial into {\em  the exponential of an affine function} and a posynomial into {\em the sum of exponentials of affine functions}. A transformed monomial $h_i(\vec{x})$ is a function of the form:
 \begin{displaymath}
     h_i(\vec{x}) = e^{\vec{a_i}\vec{x} + b_i}
 \end{displaymath}
-where $\vec{a_i}$ is a row vector in $\mathbb{R}^n$, $\vec{x}$ is a column vector in $\mathbb{R}^n$ , and $b_i$ is in $\mathbb{R}$. While a posynomial $f_i(\vec{x})$ would become a function of the form
+where $\vec{x}$ is a column vector in $\mathbb{R}^n$. A transformed posynomial $f_i(\vec{x})$ is the sum of $K_i \in \mathbb{Z}^+$ monomials:
 \begin{displaymath}
     f_i(\vec{x}) = \textstyle{\sum_{k=1}^{K_i}}e^{\vec{a_{ik}}\vec{x} + b_{ik}}
 \end{displaymath}
-where $\vec{a_{ik}}$ is a row vector in $\mathbb{R}^n$, $\vec{x}$ is a column vector in $\mathbb{R}^n$, and $b_{ik}$ is in $\mathbb{R}$.
-
-Any monomial constraint $h(\vec{x}) = 1$ can be replaced by $h(\vec{x}) \leq 1$ and $\frac{1}{h(\vec{x})} \leq 1$. Indeed, this replacement leads to the following \textbf{inequality form} of a \gls{gp}
-
-\begin{equation}
-\begin{aligned}
-& \text{minimize} && \textstyle{\sum}_{k=1}^{K_0}e^{\vec{a}_{0k}\vec{x} + b_{0k}} \\
-& \text{subject to} && \textstyle{\sum}_{k=1}^{K_i}e^{\vec{a}_{ik}\vec{x} + b_{ik}} \leq 1 \quad \forall i \in 1,...,m\\
-\end{aligned}
-\label{GP_inequality}
-\end{equation}
-
-% A tractable approximation of the \gls{rgp} exists and will be discussed, and has been formulated with polyhedral and ellipsoidal uncertainty sets. \gls{rgp}s allow for uncertainty in both the coefficients $b_k$ and the exponents $\mathbf{a}_{k}$. However, t
+where $\vec{x}$ is a column vector in $\mathbb{R}^n$. A geometric program with transformed constraints is a \textbf{geometric program in exponential form}.
 
 The positive nature of exponential functions restricts the space spanned by posynomials and limits the applications of \gls{gp}s to certain classes of problems. The limited applicability of \gls{gp}s has motivated the introduction of signomials.
-% To be able to find robust solutions to \gls{sp}s, we would like to create a framework to generalize the
-% uncertainty sets used in \gls{rgp}s to \gls{rsp}s.
-\subsection{Signomial Programming}
 
-A {\em signomial} can be defined as the difference between two posynomials, consequently, an \gls{sp} is a non-log-convex optimization problem of the form
+\subsection{Signomial Programming}
+A {\em signomial} can be defined as the difference between two posynomials, consequently, an SP is a non-log-convex optimization problem of the form:
 \begin{equation}
 \begin{aligned}
 &\text{minimize } && f_{0}(\vec{x}) \\
 &\text{subject to } && f_{i}(\vec{x}) - g_{i}(\vec{x})& \leq 0, i = 1, ...., m \\
 \end{aligned}
 \end{equation} 
-where $f_{i}$ and $g_{i}$ are both posynomials. This problem can be solved as sequential geometric programs, i.e. by taking the monomial approximation of $g_{i}$ at a solution or initial guess $x_{i}$, solving the resulting \gls{gp} approximation to obtain a new solution $x_{i+1}$, and repeating the process until some convergence parameter is satisfied.
+where $f_{i}$ and $g_{i}$ are both posynomials, and $\vec{x}$ is a column vector in $\mathbb{R}^n$. 
 
-The SP algorithm is well-studied, reliably solving \gls{sp}s with an initial guess of all 1’s. Moreover, \gls{sp}s are guaranteed to be sub-optimal but feasible solutions to a general non-linear problem.
+Reliably solving an SP to a local optimum has been described in \cite{GP_tutorial} and \cite{lipp_boyd_2015}. A common solution heuristic involves solving an SP as a sequence of GPs, where each GP is a local approximation of the SP. Although it is a powerful tool, applications involving SPs are usually prone to uncertainties that have a significant effect on the solution.
+
+\subsection{Overview}
+
+TODO: General optimization techniques for aircraft design
+
+Signomial programming can cover constraints that might be neither linear, convex, nor log-covex and, hence, it can be used to model problems that cannot be formulated by standard optimization tools such as linear or geometric programs. Although global optimal solutions are not guaranteed, however, signomial programming is a powerful tool that is currently being used in modeling and solving complex aircraft designs quickly and reliably as in \cite{york_hoburg_drela_2018} \cite{kirschen_burnell_hoburg_2016} \cite{kirschen_york_ozturk_hoburg_2018}. Other interesting applications for SPs such as in network flow problems are being investigated.
+
+TODO: Motivate the use of robust opt. for aircraft design over traditional methods, and stochastic/UQ.
+
+TODO: More depth/references as to methods for UQ/RO in aircraft design.
+
+TODO: Sections and outline
