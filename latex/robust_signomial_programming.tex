@@ -1,0 +1,16 @@
+\section{Robust Signomial Programming} \label{RSP}
+The parameters in an aircraft design problem are usually prone to uncertainties. Robust signomial programming (RSP) assumes that uncertainties are known to belong to an uncertainty set, and solves the design problem for the worst case scenario to find the best solution that is feasible to all possible realizations from the uncertainty set. This section introduces RSPs and derives the intractable formulation of an RSP.
+
+A SP in its \textbf{exponential form} is as follows:
+
+\begin{equation}
+\begin{aligned}
+	& \min && \textstyle{\sum}_{k=1}^{K_0}e^{\vec{a_{0k}}\vec{x} + b_{0k}} \\
+	& \text{s.t.} && \textstyle{\sum}_{k=1}^{K_i}e^{\vec{a_{ik}}\vec{x} + b_{ik}} - \textstyle{\sum}_{k=1}^{K_i}e^{\vec{c_{ik}}\vec{x} + d_{ik}} \leq 0 \quad \forall i \in 1,...,m\\
+\end{aligned}
+\label{SP_exponential}
+\end{equation}
+
+Let $\mat{A}$ and $\mat{C}$ be the exponents with components $\vec{a_{ik}}$ and $\vec{c_{ik}}$ respectively, and $\vec{b}$ and $\vec{d}$ be the coefficients with components $b_{ik}$ and $d_{ik}$ respectively.  
+
+TODO by Ali: Continue RSP definition
