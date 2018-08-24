@@ -4,9 +4,19 @@ Robust optimization methods provide tractable methods to capture uncertainty in 
 
 The advantages of robust optimization methods over stochastic optimization methods
 for optimization under uncertainty are summarized in \cite{Bertsimas2011}, 
-and 
+and fall into three categories, which are tractability, conservativeness and flexibility.
+There are
+and this is due to the nature of uncertainty propagation
+\gls{ro} is more tractable than \gls{so} since
 
-TODO: Motivate the use of robust opt. for aircraft design over traditional methods, and stochastic/UQ.
+The solution of the \gls{ro} problem is immune to the variations of the uncertain
+parameters defined in the uncertainty set. This is powerful especially when distributional
+information about the parameters is not available \cite{Bertsimas2011}.
+
+Many kinds of optimization problems have tractable robust formulations, however
+
+
+
 
 Geometric programming is a method of log-convex optimization for which robust formulations exist.
 However, the stringent mathematical requirements of a \gls{gp} limits its application to non-log-convex problems.
@@ -15,17 +25,52 @@ solve this larger set of problems, albeit with the loss of some mathematical gua
 In this paper, we propose a tractable \gls{rsp} which we solve as a sequential \gls{rgp},
 allowing us to implement robustness in non-log-convex problems.
 
-We implement the \gls{rsp} formulation on a simple aircraft design problem with 19 free variables,
-12 uncertain parameters and 17 constraints to demonstrate its potential. We believe that aircraft design
-problems can especially benefit from robustness. Oftentimes, aerospace engineers will implement
+\textbf{Why are SPs good for aircraft design?}
+
+Aircraft pose some of the most challenging design problems. They have physics that span many disciplines,
+and have many often conflicting objectives.
+
+\textbf{Why is robust optimization a more rigorous method to integrate uncertainty in aircraft optimization?}
+
+The effectiveness of an aircraft depends heavily on its
+ability to deliver on performance, which is heavily dependent on assumptions about the
+current technological environment and the ability to produce vehicles of a certain quality
+Furthermore, aircraft design and development is costly, so the ability to handle uncertainty in
+the conceptual design process is critical for the long-term success of an aircraft program.
+
+TODO: Motivate the use of robust opt. for aircraft design over traditional methods, and stochastic/UQ.
+
+Oftentimes, aerospace engineers will implement
 margins in the design process to account for uncertainties in parameters that a design may be sensitive to,
 without explicit knowledge of the trade-off between robustness and optimality~\cite{yao2011}.
+In economics, the idea that risk is related to profit is well understood and leveraged.
+In aerospace engineering however, we often forget that there is no such thing as a free lunch,
+and that the consequence of risk-aversity
+is often performance that is left on the table. The \gls{ro} frameworks proposed in this paper will
+give aerospace engineers the ability to rigorously trade robustness and the performance penalties
+that result from it.
 
-TODO: More depth/references as to methods for UQ/RO in aircraft design.
+\subsection{Contributions}
+
+We extend the \gls{rgp} framework developed by Saab (TODO: cite) to \gls{sp}s.
+
+We implement the \gls{rsp} formulation on a simple aircraft design problem with 19 free variables,
+12 uncertain parameters and 17 constraints to demonstrate its potential (TODO: update).
 
 A robust aircraft design formulation will allow designers to allocate margin more effectively
 to obtain better-performing designs with feasibility guarantees.
 
+
+The classical method of accounting for uncertainty in aerospace engineering is through
+the use of \textit{margins}, which are essentially
+
+This requires a skilled engineer to
+
+However, this begs the question, who decides on the margins and
+
+Robust optimization also relies on an engineer's intuition about the underlying uncertainty,
+
+\section{Mathematical Background}
 \subsection{Geometric Programming}
 A \textbf{geometric program in posynomial form} is a log-convex optimization problem of the form:
 \begin{equation}
