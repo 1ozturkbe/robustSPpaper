@@ -1,24 +1,42 @@
 \section{Introduction}
 
-Robust optimization methods provide tractable methods to capture uncertainty in design.
+\textbf{Why optimization under uncertainty for aircraft}
+\newline
+\textbf{Approaches to optimization under uncertainty}
+
+There are two major approaches to solving design optimization problems under uncertainty,
+which are \gls{so} and \gls{ro}. Both these problem statements seem so solve a min-max problem
+where they minimize the worst case objective value of a design with uncertain parameters.
+
+Stochastic optimization usually entails defining probability distributions of
+parameters through the design space, and propagating these uncertainties through the
+physics of a design problem to solve it.
+
+Robust optimization takes a different approach, instead choosing to make designs immune to
+uncertainties in parameters as long as the parameter values come from within the defined
+uncertainty set.
+
+\textbf{Why \gls{ro}?}
 
 The advantages of robust optimization methods over stochastic optimization methods
 for optimization under uncertainty are summarized in \cite{Bertsimas2011}, 
 and fall into three categories, which are tractability, conservativeness and flexibility.
-There are
-and this is due to the nature of uncertainty propagation
-\gls{ro} is more tractable than \gls{so} since
+
+\gls{ro} is more tractable than \gls{so} due to the nature of uncertainty propagation.
+
 
 The solution of the \gls{ro} problem is immune to the variations of the uncertain
-parameters defined in the uncertainty set. This is powerful especially when distributional
-information about the parameters is not available \cite{Bertsimas2011}.
+parameters defined in the uncertainty set.
 
-Many kinds of optimization problems have tractable robust formulations, however
+Many kinds of optimization problems have tractable robust formulations, while tractable stochastic
+optimization is few and far between. \gls{so} requires the
+distributional information of the parameters of the problem to solve, while \gls{ro} circumvents
+this issue altogether by defining uncertainty bounds.
 
+\subsection{Geometric and signomial programming for engineering design}
 
-
-
-Geometric programming is a method of log-convex optimization for which robust formulations exist.
+Geometric programming is a method of log-convex optimization for which robust formulations exist
+(TODO: cite Saab here).
 However, the stringent mathematical requirements of a \gls{gp} limits its application to non-log-convex problems.
 The \gls{sp} is the difference-of-log-convex extension of the \gls{gp} which can be applied to
 solve this larger set of problems, albeit with the loss of some mathematical guarantees compared to the \gls{gp}.
@@ -43,6 +61,14 @@ TODO: Motivate the use of robust opt. for aircraft design over traditional metho
 Oftentimes, aerospace engineers will implement
 margins in the design process to account for uncertainties in parameters that a design may be sensitive to,
 without explicit knowledge of the trade-off between robustness and optimality~\cite{yao2011}.
+
+Another method of adding robustness to aircraft design is through the use of multi-mission
+optimization (TODO: cite York et. al here), being that the aircraft is guaranteed to be able to handle
+multiple kinds of missions in the presence of no uncertainty. This is a type of \textit{adaptively
+robust} optimization geared towards
+
+All of these methods rely on the expertise of an experienced engineer to guide the design process.
+
 In economics, the idea that risk is related to profit is well understood and leveraged.
 In aerospace engineering however, we often forget that there is no such thing as a free lunch,
 and that the consequence of risk-aversity
