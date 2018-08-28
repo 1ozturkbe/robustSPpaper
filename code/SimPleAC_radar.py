@@ -5,6 +5,8 @@ from gpkit.small_scripts import mag
 
 # for radar charts
 from radar import *
+from math import ceil, floor
+import numpy as np
 
 def removesubs(d, keyList):
     a = dict(d)
@@ -65,7 +67,7 @@ if __name__ == "__main__":
     theta = radar_factory(N, frame='polygon')
     spoke_labels = data.pop(0)
 
-    fig, axes = plt.subplots(figsize=(7,7), nrows=4, ncols=2,
+    fig, axes = plt.subplots(figsize=(N,N), nrows=int(ceil(float(N)/2.)), ncols=2,
                              subplot_kw=dict(projection='radar'))
     fig.subplots_adjust(wspace=0.25, hspace=0.20, top=0.85, bottom=0.05)
 
@@ -86,10 +88,14 @@ if __name__ == "__main__":
     labels = spoke_labels
     legend = ax.legend(labels, loc=(0.9, .95),
                        labelspacing=0.1, fontsize='small')
-
-    # fig.text(0.5, 0.965, '5-Factor Solution Profiles Across Four Scenarios',
-    #          horizontalalignment='center', color='black', weight='bold',
-    #          size='large')
-
     plt.show()
     plt.savefig('savefigs/radar.png')
+
+    # Save data for table output
+    rawdata = np.zeros([N,N])
+    for i in range(0,N):
+        for j in range(0,N):
+            rawdata[i,j] = data[i][1][0][j]
+    np.savetxt('savefigs/objective_table.csv', rawdata)
+
+

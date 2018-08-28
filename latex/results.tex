@@ -115,7 +115,11 @@ that reflects the expected variance of the parameters.
 
 \subsection{Optimization Results}
 
-The problem is optimized for different sizes of box and elliptical uncertainty sets by varying the parameter $\Gamma$ as defined in Appendix \ref{LP_to_GP}. The design variables are then fixed for each solution so that the design can be simulated for 1000 different realizations of the uncertain parameters in table \ref{tab:uncertainties} to examine average design performance.\\
+The problem is optimized for different sizes of box and elliptical uncertainty sets
+by varying the parameter $\Gamma$ as defined in Appendix \ref{LP_to_GP}.
+The design variables are then fixed for each solution so that the design can be simulated for
+1000 different realizations of the uncertain parameters in Table~\ref{tab:uncertainties}
+to examine average design performance.\\
 
 \begin{figure}[ht]
     \centering
@@ -139,7 +143,7 @@ We can see from Figure \ref{signomial_var_gamma} that probability of failure goe
 Obviously, it is worth using elliptical uncertainty sets for this aircraft design problem as the performance is significantly better than that of a box uncertainty set, despite the increase in complexity. 
 Moreover, using margins would in the best case be as good as using a box uncertaintyset, and therefore will lead to an inferior performance.
 
-Figure \ref{compare_signomial} compares the different methodologies in terms of run times, number of constraints, and average performance. The Best Pairs and Linearized Perturbations achieves good performance, however the Best Pairs methodology needs the most number of constraints, while the Linearized perturbations requires the most setup and solve time. The Simple Conservative formulation is significantly faster than the other formulations and requires the least number of additional constraints.
+Figure~\ref{compare_signomial} compares the different methodologies in terms of run times, number of constraints, and average performance. The Best Pairs and Linearized Perturbations achieves good performance, however the Best Pairs methodology needs the most number of constraints, while the Linearized perturbations requires the most setup and solve time. The Simple Conservative formulation is significantly faster than the other formulations and requires the least number of additional constraints.
 \ \\
 \ \\
 
@@ -175,6 +179,8 @@ Figure \ref{compare_signomial} compares the different methodologies in terms of 
 
 \subsection{The Effect of Robustness}
 
+\subsubsection{Multiobjective Spider Plots}
+
 \begin{figure}
 \begin{center}
 \begin{tikzpicture}[scale=0.5]
@@ -207,6 +213,18 @@ The red, blue and yellow correspond to $\frac{W_f}{L/D}$, $D$, $W_f$ and objecti
 % tkz-kiviat documentation here in FRENCH: http://mirror.jmu.edu/pub/CTAN/macros/latex/contrib/tkz/tkz-kiviat/doc/TKZdoc-kiviat-main.pdf
 \label{fig:spiderplotnoUncert}
 \end{figure}
+
+%\textbf{TODO: update with 7-objective spider plots. First cite SP_tasopt, then show table and spider plots.
+%Then show how robust results change the spider plots.}
+
+% Template for getting objective_table working
+%\begin{table}
+%\centering
+%\pgfplotstabletypeset[dec sep align,
+%   fixed zerofill,
+%   precision=4,
+%   col sep=space]{figures/objective_table.csv}
+%\end{table}
 
 To further demonstrate the capabilities of robust SPs in aircraft design,
 we performed the optimization of the aircraft with no uncertainty and ellipsoidal uncertainty ($\Gamma = 1$)
