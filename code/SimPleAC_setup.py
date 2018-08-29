@@ -13,4 +13,5 @@ def SimPleAC_setup():
     'T/O factor_m'   :2,
     }
     m.substitutions.update(subs)
+    m.cost = m['W_{f_m}']
     return m, subs
