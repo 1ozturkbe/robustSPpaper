@@ -5,7 +5,11 @@
 \textbf{Approaches to optimization under uncertainty}
 
 There are two major approaches to solving design optimization problems under uncertainty,
-which are \gls{so} and \gls{ro}. Stochastic optimization deals with probability distributions of
+which are \gls{so} and \gls{ro}. Stochastic optimization\footnote{Note that stochastic
+optimization is an overloaded term, and exists in two contexts in the literature. The first is the solution
+of deterministic problems with stochastic search space exploration. The other is the solution
+of problems of stochastic uncertainty. We explore the latter.}
+deals with probability distributions of
 uncertain parameters by propagating these uncertainties through the
 physics of a design problem to ensure constraint feasibility with certain probabilistic guarantees.
 The goal of \gls{so} is minimize the expectation of an objective function~\cite{Diwekar2008}.
@@ -20,30 +24,37 @@ over general stochastic optimization methods, as summarized in~\cite{Bertsimas20
 and fall into three categories, which are tractability, conservativeness and flexibility.
 
 \gls{ro} is more tractable than \gls{so} due to the nature of uncertainty propagation.
-General stochastic methods involve the propagation of uncertainties throughout the design
+General stochastic methods involve the propagation of uncertainties throughout a model
 to determine their effects on constraint feasibility and the objective function.
-This is easier said than done.
-This requires the integration of probability distributions,
-and since the integration of continuous functions is difficult often achieved through
-a discretization of the uncertainty into possible scenarios.
+This requires the integration of the product probability distributions with potential outcomes,
+and since the integration of continuous functions is difficult this is often achieved through
+a discretization of the uncertainty into possible scenarios. The propagation of parameter
+scenarios results in a combinatorial explosion of possible outcomes which need to be evaluated to determine constraint
+satisfaction and the distribution of the objective.
 
+Few problems can be addressed purely through stochastic optimization (eg. the recourse problem as
+shown in~\cite{Kall1982},\cite{Higle1991}, and energy planning problem such as in~\cite{Pereira1991}).
+However, it is arguable that the methods used are still limited by the combinatorial
+explosion of possible outcomes.
+
+\gls{ro} has to deal with a somewhat related problem, which is the issue of an infinite number
+of possible realizations of constraints within a given constraint set. However, this is easily
+tackled by considering the worst case robust counterpart of each constraint, which
+results in many kinds of optimization problems having tractable robust formulations~\cite{Bertsimas2011}.
+
+Furthermore, \gls{so} requires the
+distributional information of the parameters of the problem to solve, while \gls{ro} circumvents
+this issue altogether by defining uncertainty bounds. It is arguable that \gls{ro}
+leaves a lot on the table by not taking advantage of distributional information,
+however there is a body of research on distributionally robust optimization... (CITE HERE).
 
 The solution of the \gls{ro} problem is immune to the variations of the uncertain
 parameters defined in the uncertainty set.
 
-Many kinds of optimization problems have tractable robust formulations, while tractable stochastic
-optimization is few and far between. \gls{so} requires the
-distributional information of the parameters of the problem to solve, while \gls{ro} circumvents
-this issue altogether by defining uncertainty bounds. There are few problems that can
-be addressed through purely stochastic optimization (eg. the recourse problem as
-shown in~\cite{Kall1982},\cite{Higle1991}).
-
 An important note is that, although both \gls{ro} and \gls{so} seek to address the problem
-of optimization under uncertainty, they solve different problems. In an ideal world where
-we have a problem that is tractable with global optimality for both methods, the solutions
-of the two would not match.
-
-They are different approaches as well as
+of optimization under uncertainty, they solve fundamentally different problems. In an ideal world where
+we have a problem that is tractable with global optimality for both methods, the two different
+approaches would result in different solutions.
 
 \subsection{Geometric and signomial programming for engineering design}
 
