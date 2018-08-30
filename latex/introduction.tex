@@ -5,24 +5,27 @@
 \textbf{Approaches to optimization under uncertainty}
 
 There are two major approaches to solving design optimization problems under uncertainty,
-which are \gls{so} and \gls{ro}. Both these problem statements seem so solve a min-max problem
-where they minimize the worst case objective value of a design with uncertain parameters.
-
-Stochastic optimization usually entails defining probability distributions of
-parameters through the design space, and propagating these uncertainties through the
-physics of a design problem to solve it.
-
+which are \gls{so} and \gls{ro}. Stochastic optimization deals with probability distributions of
+uncertain parameters by propagating these uncertainties through the
+physics of a design problem to ensure constraint feasibility with certain probabilistic guarantees.
+The goal of \gls{so} is minimize the expectation of an objective function~\cite{Diwekar2008}.
 Robust optimization takes a different approach, instead choosing to make designs immune to
 uncertainties in parameters as long as the parameter values come from within the defined
-uncertainty set.
+uncertainty set. \gls{ro} minimizes the worst-case objective outcome from a defined uncertainty set.
 
-\textbf{Why \gls{ro}?}
+\subsection{Advantages of robust over stochastic optimization}
 
-The advantages of robust optimization methods over stochastic optimization methods
-for optimization under uncertainty are summarized in \cite{Bertsimas2011}, 
+The formulation of stochastic models as \gls{ro} problems has many advantages
+over general stochastic optimization methods, as summarized in~\cite{Bertsimas2011},
 and fall into three categories, which are tractability, conservativeness and flexibility.
 
 \gls{ro} is more tractable than \gls{so} due to the nature of uncertainty propagation.
+General stochastic methods involve the propagation of uncertainties throughout the design
+to determine their effects on constraint feasibility and the objective function.
+This is easier said than done.
+This requires the integration of probability distributions,
+and since the integration of continuous functions is difficult often achieved through
+a discretization of the uncertainty into possible scenarios.
 
 
 The solution of the \gls{ro} problem is immune to the variations of the uncertain
@@ -31,7 +34,16 @@ parameters defined in the uncertainty set.
 Many kinds of optimization problems have tractable robust formulations, while tractable stochastic
 optimization is few and far between. \gls{so} requires the
 distributional information of the parameters of the problem to solve, while \gls{ro} circumvents
-this issue altogether by defining uncertainty bounds.
+this issue altogether by defining uncertainty bounds. There are few problems that can
+be addressed through purely stochastic optimization (eg. the recourse problem as
+shown in~\cite{Kall1982},\cite{Higle1991}).
+
+An important note is that, although both \gls{ro} and \gls{so} seek to address the problem
+of optimization under uncertainty, they solve different problems. In an ideal world where
+we have a problem that is tractable with global optimality for both methods, the solutions
+of the two would not match.
+
+They are different approaches as well as
 
 \subsection{Geometric and signomial programming for engineering design}
 
