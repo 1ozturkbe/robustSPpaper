@@ -59,11 +59,10 @@ approaches would result in different solutions.
 
 \subsection{Geometric and signomial programming for engineering design}
 
-Geometric programming is a method of log-convex optimization for which robust formulations exist
-(TODO: cite Saab here).
+Geometric programming is a method of log-convex optimization for which robust formulations exist~\cite{Saab2018}.
 However, the stringent mathematical requirements of a \gls{gp} limits its application to non-log-convex problems.
 The \gls{sp} is the difference-of-log-convex extension of the \gls{gp} which can be applied to
-solve this larger set of problems, albeit with the loss of some mathematical guarantees compared to the \gls{gp}.
+solve this larger set of problems, albeit with the loss of some mathematical guarantees compared to the \gls{gp}~\cite{Kirschen2016}.
 In this paper, we propose a tractable \gls{rsp} which we solve as a sequential \gls{rgp},
 allowing us to implement robustness in non-log-convex problems.
 
@@ -72,11 +71,15 @@ allowing us to implement robustness in non-log-convex problems.
 Aircraft pose some of the most challenging design problems. They have physics that span many disciplines,
 and have many often conflicting objectives.
 
+\gls{gp}s have been demonstrated to be effective in aircraft conceptual design
+(\cite{Hoburg2013},~\cite{Burton2017},~\cite{Kirschen2017},CITE York Ozturk here).
+
 \textbf{Why is robust optimization a more rigorous method to integrate uncertainty in aircraft optimization?}
 
 The effectiveness of an aircraft depends heavily on its
 ability to deliver on performance, which is heavily dependent on assumptions about the
-current technological environment and the ability to produce vehicles of a certain quality
+current technological environment and the ability to produce vehicles of a certain quality.
+
 Furthermore, aircraft design and development is costly, so the ability to handle uncertainty in
 the conceptual design process is critical for the long-term success of an aircraft program.
 
@@ -96,7 +99,8 @@ All of these methods rely on the expertise of an experienced engineer to guide t
 In economics, the idea that risk is related to profit is well understood and leveraged.
 In aerospace engineering however, we often forget that there is no such thing as a free lunch,
 and that the consequence of risk-aversity
-is often performance that is left on the table. The \gls{ro} frameworks proposed in this paper will
+is often performance that is left on the table. Good conceptual design is about hedging against program risk,
+the \gls{ro} frameworks proposed in this paper will
 give aerospace engineers the ability to rigorously trade robustness and the performance penalties
 that result from it.
 
