@@ -7,6 +7,7 @@ from gpkit.small_scripts import mag
 from radar import *
 from math import ceil, floor
 import numpy as np
+import csv
 
 def removesubs(d, keyList):
     a = dict(d)
@@ -29,6 +30,7 @@ if __name__ == "__main__":
                   }
     models = {}
     solutions = {}
+    baseobj = m['W_{f_m}']
 
     # Adding minimizer to make sure all objectives are 'tight' at optima
     minimizer=10**-15
@@ -51,6 +53,7 @@ if __name__ == "__main__":
     data.append([objectives[j]['name'] for j in objectives.iterkeys()])
 
     maxesindata = np.zeros(len(objectives))
+    minsindata = 10.**8*np.ones(len(objectives))
     for i in objectives.iterkeys():
         case = objectives[i]['name']
         caseData = []
@@ -59,7 +62,11 @@ if __name__ == "__main__":
             caseData.append(mag(solutions[i](j)))
             if mag(solutions[i](j)) >= maxesindata[count]:
                 maxesindata[count] = mag(solutions[i](j))
+            if mag(solutions[i](j)) <= minsindata[count]:
+                minsindata[count] = mag(solutions[i](j))
             count +=1
+        if i == baseobj:
+            baseresult = caseData
         data.append((case, [caseData]))
 
     # Plotting
@@ -92,10 +99,15 @@ if __name__ == "__main__":
     plt.savefig('savefigs/radar.png')
 
     # Save data for table output
-    rawdata = np.zeros([N,N])
-    for i in range(0,N):
-        for j in range(0,N):
-            rawdata[i,j] = data[i][1][0][j]
-    np.savetxt('savefigs/objective_table.csv', rawdata)
+    rawdata = [None] * (len(objectives) + 1)
+    rawdata[0] = ['Objective'] + [objectives[i]['name'] for i in objectives.iterkeys()]
+    count = 0
+    for i in objectives.iterkeys():
+        count += 1
+        rawdata[count] = [objectives[i]['name']] + list(np.around(np.array(data[count-1][1][0])/np.array(baseresult),decimals=2))
+
+    with open("savefigs/objective_table.csv",'wb') as resultFile:
+        wr = csv.writer(resultFile, dialect='excel')
+        wr.writerows(rawdata)
 
 

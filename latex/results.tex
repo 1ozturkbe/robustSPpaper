@@ -110,14 +110,13 @@ The red, blue and yellow correspond to $\frac{W_f}{L/D}$, $D$, $W_f$ and objecti
 %\textbf{TODO: update with 7-objective spider plots. First cite SP_tasopt, then show table and spider plots.
 %Then show how robust results change the spider plots.}
 
-% Template for getting objective_table working
-%\begin{table}
-%\centering
-%\pgfplotstabletypeset[dec sep align,
-%   fixed zerofill,
-%   precision=4,
-%   col sep=space]{figures/objective_table.csv}
-%\end{table}
+\begin{table}
+    \resizebox{\textwidth}{!}{
+    \csvautobooktabularcenter{figures/objective_table.csv}
+    }
+\caption{Non-dimensionalized variations in objective values with respect to the aircraft optimized
+for different objectives. Objective values were normalized by the total fuel solution.}
+\end{table}
 
 To further demonstrate the capabilities of robust SPs in aircraft design,
 we performed the optimization of the aircraft with no uncertainty and ellipsoidal uncertainty ($\Gamma = 1$)
