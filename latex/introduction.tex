@@ -109,10 +109,15 @@ Geometric programming is a method of log-convex optimization for which robust fo
 However, the stringent mathematical requirements of a \gls{gp} limits its application to non-log-convex problems.
 The \gls{sp} is the difference-of-log-convex extension of the \gls{gp} which can be applied to
 solve this larger set of problems, albeit with the loss of some mathematical guarantees compared to the \gls{gp}~\cite{Kirschen2017}.
-In this paper, we propose a tractable \gls{rsp} which we solve as a sequential \gls{rgp},
-allowing us to implement robustness in non-log-convex problems.
 
-\textbf{Why are SPs good for aircraft design?}
+Signomial programming can cover constraints that might be neither linear, convex, nor log-covex and, hence,
+it can be used to model problems that cannot be formulated by standard optimization tools such as linear
+or geometric programs.
+
+Signomial programming
+is a powerful tool that is currently being used in modeling and solving complex aircraft designs quickly
+and reliably as in \cite{york_hoburg_drela_2018} \cite{kirschen_burnell_hoburg_2016} \cite{kirschen_york_ozturk_hoburg_2018}.
+Other interesting applications for SPs such as in network flow problems are being investigated.
 
 Aircraft pose some of the most challenging design problems. They have physics that span many disciplines,
 and have many often conflicting objectives.
@@ -120,15 +125,13 @@ and have many often conflicting objectives.
 \gls{gp}s have been demonstrated to be effective in aircraft conceptual design
 (\cite{Hoburg2013},~\cite{Burton2017},~\cite{Kirschen2017},CITE York Ozturk here).
 
-\textbf{Why is robust optimization a more rigorous method to integrate uncertainty in aircraft optimization?}
-
-
-
 \subsection{Contributions}
 
+In this paper, we propose a tractable \gls{rsp} which we solve as a sequential \gls{rgp},
+allowing us to implement robustness in non-log-convex problems.
 We extend the \gls{rgp} framework developed by Saab~\cite{Saab2018} to \gls{sp}s.
-We implement the \gls{rsp} formulation on a simple aircraft design problem with 19 free variables,
-12 uncertain parameters and 17 constraints to demonstrate its potential (TODO: update).
+We implement the \gls{rsp} formulation on a simple aircraft design problem with several hundred
+variables as defined in~\cite{Ozturk2018} (TODO:update).
 We demonstrate the benefits of robust optimization both in ensuring design feasibility and performance
 in off-nominal conditions. We further explore the benefits of \gls{ro} in multiobjective optimization.
 
@@ -174,16 +177,7 @@ A {\em signomial} can be defined as the difference between two posynomials, cons
 \end{equation} 
 where $f_{i}$ and $g_{i}$ are both posynomials, and $\vec{x}$ is a column vector in $\mathbb{R}^n$. 
 
-Reliably solving an SP to a local optimum has been described in \cite{GP_tutorial} and \cite{lipp_boyd_2015}. A common solution heuristic involves solving an SP as a sequence of GPs, where each GP is a local approximation of the SP. Although it is a powerful tool, applications involving SPs are usually prone to uncertainties that have a significant effect on the solution.
+Reliably solving an SP to a local optimum has been described in \cite{GP_tutorial} and \cite{lipp_boyd_2015}.
+A common solution heuristic involves solving an SP as a sequence of GPs, where each GP is a local approximation of the SP.
+Although it is a powerful tool, applications involving SPs are usually prone to uncertainties that have a significant effect on the solution.
 
-\subsection{Overview}
-
-TODO: General optimization techniques for aircraft design
-
-Signomial programming can cover constraints that might be neither linear, convex, nor log-covex and, hence, it can be used to model problems that cannot be formulated by standard optimization tools such as linear or geometric programs. Although global optimal solutions are not guaranteed, however, signomial programming is a powerful tool that is currently being used in modeling and solving complex aircraft designs quickly and reliably as in \cite{york_hoburg_drela_2018} \cite{kirschen_burnell_hoburg_2016} \cite{kirschen_york_ozturk_hoburg_2018}. Other interesting applications for SPs such as in network flow problems are being investigated.
-
-TODO: Motivate the use of robust opt. for aircraft design over traditional methods, and stochastic/UQ.
-
-TODO: More depth/references as to methods for UQ/RO in aircraft design.
-
-TODO: Sections and outline
