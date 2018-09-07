@@ -1,6 +1,6 @@
 \section{Introduction}
 
-\textbf{Why optimization under uncertainty for aircraft}
+\subsection{Benefits of optimization under uncertainty for aircraft}
 
 
 \cite{Zang2002} succinctly described the categories of benefits for optimization under uncertainty for aircraft.
@@ -45,7 +45,7 @@ adaptive} optimization geared to ensure objective performance in off-nominal ope
 The weaknesses of these non-rigorous methods are many. They provide no quantitative measures of
 robustness or reliability~\cite{Zang2002}. Furthermore, they rely on the expertise of an experienced
 engineer to guide the design process, without explicit knowledge of the trade-off between
-robustness and optimality~\cite{yao2011}. This is a dangerous proposition especially in the
+robustness and optimality~\cite{Yao2011}. This is a dangerous proposition especially in the
 conceptual design phase of new configurations, since prior information and expertise is not
 available. In these scenarios, it is especially important to go back to fundamental physics
 and use rigorous mathematics to explore the design space. (cite York here)
@@ -105,30 +105,33 @@ approaches would result in different solutions.
 
 \subsection{Geometric and signomial programming for engineering design}
 
-Geometric programming is a method of log-convex optimization for which robust formulations exist~\cite{Saab2018}.
+Geometric programming\footnote{Programming refers to the mathematical formulation of an optimization problem.}
+is a method of log-convex optimization that has been developed
+to solve problems in engineering design~\cite{Duffin1967}. Although theory of the \gls{gp} has existed since
+the 1960's, \gls{gp}s have recently experienced a resurgence due to the advent of polynomial-time
+interior point methods~\cite{Nesterov1994} and improvements in computing. They have been
+applied to a range of engineering design problems with success. For a non-exhaustive list of examples,
+please refer to~\cite{Boyd2007}.
+
+\gls{gp}s have been effective in aircraft conceptual design
+(\cite{Hoburg2013},~\cite{Burton2017}).
 However, the stringent mathematical requirements of a \gls{gp} limits its application to non-log-convex problems.
 The \gls{sp} is the difference-of-log-convex extension of the \gls{gp} which can be applied to
-solve this larger set of problems, albeit with the loss of some mathematical guarantees compared to the \gls{gp}~\cite{Kirschen2017}.
-
-Signomial programming can cover constraints that might be neither linear, convex, nor log-covex and, hence,
-it can be used to model problems that cannot be formulated by standard optimization tools such as linear
-or geometric programs.
-
-Signomial programming
-is a powerful tool that is currently being used in modeling and solving complex aircraft designs quickly
-and reliably as in \cite{york_hoburg_drela_2018} \cite{kirschen_burnell_hoburg_2016} \cite{kirschen_york_ozturk_hoburg_2018}.
+solve this larger set of problems, albeit with the loss of some mathematical guarantees compared to the \gls{gp}~\cite{Kirschen2018}.
+Aircraft pose some of the most challenging design problems (cite York here), and signomial programming
+has been used to great effect in modeling and designing complex aircraft at a conceptual level quickly
+and reliably as in \cite{York2018} \cite{Kirschen2016} \cite{Kirschen2018}.
 Other interesting applications for SPs such as in network flow problems are being investigated.
 
-Aircraft pose some of the most challenging design problems. They have physics that span many disciplines,
-and have many often conflicting objectives.
-
-\gls{gp}s have been demonstrated to be effective in aircraft conceptual design
-(\cite{Hoburg2013},~\cite{Burton2017},~\cite{Kirschen2017},CITE York Ozturk here).
+Robust formulations exist for solving geometric programs with parametric uncertainty~\cite{Saab2018}.
+We posit that the creation of a robust signomial programming framework to capture uncertainty in engineering
+design, and specifically aircraft design, will allow us to have more confidence in the results
+of the conceptual design phase, reduce program risk, and increase overall system performance.
 
 \subsection{Contributions}
 
 In this paper, we propose a tractable \gls{rsp} which we solve as a sequential \gls{rgp},
-allowing us to implement robustness in non-log-convex problems.
+allowing us to implement robustness in non-log-convex problems such as aircraft design.
 We extend the \gls{rgp} framework developed by Saab~\cite{Saab2018} to \gls{sp}s.
 We implement the \gls{rsp} formulation on a simple aircraft design problem with several hundred
 variables as defined in~\cite{Ozturk2018} (TODO:update).
@@ -154,7 +157,7 @@ where $a_{ij}$ is the $j^{th}$ component of a row vector $\vec{a_i}$ in $\mathbb
 \begin{displaymath}
 	f_i(\vec{u}) = \textstyle{\sum_{k=1}^{K}}e^{b_{ikj}}\prod_{j=1}^{n}{u_j}^{a_{ikj}}
 \end{displaymath}
-where $a_{ikj}$ is the $j^{th}$ component of a row vector $\vec{a_{ik}}$ in $\mathbb{R}^n$, $u_j$ is the $j^{th}$ component of a column vector $\vec{u}$ in $\mathbb{R}^n_+$, and $b_{ik}$ is in $\mathbb{R}$ \cite{GP_tutorial}.\\
+where $a_{ikj}$ is the $j^{th}$ component of a row vector $\vec{a_{ik}}$ in $\mathbb{R}^n$, $u_j$ is the $j^{th}$ component of a column vector $\vec{u}$ in $\mathbb{R}^n_+$, and $b_{ik}$ is in $\mathbb{R}$ \cite{Boyd2007}.\\
 A logarithmic change of the variables $x_j = \log(u_j)$ would turn a monomial into {\em  the exponential of an affine function} and a posynomial into {\em the sum of exponentials of affine functions}. A transformed monomial $h_i(\vec{x})$ is a function of the form:
 \begin{displaymath}
     h_i(\vec{x}) = e^{\vec{a_i}\vec{x} + b_i}
@@ -177,7 +180,7 @@ A {\em signomial} can be defined as the difference between two posynomials, cons
 \end{equation} 
 where $f_{i}$ and $g_{i}$ are both posynomials, and $\vec{x}$ is a column vector in $\mathbb{R}^n$. 
 
-Reliably solving an SP to a local optimum has been described in \cite{GP_tutorial} and \cite{lipp_boyd_2015}.
+Reliably solving an SP to a local optimum has been described in \cite{Boyd2007} and \cite{Lipp2016}.
 A common solution heuristic involves solving an SP as a sequence of GPs, where each GP is a local approximation of the SP.
 Although it is a powerful tool, applications involving SPs are usually prone to uncertainties that have a significant effect on the solution.
 
