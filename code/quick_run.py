@@ -7,9 +7,10 @@ from robust.robust_gp_tools import RobustGPTools
 model, subs = SimPleAC_setup()  # the SimPleAC model
 model_solution, _, _, directly_uncertain_vars_subs = generate_model_properties(model, 1, 1)  # solving the SimPleAC
 # and generating a realization of the uncertain parameters
-# robust_model = RobustModel(model, 'box')  # generates the robust model
-# robust_model = RobustModel(model, 'elliptical', twoTerm = True, gamma = 1)  # generates the robust model
-robust_model = RobustModel(model, 'elliptical', twoTerm = False, gamma = 1)  # generates the robust model
+
+# robust_model = RobustModel(model, 'box', twoTerm = False, Gamma = 1) # generates the robust model
+
+robust_model = RobustModel(model, 'elliptical', twoTerm = False, Gamma = 1)  # generates the robust model
 robust_model_solution = robust_model.robustsolve(verbosity=0)  # solve the robust model
 
 # Below, we are testing the SimPleAC model against failure. The free variables with attribute fixed=True are fixed using
