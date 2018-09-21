@@ -1,0 +1,72 @@
+\section{Mathematical Background}
+
+\subsection{Robust Optimization}
+
+Given a general problem under uncertainty of the form:
+
+\begin{align*}
+    \text{minimize} &~f_0(x) \\
+    \text{s.t.}     &~f_i(x,u) \leq 0,~\forall u_i \in \mathcal{U}_i, i = 1,\ldots,n \\
+\end{align*}
+
+The general robust formulation is defined as below (TODO:cite):
+
+\begin{align*}
+    \text{minimize} &~f_0(x) \\
+    \text{s.t.}     &~\text{max}_{u_i \in \mathcal{U}}~f_i(x,u) \leq 0, i = 1,\ldots,n \\
+\end{align*}
+
+
+This is often posed by creating an uncertainty set to contain all possible
+realizations of the uncertainty we are concerned about, usually through a norm:
+
+\begin{align*}
+    \text{minimize} &~f_0(x) \\
+    \text{s.t.}     &~\text{max}_{u}~f_i(x,u) \leq 0, i = 1,\ldots,n \\
+                    &~\norm{u} \leq \Gamma \\
+\end{align*}
+
+\subsection{Geometric Programming}
+A \textbf{geometric program in posynomial form} is a log-convex optimization problem of the form:
+\begin{equation}
+\begin{aligned}
+	& \text{minimize} && f_0 \left(\vec{u}\right) \\
+	& \text{subject to} && f_i \left(\vec{u}\right) \leq 1, i = 1,...,m_p\\
+	& && h_i \left(\vec{u}\right) = 1, i = 1, ...,m_e\\
+\end{aligned}
+\label{GP_standard}
+\end{equation}
+where each $f_i$ is a {\em posynomial}, each $h_i$ is a {\em monomial}, $m_p$ is the number of posynomials, and $m_e$ is the number of monomials. A monomial $h(\vec{u})$ is a function of the form:
+\begin{displaymath}
+	h_i(\vec{u}) = e^{b_i}\textstyle{\prod}_{j=1}^{n}{u_j}^{a_{ij}}
+\end{displaymath}
+where $a_{ij}$ is the $j^{th}$ component of a row vector $\vec{a_i}$ in $\mathbb{R}^n$, $u_j$ is the $j^{th}$ component of a column vector $\vec{u}$ in $\mathbb{R}^n_+$ , and $b_i$ is in $\mathbb{R}$. A posynomial $f(\vec{u})$ is the sum of $K \in \mathbb{Z}^+$ monomials:
+\begin{displaymath}
+	f_i(\vec{u}) = \textstyle{\sum_{k=1}^{K}}e^{b_{ikj}}\prod_{j=1}^{n}{u_j}^{a_{ikj}}
+\end{displaymath}
+where $a_{ikj}$ is the $j^{th}$ component of a row vector $\vec{a_{ik}}$ in $\mathbb{R}^n$, $u_j$ is the $j^{th}$ component of a column vector $\vec{u}$ in $\mathbb{R}^n_+$, and $b_{ik}$ is in $\mathbb{R}$ \cite{Boyd2007}.\\
+A logarithmic change of the variables $x_j = \log(u_j)$ would turn a monomial into {\em  the exponential of an affine function} and a posynomial into {\em the sum of exponentials of affine functions}. A transformed monomial $h_i(\vec{x})$ is a function of the form:
+\begin{displaymath}
+    h_i(\vec{x}) = e^{\vec{a_i}\vec{x} + b_i}
+\end{displaymath}
+where $\vec{x}$ is a column vector in $\mathbb{R}^n$. A transformed posynomial $f_i(\vec{x})$ is the sum of $K_i \in \mathbb{Z}^+$ monomials:
+\begin{displaymath}
+    f_i(\vec{x}) = \textstyle{\sum_{k=1}^{K_i}}e^{\vec{a_{ik}}\vec{x} + b_{ik}}
+\end{displaymath}
+where $\vec{x}$ is a column vector in $\mathbb{R}^n$. A geometric program with transformed constraints is a \textbf{geometric program in exponential form}.
+
+The positive nature of exponential functions restricts the space spanned by posynomials and limits the applications of \gls{gp}s to certain classes of problems. The limited applicability of \gls{gp}s has motivated the introduction of signomials.
+
+\subsection{Signomial Programming}
+A {\em signomial} can be defined as the difference between two posynomials, consequently, an SP is a non-log-convex optimization problem of the form:
+\begin{equation}
+\begin{aligned}
+&\text{minimize } && f_{0}(\vec{x}) \\
+&\text{subject to } && f_{i}(\vec{x}) - g_{i}(\vec{x})& \leq 0, i = 1, ...., m \\
+\end{aligned}
+\end{equation} 
+where $f_{i}$ and $g_{i}$ are both posynomials, and $\vec{x}$ is a column vector in $\mathbb{R}^n$. 
+
+Reliably solving an SP to a local optimum has been described in \cite{Boyd2007} and \cite{Lipp2016}.
+A common solution heuristic involves solving an SP as a sequence of GPs, where each GP is a local approximation of the SP.
+Although it is a powerful tool, applications involving SPs are usually prone to uncertainties that have a significant effect on the solution.

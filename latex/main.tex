@@ -5,6 +5,7 @@
 \documentclass[]{aiaa-tc}% insert '[draft]' option to show overfull boxes
 
 \usepackage[acronyms]{glossaries}
+\usepackage{amsmath}
 \usepackage{pgfplotstable}
 \usepackage{array}
 \usepackage[sort, numbers]{natbib}
@@ -35,6 +36,7 @@
 \makeatother
 \newcommand{\csvautotabularcenter}[2][]{\csvloop{autotabularcenter={#2},#1}}
 \newcommand{\csvautobooktabularcenter}[2][]{\csvloop{autobooktabularcenter={#2},#1}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
 
 \newacronym{CEG}{CEG}{Convex Engineering Group}
 \newacronym{gp}{GP}{Geometric Program}
@@ -69,6 +71,8 @@
 \printglossary
 
 \input{introduction}
+
+\input{math}
 
 \input{robust_signomial_programming}
 
