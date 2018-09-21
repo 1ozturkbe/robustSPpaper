@@ -2,29 +2,35 @@
 
 \subsection{Robust Optimization}
 
-Given a general problem under uncertainty of the form:
+Given a general problem under parametric uncertainty, we can define the set of possible
+realizations of uncertain vector of parameters $u$ in the uncertainty set $\mathcal{U}$. This
+allows us to define the problem under uncertainty below.
 
 \begin{align*}
     \text{minimize} &~f_0(x) \\
-    \text{s.t.}     &~f_i(x,u) \leq 0,~\forall u_i \in \mathcal{U}_i, i = 1,\ldots,n \\
+    \text{s.t.}     &~f_i(x,u) \leq 0,~\forall u \in \mathcal{U},~i = 1,\ldots,n \\
 \end{align*}
 
-The general robust formulation is defined as below (TODO:cite):
+This problem is infinite-dimensional, since it is possible to formulate an infinite number of constraints
+with the countably infinite number of possible realizations of $u \in \mathcal{U}$. To circumvent this issue,
+we can define the following robust formulation of the uncertain problem below.
 
 \begin{align*}
     \text{minimize} &~f_0(x) \\
-    \text{s.t.}     &~\text{max}_{u_i \in \mathcal{U}}~f_i(x,u) \leq 0, i = 1,\ldots,n \\
+    \text{s.t.}     &~\underset{u \in \mathcal{U}}{\text{max}}~f_i(x,u) \leq 0,~i = 1,\ldots,n \\
 \end{align*}
 
-
-This is often posed by creating an uncertainty set to contain all possible
-realizations of the uncertainty we are concerned about, usually through a norm:
+This formulation hedges against the worst-case realization of the uncertainty in the defined uncertainty
+set. This is often posed by creating an uncertainty set to contain all possible
+realizations of the uncertainty we are concerned about, usually through a norm,
 
 \begin{align*}
     \text{minimize} &~f_0(x) \\
-    \text{s.t.}     &~\text{max}_{u}~f_i(x,u) \leq 0, i = 1,\ldots,n \\
+    \text{s.t.}     &~\underset{u}{\text{max}}~f_i(x,u) \leq 0,~i = 1,\ldots,n \\
                     &~\norm{u} \leq \Gamma \\
 \end{align*}
+
+where $\Gamma$ is defined by the user as an uncertainty bound.
 
 \subsection{Geometric Programming}
 A \textbf{geometric program in posynomial form} is a log-convex optimization problem of the form:
