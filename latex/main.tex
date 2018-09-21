@@ -12,7 +12,16 @@
 \usepackage{pgfplotstable,filecontents}
 \usepackage{csvsimple}
 \usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{shapes, arrows, positioning}
 \makeglossaries
+
+\tikzstyle{block} = [draw, rectangle, 
+    minimum height=3em, minimum width=6em]
+\tikzstyle{sum} = [draw, circle, node distance=1cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+\tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
 
 \makeatletter
 \csvset{
@@ -74,7 +83,7 @@
 
 \input{math}
 
-\input{robust_signomial_programming}
+\input{RSP}
 
 \input{RGP}
 

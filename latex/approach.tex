@@ -18,11 +18,28 @@ As mentioned before, a common heuristic algorithm to solve an SP is by sequentia
 
 Similar to an SP, a good initial guess would lead to faster convergence and possibly a better solution. A quick candidate is the deterministic solution of the uncertain SP, which will certainly lead to a faster convergence.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.6]{sp_solve.png}
-    \caption{A block diagram showing the steps of solving an RSP}
-    \label{fig:solve_rsp_diag}
+%TODO: fix
+\begin{figure}
+    \begin{center}
+    \begin{tikzpicture}[auto, align=center, text width=3cm]
+        \begin{scope}[node distance=2cm and 4cm]
+        \node[block, name=detSP] (detSP) {Solve deterministic SP};
+        \node[block, name=localGP, right of=detSP] (localGP) {Make local GP approximation};
+        \node[block, name=localRGP, right of=localGP] (localRGP) {Formulate local RGP};
+        \node[block, name=solveRGP, right of=localRGP] (solveRGP) {Solve local RGP};
+        \node[block, name=xi, below of=solveRGP] (xi) {$\Delta x \leq reltol$?};
+        \node[block, name=solution, below of=xi] (solution) {Solution $x_{n}$};
+
+        \draw[->] (detSP) -- node[name=x0] {$x_0$} (localGP);
+        \draw[->] (localGP) -- node[name=choosemethod] {Choose methodology} (localRGP);
+        \draw[->] (localRGP) -- (solveRGP);
+        \draw[->] (solveRGP) -- (xi);
+        \draw[->] (xi) -| node[name=no] {No, $x_{i+1} = x_i.$} (localGP);
+        \draw[->] (xi) -- node[name=yes] {Yes.} (solution);
+        \end{scope}
+    \end{tikzpicture}
+    \label{A block diagram showing the steps of solving an RSP.}
+\end{center}
 \end{figure}
 
 Any of the previously mentioned methodologies can be used to formulate the local RGP approximation. 
