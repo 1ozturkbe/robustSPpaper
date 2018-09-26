@@ -146,35 +146,57 @@ have a high degree of coupling. It is likely that, if the three objective functi
 have high degree of coupling, that the internal areas of the solution triangles may differ
 more significantly.
 
-\begin{figure}
-\begin{center}
-\begin{tikzpicture}[scale=0.5]
-\tkzKiviatDiagram{$\frac{W_f}{L/D}$,$D$,$W_f$}
-%solve for {W_f}{L/D}
-\tkzKiviatLine[thick,
-color=red,
-mark=ball,
-ball color=red,
-mark size=3pt,opacity=.2,
-fill=red!20](568.6/100,1051/150,13500/1500)
-%solve for D
-\tkzKiviatLine[thick,
-color=blue,
-mark=ball,
-mark size=3pt,
-fill=blue!20,
-opacity=.5](587/100,1024/150,13100/1500)
-% solve for {W_f}
-\tkzKiviatLine[thick,
-color=yellow,
-mark=ball,
-mark size=3pt,
-fill= yellow!20,
-opacity=.5](687.9/100,1155/150,11900/1500)
-\end{tikzpicture}
-\end{center}
-\caption[Uncertain Spider Plot]{Design optimization of the aircraft with ellipsoidal uncertainty for 3 different objective functions.
-The red, blue and yellow correspond to $\frac{W_f}{L/D}$, $D$, $W_f$ and objectives respectively.}
-% tkz-kiviat documentation here in FRENCH: http://mirror.jmu.edu/pub/CTAN/macros/latex/contrib/tkz/tkz-kiviat/doc/TKZdoc-kiviat-main.pdf
-\label{fig:spiderplotEllUncert}
-\end{figure}
+%\begin{figure}
+%\begin{center}
+%\begin{tikzpicture}[scale=0.5]
+%\tkzKiviatDiagram{$\frac{W_f}{L/D}$,$D$,$W_f$}
+%%solve for {W_f}{L/D}
+%\tkzKiviatLine[thick,
+%color=red,
+%mark=ball,
+%ball color=red,
+%mark size=3pt,opacity=.2,
+%fill=red!20](568.6/100,1051/150,13500/1500)
+%%solve for D
+%\tkzKiviatLine[thick,
+%color=blue,
+%mark=ball,
+%mark size=3pt,
+%fill=blue!20,
+%opacity=.5](587/100,1024/150,13100/1500)
+%% solve for {W_f}
+%\tkzKiviatLine[thick,
+%color=yellow,
+%mark=ball,
+%mark size=3pt,
+%fill= yellow!20,
+%opacity=.5](687.9/100,1155/150,11900/1500)
+%\end{tikzpicture}
+%\end{center}
+%\caption[Uncertain Spider Plot]{Design optimization of the aircraft with ellipsoidal uncertainty for 3 different objective functions.
+%The red, blue and yellow correspond to $\frac{W_f}{L/D}$, $D$, $W_f$ and objectives respectively.}
+%% tkz-kiviat documentation here in FRENCH: http://mirror.jmu.edu/pub/CTAN/macros/latex/contrib/tkz/tkz-kiviat/doc/TKZdoc-kiviat-main.pdf
+%\label{fig:spiderplotEllUncert}
+%\end{figure}
+
+\subsection{Goal Programming}
+
+
+However, this assumes that we have an understanding of exactly how much risk we are
+willing to tolerate. This begs the question, could we have risk as the output of our
+model? This would suggest the following formulation:
+
+\begin{align*}
+    \text{maximize} &~\Gamma \\
+    \text{s.t.}     &~f_i(x,u) \leq 0, i = 1,\ldots,n \\
+                    & \norm{u} \leq \Gamma \\
+                    &~f_0(x) \leq f_{tol}
+    \label{eq:goalprogramming}
+\end{align*}
+
+where $f_{tol}$ is the maximum objective value we are willing to tolerate.
+
+%
+%Perhaps we do not know exact what is the maximum program risk, or cumulative uncertainty
+%that we are willing to tolerate, but
+%we have ideas about what makes a program worthwhile.

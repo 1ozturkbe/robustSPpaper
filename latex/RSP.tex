@@ -31,9 +31,13 @@ where $\mat{A}^0$, $\mat{C}^0$, $\vec{b}^0$, and $\vec{d}^0$ are the nominal exp
 \mathcal{Z} = \left\{ \vec{\zeta} \in \mathbb{R}^L: \exists \vec{u} \in \mathbb{R}^k:\mat{F}\vec{\zeta} + \mat{G}\vec{u} + \vec{h} \in \textbf{K} \right\}
 \label{perturbation_set}
 \end{equation}
-where $\mathbf{K}$ is a regular cone in $\mathbb{R}^N$ with a non-empty interior if it is not polyhedral, $\mat{F} \in \mathbb{R}^{N \times L}$, $\mat{G} \in \mathbb{R}^{N \times k}$, and $\vec{h} \in \mathbb{R}^{N}$. 
+where $\mathbf{K}$ is a regular cone in $\mathbb{R}^N$ with a non-empty interior
+if it is not polyhedral, $\mat{F} \in \mathbb{R}^{N \times L}$, $\mat{G} \in \mathbb{R}^{N \times k}$,
+and $\vec{h} \in \mathbb{R}^{N}$.
 
-As mentioned earlier, there should exist a formulation immune to uncertainty in the system's data. Accordingly, the robust counterpart of the uncertain signomial program in \eqref{SP_exponential} is:
+As mentioned earlier, there should exist a formulation immune to
+uncertainty in the system's data. Accordingly, the robust counterpart
+of the uncertain signomial program in \eqref{SP_exponential} is:
 \begin{equation}
 \begin{aligned}
 & \min && f_0\left(\vec{x}\right) \\
@@ -41,7 +45,12 @@ As mentioned earlier, there should exist a formulation immune to uncertainty in 
 \end{aligned}
 \label{SP_counterparts}
 \end{equation}
-These constraints state that the robust optimal solution should be feasible for all possible realizations of the perturbation vector $\vec{\zeta}$. However, the above is a semi-infinite optimization problem, i.e. an optimization problem with finite number of variables and infinite number of constraints. Such a problem is intractable using current solvers and so an equivalent finite set of constraints is usually derived:
+These constraints state that the robust optimal solution should be
+feasible for all possible realizations of the perturbation vector $\vec{\zeta}$.
+However, the above is a semi-infinite optimization problem, i.e. an optimization
+problem with finite number of variables and infinite number of constraints.
+Such a problem is intractable using current solvers and so an equivalent finite
+set of constraints is usually derived:
 \begin{equation}
 \begin{aligned}
 & \min &&f_0\left(\vec{x}\right)\\
@@ -50,4 +59,7 @@ These constraints state that the robust optimal solution should be feasible for 
 \label{SP_counterparts_finite}
 \end{equation}
 
-The optimization problem in \eqref{SP_counterparts_finite} is intractable. In the following sections, a heuristic approach to solving RSPs approximately as a sequential RGP will be presented. As our approach is based on Robust Geometric Programming, a brief review of the subject will follow based on \cite{Saab2018}. 
+The optimization problem in \eqref{SP_counterparts_finite} is intractable.
+In the following sections, a heuristic approach to solving RSPs approximately
+as a sequential RGP will be presented. As our approach is based on Robust
+Geometric Programming, a brief review of the subject will follow based on \cite{Saab2018}.

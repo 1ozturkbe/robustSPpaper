@@ -5,13 +5,23 @@
 \documentclass[]{aiaa-tc}% insert '[draft]' option to show overfull boxes
 
 \usepackage[acronyms]{glossaries}
+\usepackage{amsmath}
 \usepackage{pgfplotstable}
 \usepackage{array}
 \usepackage[sort, numbers]{natbib}
 \usepackage{pgfplotstable,filecontents}
 \usepackage{csvsimple}
 \usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{shapes, arrows, positioning}
 \makeglossaries
+
+\tikzstyle{block} = [draw, rectangle, 
+    minimum height=3em, minimum width=6em]
+\tikzstyle{sum} = [draw, circle, node distance=1cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+\tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
 
 \makeatletter
 \csvset{
@@ -35,6 +45,7 @@
 \makeatother
 \newcommand{\csvautotabularcenter}[2][]{\csvloop{autotabularcenter={#2},#1}}
 \newcommand{\csvautobooktabularcenter}[2][]{\csvloop{autobooktabularcenter={#2},#1}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
 
 \newacronym{CEG}{CEG}{Convex Engineering Group}
 \newacronym{gp}{GP}{Geometric Program}
@@ -70,7 +81,9 @@
 
 \input{introduction}
 
-\input{robust_signomial_programming}
+\input{math}
+
+\input{RSP}
 
 \input{RGP}
 
