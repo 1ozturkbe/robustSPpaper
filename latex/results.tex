@@ -181,7 +181,6 @@ more significantly.
 
 \subsection{Goal Programming}
 
-
 However, this assumes that we have an understanding of exactly how much risk we are
 willing to tolerate. This begs the question, could we have risk as the output of our
 model? This would suggest the following formulation:
@@ -190,13 +189,26 @@ model? This would suggest the following formulation:
     \text{maximize} &~\Gamma \\
     \text{s.t.}     &~f_i(x,u) \leq 0, i = 1,\ldots,n \\
                     & \norm{u} \leq \Gamma \\
-                    &~f_0(x) \leq f_{tol}
+                    &~f_0(x) \leq (1+\delta)f_0^*,~\delta \geq 0 \tag{a}
     \label{eq:goalprogramming}
 \end{align*}
 
-where $f_{tol}$ is the maximum objective value we are willing to tolerate.
+where $f_0^*$ is the optimum of the original problem in Formulation~\ref{eq:normform}, $\delta$
+is a fractional measure of the objective that we are willing to sacrifice for robustness, which
+gives $(1+\delta)f_0^*$ as the upper bound on the objective value.
 
-%
-%Perhaps we do not know exact what is the maximum program risk, or cumulative uncertainty
-%that we are willing to tolerate, but
-%we have ideas about what makes a program worthwhile.
+We can also expand this framework to perform multivariate goal programming,
+by changing (a) in the formulation~\ref{eq:goalprogramming} to include all
+objectives we are interested in.
+
+\begin{align*}
+    f_{0,j}(x) \leq (1+\delta_j) f^*_{0,j},~\delta_j \geq 0,~i = 1,\ldots, m
+    \label{eq:multigoal}
+\end{align*}
+
+The benefit of goal programming is that it allows us to explore multidisciplinary tradeoffs without
+having to enumerate the design space along each objective direction. Furthermore, in design it is not obvious whether
+an objective should in fact be a constraint instead. For example, it's not clear that the design
+of an aircraft is useful if it consumes
+
+\subsubsection{Changes in flight envelope}
