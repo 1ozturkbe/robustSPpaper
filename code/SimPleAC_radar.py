@@ -9,11 +9,100 @@ from math import ceil, floor
 import numpy as np
 import csv
 
-def removesubs(d, keyList):
-    a = dict(d)
-    for i in keyList:
-        del a[i.key.name]
-    return a
+from robust.robust import RobustModel
+from robust.simulations.simulate import generate_model_properties
+
+def gen_SimPleAC_radar(marray, objectives, baseobj):
+    """
+    Function to generate radar plots
+    :param marray: 2D array of models to run
+                   can be nominal or robust models
+                   each must have objective costs
+                   [:,j] are to be plotted on the same radar plot, for all j
+                   [i,:] are the different radar plots, for all i
+    :param objectives: the objectives to be plotted on each radar plot
+    :return: Solutions array that is size(marray). The radar plots are saved as a figure.
+    """
+    solutions = [[] for i in range(len(marray))]
+    for i in range(len(marray)):
+        for j in range(len(marray[i])):
+            try:
+                solutions[i].append(marray[i][j].localsolve())
+            except:
+                solutions[i].append(marray[i][j].robustsolve())
+
+    def generate_radar_data(solutions, objectives, baseobj):
+        # Generating data amenable to radar plotting
+        data =[]
+        data.append([objectives[j]['name'] for j in objectives.iterkeys()])
+
+        maxesindata = np.zeros(len(objectives))
+        minsindata = 10.**8*np.ones(len(objectives))
+        counti = 0
+        for i in objectives.iterkeys():
+            case = objectives[i]['name']
+            caseData = [[] for i in range(len(solutions[counti]))]
+            for j in range(len(solutions[counti])):
+                countk = 0
+                for k in objectives.iterkeys():
+                    caseData[j].append(mag(solutions[counti][j](k)))
+                    if mag(solutions[counti][j](k)) >= maxesindata[countk]:
+                        maxesindata[countk] = mag(solutions[counti][j](k))
+                    if mag(solutions[counti][j](k)) <= minsindata[countk]:
+                        minsindata[countk] = mag(solutions[counti][j](k))
+                    countk +=1
+            data.append((case, caseData))
+            counti +=1
+        return data, maxesindata, minsindata
+
+    def plot_radar_data(solutions, objectives, data, maxesindata, minsindata):
+
+            # Plotting
+        N = len(solutions)
+        theta = radar_factory(N, frame='polygon')
+        spoke_labels = data.pop(0)
+
+        fig, axes = plt.subplots(figsize=(N,N), nrows=int(ceil(float(N)/2.)), ncols=2,
+                                 subplot_kw=dict(projection='radar'))
+        fig.subplots_adjust(wspace=0.25, hspace=0.20, top=0.85, bottom=0.05)
+
+        colors = ['b', 'r', 'g', 'm', 'y', 'c', 'o']
+
+        for ax, (title, case_data) in zip(axes.flatten(), data):
+            #ax.set_rgrids([0.2, 0.4, 0.6, 0.8])
+            ax.set_title(title, weight='bold', size='medium', position=(0.5, 1.1),
+                         horizontalalignment='center', verticalalignment='center')
+            for d, color in zip(case_data, colors):
+                print d/maxesindata
+                ax.plot(theta, d/maxesindata, color=color)
+                ax.fill(theta, d/maxesindata, facecolor=color, alpha=0.25)
+            ax.set_varlabels(spoke_labels)
+
+        # add legend relative to top-left plot
+        ax = axes[0, 0]
+        labels = spoke_labels
+        legend = ax.legend(labels, loc=(0.9, .95),
+                           labelspacing=0.1, fontsize='small')
+        plt.show()
+        plt.savefig('savefigs/radar.png')
+
+    data, maxesindata, minsindata = generate_radar_data(solutions, objectives, baseobj)
+
+    plot_radar_data(solutions, objectives, data, maxesindata, minsindata)
+
+    return solutions
+
+
+def objective_table_csv(objectives, data, baseresult):
+    rawdata = [None] * (len(objectives) + 1)
+    rawdata[0] = ['Objective'] + [objectives[i]['name'] for i in objectives.iterkeys()]
+    count = 0
+    for i in objectives.iterkeys():
+        count += 1
+        rawdata[count] = [objectives[i]['name']] + list(np.around(np.array(data[count-1][1][0])/np.array(baseresult),decimals=2))
+    with open("savefigs/objective_table.csv",'wb') as resultFile:
+        wr = csv.writer(resultFile, dialect='excel')
+        wr.writerows(rawdata)
 
 if __name__ == "__main__":
     m, subs = SimPleAC_setup()
@@ -29,85 +118,34 @@ if __name__ == "__main__":
                   m['W_{f_m}']+m['C_m']*m['t_m']*units('N') : {'name': 'Total cost', 'added': {}, 'removed': {}},
                   }
     models = {}
-    solutions = {}
     baseobj = m['W_{f_m}']
 
-    # Adding minimizer to make sure all objectives are 'tight' at optima
-    minimizer=10**-15
+    # Adding minimizer so all objectives are tight at the optimum
+    minimizer = 10**-15*sum(i/i.units if i.units else i for i in objectives.keys())
+    # Nominal case must always be first!
+    methods = ['nominal','elliptical','box']
+    marray = [[] for i in range(len(objectives))]
+    counti = 0
     for i in objectives.iterkeys():
-        if i.unitstr() == 'N':
-            minimizer = minimizer*i
+        for j in methods:
+            try:
+                nm = Model(i + minimizer*i.units, m, m.substitutions)
+            except:
+                nm = Model(i + minimizer, m, m.substitutions)
+            if j == 'nominal':
+                marray[counti].append(nm)
+            else:
+                nm = RobustModel(nm, j, twoTem = False, gamma = 1)
+                marray[counti].append(nm)
+        counti +=1
 
-     # Solving the optimization problems
-    for i in objectives.iterkeys():
-        m.substitutions.update(subs)
-        try:
-            m = Model(i+minimizer/minimizer.units*i.units, Bounded(m))
-        except:
-            m = Model(i+minimizer/minimizer.units, Bounded(m))
-        models[i] = m
-        solutions[i] = m.localsolve(verbosity=0)
+    solutions = gen_SimPleAC_radar(marray, objectives, baseobj)
 
-    # Generating data amenable to radar plotting
-    data =[]
-    data.append([objectives[j]['name'] for j in objectives.iterkeys()])
 
-    maxesindata = np.zeros(len(objectives))
-    minsindata = 10.**8*np.ones(len(objectives))
-    for i in objectives.iterkeys():
-        case = objectives[i]['name']
-        caseData = []
-        count = 0
-        for j in objectives.iterkeys():
-            caseData.append(mag(solutions[i](j)))
-            if mag(solutions[i](j)) >= maxesindata[count]:
-                maxesindata[count] = mag(solutions[i](j))
-            if mag(solutions[i](j)) <= minsindata[count]:
-                minsindata[count] = mag(solutions[i](j))
-            count +=1
-        if i == baseobj:
-            baseresult = caseData
-        data.append((case, [caseData]))
 
-    # Plotting
-    N = len(solutions)
-    theta = radar_factory(N, frame='polygon')
-    spoke_labels = data.pop(0)
 
-    fig, axes = plt.subplots(figsize=(N,N), nrows=int(ceil(float(N)/2.)), ncols=2,
-                             subplot_kw=dict(projection='radar'))
-    fig.subplots_adjust(wspace=0.25, hspace=0.20, top=0.85, bottom=0.05)
 
-    colors = ['b', 'r', 'g', 'm', 'y', 'c', 'o']
 
-    for ax, (title, case_data) in zip(axes.flatten(), data):
-        #ax.set_rgrids([0.2, 0.4, 0.6, 0.8])
-        ax.set_title(title, weight='bold', size='medium', position=(0.5, 1.1),
-                     horizontalalignment='center', verticalalignment='center')
-        for d, color in zip(case_data, colors):
-            print d/maxesindata
-            ax.plot(theta, d/maxesindata, color=color)
-            ax.fill(theta, d/maxesindata, facecolor=color, alpha=0.25)
-        ax.set_varlabels(spoke_labels)
 
-    # add legend relative to top-left plot
-    ax = axes[0, 0]
-    labels = spoke_labels
-    legend = ax.legend(labels, loc=(0.9, .95),
-                       labelspacing=0.1, fontsize='small')
-    plt.show()
-    plt.savefig('savefigs/radar.png')
-
-    # Save data for table output
-    rawdata = [None] * (len(objectives) + 1)
-    rawdata[0] = ['Objective'] + [objectives[i]['name'] for i in objectives.iterkeys()]
-    count = 0
-    for i in objectives.iterkeys():
-        count += 1
-        rawdata[count] = [objectives[i]['name']] + list(np.around(np.array(data[count-1][1][0])/np.array(baseresult),decimals=2))
-
-    with open("savefigs/objective_table.csv",'wb') as resultFile:
-        wr = csv.writer(resultFile, dialect='excel')
-        wr.writerows(rawdata)
 
 
