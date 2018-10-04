@@ -47,7 +47,7 @@ def generate_flight_envelope(m, var1, var2, var1range, rm = None, rmsol = None):
         pass
     plt.xlabel(var1.str_without())
     plt.ylabel(var2.str_without())
-    plt.title('Flight envelope')
+    plt.title(r'Flight envelope, $\Gamma = 1$')
     plt.grid()
     plt.show()
 
@@ -61,6 +61,10 @@ def plot_general_solutions(solarray, var1, var2, var3):
     for i in solarray:
         ax.plot(mag(i(var1.key)), mag(i(var2.key)),mag(i(var3.key)))
         count+=1
+    ax.set_xlabel(var1.str_without())
+    ax.set_ylabel(var2.str_without())
+    ax.set_zlabel(var3.str_without())
+    plt.title('3D Flight envelope')
     plt.show()
 
 if __name__ == "__main__":
