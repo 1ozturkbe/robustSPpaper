@@ -55,7 +55,7 @@ def gen_SimPleAC_radar(marray, objectives, baseobj):
             counti +=1
         return data, maxesindata, minsindata
 
-    def plot_radar_data(solutions, objectives, data, maxesindata, minsindata):
+    def plot_radar_data(solutions, objectives, methods, data, maxesindata, minsindata):
 
             # Plotting
         N = len(solutions)
@@ -80,7 +80,7 @@ def gen_SimPleAC_radar(marray, objectives, baseobj):
 
         # add legend relative to top-left plot
         ax = axes[0, 0]
-        labels = spoke_labels
+        labels = methods
         legend = ax.legend(labels, loc=(0.9, .95),
                            labelspacing=0.1, fontsize='small')
         plt.show()
@@ -88,7 +88,7 @@ def gen_SimPleAC_radar(marray, objectives, baseobj):
 
     data, maxesindata, minsindata = generate_radar_data(solutions, objectives, baseobj)
 
-    plot_radar_data(solutions, objectives, data, maxesindata, minsindata)
+    plot_radar_data(solutions, objectives, methods, data, maxesindata, minsindata)
 
     return solutions
 
@@ -108,20 +108,38 @@ if __name__ == "__main__":
     m, subs = SimPleAC_setup()
     # Putting in objectives and associated substitutions
     # in a dictionary
-    objectives = {m['W_{f_m}'] :                      {'name': 'Total fuel', 'added': {}, 'removed': {}},
-                  m['C_m']*m['t_m'] :                 {'name': 'Time cost', 'added': {}, 'removed': {}},
+    objectives = {#m['W_{f_m}'] :                      {'name': 'Total fuel', 'added': {}, 'removed': {}},
+                  #m['C_m']*m['t_m'] :                 {'name': 'Time cost', 'added': {}, 'removed': {}},
                   #m['V_{min_m}'] :                    {'added': {}, 'removed': [m['V_{min_m}']]},
-                  m['W']:                             {'name': 'Takeoff weight', 'added': {}, 'removed': {}},
-                  m['A']:                             {'name': 'Aspect ratio', 'added': {}, 'removed': {}},
-                  m['W_e']:                           {'name': 'Engine weight', 'added': {}, 'removed': {}},
-                  m['W']/m['S']:                      {'name': 'Wing loading', 'added': {}, 'removed': {}},
-                  m['W_{f_m}']+m['C_m']*m['t_m']*units('N') : {'name': 'Total cost', 'added': {}, 'removed': {}},
+                  # m['W']:                             {'name': 'Takeoff weight', 'added': {}, 'removed': {}},
+                  #m['A']:                             {'name': 'Aspect ratio', 'added': {}, 'removed': {}},
+                  #m['W_e']:                           {'name': 'Engine weight', 'added': {}, 'removed': {}},
+                  #m['W']/m['S']:                      {'name': 'Wing loading', 'added': {}, 'removed': {}},
+                  # m['W_{f_m}']+m['C_m']*m['t_m']*units('N') : {'name': 'Total cost', 'added': {}, 'removed': {}},
+                  # 1/(m['L'][2]/m['D'][2]) : {'name': 'Cruise L/D', 'added': {}, 'removed': {}},
                   }
+
+    # L/D design study
+    # objectives = {
+    #               1/(m['L'][0]/m['D'][0]) : {'name': 'Takeoff L/D', 'added': {}, 'removed': {}},
+    #               1/(m['L'][1]/m['D'][1]) : {'name': 'Beginning Cruise L/D', 'added': {}, 'removed': {}},
+    #               1/(m['L'][2]/m['D'][2]) : {'name': 'Mid-cruise L/D', 'added': {}, 'removed': {}},
+    #               1/(m['L'][3]/m['D'][3]) : {'name': 'End-of-cruise L/D', 'added': {}, 'removed': {}},
+    #               }
+
+    # Different close metrics study
+    objectives = {
+                  m['W_{f_m}']+m['C_m']*m['t_m']*units('N') : {'name': 'Total cost', 'added': {}, 'removed': {}},
+                  m['W_{f_m}'] :                      {'name': 'Total fuel', 'added': {}, 'removed': {}},
+                  m['W']:                             {'name': 'Takeoff weight', 'added': {}, 'removed': {}},
+                  1/(m['L'][2]/m['D'][2]) : {'name': 'Mid-cruise L/D', 'added': {}, 'removed': {}},
+                  }
+
     models = {}
     baseobj = m['W_{f_m}']
 
     # Adding minimizer so all objectives are tight at the optimum
-    minimizer = 10**-15*sum(i/i.units if i.units else i for i in objectives.keys())
+    minimizer = 10**-6*sum(i/i.units if i.units else i for i in objectives.keys())
     # Nominal case must always be first!
     methods = ['nominal','elliptical','box']
     marray = [[] for i in range(len(objectives))]
