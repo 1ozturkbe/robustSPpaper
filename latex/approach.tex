@@ -1,9 +1,13 @@
 \section{Approach to Solving \gls{rsp}s}
 
-This section presents a heuristic algorithm to safely solve a robust signomial program based on our previous discussion on robust geometric programming. 
+This section presents a heuristic algorithm to safely solve a \gls{rsp}
+based on our previous discussion on robust geometric programming.
 
 \subsection{General RSP Solver}
-As mentioned before, a common heuristic algorithm to solve an SP is by sequentially solving local GP approximations, but the solution is not guaranteed to be globally optimal. Our approach to solve an RSP is based on sequentially solving local RGP approximations. Below we provide a step-by-step algorithm to solve an RSP:
+As mentioned before, a common heuristic algorithm to solve an SP is
+by sequentially solving local GP approximations, but the solution is not guaranteed
+to be globally optimal. Our approach to solve an RSP is based on sequentially solving
+local RGP approximations. Below we provide a step-by-step algorithm to solve an RSP:
 
 \begin{enumerate}
     \item Choose an initial guess $x_0$
@@ -16,19 +20,19 @@ As mentioned before, a common heuristic algorithm to solve an SP is by sequentia
     \end{enumerate}
 \end{enumerate}
 
-Similar to an SP, a good initial guess would lead to faster convergence and possibly a better solution. A quick candidate is the deterministic solution of the uncertain SP, which will certainly lead to a faster convergence.
+Similar to an SP, a good initial guess would lead to faster convergence and possibly a better solution.
+A quick candidate is the deterministic solution of the uncertain SP, which will certainly lead to a faster convergence.
 
-%TODO: fix
 \begin{figure}
     \begin{center}
-    \begin{tikzpicture}[auto, align=center, text width=3cm]
-        \begin{scope}[node distance=2cm and 4cm]
-        \node[block, name=detSP] (detSP) {Solve deterministic SP};
-        \node[block, name=localGP, right of=detSP] (localGP) {Make local GP approximation};
-        \node[block, name=localRGP, right of=localGP] (localRGP) {Formulate local RGP};
-        \node[block, name=solveRGP, right of=localRGP] (solveRGP) {Solve local RGP};
-        \node[block, name=xi, below of=solveRGP] (xi) {$\Delta x \leq reltol$?};
-        \node[block, name=solution, below of=xi] (solution) {Solution $x_{n}$};
+    \begin{tikzpicture}[auto, align=center, text width=2.75cm, scale = 0.9]
+        \begin{scope}[node distance=2cm]
+        \node[block, name=detSP] at (0,0) (detSP) {Solve deterministic SP};
+        \node[block, name=localGP] at (4,0) (localGP) {Make local GP approximation};
+        \node[block, name=localRGP] at (10,0) (localRGP) {Formulate local RGP};
+        \node[block, name=solveRGP] at (14,0) (solveRGP) {Solve local RGP};
+        \node[block, name=xi] at (14,-2) (xi) {$\Delta x \leq reltol$?};
+        \node[block, name=solution] at (14,-4) (solution) {Solution $x_{n}$};
 
         \draw[->] (detSP) -- node[name=x0] {$x_0$} (localGP);
         \draw[->] (localGP) -- node[name=choosemethod] {Choose methodology} (localRGP);
@@ -38,29 +42,42 @@ Similar to an SP, a good initial guess would lead to faster convergence and poss
         \draw[->] (xi) -- node[name=yes] {Yes.} (solution);
         \end{scope}
     \end{tikzpicture}
-    \label{A block diagram showing the steps of solving an RSP.}
+    \caption{A block diagram showing the steps of solving an RSP.}
+        \label{fig:rspsolve}
 \end{center}
 \end{figure}
 
 Any of the previously mentioned methodologies can be used to formulate the local RGP approximation. 
-However, Depending on the RGP formulation chosen to solve an RSP, the last two blocks in Figure \ref{fig:solve_rsp_diag} are tweaked slightly for a faster convergence. 
+However, Depending on the RGP formulation chosen to solve an RSP, the last formulation and solution
+bloks in Figure \ref{fig:rspsolve} are tweaked slightly for a faster convergence.
 \ \\
 \subsection{Best Pairs RSP Solver}
-If the Best Pairs methodology is exploited, then the above algorithm would change so that each iteration would solve the local RGP approximation and choose the best permutation for each large posynomial. The modified algorithm would become as follows:
+If the Best Pairs methodology is exploited, then the above algorithm would change so that
+each iteration would solve the local RGP approximation and choose the best permutation
+for each large posynomial. The modified algorithm would become as follows:
 
 \begin{enumerate}
     \item Choose an initial guess $x_0$
     \item Repeat
     \begin{enumerate}
         \item Find the local GP approximation of the SP at $x_i$.
-        \item $\forall (i,j) \in \mathbf{P}$, select the new permutations $\phi \in \hat{\mathcal{P}}_{i,j}$ such that $\phi$ minimizes $\textstyle{\sum}_{k=1}^{|S_{i,j}|/2} {\displaystyle \max_{\vec{\zeta} \in \mathcal{Z}}} \left\{e^{\mathcal{L}^{\phi_{2k-1}}_{i,j}} + e^{\mathcal{L}^{\phi_{2k}}_{i,j}}\right\}\bigg\rvert_{\vec{x}_i}$
-        \item Solve the approximate tractable counterparts of the local GP in \eqref{GP_counterparts_tractable}, and let $\vec{x}_{i+1}$ be the solution
+        \item $\forall (i,j) \in \mathbf{P}$, select the new permutations $\phi \in \hat{\mathcal{P}}_{i,j}$
+                such that $\phi$ minimizes $\textstyle{\sum}_{k=1}^{|S_{i,j}|/2}
+        {\displaystyle \max_{\vec{\zeta} \in \mathcal{Z}}} \left\{e^{\mathcal{L}^{\phi_{2k-1}}_{i,j}} +
+        e^{\mathcal{L}^{\phi_{2k}}_{i,j}}\right\}\bigg\rvert_{\vec{x}_i}$
+        \item Solve the approximate tractable counterparts of the local GP in
+                \eqref{GP_counterparts_tractable}, and let $\vec{x}_{i+1}$ be the solution
         \item If $x_{i+1} \approx x_{i}$: break
     \end{enumerate}
 \end{enumerate}
 
-\subsection{Linearized Perturbations RSP Solver}
-On the other hand, if the Linearized Perturbations formulation is to be used, then we can avoid solving a signomial program at each iteration by first approximating the original SP constraints locally, and in the same loop approximating the robustified possibly signomial constraints locally, thus solving a GP at each iteration instead of an SP. The algorithm would then become as follows:
+\subsection{Linearized Perturbations \gls{rsp} Solver}
+
+On the other hand, if the Linearized Perturbations formulation is to be used,
+then we can avoid solving a signomial program at each iteration by first
+approximating the original SP constraints locally, and in the same loop approximating
+the robustified possibly signomial constraints locally, thus solving a
+GP at each iteration instead of an SP. The algorithm would then become as follows:
 
 \begin{enumerate}
     \item Choose an initial guess $x_0$
