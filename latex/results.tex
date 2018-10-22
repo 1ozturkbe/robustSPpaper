@@ -72,43 +72,14 @@ Figure~\ref{compare_signomial} compares the different methodologies in terms of 
 
 \subsection{The Effect of Robustness}
 
-\subsubsection{Multiobjective Spider Plots}
-
-\begin{figure}
-\begin{center}
-\begin{tikzpicture}[scale=0.5]
-\tkzKiviatDiagram{$\frac{W_f}{L/D}$,$D$,$W_f$}
-%solve for {W_f}{L/D}
-\tkzKiviatLine[thick,
-color=red,
-mark=ball,
-ball color=red,
-mark size=3pt,opacity=.2,
-fill=red!20](154.4/25,414.2/75,5180/700)
-%solve for D
-\tkzKiviatLine[thick,
-color=blue,
-mark=ball,
-mark size=3pt,
-fill=blue!20,
-opacity=.5](161.8/25,400/75,5129/700)
-% solve for {W_f}
-\tkzKiviatLine[thick,
-color=yellow,
-mark=ball,
-mark size=3pt,
-fill= yellow!20,
-opacity=.5](190.2/25,463.4/75,4536/700)
-\end{tikzpicture}
-\end{center}
-\caption[Deterministic Spider Plot]{Design optimization of the aircraft with no uncertainty for 3 different objective functions.
-The red, blue and yellow correspond to $\frac{W_f}{L/D}$, $D$, $W_f$ and objectives respectively.}
-% tkz-kiviat documentation here in FRENCH: http://mirror.jmu.edu/pub/CTAN/macros/latex/contrib/tkz/tkz-kiviat/doc/TKZdoc-kiviat-main.pdf
-\label{fig:spiderplotnoUncert}
-\end{figure}
 
 %\textbf{TODO: update with 7-objective spider plots. First cite SP_tasopt, then show table and spider plots.
 %Then show how robust results change the spider plots.}
+
+
+One of the benefits of convex and difference-of-convex optimization methods is the ability to optimize for
+different objectives~\cite{York2018}. For the aircraft model in question, we optimized for 7 different objectives, and show
+the non-dimensionalized results in Table~\ref{tab:nondimresults}.
 
 \begin{table}
     \resizebox{\textwidth}{!}{
@@ -116,33 +87,41 @@ The red, blue and yellow correspond to $\frac{W_f}{L/D}$, $D$, $W_f$ and objecti
     }
 \caption{Non-dimensionalized variations in objective values with respect to the aircraft optimized
 for different objectives. Objective values were normalized by the total fuel solution.}
+    \label{tab:nondimresults}
 \end{table}
 
 To further demonstrate the capabilities of robust SPs in aircraft design,
 we performed the optimization of the aircraft with no uncertainty and ellipsoidal uncertainty ($\Gamma = 1$)
 for two more objective functions, and plotted the results on spider plots.
-Spider plots are useful because they allow engineers to find non-dominated solutions among the solutions
-that lie on the Pareto frontier of potential objective functions. The objective functions chosen
-for this analysis were fuel burn over lift-to-drag ratio ($\frac{W_f}{L/D}$), drag ($D$), and fuel burn ($W_f$).
+Spider plots are useful because they allow engineers to see the performance of different designs in a multi-objective
+environment. Due to the large disparities in the potential values of design variables depending
+on objective as shown in Table~\ref{tab:nondimresults}, we chose to demonstrate this using four objective functions
+that would be expected to have a high degree of correlation and therefore yield similar aircraft designs. These were
+ total (time and fuel) cost, total fuel, takeoff weight and mid-cruise lift-over-drag (L/D).
 
-In the spider plots in Figures \ref{fig:spiderplotnoUncert} and \ref{fig:spiderplotEllUncert},
-none of the solutions are non-dominated for both the no uncertainty and ellipsoidal uncertainty cases.
-In a GP, it is not possible that one of the solutions is non-dominated since the solutions are globally optimal.
-But since there is no guarantee in optimality for SPs, it is possible to find non-dominated solutions if
-the obtained solution is a local optimum.
+\begin{figure}
+    \includegraphics[width = 0.95\linewidth]{figures/4objradar.png}
+    \caption{The spider plots of aircraft optimized for different objectives.
+    The bolded titles are the design objectives for each plot, whereas the individual spiderwebs
+    show the non-dimensionalized multiobjective performance of the aircraft designed under different
+    uncertainty sets.}
+    \label{fig:spider}
+\end{figure}
 
-In the case where there is no non-dominated solution such as this one,
-we take the internal areas of the triangle formed by each optimization to be the figure of merit.
-The smaller the area in the triangle, the higher the performance of the proposed solution.
-In the no uncertainty case shown in Figure~\ref{fig:spiderplotnoUncert}, the red solution with the
-objective of $\frac{W_f}{L/D}$ has the smallest internal area. In the ellipsoidal case shown in
-Figure~\ref{fig:spiderplotEllUncert}, the blue solution with the objective of $D$ has the smallest internal area.
+In the spider plots in Figure~\ref{fig:spider}, it is possible to see the effect of robustness on
+the different performance metrics of the different aircraft. One way to envision the multi-objective
+performance of the aircraft is to consider the area contained within the web defined by the aircraft's
+performance; the smaller the web area the beter.
+
+For example, for the nominal case, which has no uncertainty, it is possible to see that
+the aircraft designed for total fuel performs the best when all four objectives are considered.
+However, this behavior changes when uncertainty is added. An aircraft optimized for total cost
+(bottom left graph) with a box uncertainty set (in green) has better multiobjective performance
+compared to an aircraft designed for total fuel with the same uncertainties.
 
 This is an interesting result, because the presence of an uncertainty set is
 shown to affect the efficacy of different objective functions to obtain solutions
-with the best overall performance. The differences between the objective functions
-in the simple aircraft design problem are minute, because the different potential objectives
-have a high degree of coupling. It is likely that, if the three objective functions didn't
+with the best overall performance. If the three objective functions didn't
 have high degree of coupling, that the internal areas of the solution triangles may differ
 more significantly.
 
