@@ -5,9 +5,9 @@ based on our previous discussion on robust geometric programming.
 
 \subsection{General RSP Solver}
 As mentioned before, a common heuristic algorithm to solve an SP is
-by sequentially solving local GP approximations, but the solution is not guaranteed
+by sequentially solving local \gls{gp} approximations, but the solution is not guaranteed
 to be globally optimal. Our approach to solve an RSP is based on sequentially solving
-local RGP approximations. Below we provide a step-by-step algorithm to solve an RSP:
+local \gls{rgp} approximations. Below we provide a step-by-step algorithm to solve an \gls{rsp}:
 
 \begin{enumerate}
     \item Choose an initial guess $x_0$
@@ -65,7 +65,7 @@ for each large posynomial. The modified algorithm would become as follows:
                 such that $\phi$ minimizes $\textstyle{\sum}_{k=1}^{|S_{i,j}|/2}
         {\displaystyle \max_{\vec{\zeta} \in \mathcal{Z}}} \left\{e^{\mathcal{L}^{\phi_{2k-1}}_{i,j}} +
         e^{\mathcal{L}^{\phi_{2k}}_{i,j}}\right\}\bigg\rvert_{\vec{x}_i}$
-        \item Solve the approximate tractable counterparts of the local GP in
+        \item Solve the approximate tractable counterparts of the local \gls{gp} in
                 \eqref{GP_counterparts_tractable}, and let $\vec{x}_{i+1}$ be the solution
         \item If $x_{i+1} \approx x_{i}$: break
     \end{enumerate}

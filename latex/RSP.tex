@@ -1,5 +1,6 @@
 \section{Robust Signomial Programming} \label{RSP}
-Robust signomial programming (RSP) assumes that parameter uncertainties belong to an uncertainty set, and solves the design problem to find the best solution as shown in Figure \ref{block_diag}. This section introduces RSPs and derives the intractable formulation of an RSP.
+Robust signomial programming (RSP) assumes that parameter uncertainties belong to an uncertainty set, and solves the design problem to find the best solution
+as shown in Figure~\ref{block_diag}. This section introduces RSPs and derives the intractable formulation of an RSP.
 
 \begin{figure}[h]
 	\centering
@@ -11,11 +12,11 @@ Robust signomial programming (RSP) assumes that parameter uncertainties belong t
 An SP in its \textbf{exponential form} is as follows:
 
 \begin{equation}
+    \label{SP_exponential}
 \begin{aligned}
 	& \min && f_0\left(\vec{x}\right) \\
 	& \text{s.t.} && \textstyle{\sum}_{k=1}^{K_i}e^{\vec{a_{ik}}\vec{x} + b_{ik}} - \textstyle{\sum}_{k=1}^{G_i}e^{\vec{c_{ik}}\vec{x} + d_{ik}} \leq 0 \quad \forall i \in 1,...,m\\
 \end{aligned}
-\label{SP_exponential}
 \end{equation}
 
 Let $\vec{a_{ik}}$ and $\vec{c_{ik}}$ be the $((i-1)\times m + k)^{th}$ rows of the exponents matrices $\mat{A}$ and $\mat{C}$ respectively, and $b_{ik}$ and $d_{ik}$ be the $((i-1)\times m + k)^{th}$ elements of the coefficients vectors $\vec{b}$ and $\vec{d}$ respectively.
