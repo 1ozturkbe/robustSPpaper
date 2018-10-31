@@ -1,13 +1,43 @@
 \section{Robust Signomial Programming} \label{RSP}
 Robust signomial programming (RSP) assumes that parameter uncertainties belong to an uncertainty set, and solves the design problem to find the best solution
-as shown in Figure~\ref{block_diag}. This section introduces RSPs and derives the intractable formulation of an RSP.
+as shown in Figure~\ref{fig:blockdiag}. This section introduces RSPs and derives the intractable formulation of an RSP.
 
-\begin{figure}[h]
-	\centering
-	\includegraphics{figures/RSP_Diagram.png}
-	\caption{A block diagram showing the difference between the design process using an SP and an RSP.}
-	\label{block_diag}
+%\begin{figure}[h]
+%	\centering
+%	\includegraphics{figures/RSP_Diagram.png}
+%	\caption{A block diagram showing the difference between the design process using an SP and an RSP.}
+%	\label{block_diag}
+%\end{figure}
+
+\begin{figure}
+    \begin{center}
+    \begin{tikzpicture}[auto, align=center, text width=2.75cm, scale = 0.85]
+        \begin{scope}[node distance=2cm]
+        \node[block, name=reqs] at (0,0) (reqs) {Requirements \\ Performance \\ Resources};
+        \node[block, name=SPmodels] at (6,0) (SPmodels) {SP compatible \\ models};
+        \node[block, name=optimum] at (6,-4) (optimum) {Optimal solution \\ Sensitivities};
+        \node[block, name=distr] at (14,0) (distr) {Distributions \\ Ranges...};
+        \node[block, name=sets] at (14,-4) (sets) {Generate \\ uncertainty sets};
+        \node[block, name=reformulate] at (10,-4) (reformulate) {Reformulate constraints};
+		\node[name=dummy] at (6, 0.5) (dummy) {};
+
+		    \draw[vecArrow] (reqs) -- node[name=modeling] {\small Modeling} (SPmodels);
+			\draw[vecArrow] (SPmodels)to (optimum);
+			\draw[vecArrow] (SPmodels) -- node[name=detuncert] {\small Determine uncertainties} (distr);
+			\draw[vecArrow] (distr) -- node[name=modeluncert] {\small Model uncertainties} (sets);
+ 			\draw[vecArrow] (sets) to (reformulate);
+			\draw[vecArrow] (reformulate) to (optimum);
+
+		\node[name=SP,label={[xshift=0.0cm, yshift=-3.0cm]\large Signomial Programming},fit=(reqs)(SPmodels)(optimum), draw] {};
+		\node[name=RSP,label={[xshift=0.0cm, yshift=0.0cm]\large Robust \\ Signomial \\ Programming \\},
+		fit=(SP)(reqs)(SPmodels)(optimum)(distr)(sets)(reformulate)(modeluncert)(detuncert)(modeling)(dummy), draw] {};
+		\end{scope}
+    \end{tikzpicture}
+    \caption{A block diagram showing the difference between the design process using an SP and an RSP.}
+        \label{fig:blockdiag}
+\end{center}
 \end{figure}
+
 
 An SP in its \textbf{exponential form} is as follows:
 
