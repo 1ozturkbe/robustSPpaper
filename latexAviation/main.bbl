@@ -1,0 +1,99 @@
+\begin{thebibliography}{10}
+\newcommand{\enquote}[1]{``#1''}
+
+\bibitem{Saab2018}
+Saab, A., Burnell, E., and Hoburg, W.~W., \enquote{{Robust Designs via
+  Geometric Programming},} 2018, pp.~1--23.
+
+\bibitem{Zang2002}
+Zang, T.~a., Hemsch, M.~J., Hilburger, M.~W., Kenny, S.~P., Luckring, J.~M.,
+  Maghami, P., Padula, S.~L., and Stroud, W.~J., \enquote{{Needs and
+  opportunities for uncertainty-based multidisciplinary design methods for
+  aerospace vehicles},} {\em Nasa Tm\/}, Vol.~211462, No. July, 2002.
+
+\bibitem{York2018}
+York, M.~A., {\"{O}}zt{\"{u}}rk, B., Burnell, E., and Hoburg, W.~W.,
+  \enquote{Efficient Aircraft Multidisciplinary Design Optimization and
+  Sensitivity Analysis via Signomial Programming,} 2018, pp.~1--16.
+
+\bibitem{Yao2011}
+Yao, W., Chen, X., Luo, W., van Tooren, M., and Guo, J., \enquote{Review of
+  uncertainty-based multidisciplinary design optimization methods for aerospace
+  vehicles,} {\em Progress in Aerospace Sciences\/}, Vol.~47, No.~6, 2011,
+  pp.~450 -- 479.
+
+\bibitem{Diwekar2008}
+Diwekar, U., {\em {Introduction to Applied Optimization}\/}, Vol.~22, 2008.
+
+\bibitem{Bertsimas2011}
+Bertsimas, D., Brown, D.~B., and Caramanis, C., \enquote{{Theory and
+  Applications of Robust Optimization},} {\em Society for Industrial and
+  Applied Mathematics\/}, 2011.
+
+\bibitem{Kall1982}
+Kall, P. and Stoyan, D., \enquote{{Solving stochastic programming problems with
+  recourse including error bounds},} {\em Math. Operationsforsch. Statist. Ser.
+  Optim.\/}, Vol.~13, No.~3, 1982, pp.~431--447.
+
+\bibitem{Higle1991}
+Higle, J.~L. and Sen, S., \enquote{{Stochastic Decomposition: An Algorithm for
+  Two-Stage Linear Programs with Recourse},} {\em Mathematics of Operations
+  Research\/}, Vol.~16, No.~3, 1991, pp.~650--669.
+
+\bibitem{Pereira1991}
+Pereira, M. and Pinto, L., \enquote{{Multi-stage stochastic optimization
+  applied to energy planning},} {\em Mathematical Programming\/}, Vol.~52, No.
+  1-3, 1991, pp.~359--375.
+
+\bibitem{Bertsimas2013}
+Bertsimas, D., Gupta, V., and Kallus, N., \enquote{{Data-Driven Robust
+  Optimization},} 2013.
+
+\bibitem{Duffin1967}
+Duffin, R., Peterson, E., and Zener, C., {\em Geometric programming: theory and
+  application\/}, Wiley New York, 1967.
+
+\bibitem{Nesterov1994}
+Nesterov, Y. and Nemirovski, A., {\em Interior-Point Polynomial Algorithms in
+  Convex Programming\/}, Society for Industrial and Applied Mathematics, 1994.
+
+\bibitem{Boyd2007}
+Boyd, S., Kim, S.-J., Vandenberghe, L., and Hassibi, A., \enquote{A tutorial on
+  geometric programming,} {\em Optimization and Engineering\/}, Vol.~8, No.~1,
+  Oct 2007, pp.~67–127.
+
+\bibitem{Hoburg2013}
+Hoburg, W.~W., Ghaoui, L.~E., and Packard, A., \enquote{{Aircraft Design
+  Optimization as a Geometric Program},} 2013.
+
+\bibitem{Burton2017}
+Burton, M.~J. and Hoburg, W.~W., \enquote{{Solar-Electric and Gas Powered,
+  Long-Endurance UAV Sizing via Geometric Programming},} {\em 18th AIAA/ISSMO
+  Multidisciplinary Analysis and Optimization Conference\/}, , No. June, 2017,
+  pp.~1--26.
+
+\bibitem{Kirschen2018}
+Kirschen, P.~G., York, M.~A., Ozturk, B., and Hoburg, W.~W.,
+  \enquote{Application of Signomial Programming to Aircraft Design,} {\em
+  Journal of Aircraft\/}, Vol.~55, No.~3, 2018, pp.~965–987.
+
+\bibitem{Kirschen2016}
+Kirschen, P.~G., Burnell, E., and Hoburg, W., \enquote{Signomial Programming
+  Models for Aircraft Design,} {\em 54th AIAA Aerospace Sciences Meeting\/},
+  Feb 2016.
+
+\bibitem{Ozturk2018}
+Ozturk, B., \enquote{{Conceptual Engineering Design and Optimization
+  Methodologies using Geometric Programming},} 2018.
+
+\bibitem{Lipp2016}
+Lipp, T. and Boyd, S., \enquote{{Variations and extension of the convex –
+  concave procedure},} {\em Optimization and Engineering\/}, Vol.~17, No.~2,
+  2016, pp.~263--287.
+
+\bibitem{hsiung_kim_boyd_2007}
+Hsiung, K.-L., Kim, S.-J., and Boyd, S., \enquote{Tractable approximate robust
+  geometric programming,} {\em Optimization and Engineering\/}, Vol.~9, No.~2,
+  Apr 2007, pp.~95–118.
+
+\end{thebibliography}

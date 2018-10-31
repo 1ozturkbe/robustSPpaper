@@ -1,0 +1,16 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: main.aux
+Case mismatch error between cite keys saab2018 and Saab2018
+---line 54 of file main.aux
+ : \citation{saab2018
+ :                   }
+I'm skipping whatever remains of this command
+The style file: aiaa.bst
+Database file #1: main.bib
+Warning--empty journal in Saab2018
+Warning--empty journal in York2018
+Warning--empty publisher in Diwekar2008
+Warning--empty journal in Bertsimas2013
+Warning--empty journal in Hoburg2013
+Warning--there's a number but no volume in Burton2017
+Warning--empty journal in Ozturk2018
+(There was 1 error message)
