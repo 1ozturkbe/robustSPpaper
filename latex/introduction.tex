@@ -48,7 +48,7 @@ that result from it.
 
 \subsection{Approaches to optimization under uncertainty}
 
-Faced with the challenge of developing general \gls{nlp}s that can incorporate uncertainty,
+Faced with the challenge of developing general nonlinear programs that can incorporate uncertainty,
 the aerospace field has developed a number of mathematically non-rigorous methods to
 design under uncertainty. Oftentimes, aerospace engineers will implement
 \textit{margins} in the design process to account for uncertainties in parameters that a design's feasibility
@@ -74,22 +74,24 @@ of problems of stochastic uncertainty. We explore the latter.}
 deals with probability distributions of
 uncertain parameters by propagating these uncertainties through the
 physics of a design problem to ensure constraint feasibility with certain probabilistic guarantees.
-The goal of \gls{so} is minimize the expectation of an objective function~\cite{Diwekar2008}.
+The goal of \gls{so} is predominantly to minimize the expectation of an objective function, or
+to optimize on some desired characteristic of the probability density function of the objective~\cite{Diwekar2008}.
 Robust optimization takes a different approach, instead choosing to make designs immune to
 uncertainties in parameters as long as the parameter values come from within the defined
-uncertainty set. \gls{ro} minimizes the worst-case objective outcome from a defined uncertainty set.
+uncertainty set. As such, \gls{ro} minimizes the worst-case objective outcome from a defined uncertainty set.
 
 \subsection{Advantages of robust over stochastic optimization}
 
 The formulation of stochastic models as \gls{ro} problems has many advantages
-over general stochastic optimization methods, as summarized in~\cite{Bertsimas2011},
+over general stochastic optimization methods, as explored in detail in~\cite{Bertsimas2011},
 and fall into three categories, which are tractability, conservativeness and flexibility.
 \gls{ro} is more tractable than \gls{so} due to the nature of uncertainty propagation.
 General stochastic methods involve the propagation of uncertainties throughout a model
 to determine their effects on constraint feasibility and the objective function.
 This requires the integration of the product of probability distributions with potential outcomes,
 and since the integration of continuous functions is difficult this is often achieved through
-a discretization of the uncertainty into possible scenarios. The propagation of parameter
+a combination of multi-dimensional quadrature and discretizations of the uncertainty into
+possible scenarios. The propagation of parameter
 scenarios results in a combinatorial explosion of possible outcomes which need to be evaluated to determine constraint
 satisfaction and the distribution of the objective.
 

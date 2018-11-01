@@ -29,10 +29,10 @@ to examine average design performance.\\
         % \caption{Box Uncertainty Set Probability of Failure}
     \end{subfigure}
     \caption{Performance of the optimal robust signomial simple aircraft, using the Best Pairs formulation, as a function of $\Gamma$ for different uncertainty sets.}
-    \label{signomial_var_gamma}
+    \label{fig:probOfFailure}
 \end{figure}
 
-We can see from Figure \ref{signomial_var_gamma} that probability of failure goes to zero as $\Gamma$ increases. 
+We can see from Figure \ref{fig:probOfFailure} that probability of failure goes to zero as $\Gamma$ increases.
 Obviously, it is worth using elliptical uncertainty sets for this aircraft design problem as the performance is significantly better than that of a box uncertainty set, despite the increase in complexity. 
 Moreover, using margins would in the best case be as good as using a box uncertaintyset, and therefore will lead to an inferior performance.
 
@@ -125,42 +125,10 @@ with the best overall performance. If the three objective functions didn't
 have high degree of coupling, that the internal areas of the solution triangles may differ
 more significantly.
 
-%\begin{figure}
-%\begin{center}
-%\begin{tikzpicture}[scale=0.5]
-%\tkzKiviatDiagram{$\frac{W_f}{L/D}$,$D$,$W_f$}
-%%solve for {W_f}{L/D}
-%\tkzKiviatLine[thick,
-%color=red,
-%mark=ball,
-%ball color=red,
-%mark size=3pt,opacity=.2,
-%fill=red!20](568.6/100,1051/150,13500/1500)
-%%solve for D
-%\tkzKiviatLine[thick,
-%color=blue,
-%mark=ball,
-%mark size=3pt,
-%fill=blue!20,
-%opacity=.5](587/100,1024/150,13100/1500)
-%% solve for {W_f}
-%\tkzKiviatLine[thick,
-%color=yellow,
-%mark=ball,
-%mark size=3pt,
-%fill= yellow!20,
-%opacity=.5](687.9/100,1155/150,11900/1500)
-%\end{tikzpicture}
-%\end{center}
-%\caption[Uncertain Spider Plot]{Design optimization of the aircraft with ellipsoidal uncertainty for 3 different objective functions.
-%The red, blue and yellow correspond to $\frac{W_f}{L/D}$, $D$, $W_f$ and objectives respectively.}
-%% tkz-kiviat documentation here in FRENCH: http://mirror.jmu.edu/pub/CTAN/macros/latex/contrib/tkz/tkz-kiviat/doc/TKZdoc-kiviat-main.pdf
-%\label{fig:spiderplotEllUncert}
-%\end{figure}
+\subsection{Risk minimization problems}
 
-\subsection{Goal Programming}
-
-However, this assumes that we have an understanding of exactly how much risk we are
+All of the previous multi-objective analyses have assumed that we have an
+understanding of exactly how much risk we are
 willing to tolerate. This begs the question, could we have risk as the output of our
 model? This would suggest the following formulation:
 
@@ -172,9 +140,16 @@ model? This would suggest the following formulation:
     \label{eq:goalprogramming}
 \end{align*}
 
-where $f_0^*$ is the optimum of the original problem in Formulation~\ref{eq:normform}, $\delta$
+where $f_0^*$ is the optimum of the nominal problem in Formulation~\ref{eq:normform}, $\delta$
 is a fractional measure of the objective that we are willing to sacrifice for robustness, which
-gives $(1+\delta)f_0^*$ as the upper bound on the objective value.
+gives $(1+\delta)f_0^*$ as the upper bound on the objective value. Intuitively,
+this is a form of goal programming,
+where we specify the exact maximum worst-case value of an objective we can tolerate so that the program
+risk is acceptable, but in the meanwhile maximize the total size of the uncertainty we can handle.
+
+As a proof of the concept of this method, we can perform the same probability of failure
+analysis as in Figure~\ref{fig:probOfFailure}, but have the objective bound be an input to the
+optimization problem and the $\Gamma$ of the uncertainty set be maximized.
 
 We can also expand this framework to perform multivariate goal programming,
 by changing (a) in the formulation~\ref{eq:goalprogramming} to include all
