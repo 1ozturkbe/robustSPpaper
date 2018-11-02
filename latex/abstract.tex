@@ -1,19 +1,18 @@
 \begin{abstract}
 
 Aircraft design benefits greatly from optimization under uncertainty,
-since design feasibility and objectives can have large sensitivities to
+since design feasibility and performance can have large sensitivities to
 uncertain parameters.
-The traditional, mathematically non-rigorous methods of capturing uncertainty do not adequeately
-explain the tradeoffs between feasibility and optimality, and require prior engineering knowledge
-which may not be available for new aerospace vehicle concepts.
+The traditional, mathematically non-rigorous methods of capturing uncertainty do not adequately
+explain the trade-offs between feasibility and optimality, and require prior engineering knowledge
+which may not be available for novel aerospace vehicle concepts.
 Signomial programs (SPs) are difference-of-convex extensions of geometric programs (GPs), and have demonstrated
 potential in the solution of multidisciplinary non-convex optimization problems such as aircraft design~\cite{York2018}.
-The formulation and solution of robust signomial programs (RSPs) would be beneficial since many parameters
-involved in these problems are prone to uncertainty, and can have significant effects on solution
-performance and feasibility.
+The formulation and solution of robust signomial programs (RSPs) would be beneficial since it
+would allow for conceptual engineering design that captures parametric uncertainty.
 This paper proposes an approximate solution method for an RSP leveraging an
 existing approximate robust geometric programming (RGP) formulation developed by Saab~\cite{Saab2018}.
-The method is based on solving a sequence of RGPs, where each GP is a local approximation of the SP. The
+The method is based on solving a sequence of RGPs, where each RGP is a local approximation of the RSP. The
 paper then discusses the trade-off between robustness and optimality in aircraft design by implementing RSPs on a
 simple aircraft problem, and demonstrates how robustness requirements affect aircraft design decisions.
 

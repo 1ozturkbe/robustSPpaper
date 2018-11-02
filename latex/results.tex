@@ -1,15 +1,21 @@
 \section{Results}
 
-We finally implemented our RSP heuristic algorithm on a simple aircraft design problem. 
-In this problem, we conduct an aerostructural optimization of a wing and fuselage given a payload and a range requirement. 
+%TODO
+WORK IN PROGRESS
 
-% We implemented the RSP formulation ideas above on a simple aircraft design problem, with 12 uncertain variables,
-% and a single signomial constraint. . A short overview of the model follows.
+We implement our RSP heuristic algorithm on a conceptual  aircraft design problem.
+In this problem, we conduct an aerostructural optimization of a wing and fuselage given a payload and a range requirement. 
 
 \subsection{Optimization Results}
 
 The problem is optimized for different sizes of box and elliptical uncertainty sets
-by varying the parameter $\Gamma$ as defined in Appendix \ref{LP_to_GP}.
+by varying the parameter $\Gamma$, as defined in Appendix \ref{LP_to_GP}. Mathematically, for box uncertainty,
+$\Gamma$ is a measure of the centered width in logspace of the defined parameter uncertainty, normalized by the
+standard deviation of the parameter. For elliptical uncertainty, it is the maximum diameter of the Euclidian norm
+ball of $u_i$, which is the number of standard deviations of perturbation of each ith parameter from its nominal value.
+Intuitively, it is a measure of how much risk is being hedged against. $\Gamma = 0$
+implies that all of the parameters take their nominal values with zero uncertainty,
+and larger $\Gamma$ protects against more parameter uncertainty.
 The design variables are then fixed for each solution so that the design can be simulated for
 1000 different realizations of the uncertain parameters in Table~\ref{tab:uncertainties}
 to examine average design performance.\\
@@ -72,11 +78,6 @@ Figure~\ref{compare_signomial} compares the different methodologies in terms of 
 
 \subsection{The Effect of Robustness}
 
-
-%\textbf{TODO: update with 7-objective spider plots. First cite SP_tasopt, then show table and spider plots.
-%Then show how robust results change the spider plots.}
-
-
 One of the benefits of convex and difference-of-convex optimization methods is the ability to optimize for
 different objectives~\cite{York2018}. For the aircraft model in question, we optimized for 7 different objectives, and show
 the non-dimensionalized results in Table~\ref{tab:nondimresults}.
@@ -111,7 +112,7 @@ that would be expected to have a high degree of correlation and therefore yield 
 In the spider plots in Figure~\ref{fig:spider}, it is possible to see the effect of robustness on
 the different performance metrics of the different aircraft. One way to envision the multi-objective
 performance of the aircraft is to consider the area contained within the web defined by the aircraft's
-performance; the smaller the web area the beter.
+performance; the smaller the web area the better.
 
 For example, for the nominal case, which has no uncertainty, it is possible to see that
 the aircraft designed for total fuel performs the best when all four objectives are considered.
@@ -163,6 +164,9 @@ objectives we are interested in.
 The benefit of goal programming is that it allows us to explore multidisciplinary tradeoffs without
 having to enumerate the design space along each objective direction. Furthermore, in design it is not obvious whether
 an objective should in fact be a constraint instead. For example, it's not clear that the design
-of an aircraft is useful if it consumes
+of an aircraft is useful if it consumes...
 
-\subsubsection{Changes in flight envelope}
+%TODO
+WORK IN PROGRESS.
+
+%\subsubsection{Changes in flight envelope}
