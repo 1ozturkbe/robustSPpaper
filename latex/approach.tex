@@ -49,7 +49,7 @@ A quick candidate is the deterministic solution of the uncertain SP, which will 
 
 Any of the previously mentioned methodologies can be used to formulate the local RGP approximation. 
 However, depending on the RGP formulation chosen to solve an RSP, the last formulation and solution
-bloks in Figure \ref{fig:rspsolve} are tweaked slightly for a faster convergence.
+blocks in Figure \ref{fig:rspsolve} are tweaked slightly for a faster convergence.
 \ \\
 \subsection{Best Pairs RSP Solver}
 
@@ -62,10 +62,8 @@ for each large posynomial. The modified algorithm would become as follows:
     \item Repeat
     \begin{enumerate}
         \item Find the local GP approximation of the SP at $x_i$.
-        \item $\forall (i,j) \in \mathbf{P}$, select the new permutations $\phi \in \hat{\mathcal{P}}_{i,j}$
-                such that $\phi$ minimizes $\textstyle{\sum}_{k=1}^{|S_{i,j}|/2}
-        {\displaystyle \max_{\vec{\zeta} \in \mathcal{Z}}} \left\{e^{\mathcal{L}^{\phi_{2k-1}}_{i,j}} +
-        e^{\mathcal{L}^{\phi_{2k}}_{i,j}}\right\}\bigg\rvert_{\vec{x}_i}$.
+        \item for each large posynomial constraint, select the new permutation $\phi$
+                such that $\phi$ minimizes the robust large constraint evaluated at $x_i$
         \item Solve the approximate tractable counterparts of the local \gls{gp} in
                 \eqref{GP_counterparts_tractable}, and let $\vec{x}_{i+1}$ be the solution.
         \item If $x_{i+1} \approx x_{i}$: break.
