@@ -15,7 +15,8 @@ standard deviation of the parameter. For elliptical uncertainty, it is the maxim
 ball of $u_i$, which is the number of standard deviations of perturbation of each ith parameter from its nominal value.
 Intuitively, it is a measure of how much risk is being hedged against. $\Gamma = 0$
 implies that all of the parameters take their nominal values with zero uncertainty,
-and larger $\Gamma$ protects against more parameter uncertainty.
+and larger $\Gamma$ protects against more parameter uncertainty, where a box uncertainty is
+more conservative than elliptical uncertainty.
 The design variables are then fixed for each solution so that the design can be simulated for
 1000 different realizations of the uncertain parameters in Table~\ref{tab:uncertainties}
 to examine average design performance.\\
@@ -162,9 +163,17 @@ objectives we are interested in.
 \end{align*}
 
 The benefit of goal programming is that it allows us to explore multidisciplinary tradeoffs without
-having to enumerate the design space along each objective direction. Furthermore, in design it is not obvious whether
-an objective should in fact be a constraint instead. For example, it's not clear that the design
-of an aircraft is useful if it consumes...
+having to enumerate the design space along each objective direction.
+
+In design it is not obvious whether an objective should in fact be a constraint instead. The most
+fundamental choice that an engineer can make in design is what the objective function is, and it is
+often the case that there are many potential objectives that are conflicting. The term multiobjective optimization is misleading
+because you can only optimize for one objective at once,
+and the design is going to be influenced by how engineers qualitatively weight different objectives.
+Risk minimization makes these implicit decisions explicit, and empowers engineers to choose
+how much performance they would be willing to sacrifice with respect
+to optimal but fragile designs to obtain robust designs, gives a prediction of the margin of error
+for every parameter that they have to make designs feasible.
 
 %TODO
 WORK IN PROGRESS.
