@@ -45,7 +45,7 @@ if __name__ == "__main__":
         m.substitutions.update({'1+\\delta':1+deltas[i]})
         rm = RobustModel(m, 'elliptical', twoTerm=False, gamma=Gamma, x0=hotstart)
         rmsol = rm.robustsolve(verbosity=2)  # solve the robust model
-        gammasGoal[i] = 1/mag(rmsol('\\Gamma'))
+        gammasGoal[i] = mag(rmsol('\\Gamma'))
         costsGoal[i] = mag(rmsol(origcost))
         hotstart = rmsol
 
