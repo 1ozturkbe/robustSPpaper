@@ -5,7 +5,7 @@ considering the parameters in aircraft design that often have the largest uncert
 These uncertainties, given by three times the \gls{cv}\footnote{The \gls{cv}
 is defined as follows: $\text{CV} = \frac{\sigma}{|\mu|}$, where $\sigma$ is the standard deviation and $\mu$ is the mean of the parameter.},
 are listed in Table~\ref{tab:uncertainties}. Since for the rest of this work
-all standard deviations are normalized by the means of the parameters, we will use $3\sigma$
+all standard deviations ($\sigma$) are normalized by the means of the parameters, we will use $3\sigma$
 to represent $3\text{CV}$.
 
 \begin{table}
@@ -34,10 +34,11 @@ $W_{w_{coeff,ii}}$ & wing weight coefficient 2 & 60 & $N/m^2$ & 20\\
 
 The parameter uncertainties reflect aerospace engineering intuition.
 The wing weight coefficients $W_{w_{coeff,i}}$ and $W_{w_{coeff,ii}}$, and the ultimate load factor $N_{ult}$ have
-large $3\sigma$s because build quality of aircraft components often difficult to quantify with a large degree of certainty.
-The payload weight ($W_0$) has a large uncertainty, because it is valuable if the aircraft
-has the flexibility to accommodate larger payloads. Parameters that engineers take to be
+large $3\sigma$s because the build quality of aircraft components is
+often difficult to quantify with a large degree of certainty.
+The payload weight ($W_0$) has a large uncertainty for similar reasons.
+Parameters that engineers take to be
 physical constants ($\mu$, $\rho$) and those that can be determined/manufactured with a relatively
 high degree of accuracy ($S_{wetratio}$, $e$) have relatively low deviations.
 Parameters that require testing to determine ($C_{L_{max}}$, $V_{min}$) have a level of uncertainty
-that reflects the expected variance of the parameters.
+that reflects the expected variance of empirical studies.
