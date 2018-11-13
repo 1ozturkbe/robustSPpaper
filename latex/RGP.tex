@@ -28,13 +28,12 @@ Maximizing a monomial term is equivalent to maximizing an affine function, there
 
 \subsection{Equivalent Intermediate Formulation}
 This formulation is equivalent to the formulation in \eqref{GP_counterparts_finite}, but with smaller, easier to handle posynomial constraints.
-
 Each posynomial term is divided into an equivalent set of smaller posynomials based on the dependence between its monomial terms.
-Figure \ref{fig:partitioning} shows how a constraint can be represented as an equivalent set of smaller posynomial constraints.
+Figure~\ref{fig:partitioning} shows how a constraint can be represented as an equivalent set of smaller posynomial constraints.
 
 \begin{figure}
     \begin{center}
-        \begin{tikzpicture}[auto, align=center,scale = 0.9]
+        \begin{tikzpicture}[auto,scale = 0.9]
             \begin{scope}[node distance=0.5cm]
                 \node[name=P] at (0,0) (P) {$P$};
                 \node[name=equals] at (0.5,0) (equals) {$=$};
@@ -58,17 +57,17 @@ Figure \ref{fig:partitioning} shows how a constraint can be represented as an eq
                 \draw[->] (M2) -- (S2);
                 \draw[->] (M5) -- (S2);
                 \draw[->] (M6) -- (S3);
-
+                \node[name=t1, align=left] at (8, -3) (t1) {$\leq 1$};
+                \node[name=t2, align=left] at (8, -3.5) (t1) {$\leq t_1$};
+                \node[name=t3, align=left] at (8, -4) (t1) {$\leq t_2$};
+                \node[name=t4, align=left] at (8, -4.5) (t1) {$\leq t_3$};
+                \node[name=arrow] at (0.75,-3.75) (arrow) {$\Longleftrightarrow$};
                 \node[name=orig] at (-1,-3.75) (orig) {$max\{P\} \leq 1$};
-                \node[name=c1,align=left] at (4.5,-3) (c1) {$t_1 + t_2 + t3$};
-                \node[name=c2,align=left] at (4.5,-3.5) (c2) {$max\{S_1\} = max\{M_1 + M_3 + M_4\}$};
-                \node[name=c3,align=left] at (4.5,-4) (c3) {$max\{S_2\} = max\{M_2 + M_5\}$};
-                \node[name=c4,align=left] at (4.5,-4.5) (c4) {$max\{S_3\} = max\{M_6\}$};
-                \node[name=t1,align=left] at (8, -3) (t1) {$\leq 1$};
-                \node[name=t2,align=left] at (8, -3.5) (t1) {$\leq t_1$};
-                \node[name=t3,align=left] at (8, -4) (t1) {$\leq t_2$};
-                \node[name=t4,align=left] at (8, -4.5) (t1) {$\leq t_3$};
-                \node[name=arrow] at (0.75,3.75) (arrow) {$\Longleftrightarrow$};
+                \node[name=c1, align=left] at (4.5,-3) (c1) {$t_1 + t_2 + t3$};
+                \node[name=c2, align=left] at (4.5,-3.5) (c2) {$max\{S_1\} = max\{M_1 + M_3 + M_4\}$};
+                \node[name=c3, align=left] at (4.5,-4) (c3) {$max\{S_2\} = max\{M_2 + M_5\}$};
+                \node[name=c4, align=left] at (4.5,-4.5) (c4) {$max\{S_3\} = max\{M_6\}$};
+
             \end{scope}
         \end{tikzpicture}
         \caption{Partitioning of a large posynomial into smaller posynomials requires the addition of auxiliary variables. $S_i$
@@ -78,16 +77,21 @@ Figure \ref{fig:partitioning} shows how a constraint can be represented as an eq
 \end{figure}
 
 The posynomial constraints are categorized into three sets: monomials, two-term posynomials, and large posynomials.
-Monomials are tractable, and two-term posynomials can be well approximated using piecewise-linear functions \cite{hsiung_kim_boyd_2007}.
+Monomials are tractable, and two-term posynomials can be well approximated using piecewise-linear functions~\cite{hsiung_kim_boyd_2007}.
 Finding tractable approximations for large posynomials will be summarized next.
+
 \subsection{Linearized Perturbations Formulation}
-If the exponents are known and certain, then large posynomial constraints can be approximated as signomial constraints. \\
+If the exponents are known and certain, then large posynomial constraints can be approximated as signomial constraints.
 The exponential perturbations in each posynomial are linearized using a modified least squares method, and then the
 posynomial is robustified using techniques from robust linear programming. The resulting set of constraints is \gls{sp} compatible,
 therefore, a robust geometric program can be approximated as a signomial program.
 
 \subsection{Best Pairs Formulation}
-If the exponents are also uncertain, then large posynomials can't be approximated as an \gls{sp}, and it should be further simplified.\\ 
-This formulation aims to maximize each pair of monomials in each posynomial, while finding the best combination of monomials that gives the least conservative solution. \cite{Saab2018} provides a descent algorithm to find locally optimal combinations of the monomials, and shows how the uncertain geometric program can be approximated as a geometric program for polyhedral uncertainty, and a conic optimization problem for elliptical uncertainty with uncertain exponents.
-
-For a detailed description of the above formulations refer to \cite{saab2018}. An algorithm for solving an \gls{rsp} based on the above formulations is provided in the next section.
+If the exponents are also uncertain, then large posynomials can't be approximated as an \gls{sp}, and further simplification is needed.
+This formulation aims to maximize each pair of monomials in each posynomial,
+while finding the best combination of monomials that gives the least conservative solution.
+\cite{Saab2018} provides a descent algorithm to find locally optimal combinations of the monomials,
+and shows how the uncertain geometric program can be approximated as a geometric program for polyhedral uncertainty,
+and a conic optimization problem for elliptical uncertainty with uncertain exponents.
+For a detailed description of the above formulations refer to \cite{Saab2018}.
+An algorithm for solving an \gls{rsp} based on the above formulations is provided in the next section.

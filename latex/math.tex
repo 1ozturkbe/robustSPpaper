@@ -24,12 +24,14 @@ This formulation hedges against the worst-case realization of the uncertainty in
 set. This is often posed by creating an uncertainty set to contain all possible
 realizations of the uncertainty we are concerned about, usually through a norm,
 
-\begin{align*}
-    \label{eq:normform}
+\begin{equation}
+\begin{aligned}
     \text{minimize} &~f_0(x) \\
     \text{s.t.}     &~\underset{u}{\text{max}}~f_i(x,u) \leq 0,~i = 1,\ldots,n \\
                     &~\norm{u} \leq \Gamma \\
-\end{align*}
+\end{aligned}
+        \label{eq:normform}
+\end{equation}
 
 where $\Gamma$ is defined by the user as an uncertainty bound.
 
