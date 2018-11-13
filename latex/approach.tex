@@ -62,8 +62,8 @@ for each large posynomial. The modified algorithm would become as follows:
     \item Repeat
     \begin{enumerate}
         \item Find the local GP approximation of the SP at $x_i$.
-        \item for each large posynomial constraint, select the new permutation $\phi$
-                such that $\phi$ minimizes the robust large constraint evaluated at $x_i$
+        \item For each large posynomial constraint, select the new permutation $\phi$
+                such that $\phi$ minimizes the robust large constraint evaluated at $x_i$.
         \item Solve the approximate tractable counterparts of the local \gls{gp} in
                 \eqref{GP_counterparts_finite}, and let $\vec{x}_{i+1}$ be the solution.
         \item If $x_{i+1} \approx x_{i}$: break.
@@ -86,6 +86,6 @@ GP at each iteration instead of an SP. The algorithm would then become as follow
         \item Robustify the constraints of the local GP approximation using the Linearized Perturbations methodology.
         \item Find the local GP approximation of the resulting local SP at $x_i$.
         \item Solve the local GP approximation in step c to obtain $x_{i+1}$
-        \item If $x_{i+1} \approx x_{i}$: break
+        \item If $x_{i+1} \approx x_{i}$: break.
     \end{enumerate}
 \end{enumerate}
