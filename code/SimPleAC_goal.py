@@ -18,10 +18,11 @@ if __name__ == "__main__":
     # Setting up problem
     m, subs = SimPleAC_setup()
     number_of_time_average_solves = 10
-    number_of_iterations = 100
-    sol , _, _, directly_uncertain_vars_subs = generate_model_properties(m, number_of_time_average_solves, number_of_iterations)  # solving the SimPleAC
-    Gamma = Variable('\\Gamma','-','Uncertainty bound')
-    solBound = Variable('1+\\delta', '-', 'Acceptable optimal solution bound')
+    number_of_iterations = 200
+    sol, _, _, directly_uncertain_vars_subs = generate_model_properties(m, number_of_time_average_solves,
+                                                                        number_of_iterations)  # solving the SimPleAC
+    Gamma = Variable('\\Gamma', '-', 'Uncertainty bound', fix = True)
+    solBound = Variable('1+\\delta', '-', 'Acceptable optimal solution bound', fix = True)
     origcost = m.cost
 
     # Robust models setup
@@ -37,37 +38,44 @@ if __name__ == "__main__":
     method = methods[0]
 
     # Solution using standard method of changing Gamma
-    nGammas = 11
-    gammasGammas = np.linspace(0.001,1.,nGammas)**0.5
+    nGammas = 15
+    gammasGammas = np.linspace(0.85, 1.35, nGammas)
     costsGammas = np.zeros(nGammas)
     poFGammas = np.zeros(nGammas)
     hotstart = sol
     for i in range(nGammas):
-        rm, rmsol, rmsoltime, simulation_results =  simulate_robust_model(m, method, 'elliptical', gammasGammas[i], directly_uncertain_vars_subs,
-                          number_of_iterations, linearization_tolerance, min_num_of_linear_sections,
-                          max_num_of_linear_sections, verbosity, nominal_solution,
-                          number_of_time_average_solves)
+        rm, rmsol, rmsoltime, simulation_results = simulate_robust_model(m, method, 'elliptical', gammasGammas[i],
+                                                                         directly_uncertain_vars_subs,
+                                                                         number_of_iterations, linearization_tolerance,
+                                                                         min_num_of_linear_sections,
+                                                                         max_num_of_linear_sections, verbosity,
+                                                                         nominal_solution,
+                                                                         number_of_time_average_solves)
         costsGammas[i] = mag(rmsol(origcost))
         poFGammas[i] = simulation_results[0]
 
     # Goal programming (risk minimization) setup
-    mGoal = Model(1/Gamma, [m, origcost <= Monomial(sol(origcost))*solBound, Gamma <= 1e30, solBound <= 1e30], m.substitutions)
-    mGoal.substitutions.update({'1+\\delta':1+1e-2})
+    mGoal = Model(1 / Gamma, [m, origcost <= Monomial(sol(origcost)) * solBound, Gamma <= 1e30, solBound <= 1e30],
+                  m.substitutions)
+    mGoal.substitutions.update({'1+\\delta': 1 + 1e-2})
     nominal_solution = mGoal.localsolve()
     ndeltas = nGammas
-    deltas = np.linspace(0.001,2,ndeltas)**0.5
+    deltas = np.linspace(0.001, 2.2, ndeltas)
     gammasGoal = np.zeros(ndeltas)
     costsGoal = np.zeros(ndeltas)
-    poFGoal =  np.zeros(ndeltas)
+    poFGoal = np.zeros(ndeltas)
     hotstart = sol
 
     # Solution using goal programming
     for i in range(ndeltas):
-        mGoal.substitutions.update({'1+\\delta':1+deltas[i]})
-        rm, rmsol, rmsoltime, simulation_results =  simulate_robust_model(mGoal, method, 'elliptical', Gamma, directly_uncertain_vars_subs,
-                          number_of_iterations, linearization_tolerance, min_num_of_linear_sections,
-                          max_num_of_linear_sections, verbosity, nominal_solution,
-                          number_of_time_average_solves)
+        mGoal.substitutions.update({'1+\\delta': 1 + deltas[i]})
+        rm, rmsol, rmsoltime, simulation_results = simulate_robust_model(mGoal, method, 'elliptical', Gamma,
+                                                                         directly_uncertain_vars_subs,
+                                                                         number_of_iterations, linearization_tolerance,
+                                                                         min_num_of_linear_sections,
+                                                                         max_num_of_linear_sections, verbosity,
+                                                                         nominal_solution,
+                                                                         number_of_time_average_solves)
         gammasGoal[i] = mag(rmsol('\\Gamma'))
         costsGoal[i] = mag(rmsol(origcost))
         poFGoal[i] = simulation_results[0]
@@ -78,13 +86,15 @@ if __name__ == "__main__":
     plt.rc('font', family='serif')
 
     plt.figure()
-    plt.plot(gammasGammas,costsGammas)
+    plt.plot(gammasGammas, costsGammas)
     plt.plot(gammasGoal, costsGoal)
-    plt.title('Costs with objective minimization and risk minimization')
     plt.xlabel("Size of uncertainty set, $\Gamma$")
+    plt.ylabel("Normalized fuel burn")
     plt.show()
 
     plt.figure()
     plt.plot(gammasGammas, poFGammas)
     plt.plot(gammasGoal, poFGoal)
+    plt.xlabel("Size of uncertainty set, $\Gamma$")
+    plt.ylabel("Probability of failure")
     plt.show()
