@@ -1,6 +1,6 @@
 \section{Robust Signomial Programming} \label{RSP}
-Robust signomial programming (RSP) assumes that parameter uncertainties belong to an uncertainty set, and solves the design problem to find the best solution
-as shown in Figure~\ref{fig:blockdiag}. This section introduces RSPs and derives the intractable formulation of an RSP.
+Robust signomial programming assumes that parameter uncertainties belong to an uncertainty set, and solves the design problem to find the best solution
+as shown in Figure~\ref{fig:blockdiag}. This section introduces gls{rsp}s and derives the intractable formulation of an gls{rsp}.
 
 %\begin{figure}[h]
 %	\centering
@@ -33,7 +33,7 @@ as shown in Figure~\ref{fig:blockdiag}. This section introduces RSPs and derives
 		fit=(SP)(reqs)(SPmodels)(optimum)(distr)(sets)(reformulate)(modeluncert)(detuncert)(modeling)(dummy), draw] {};
 		\end{scope}
     \end{tikzpicture}
-    \caption{A block diagram showing the difference between the design process using an SP and an RSP.}
+    \caption{A block diagram showing the difference between the design process using an \gls{sp} and an \gls{rsp}.}
         \label{fig:blockdiag}
 \end{center}
 \end{figure}
@@ -75,6 +75,7 @@ of the uncertain \gls{sp} in \eqref{SP_exponential} is:
 \label{SP_counterparts_finite}
 \end{equation}
 
-The optimization problem in \eqref{SP_counterparts_finite} is intractable using current solvers, therefore,  a heuristic approach to solving RSPs approximately
+The optimization problem in \eqref{SP_counterparts_finite} is intractable using current solvers,
+therefore,  a heuristic approach to solving \gls{rsp}s approximately
 as a sequential RGP will be presented in the following sections.
 As our approach is based on Robust Geometric Programming, a brief review of the subject will follow based on \cite{Saab2018}.

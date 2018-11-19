@@ -1,9 +1,6 @@
 \section{Results}
 
-%TODO
-WORK IN PROGRESS
-
-We implement our RSP heuristic algorithm on a conceptual  aircraft design problem.
+We implement our \gls{rsp} heuristic algorithm on a conceptual  aircraft design problem.
 In this problem, we conduct an aerostructural optimization of a wing and fuselage given a payload and a range requirement. 
 
 \subsection{Optimization Results}
@@ -77,7 +74,7 @@ Figure~\ref{compare_signomial} compares the different methodologies in terms of 
     \label{compare_signomial}
 \end{figure}
 
-\subsection{The Effect of Robustness}
+\subsection{The Effect of Robustness on Multiobjective Performance}
 
 One of the benefits of convex and difference-of-convex optimization methods is the ability to optimize for
 different objectives~\cite{York2018}. For the aircraft model in question, we optimized for 7 different objectives, and show
@@ -92,11 +89,13 @@ for different objectives. Objective values were normalized by the total fuel sol
     \label{tab:nondimresults}
 \end{table}
 
-To further demonstrate the capabilities of robust SPs in aircraft design,
+To further demonstrate the capabilities of \gls{rsp}s in aircraft design,
 we performed the optimization of the aircraft with no uncertainty and ellipsoidal uncertainty ($\Gamma = 1$)
 for two more objective functions, and plotted the results on spider plots.
 Spider plots are useful because they allow engineers to see the performance of different designs in a multi-objective
-environment. Due to the large disparities in the potential values of design variables depending
+environment. One way to envision the multi-objective
+performance of the aircraft is to consider the area contained within the web defined by the aircraft's
+performance; the smaller the web area the better. Due to the large disparities in the potential values of design variables depending
 on objective as shown in Table~\ref{tab:nondimresults}, we chose to demonstrate this using four objective functions
 that would be expected to have a high degree of correlation and therefore yield similar aircraft designs. These were
  total (time and fuel) cost, total fuel, takeoff weight and mid-cruise lift-over-drag (L/D).
@@ -111,12 +110,10 @@ that would be expected to have a high degree of correlation and therefore yield 
 \end{figure}
 
 In the spider plots in Figure~\ref{fig:spider}, it is possible to see the effect of robustness on
-the different performance metrics of the different aircraft. One way to envision the multi-objective
-performance of the aircraft is to consider the area contained within the web defined by the aircraft's
-performance; the smaller the web area the better.
-
+the different performance metrics of the different aircraft.
 For example, for the nominal case, which has no uncertainty, it is possible to see that
-the aircraft designed for total fuel performs the best when all four objectives are considered.
+the aircraft designed for total fuel performs the best when all four objectives are considered,
+assuming that all objectives are weighted equally.
 However, this behavior changes when uncertainty is added. An aircraft optimized for total cost
 (bottom left graph) with a box uncertainty set (in green) has better multiobjective performance
 compared to an aircraft designed for total fuel with the same uncertainties.
@@ -131,11 +128,11 @@ more significantly.
 
 All of the previous multi-objective analyses have assumed that we have an
 understanding of exactly how much risk we are
-willing to tolerate. This begs the question, could we have risk as the output of our
-model? This would suggest the following formulation:
+willing to tolerate. However, it would also make sense if risk was the objective of our
+model. This would suggest the following formulation:
 
 \begin{align*}
-    \text{maximize} &~\Gamma \\
+    \text{max} &~\Gamma \\
     \text{s.t.}     &~f_i(x,u) \leq 0, i = 1,\ldots,n \\
                     & \norm{u} \leq \Gamma \\
                     &~f_0(x) \leq (1+\delta)f_0^*,~\delta \geq 0 \tag{a}
@@ -149,9 +146,12 @@ this is a form of goal programming,
 where we specify the exact maximum worst-case value of an objective we can tolerate so that the program
 risk is acceptable, but in the meanwhile maximize the total size of the uncertainty we can handle.
 
-As a proof of the concept of this method, we can perform the same probability of failure
+The problem in Formulation~\ref{eq:goalprogramming} is not equivalent to the problem in Formulation~\ref{eq:normform},
+but should yield the same result. As a proof of concept, we perform the same probability of failure
 analysis as in Figure~\ref{fig:probOfFailure}, but have the objective bound be an input to the
 optimization problem and the $\Gamma$ of the uncertainty set be maximized.
+
+%TODO insert pof plots here
 
 We can also expand this framework to perform multivariate goal programming,
 by changing (a) in the formulation~\ref{eq:goalprogramming} to include all
@@ -175,7 +175,6 @@ how much performance they would be willing to sacrifice with respect
 to optimal but fragile designs to obtain robust designs, gives a prediction of the margin of error
 for every parameter that they have to make designs feasible.
 
-%TODO
-WORK IN PROGRESS.
+\subsection{More suggested applications of robust design}
 
-%\subsubsection{Changes in flight envelope}
+This framework could also be used to develop

@@ -1,6 +1,6 @@
 \section{Robust Geometric Programming} \label{RGP}
-This section presents a brief review of the approximation of an RGP as a tractable optimization problem as discussed in~\cite{Saab2018}.
 
+This section presents a brief review of the approximation of an RGP as a tractable optimization problem as discussed in~\cite{Saab2018}.
 The robust counterparts of an uncertain geometric program is:
 
 \begin{equation}
@@ -11,7 +11,7 @@ The robust counterparts of an uncertain geometric program is:
 \label{GP_counterparts_finite}
 \end{equation}
 
-which is Co-NP hard in its natural posynomial form \cite{RGPcoNP}. We will present three approximate formulations of an \gls{rgp}
+which is Co-NP hard in its natural posynomial form \cite{RGPcoNP}. We will present three approximate formulations of a \gls{rgp}.
 
 \subsection{Simple Conservative Formulation}
 One way to approach the intractability in \eqref{GP_counterparts_finite} is to replace each constraint by a tractable approximation.
@@ -27,8 +27,10 @@ Replacing the max-of-sum in \eqref{GP_counterparts_finite} by the sum-of-max wil
 Maximizing a monomial term is equivalent to maximizing an affine function, therefore \eqref{GP_safe_conservative} is tractable.
 
 \subsection{Equivalent Intermediate Formulation}
+
 This formulation is equivalent to the formulation in \eqref{GP_counterparts_finite}, but with smaller, easier to handle posynomial constraints.
-Each posynomial term is divided into an equivalent set of smaller posynomials based on the dependence between its monomial terms.
+By the properties of inequalities, the posynomial $P$ in posynomial inequality $ M \geq  P$ can be
+divided into an equivalent set of smaller posynomials based on the dependence between its monomial terms.
 Figure~\ref{fig:partitioning} shows how a constraint can be represented as an equivalent set of smaller posynomial constraints.
 
 \begin{figure}
@@ -76,17 +78,19 @@ Figure~\ref{fig:partitioning} shows how a constraint can be represented as an eq
     \end{center}
 \end{figure}
 
-The posynomial constraints are categorized into three sets: monomials, two-term posynomials, and large posynomials.
-Monomials are tractable, and two-term posynomials can be well approximated using piecewise-linear functions~\cite{hsiung_kim_boyd_2007}.
-Finding tractable approximations for large posynomials will be summarized next.
+The posynomial constraints are categorized into three sets: large posynomials, two-term posynomials and monomials,
+represented by $S1$, $S2$ and $S3$ respectively.
+Monomials are tractable, and two-term posynomials can be well approximated using piecewise-linear
+functions~\cite{hsiung_kim_boyd_2007}.
+We implement the following two tractable approximations for large posynomials.
 
-\subsection{Linearized Perturbations Formulation}
+\subsubsection{Linearized Perturbations Formulation}
 If the exponents are known and certain, then large posynomial constraints can be approximated as signomial constraints.
 The exponential perturbations in each posynomial are linearized using a modified least squares method, and then the
 posynomial is robustified using techniques from robust linear programming. The resulting set of constraints is \gls{sp} compatible,
 therefore, a robust geometric program can be approximated as a signomial program.
 
-\subsection{Best Pairs Formulation}
+\subsubsection{Best Pairs Formulation}
 If the exponents are also uncertain, then large posynomials can't be approximated as an \gls{sp}, and further simplification is needed.
 This formulation aims to maximize each pair of monomials in each posynomial,
 while finding the best combination of monomials that gives the least conservative solution.

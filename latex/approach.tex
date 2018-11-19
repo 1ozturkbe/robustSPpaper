@@ -3,25 +3,25 @@
 This section presents a heuristic algorithm to safely solve a \gls{rsp}
 based on our previous discussion on robust geometric programming.
 
-\subsection{General RSP Solver}
-As mentioned before, a common heuristic algorithm to solve an SP is
+\subsection{General \gls{rsp} Solver}
+As mentioned before, a common heuristic algorithm to solve an \gls{sp} is
 by sequentially solving local \gls{gp} approximations, but the solution is not guaranteed
-to be globally optimal. Our approach to solve an RSP is based on sequentially solving
+to be globally optimal. Our approach to solve an \gls{rsp} is based on sequentially solving
 local \gls{rgp} approximations. Below we provide a step-by-step algorithm to solve an \gls{rsp}:
 
 \begin{enumerate}
     \item Choose an initial guess $x_0$
     \item Repeat
     \begin{enumerate}
-        \item Find the local GP approximation of the SP at $x_i$.
+        \item Find the local GP approximation of the \gls{sp} at $x_i$.
         \item Find the RGP formulation of the GP.
         \item Solve the RGP to obtain $x_{i+1}$.
         \item If $x_{i+1} \approx x_{i}$: break
     \end{enumerate}
 \end{enumerate}
 
-Similar to an SP, a good initial guess would lead to faster convergence and possibly a better solution.
-A quick candidate is the deterministic solution of the uncertain SP, which will certainly lead to a faster convergence.
+Similar to an \gls{sp}, a good initial guess would lead to faster convergence and possibly a better solution.
+A quick candidate is the deterministic solution of the uncertain \gls{sp}, which will certainly lead to a faster convergence.
 
 \begin{figure}
     \begin{center}
@@ -42,16 +42,16 @@ A quick candidate is the deterministic solution of the uncertain SP, which will 
         \draw[->] (xi) -- node[name=yes] {Yes.} (solution);
         \end{scope}
     \end{tikzpicture}
-    \caption{A block diagram showing the steps of solving an RSP.}
+    \caption{A block diagram showing the steps of solving an \gls{rsp}.}
         \label{fig:rspsolve}
 \end{center}
 \end{figure}
 
 Any of the previously mentioned methodologies can be used to formulate the local RGP approximation. 
-However, depending on the RGP formulation chosen to solve an RSP, the last formulation and solution
+However, depending on the RGP formulation chosen to solve an \gls{rsp}, the last formulation and solution
 blocks in Figure \ref{fig:rspsolve} are tweaked slightly for a faster convergence.
 \ \\
-\subsection{Best Pairs RSP Solver}
+\subsection{Best Pairs \gls{rsp} Solver}
 
 If the Best Pairs methodology is exploited, then the above algorithm would change so that
 each iteration would solve the local RGP approximation and choose the best permutation
@@ -74,9 +74,9 @@ for each large posynomial. The modified algorithm would become as follows:
 
 On the other hand, if the Linearized Perturbations formulation is to be used,
 then we can avoid solving a \gls{sp} at each iteration by first
-approximating the original SP constraints locally, and in the same loop approximating
+approximating the original \gls{sp} constraints locally, and in the same loop approximating
 the robustified possibly signomial constraints locally, thus solving a
-GP at each iteration instead of an SP. The algorithm would then become as follows:
+\gls{gp} at each iteration instead of an \gls{sp}. The algorithm would then become as follows:
 
 \begin{enumerate}
     \item Choose an initial guess $x_0$.
