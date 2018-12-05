@@ -10,6 +10,7 @@ import os
 from SimPleAC_setup import SimPleAC_setup
 
 import numpy as np
+import multiprocessing as mp
 
 if __name__ == '__main__':
     model, subs = SimPleAC_setup()
@@ -19,19 +20,19 @@ if __name__ == '__main__':
         simulate.generate_model_properties(model, number_of_time_average_solves, number_of_iterations,'normal')
 
     model_name = 'SimPleAC'
-    nGammas = 13
-    gammas = np.linspace(0.55,1.15,nGammas)
+    nGammas = 15
+    gammas = np.linspace(0.85,1.15,nGammas)
     min_num_of_linear_sections = 3
     max_num_of_linear_sections = 30
     linearization_tolerance = 1e-3
     verbosity = 1
 
-    methods = [{'name': 'Best Pairs', 'twoTerm': True, 'boyd': False, 'simpleModel': False},
-               {'name': 'Linearized Perturbations', 'twoTerm': False, 'boyd': False, 'simpleModel': False},
-               {'name': 'Simple Conservative', 'twoTerm': False, 'boyd': False, 'simpleModel': True}]
-    uncertainty_sets = ['box', 'elliptical']
-    # methods = [{'name': 'Best Pairs', 'twoTerm': True, 'boyd': False, 'simpleModel': False}]
-    # uncertainty_sets = ['elliptical']
+    # methods = [{'name': 'Best Pairs', 'twoTerm': True, 'boyd': False, 'simpleModel': False},
+    #            {'name': 'Linearized Perturbations', 'twoTerm': False, 'boyd': False, 'simpleModel': False},
+    #            {'name': 'Simple Conservative', 'twoTerm': False, 'boyd': False, 'simpleModel': True}]
+    # uncertainty_sets = ['box', 'elliptical']
+    methods = [{'name': 'Best Pairs', 'twoTerm': True, 'boyd': False, 'simpleModel': False}]
+    uncertainty_sets = ['elliptical']
 
     variable_gamma_file_name = 'simulation_data_variable_gamma.txt'
 
@@ -64,11 +65,11 @@ if __name__ == '__main__':
 
     relative_objective_values = [mag(v) for i,v in sorted(filteredCosts.iteritems())]
     relative_number_of_constraints = [v/nominal_number_of_constraints for i,v in sorted(filteredn_of_constr.iteritems())]
-    relative_setup_times = [v/nominal_solve_time for v in sorted(filteredsetup_times.iteritems())]
-    relative_solve_times = [v/nominal_solve_time for v in sorted(filteredsolve_times.iteritems())]
+    relative_setup_times = [v/nominal_solve_time for i,v in sorted(filteredsetup_times.iteritems())]
+    relative_solve_times = [v/nominal_solve_time for i,v in sorted(filteredsolve_times.iteritems())]
 
     generate_comparison_plots(relative_objective_values, objective_name, relative_number_of_constraints,
-                              relative_setup_times, relative_solve_times, uncertainty_set, methods)
+                              relative_setup_times, relative_solve_times, uncertainty_set, [method['name'] for method in methods])
 
     # gamma = 1
     # numbers_of_linear_sections = [40, 60]  # [12, 14, 15, 16, 17, 18, 20, 22, 24, 26, 28, 30, 32, 36, 44, 52, 60, 70, 80]
