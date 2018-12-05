@@ -3,7 +3,7 @@
 We implement our \gls{rsp} heuristic algorithm on a conceptual  aircraft design problem.
 In this problem, we conduct an aerostructural optimization of a wing and fuselage given a payload and a range requirement. 
 
-\subsection{Optimization Results}
+\subsection{Mitigation of probability of failure}
 
 The problem is optimized for different sizes of box and elliptical uncertainty sets
 by varying the parameter $\Gamma$, as defined in Appendix \ref{LP_to_GP}. Mathematically, for box uncertainty,
@@ -15,7 +15,7 @@ implies that all of the parameters take their nominal values with zero uncertain
 and larger $\Gamma$ protects against more parameter uncertainty, where a box uncertainty is
 more conservative than elliptical uncertainty.
 The design variables are then fixed for each solution so that the design can be simulated for
-1000 different realizations of the uncertain parameters in Table~\ref{tab:uncertainties}
+different realizations of the uncertain parameters in Table~\ref{tab:uncertainties}
 to examine average design performance.\\
 
 \begin{figure}[ht]
@@ -36,6 +36,8 @@ to examine average design performance.\\
     \label{fig:probOfFailure}
 \end{figure}
 
+We define the probability of failure of a design is the probability that any constraint
+in the design optimization problem is violated when the uncertain parameters are simulated.
 We can see from Figure \ref{fig:probOfFailure} that probability of failure goes to zero as $\Gamma$ increases.
 Obviously, it is worth using elliptical uncertainty sets for this aircraft design problem as the performance is significantly better than that of a box uncertainty set, despite the increase in complexity. 
 Moreover, using margins would in the best case be as good as using a box uncertaintyset, and therefore will lead to an inferior performance.
@@ -163,7 +165,9 @@ objectives we are interested in.
 \end{align*}
 
 The benefit of goal programming is that it allows us to explore multidisciplinary tradeoffs without
-having to enumerate the design space along each objective direction.
+having to enumerate the design space along each objective direction, although this method could be
+used to do so reliably.
+
 
 In design it is not obvious whether an objective should in fact be a constraint instead. The most
 fundamental choice that an engineer can make in design is what the objective function is, and it is
