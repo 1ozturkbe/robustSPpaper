@@ -5,7 +5,7 @@ not an option"\footnote{Quoting Gene Kranz, the mission director of Apollo 13.}.
 This is remarkable since aircraft design problems are rife with uncertainty about
 technological capabilities, environmental factors, manufacturing quality and the
 state of markets and regulatory agencies. Since the program risk of aircraft design
-problems is high, optimization under uncertainty for aircraft presents a lot of
+problems is high, optimization under uncertainty for aircraft presents
 low hanging fruit, since its goal is to be able to provide designs that are robust
 to realizations of uncertainty in the real world.
 
@@ -27,7 +27,7 @@ These are the following:
     the conceptual design process is critical for the long-term success of an aircraft,
     helping reduce the program risk.
     \item \textit{System performance will increase while ensuring that reliability requirements
-    are met. }
+    are met.}
     The effectiveness of an aircraft depends heavily on its
     ability to deliver on performance, which is dependent on assumptions about the
     current technological environment and the ability to produce vehicles of a certain quality.
@@ -67,9 +67,10 @@ and use rigorous mathematics to explore the design space~\cite{York2018}.
 
 There are two rigorous approaches to solving design optimization problems under uncertainty,
 which are \gls{so} and \gls{ro}. Stochastic optimization\footnote{Note that stochastic
-optimization is an overloaded term, and exists in two contexts in the literature. The first is the solution
-of deterministic problems with stochastic search space exploration. The other is the solution
-of problems of stochastic uncertainty. We explore the latter.}
+optimization is an overloaded term, and exists in three contexts in the literature. The first is the solution
+of deterministic problems with stochastic search space exploration. The second is the solution of simulatios,
+often partial differential equations, with uncertain parameters. The final is the solution
+of design optimization problems with stochastic parameters. We explore the third option.}
 deals with probability distributions of
 uncertain parameters by propagating these uncertainties through the
 physics of a design problem to ensure constraint feasibility with certain probabilistic guarantees.
