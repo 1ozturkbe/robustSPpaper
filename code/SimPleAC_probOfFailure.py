@@ -10,57 +10,54 @@ import os
 from SimPleAC_setup import SimPleAC_setup
 
 import numpy as np
-import multiprocessing as mp
 
 if __name__ == '__main__':
     model, subs = SimPleAC_setup()
-    number_of_time_average_solves = 1  # 100
-    number_of_iterations = 100  # 1000
+    number_of_time_average_solves = 3  # 100
+    number_of_iterations = 150  # 1000
     nominal_solution, nominal_solve_time, nominal_number_of_constraints, directly_uncertain_vars_subs = \
         simulate.generate_model_properties(model, number_of_time_average_solves, number_of_iterations,'normal')
 
     model_name = 'SimPleAC'
-    nGammas = 15
-    gammas = np.linspace(0.85,1.15,nGammas)
+    nGammas = 16
+    gammas = np.linspace(0.8,1.05,nGammas)
     min_num_of_linear_sections = 3
-    max_num_of_linear_sections = 30
-    linearization_tolerance = 1e-3
+    max_num_of_linear_sections = 99
+    linearization_tolerance = 1e-4
     verbosity = 1
 
-    # methods = [{'name': 'Best Pairs', 'twoTerm': True, 'boyd': False, 'simpleModel': False},
-    #            {'name': 'Linearized Perturbations', 'twoTerm': False, 'boyd': False, 'simpleModel': False},
-    #            {'name': 'Simple Conservative', 'twoTerm': False, 'boyd': False, 'simpleModel': True}]
-    # uncertainty_sets = ['box', 'elliptical']
-    methods = [{'name': 'Best Pairs', 'twoTerm': True, 'boyd': False, 'simpleModel': False}]
-    uncertainty_sets = ['elliptical']
+    methods = [{'name': 'Best Pairs', 'twoTerm': True, 'boyd': False, 'simpleModel': False},
+               {'name': 'Linearized Perturbations', 'twoTerm': False, 'boyd': False, 'simpleModel': False},
+               {'name': 'Simple Conservative', 'twoTerm': False, 'boyd': False, 'simpleModel': True}]
+    uncertainty_sets = ['box', 'elliptical']
+    # methods = [{'name': 'Best Pairs', 'twoTerm': True, 'boyd': False, 'simpleModel': False}]
+    # uncertainty_sets = ['elliptical']
 
-    variable_gamma_file_name = 'simulation_data_variable_gamma.txt'
-
-    solutions, solve_times, prob_of_failure, avg_cost, number_of_constraints = simulate.variable_gamma_results(
+    solutions, solve_times, simulation_results, number_of_constraints = simulate.variable_gamma_results(
                                              model, methods, gammas, number_of_iterations,
                                              min_num_of_linear_sections,
                                              max_num_of_linear_sections, verbosity, linearization_tolerance,
                                              number_of_time_average_solves,
-                                             uncertainty_sets, nominal_solution, directly_uncertain_vars_subs)
+                                             uncertainty_sets, nominal_solution, directly_uncertain_vars_subs, parallel=False)
 
     # Plotting of cost and probability of failure for Best Pairs with elliptical uncertainty
-    filteredResult = filter_gamma_result_dict(solutions, 1, 'Best Pairs', 2, 'elliptical')
-    filteredPoF = filter_gamma_result_dict(prob_of_failure, 1, 'Best Pairs', 2, 'elliptical')
-    filteredCosts = filter_gamma_result_dict(avg_cost, 1, 'Best Pairs', 2, 'elliptical')
+    filteredResult = filter_gamma_result_dict(solutions, 1, 'Simple Conservative', 2, 'elliptical')
+    filteredSimulations = filter_gamma_result_dict(simulation_results, 1, 'Simple Conservative', 2, 'elliptical')
     objective_name = 'Total fuel weight'
     objective_units = 'N'
     title = ''
-    uncertainty_set = 'elliptical'
-    plot_gamma_result_PoFandCost(title, objective_name, objective_units, filteredResult, filteredPoF, filteredCosts)
+    uncertainty_set = 'box'
+    plot_gamma_result_PoFandCost(title, objective_name, objective_units, filteredResult, filteredSimulations)
 
     #Plotting of solution times
-    gamma = 1.
+    gamma = gammas[14]
     filteredSolutions = filter_gamma_result_dict(solutions, 0, gamma, 2, uncertainty_set)
     filteredsetup_times = {}
     for i in filteredSolutions.iterkeys():
         filteredsetup_times[i] = filteredSolutions[i]['setuptime']
+    filteredSimulations =  filter_gamma_result_dict(simulation_results, 0, gamma, 2, uncertainty_set)
     filteredsolve_times = filter_gamma_result_dict(solve_times, 0, gamma, 2, uncertainty_set)
-    filteredCosts = filter_gamma_result_dict(avg_cost, 0, gamma, 2, uncertainty_set)
+    filteredCosts = {i:v[1] for i,v in filteredSimulations.iteritems()}
     filteredn_of_constr = filter_gamma_result_dict(number_of_constraints, 0, gamma, 2, uncertainty_set)
 
     relative_objective_values = [mag(v) for i,v in sorted(filteredCosts.iteritems())]
