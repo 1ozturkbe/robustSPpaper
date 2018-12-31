@@ -70,7 +70,7 @@ which are \gls{so} and \gls{ro}. Stochastic optimization\footnote{Note that stoc
 optimization is an overloaded term, and exists in three contexts in the literature. The first is the solution
 of deterministic problems with stochastic search space exploration. The second is the solution of simulatios,
 often partial differential equations, with uncertain parameters. The final is the solution
-of design optimization problems with stochastic parameters. We explore the third option.}
+of design optimization problems with stochastic parameters. We explore the third interpretation.}
 deals with probability distributions of
 uncertain parameters by propagating these uncertainties through the
 physics of a design problem to ensure constraint feasibility with certain probabilistic guarantees.
@@ -90,7 +90,7 @@ General stochastic methods involve the propagation of uncertainties throughout a
 to determine their effects on constraint feasibility and the objective function.
 This requires the integration of the product of probability distributions with potential outcomes,
 and since the integration of continuous functions is difficult this is often achieved through
-a combination of multi-dimensional quadrature and discretizations of the uncertainty into
+a combination of high-dimensional quadrature and discretizations of the uncertainty into
 possible scenarios. The propagation of parameter
 scenarios results in a combinatorial explosion of possible outcomes which need to be evaluated to determine constraint
 satisfaction and the distribution of the objective.
@@ -112,7 +112,9 @@ about uncertain parameters as \gls{so} does, and therefore can better address pr
 is a lack of experience or data. It is arguable that \gls{ro}
 leaves a lot on the table by not taking advantage of distributional information,
 however there is a body of research on distributionally robust optimization~\cite{Bertsimas2013}
-which seeks to leverage existing data.
+which seeks to leverage existing data. And \gls{ro} does sacrifice the ability to
+obtain distributional information about measures of performance, which is accepted
+for the sake of tractability.
 
 There is significantly greater flexibility in the formulation of robust versus stochastic models
 since the methods proposed are more general. It is important to highlight that,

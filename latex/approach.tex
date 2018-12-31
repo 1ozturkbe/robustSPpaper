@@ -10,8 +10,8 @@ to be globally optimal. Our approach to solve an \gls{rsp} is based on sequentia
 local \gls{rgp} approximations. Below we provide a step-by-step algorithm to solve an \gls{rsp}:
 
 \begin{enumerate}
-    \item Choose an initial guess $x_0$
-    \item Repeat
+    \item Choose an initial guess $x_0$.
+    \item Repeat:
     \begin{enumerate}
         \item Find the local GP approximation of the \gls{sp} at $x_i$.
         \item Find the RGP formulation of the GP.
@@ -49,7 +49,7 @@ A quick candidate is the deterministic solution of the uncertain \gls{sp}, which
 
 Any of the previously mentioned methodologies can be used to formulate the local RGP approximation. 
 However, depending on the RGP formulation chosen to solve an \gls{rsp}, the last formulation and solution
-blocks in Figure \ref{fig:rspsolve} are tweaked slightly for a faster convergence.
+blocks in Figure \ref{fig:rspsolve} are adjusted for a faster rate of convergence.
 \ \\
 \subsection{Best Pairs \gls{rsp} Solver}
 
@@ -58,8 +58,8 @@ each iteration would solve the local RGP approximation and choose the best permu
 for each large posynomial. The modified algorithm would become as follows:
 
 \begin{enumerate}
-    \item Choose an initial guess $x_0$
-    \item Repeat
+    \item Choose an initial guess $x_0$.
+    \item Repeat:
     \begin{enumerate}
         \item Find the local GP approximation of the SP at $x_i$.
         \item For each large posynomial constraint, select the new permutation $\phi$

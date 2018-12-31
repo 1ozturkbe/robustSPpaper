@@ -1,11 +1,12 @@
 \section{Results}
 
-We implement our \gls{rsp} heuristic algorithm on a conceptual aircraft design problem.
-In this problem, we conduct an aerostructural optimization of a wing and fuselage given a payload and a range requirement. 
+We implement our \gls{rsp} heuristic algorithm on the aforementioned conceptual aircraft design problem.
+Our nominal objective function is total fuel consumption, which is
+to be minimized given a payload and a range requirement.
 
 \subsection{Mitigation of probability of failure}
 
-The problem is optimized for different sizes of box and elliptical uncertainty sets
+The problem is solved for different sizes of box and elliptical uncertainty sets
 by varying the parameter $\Gamma$, as defined in Appendix \ref{LP_to_GP}. Mathematically, for box uncertainty,
 $\Gamma$ is a measure of the centered width in logspace of the defined parameter uncertainty, normalized by the
 standard deviation of the parameter. For elliptical uncertainty, it is the maximum diameter of the Euclidian norm
@@ -19,6 +20,8 @@ The design variables are then fixed for each solution so that the design can be 
 different realizations of the uncertain parameters in Table~\ref{tab:uncertainties}
 to examine average design performance. In this~\gls{mc} scheme, the random variables
 are simulated from independent and identically distributed $3\sigma$ truncated Gaussians.
+We simulate from the truncated Gaussian since this makes it possible to
+confirm that for $\Gamma = 1$, all simulations of uncertain parameters are feasible.
 Designs for each solution in Figure~\ref{fig:probOfFailure} are simulated with the same set
 of uncertainty realizations for consistency. \\
 
@@ -45,8 +48,7 @@ of uncertainty realizations for consistency. \\
 \end{figure}
 
 We define the probability of failure of a design is the probability that any constraint
-in the design optimization problem is violated in a \gls{mc} simulation. We do not discriminate
-between the kinds of constraint violated, although it would be possible to rank the severity of the violations.
+in the design optimization problem is violated in a \gls{mc} simulation.
 As expected, Figure \ref{fig:probOfFailure} shows that probability of failure goes to zero as $\Gamma$ increases.
 Moreover, using margins would in the best case be as good as using a box uncertainty set, and therefore will lead
 to a more conservative soltion with inferior performance.
@@ -208,3 +210,21 @@ Risk minimization makes these implicit decisions explicit, and empowers engineer
 how much performance they would be willing to sacrifice with respect
 to optimal but fragile designs to obtain robust designs, gives a prediction of the margin of error
 for every parameter that they have to make designs feasible.
+
+\section{Potential Future Work or Studies}
+
+There are a myriad of potential extensions to signomial programming under uncertainty.
+In the spirit of helping reduce program risk in aerospace design, the authors make a few observations
+and recommendations.
+
+In this study, we do not discriminate between the kinds of constraints violated. However, it would
+be possible to rank the severity of constraint violations so as to penalize some (eg. structural safety)
+more heavily than others (maximum range constraint). This would inject further realism into the
+design under uncertainty since some violations contribute to program risk more
+strongly than others.
+
+With respect to interesting studies, \gls{ro} opens up many possibilities to discover and analyze the benefits
+of adaptable architectures in aircraft design versus more traditional point designs
+when faced with parametric uncertainty. Some examples of these are modular designs, morphing designs,
+adaptively manufactured designs and aircraft families. It is likely that these types of engineered
+robustness become more
