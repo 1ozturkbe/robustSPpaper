@@ -13,10 +13,10 @@ as shown in Figure~\ref{fig:blockdiag}. This section introduces gls{rsp}s and de
     \begin{center}
     \begin{tikzpicture}[auto, align=center, text width=2.75cm, scale = 0.85]
         \begin{scope}[node distance=2cm]
-        \node[block, name=reqs] at (0,0) (reqs) {Requirements \\ Performance \\ Resources};
+        \node[block, name=reqs] at (0,0) (reqs) {Requirements \\ Resources};
         \node[block, name=SPmodels] at (6,0) (SPmodels) {SP compatible \\ models};
         \node[block, name=optimum] at (6,-4) (optimum) {Optimal solution \\ Sensitivities};
-        \node[block, name=distr] at (14,0) (distr) {Distributions \\ Ranges...};
+        \node[block, name=distr] at (14,0) (distr) {Distributional \\ information};
         \node[block, name=sets] at (14,-4) (sets) {Generate \\ uncertainty sets};
         \node[block, name=reformulate] at (10,-4) (reformulate) {Reformulate constraints};
 		\node[name=dummy] at (6, 0.5) (dummy) {};

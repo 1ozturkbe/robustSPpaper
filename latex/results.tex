@@ -53,9 +53,6 @@ As expected, Figure \ref{fig:probOfFailure} shows that probability of failure go
 Moreover, using margins would in the best case be as good as using a box uncertainty set, and therefore will lead
 to a more conservative soltion with inferior performance.
 
-We performed the analysis above with the Simple Conservaive and Linearized Perturbations methods
-as well, whose results are shown in Appendix (TODO: run and post results).
-
 Figure~\ref{compare_signomial} compares the different methodologies in terms of run times,
 number of constraints, and average performance.
 The Best Pairs and Linearized Perturbations methods achieve good performance,
@@ -64,35 +61,21 @@ while the Linearized perturbations requires the most setup and solve time.
 The Simple Conservative formulation is significantly faster than the other formulations
 and requires the least number of additional constraints.
 \ \\
-\ \\
-
 \begin{figure}[ht]
     \centering
     \captionsetup{justification=centering, font=small}
-    \begin{subfigure}{0.499\textwidth}
-        \centering
-        \includegraphics[height=2.3in]{signomial_simple_flight/box.png}
-        % \caption{Box Uncertainty Set Objective Value}
-    \end{subfigure}%
-    ~ 
     \begin{subfigure}{0.49\textwidth}
         \centering
         \includegraphics[height=2.3in]{signomial_simple_flight/box_times.png}
-        % \caption{Box Uncertainty Set Probability of Failure}
     \end{subfigure}
     ~
-    \begin{subfigure}{0.499\textwidth}
-        \centering
-        \includegraphics[height=2.3in]{signomial_simple_flight/ell.png}
-        % \caption{Elliptical Uncertainty Set Objective Value}
-    \end{subfigure}%
-    ~ 
     \begin{subfigure}{0.49\textwidth}
         \centering
         \includegraphics[height=2.3in]{signomial_simple_flight/ell_times.png}
-        % \caption{Elliptical Uncertainty Set Probability of Failure}
     \end{subfigure}
-    \caption{Robust signomial simple aircraft design results relative to the deterministic design problem.}
+    \caption{Robust signomial simple aircraft solution and setup times, normalized by the
+    nominal problem solution time. Note that the problems with box uncertainty have much lower setup
+    time costs versus those with elliptical uncertainty.}
     \label{compare_signomial}
 \end{figure}
 
@@ -180,14 +163,37 @@ gives $(1+\delta)f_0^*$ as the upper bound on the objective value. Intuitively,
 this is a form of goal programming,
 where we specify the exact maximum worst-case value of an objective we can tolerate so that the program
 risk is acceptable, but in the meanwhile maximize the total size of the uncertainty we can handle.
+We call the method of minimizing an objective for set ${\Gamma}$ the $\Gamma$ method,
+while we call the goal programming approach, which maximizes $\Gamma$ for a set $\delta$, the $\delta$ method.
 
 The problem in Formulation~\ref{eq:goalprogramming} is not equivalent to the problem in Formulation~\ref{eq:normform},
 but should yield the same result. As a proof of concept, we perform the same probability of failure
 analysis as in Figure~\ref{fig:probOfFailure}, but have the objective bound be an input to the
 optimization problem and the $\Gamma$ of the uncertainty set be maximized.
 
-%TODO insert pof plots here
+\begin{figure}[ht]
+    \centering
+    \captionsetup{justification=centering, font=small}
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[height=2.3in]{signomial_simple_flight/ell_best_pairs.png}
+         \caption{Elliptical Uncertainty, $\Gamma$ method}
+    \end{subfigure}%
+    ~
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[height=2.3in]{signomial_simple_flight/deltaResults.png}
+         \caption{Elliptical Uncertainty, $\delta$ method}
+    \end{subfigure}
+    \caption{Simulated performance of the optimal robust aircraft, using the Best Pairs formulation
+    for the $\Gamma$ and $\delta$ methods.
+    The dashed line and the band represent the mean and standard deviation of the performance
+    of aircraft designed for different $\Gamma$,
+    and simulated with 100 \gls{mc} samples of uncertain parameters.}
+    \label{fig:probOfFailure}
+\end{figure}
 
+As expected, we get identical results from the outputs of the two formulations.
 We can also expand this framework to perform multivariate goal programming,
 by changing (a) in the formulation~\ref{eq:goalprogramming} to include all
 objectives we are interested in.
@@ -198,8 +204,7 @@ objectives we are interested in.
 \end{align*}
 
 The benefit of goal programming is that it allows us to explore multidisciplinary tradeoffs without
-having to enumerate the design space along each objective direction, although this method could be
-used to do so reliably.
+having to enumerate the design space along each objective direction.
 
 In design it is not obvious whether an objective should in fact be a constraint instead. The most
 fundamental choice that an engineer can make in design is what the objective function is, and it is
@@ -214,8 +219,8 @@ for every parameter that they have to make designs feasible.
 \section{Potential Future Work or Studies}
 
 There are a myriad of potential extensions to signomial programming under uncertainty.
-In the spirit of helping reduce program risk in aerospace design, the authors make a few observations
-and recommendations.
+In the spirit of helping reduce program risk in aerospace design,
+the authors make a few observations and recommendations.
 
 In this study, we do not discriminate between the kinds of constraints violated. However, it would
 be possible to rank the severity of constraint violations so as to penalize some (eg. structural safety)
@@ -223,8 +228,24 @@ more heavily than others (maximum range constraint). This would inject further r
 design under uncertainty since some violations contribute to program risk more
 strongly than others.
 
+Another potentially valuable extension to the proposed framework is the concurrent implementation
+of multiple sets to contain the uncertain parameters, with the purpose of restricting uncertain
+outcomes further. One example of this would be to impose an  l1-norm on the integer number of uncertain parameters
+as well as an l2-norm on the overall size of uncertainty set
+This method can be used to set the total size of the uncertainty set in a Euclidian sense,
+but then also to restrict the stochasticity to a subset of all of the uncertain parameters,
+thereby somewhat restricting nature. This also turns the problem into an integer robust
+optimization problem which poses interesting computational challenges.
+
 With respect to interesting studies, \gls{ro} opens up many possibilities to discover and analyze the benefits
 of adaptable architectures in aircraft design versus more traditional point designs
 when faced with parametric uncertainty. Some examples of these are modular designs, morphing designs,
 adaptively manufactured designs and aircraft families. It is likely that these types of engineered
-robustness become more
+robustness become more effective at reducing program risk in presence of uncertainty, since they are more likely
+to deliver value under adverse stochastic outcomes.
+
+In situations where there is data available to aid design, \gls{ro} can help explore
+the design space while taking into account the stochasticity and noise in the data.
+This opens up an array of potential trade studies where engineers can learn about
+the exposure of designs to the sparsity and spread of data and attempt to gather
+data which best reduces the uncertainty in the performance of optimal designs.

@@ -12,7 +12,7 @@ to realizations of uncertainty in the real world.
 Zang et al.\cite{Zang2002} succinctly describe the categories of benefits for optimization under uncertainty for aircraft.
 These are the following:
 \begin{itemize}
-    \item \textit{Confidence in analysis tools will increase.}
+    \item \emph{Confidence in analysis tools will increase.}
     The uptake of new design tools in the aerospace industry has been low
     due to heavy reliance on legacy design methods and prior experience when
     faced with risky design propositions,
@@ -21,17 +21,17 @@ These are the following:
     confidence in analysis tools because of its ability to better capture the
     effects of technological uncertainty on the potential benefits of new
     configurations.
-    \item \textit{Design cycle time, cost, and risk will be reduced.}
+    \item \emph{Design cycle time, cost, and risk will be reduced.}
     Design cycle costs as well as the engineering hours per aircraft have been increasing~\cite{Patt2012}.
     Aircraft design and development is costly, so the ability to handle uncertainty in
     the conceptual design process is critical for the long-term success of an aircraft,
     helping reduce the program risk.
-    \item \textit{System performance will increase while ensuring that reliability requirements
+    \item \emph{System performance will increase while ensuring that reliability requirements
     are met.}
     The effectiveness of an aircraft depends heavily on its
     ability to deliver on performance, which is dependent on assumptions about the
     current technological environment and the ability to produce vehicles of a certain quality.
-    \item \textit{Designs will be more robust.}
+    \item \emph{Designs will be more robust.}
     The ability to provide designs with feasibility and performance guarantees will mean
     that designs and products will be more robust to uncertainties in manufacturing quality,
     environmental factors, technology level and markets.
@@ -50,11 +50,11 @@ that result from it.
 Faced with the challenge of developing general nonlinear programs that can incorporate uncertainty,
 the aerospace field has developed a number of mathematically non-rigorous methods to
 design under uncertainty. Oftentimes, aerospace engineers will implement
-\textit{margins} in the design process to account for uncertainties in parameters that a design's feasibility
+\emph{margins} in the design process to account for uncertainties in parameters that a design's feasibility
 may be sensitive to, such as material properties or maximum lift coefficient.
-Another traditional method of adding robustness is through \textit{multi-mission design}~\cite{York2018},
+Another traditional method of adding robustness is through \emph{multi-mission design}~\cite{York2018},
 which ensures that the aircraft is able to handle
-multiple kinds of missions in the presence of no uncertainty. This is a type of \textit{finitely
+multiple kinds of missions in the presence of no uncertainty. This is a type of \emph{finitely
 adaptive} optimization geared to ensure objective performance in off-nominal operations.
 
 The weaknesses of these non-rigorous methods are many. They provide no quantitative measures of
@@ -156,7 +156,8 @@ We extend the \gls{rgp} framework developed by Saab~\cite{Saab2018} to \gls{sp}s
 We implement the \gls{rsp} formulation on a simple aircraft design problem with several hundred
 variables as defined in~\cite{Ozturk2018}.
 We demonstrate the benefits of robust optimization both in ensuring design feasibility and performance
-in off-nominal conditions. We further explore the benefits of \gls{ro} in multiobjective optimization.
+using simulations of the uncertain parameters.
+We further explore the benefits of \gls{ro} in multiobjective optimization.
 
 
 
