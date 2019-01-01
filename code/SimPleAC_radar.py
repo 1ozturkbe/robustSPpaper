@@ -64,13 +64,12 @@ def gen_SimPleAC_radar(marray, objectives, baseobj):
 
         fig, axes = plt.subplots(figsize=(N,N), nrows=int(ceil(float(N)/2.)), ncols=2,
                                  subplot_kw=dict(projection='radar'))
-        fig.subplots_adjust(wspace=0.2, hspace=0.20, top=0.80, bottom=0.05)
+        fig.subplots_adjust(wspace=0.10, hspace=0.25, top=0.80, bottom=0.05)
 
         colors = ['b', 'r', 'g', 'm', 'y', 'c', 'o']
 
         for ax, (title, case_data) in zip(axes.flatten(), data):
-            #ax.set_rgrids([0.2, 0.4, 0.6, 0.8])
-            ax.set_title(title, weight='bold', size='medium', position=(0.5, 1.075),
+            ax.set_title(title, weight='bold', size='medium', position=(0.5, 1.1),
                          horizontalalignment='center', verticalalignment='center')
             for d, color in zip(case_data, colors):
                 print d/maxesindata
@@ -81,7 +80,7 @@ def gen_SimPleAC_radar(marray, objectives, baseobj):
         # add legend relative to top-left plot
         ax = axes[0, 0]
         labels = methods
-        legend = ax.legend(labels, loc=(0.9, .95),
+        legend = ax.legend(labels, loc=(0.9, .925),
                            labelspacing=0.1, fontsize='small')
         plt.show()
         plt.savefig('savefigs/radar.png')
