@@ -1,13 +1,10 @@
 \section{Robust Signomial Programming} \label{RSP}
-Robust signomial programming assumes that parameter uncertainties belong to an uncertainty set, and solves the design problem to find the best solution
-as shown in Figure~\ref{fig:blockdiag}. This section introduces gls{rsp}s and derives the intractable formulation of an gls{rsp}.
-
-%\begin{figure}[h]
-%	\centering
-%	\includegraphics{figures/RSP_Diagram.png}
-%	\caption{A block diagram showing the difference between the design process using an SP and an RSP.}
-%	\label{block_diag}
-%\end{figure}
+As a preview of the following sections, robust signomial programming assumes
+that parameter uncertainties belong to an uncertainty set,
+and solves a reformulated design problem to find the best solution,
+through a process as shown in Figure~\ref{fig:blockdiag}. As long as the original optimization problem
+is \gls{sp}-compatible, a tractable robust formulation of the problem exists, making this method
+general. We derive the intractable formulation of a \gls{rsp} below.
 
 \begin{figure}
     \begin{center}
@@ -33,13 +30,12 @@ as shown in Figure~\ref{fig:blockdiag}. This section introduces gls{rsp}s and de
 		fit=(SP)(reqs)(SPmodels)(optimum)(distr)(sets)(reformulate)(modeluncert)(detuncert)(modeling)(dummy), draw] {};
 		\end{scope}
     \end{tikzpicture}
-    \caption{A block diagram showing the difference between the design process using an \gls{sp} and an \gls{rsp}.}
+    \caption{A block diagram showing the difference between the design process using a \gls{sp} and a \gls{rsp}.}
         \label{fig:blockdiag}
 \end{center}
 \end{figure}
 
-
-An SP in its \textbf{exponential form} is as follows:
+A SP in its \textbf{exponential form} is as follows:
 
 \begin{equation}
     \label{SP_exponential}
@@ -49,9 +45,14 @@ An SP in its \textbf{exponential form} is as follows:
 \end{aligned}
 \end{equation}
 
-Let $\vec{a_{ik}}$ and $\vec{c_{ik}}$ be the $((i-1)\times m + k)^{th}$ rows of the exponents matrices $\mat{A}$ and $\mat{C}$ respectively, and $b_{ik}$ and $d_{ik}$ be the $((i-1)\times m + k)^{th}$ elements of the coefficients vectors $\vec{b}$ and $\vec{d}$ respectively.
+where the constraints are represented as difference-of-posynomials in exponential form.
+Let $\vec{a_{ik}}$ and $\vec{c_{ik}}$ be the $((i-1)\times m + k)^{th}$ rows of the exponents matrices
+$\mat{A}$ and $\mat{C}$ respectively, and $b_{ik}$ and $d_{ik}$ be the $((i-1)\times m + k)^{th}$ elements
+of the coefficients vectors $\vec{b}$ and $\vec{d}$ respectively.
 
-The data ($\mat{A}$, $\mat{C}$, $\vec{b}$, $\vec{d}$) is assumed uncertain and living in an uncertainty set $\mathcal{U}$, where $\mathcal{U}$ is parametrized affinely by a perturbation vector $\vec{\zeta}$ as follows:
+The data ($\mat{A}$, $\mat{C}$, $\vec{b}$, $\vec{d}$) is assumed to be uncertain and
+living in an uncertainty set $\mathcal{U}$, where $\mathcal{U}$ is parametrized
+affinely by a perturbation vector $\vec{\zeta}$:
 
 \begin{equation}
 \mathcal{U} = \left\{\left[\mat{A};\mat{C};\vec{b};\vec{d}\right] = \left[\mat{A}^0;\mat{C}^0;\vec{b}^0\;\vec{d}^0 \right] + \textstyle{\sum_{l=1}^{L}\zeta_l\left[\mat{A}^l;\mat{C}^l;\vec{b}^l; \vec{d}^l\right]}\right\}

@@ -4,10 +4,10 @@ This section presents a heuristic algorithm to safely solve a \gls{rsp}
 based on our previous discussion on robust geometric programming.
 
 \subsection{General \gls{rsp} Solver}
-As mentioned before, a common heuristic algorithm to solve an \gls{sp} is
+As mentioned before, a common heuristic algorithm to solve a \gls{sp} is
 by sequentially solving local \gls{gp} approximations, but the solution is not guaranteed
-to be globally optimal. Our approach to solve an \gls{rsp} is based on sequentially solving
-local \gls{rgp} approximations. Below we provide a step-by-step algorithm to solve an \gls{rsp}:
+to be globally optimal. Our approach to solve a \gls{rsp} is based on sequentially solving
+local \gls{rgp} approximations. Below we provide a step-by-step algorithm to solve a \gls{rsp}:
 
 \begin{enumerate}
     \item Choose an initial guess $x_0$.
@@ -20,7 +20,7 @@ local \gls{rgp} approximations. Below we provide a step-by-step algorithm to sol
     \end{enumerate}
 \end{enumerate}
 
-Similar to an \gls{sp}, a good initial guess would lead to faster convergence and possibly a better solution.
+Similar to a \gls{sp}, a good initial guess would lead to faster convergence and possibly a better solution.
 A quick candidate is the deterministic solution of the uncertain \gls{sp}, which will certainly lead to a faster convergence.
 
 \begin{figure}
@@ -48,7 +48,7 @@ A quick candidate is the deterministic solution of the uncertain \gls{sp}, which
 \end{figure}
 
 Any of the previously mentioned methodologies can be used to formulate the local RGP approximation. 
-However, depending on the RGP formulation chosen to solve an \gls{rsp}, the last formulation and solution
+However, depending on the RGP formulation chosen to solve a \gls{rsp}, the last formulation and solution
 blocks in Figure \ref{fig:rspsolve} are adjusted for a faster rate of convergence.
 \ \\
 \subsection{Best Pairs \gls{rsp} Solver}
