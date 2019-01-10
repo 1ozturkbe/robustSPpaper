@@ -2,7 +2,7 @@
 
 \subsection{Robust Optimization}
 
-Given a general problem under parametric uncertainty, we can define the set of possible
+Given a general optimization problem under parametric uncertainty, we can define the set of possible
 realizations of uncertain vector of parameters $u$ in the uncertainty set $\mathcal{U}$. This
 allows us to define the problem under uncertainty below.
 
@@ -56,7 +56,9 @@ and $m_e$ is the number of monomials. A monomial $h(\vec{u})$ is a function of t
 
 where $a_{ij}$ is the $j^{th}$ component of a row vector $\vec{a_i}$ in $\mathbb{R}^n$,
 $u_j$ is the $j^{th}$ component of a column vector $\vec{u}$ in $\mathbb{R}^n_+$ ,
-and $b_i$ is in $\mathbb{R}$. A posynomial $f(\vec{u})$ is the sum of $K \in \mathbb{Z}^+$ monomials:
+and $b_i$ is in $\mathbb{R}$. An example of a monomial is the lift equation,
+$L = \frac{1}{2}\rho V^2 C_L S$.
+A posynomial $f(\vec{u})$ is the sum of $K \in \mathbb{Z}^+$ monomials:
 
 \begin{displaymath}
 	f_i(\vec{u}) = \textstyle{\sum_{k=1}^{K}}e^{b_{ikj}}\prod_{j=1}^{n}{u_j}^{a_{ikj}}
@@ -64,7 +66,8 @@ and $b_i$ is in $\mathbb{R}$. A posynomial $f(\vec{u})$ is the sum of $K \in \ma
 
 where $a_{ikj}$ is the $j^{th}$ component of a row vector $\vec{a_{ik}}$ in $\mathbb{R}^n$,
 $u_j$ is the $j^{th}$ component of a column vector $\vec{u}$ in $\mathbb{R}^n_+$, and $b_{ik}$
-is in $\mathbb{R}$ \cite{Boyd2007}.\\
+is in $\mathbb{R}$ \cite{Boyd2007}. The stagnation pressure definition is a good example of a posynomial:
+$P_t = P + \frac{1}{2} \rho V^2$.\\
 
 A logarithmic change of the variables $x_j = \log(u_j)$ would turn a monomial into
 {\em  the exponential of an affine function} and a posynomial into
@@ -84,12 +87,16 @@ A transformed posynomial $f_i(\vec{x})$ is the sum of $K_i \in \mathbb{Z}^+$ mon
 where $\vec{x}$ is a column vector in $\mathbb{R}^n$.
 A geometric program with transformed constraints is a \textbf{geometric program in exponential form}.
 
-The positive nature of exponential functions restricts the space spanned by posynomials and
-limits the applications of \gls{gp}s to certain classes of problems.
-The limited applicability of \gls{gp}s has motivated the introduction of signomials.
+The positivity of exponential functions restricts the space spanned by posynomials and limits
+\gls{gp}s to certain classes of problems.
+However, since many engineering problems of interest have purely positive quantities \gls{gp}s
+are quite applicable, and certain variable transformations can make problems with negative quantities tractable.
+The restriction of posynomials to the \emph{less-than-side of
+inequalities} is a more significant barrier, and motivates the introduction of signomials.
 
 \subsection{Signomial Programming}
-A {\em signomial} can be defined as the difference between two posynomials, consequently, a \gls{sp} is a non-log-convex optimization problem of the form:
+A {\em signomial} can be defined as the difference between two posynomials, consequently,
+a \gls{sp} is a non-log-convex optimization problem of the form:
 
 \begin{equation}
 \begin{aligned}
