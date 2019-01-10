@@ -21,7 +21,7 @@ different realizations of the uncertain parameters in Table~\ref{tab:uncertainti
 to examine average design performance. In this~\gls{mc} scheme, the random variables
 are simulated from independent and identically distributed $3\sigma$ truncated Gaussians.
 We simulate from the truncated Gaussian since this makes it possible to
-confirm that for $\Gamma = 1$, all simulations of uncertain parameters are feasible.
+confirm mathematically that for $\Gamma = 1$, all simulations of uncertain parameters are feasible.
 Designs for each solution in Figure~\ref{fig:probOfFailure} are simulated with the same set
 of uncertainty realizations for consistency. \\
 
@@ -50,16 +50,64 @@ of uncertainty realizations for consistency. \\
 We define the probability of failure of a design is the probability that any constraint
 in the design optimization problem is violated in a \gls{mc} simulation.
 As expected, Figure \ref{fig:probOfFailure} shows that probability of failure goes to zero as $\Gamma$ increases.
-Moreover, using margins would in the best case be as good as using a box uncertainty set, and therefore will lead
-to a more conservative soltion with inferior performance.
+It is noteworthy that, for the nominal problem ($\Gamma = 0$) and for uncertainty up to $\Gamma \leq 0.8$, none of
+the 100 simulated uncertain parameters result in feasible solutions. Under uncertain parameters,
+the aircraft designed for the average case would almost surely fail to complete its mission.
+That being said, it is necessary to sacrifice performance to achieve a high degree ($3\sigma$) of
+reliability as in the solution for $\Gamma = 1$.
 
-Figure~\ref{compare_signomial} compares the different methodologies in terms of run times,
-number of constraints, and average performance.
-The Best Pairs and Linearized Perturbations methods achieve good performance,
-however the Best Pairs methodology needs the most number of constraints,
-while the Linearized perturbations requires the most setup and solve time.
-The Simple Conservative formulation is significantly faster than the other formulations
-and requires the least number of additional constraints.
+\begin{table}[!h]
+\begin{center}
+\caption{\label{tab:results} SP Aircraft Optimization Results }
+\begin{tabular}{c c c c}
+\hline
+Free variable & No Uncert. & Box [$\Gamma = 1.0$] & Ellipsoidal [$\Gamma = 1.0$] \\
+\hline
+$L/D$ & 23.8 & 16.41 & 31.7 \\
+$AR$ & 12.0 & 5.016 & 12.0 \\
+$Re$ & $4.76 \times 10^6$ & $1.16 \times 10^7$ & $3.73 \times 10^6$ \\
+$S (m^2) $ & 21.6 & 72.21 & 61.1 \\
+$V (m/s)$ & 51.0 & 47.73 & 33.4 \\
+$T_{flight} (hr)$ & 17.46 & 18.1 & 25.0 \\
+$W_w$ & 2440 & 6278 & 6450 \\
+$W_{w_{strc}} (N)$ & 1210 & 1570 & 2420 \\
+$W_{w_{surf}} (N)$ & 1230 & 1592 & 4032 \\
+$V_{f_{avail}} (m^3)$ & 0.566 & 1.794 & 0.121 \\
+$V_{f_{fuse}} (m^3)$ & 0.461 & 0.891 & 0 \\
+$V_{f_{wing}} (m^3)$ & 0.105 & 0.9027 & 0.121 \\
+$CDA_0 (m^2)$ & 0.0461 & 0.0891 & 0 \\
+\hline
+E[Objective] & No Uncert. & Box [$\Gamma = 1.0$] & Ellipsoidal [$\Gamma = 1.0$] \\
+\hline
+$W_{fuel} $ (N) & 4430 & 10858 & 974 \\
+\hline
+P[failure] & No Uncert. & Box [$\Gamma = 1.0$] & Ellipsoidal [$\Gamma = 1.0$] \\
+\hline
+\% & 100 & 0 & 0\\
+\hline
+\end{tabular}
+\end{center}
+\end{table}
+
+% TODO: update diagrams and graphs with solutions for the problem with composite objective
+
+Moreover, using margins would in the best case be as good as using a box uncertainty set, and therefore will lead
+to a more conservative solution with inferior performance.
+
+Figure~\ref{compare_signomial} compares the different methodologies in terms of setup and
+run times. Since the setup time of the nominal problem is minimal, we have
+normalized the results by the run time of the nominal problem for comparison.
+The bottom axis ranks the methods by their level of conservativeness (Best Pairs
+and Simple Conservative formulations being the least and most conservative respectively),
+and the elliptical formulations are less conservative than the box formulations~\ref{Saab2018}.
+For the box uncertainty, solution times increase for increasing levels of conservativeness,
+whereas for the elliptical uncertainty they decrease.
+%The Best Pairs and Linearized Perturbations methods achieve good performance,
+%however the Best Pairs methodology needs the most number of constraints,
+%while the Linearized perturbations requires the most setup and solve time.
+%The Simple Conservative formulation is significantly faster than the other formulations
+%and requires the least number of additional constraints.
+
 \ \\
 \begin{figure}[ht]
     \centering
@@ -168,7 +216,7 @@ while we call the goal programming approach, which maximizes $\Gamma$ for a set 
 
 The problem in Formulation~\ref{eq:goalprogramming} is not equivalent to the problem in Formulation~\ref{eq:normform},
 but should yield the same result. As a proof of concept, we perform the same probability of failure
-analysis as in Figure~\ref{fig:probOfFailure}, but have the objective bound be an input to the
+analysis as in Figure~\ref{fig:deltaVsGamma}, but have the objective bound be an input to the
 optimization problem and the $\Gamma$ of the uncertainty set be maximized.
 
 \begin{figure}[ht]
@@ -190,7 +238,7 @@ optimization problem and the $\Gamma$ of the uncertainty set be maximized.
     The dashed line and the band represent the mean and standard deviation of the performance
     of aircraft designed for different $\Gamma$,
     and simulated with 100 \gls{mc} samples of uncertain parameters.}
-    \label{fig:probOfFailure}
+    \label{fig:deltaVsGamma}
 \end{figure}
 
 As expected, we get identical results from the outputs of the two formulations.
