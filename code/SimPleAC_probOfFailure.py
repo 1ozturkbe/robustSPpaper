@@ -50,12 +50,12 @@ if __name__ == '__main__':
     save_obj(number_of_constraints, 'gammanumber_of_constraints')
 
     # Plotting of cost and probability of failure for Best Pairs with elliptical uncertainty
-    filteredResult = filter_gamma_result_dict(solutions, 1, 'Simple Conservative', 2, 'elliptical')
-    filteredSimulations = filter_gamma_result_dict(simulation_results, 1, 'Simple Conservative', 2, 'elliptical')
+    filteredResult = filter_gamma_result_dict(solutions, 1, 'Best Pairs', 2, 'elliptical')
+    filteredSimulations = filter_gamma_result_dict(simulation_results, 1, 'Best Pairs', 2, 'elliptical')
     objective_name = 'Total fuel weight'
     objective_units = 'N'
     title = ''
-    uncertainty_set = 'box'
+    uncertainty_set = 'elliptical'
     plot_gamma_result_PoFandCost(title, objective_name, objective_units, filteredResult, filteredSimulations)
 
     #Plotting of solution times
