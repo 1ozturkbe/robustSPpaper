@@ -47,7 +47,7 @@ of uncertainty realizations for consistency. \\
     \label{fig:probOfFailure}
 \end{figure}
 
-We define the probability of failure of a design is the probability that any constraint
+We define the probability of failure of a design as the probability that any constraint
 in the design optimization problem is violated in a \gls{mc} simulation.
 As expected, Figure \ref{fig:probOfFailure} shows that probability of failure goes to zero as $\Gamma$ increases.
 It is noteworthy that, for the nominal problem ($\Gamma = 0$) and for uncertainty up to $\Gamma \leq 0.8$, none of
@@ -58,32 +58,32 @@ reliability as in the solution for $\Gamma = 1$.
 
 \begin{table}[!h]
 \begin{center}
-\caption{\label{tab:results} SP Aircraft Optimization Results }
-\begin{tabular}{c c c c}
+\caption{\label{tab:results} SP Aircraft Optimization Results: TODO update}
+\begin{tabular}{c c c c c}
 \hline
-Free variable & No Uncert. & Box [$\Gamma = 1.0$] & Ellipsoidal [$\Gamma = 1.0$] \\
+Free variable & Units & No Uncert. & Box [$\Gamma = 1.0$] & Elliptical [$\Gamma = 1.0$] \\
 \hline
-$L/D$ & 23.8 & 16.41 & 31.7 \\
-$AR$ & 12.0 & 5.016 & 12.0 \\
-$Re$ & $4.76 \times 10^6$ & $1.16 \times 10^7$ & $3.73 \times 10^6$ \\
-$S (m^2) $ & 21.6 & 72.21 & 61.1 \\
-$V (m/s)$ & 51.0 & 47.73 & 33.4 \\
-$T_{flight} (hr)$ & 17.46 & 18.1 & 25.0 \\
-$W_w$ & 2440 & 6278 & 6450 \\
-$W_{w_{strc}} (N)$ & 1210 & 1570 & 2420 \\
-$W_{w_{surf}} (N)$ & 1230 & 1592 & 4032 \\
-$V_{f_{avail}} (m^3)$ & 0.566 & 1.794 & 0.121 \\
-$V_{f_{fuse}} (m^3)$ & 0.461 & 0.891 & 0 \\
-$V_{f_{wing}} (m^3)$ & 0.105 & 0.9027 & 0.121 \\
-$CDA_0 (m^2)$ & 0.0461 & 0.0891 & 0 \\
+$L/D$ & - & 23.8 & 16.41 & 31.7 \\
+$AR$ & - & 12.0 & 5.016 & 12.0 \\
+$Re$ & - & $4.76 \times 10^6$ & $1.16 \times 10^7$ & $3.73 \times 10^6$ \\
+$S$ & $\mathrm{m^2}$ & 21.6 & 72.21 & 61.1 \\
+$V$ & $\mathrm{m/s}$ & 51.0 & 47.73 & 33.4 \\
+$T_{flight}$ & $\mathrm{hr}$ & 17.46 & 18.1 & 25.0 \\
+$W_w$ & $\mathrm{N}$ & 2440 & 6278 & 6450 \\
+$W_{w_{strc}}$ & $\mathrm{N}$ & 1210 & 1570 & 2420 \\
+$W_{w_{surf}}$ & $\mathrm{N}$ & 1230 & 1592 & 4032 \\
+$V_{f_{avail}}$ & $\mathrm{m^3}$ & 0.566 & 1.794 & 0.121 \\
+$V_{f_{fuse}}$ & $\mathrm{m^3}$ & 0.461 & 0.891 & 0 \\
+$V_{f_{wing}}$ & $\mathrm{m^3}$ & 0.105 & 0.9027 & 0.121 \\
+$CDA_0$ & $\mathrm{m^2}$ & 0.0461 & 0.0891 & 0 \\
 \hline
-E[Objective] & No Uncert. & Box [$\Gamma = 1.0$] & Ellipsoidal [$\Gamma = 1.0$] \\
+E[Objective] & Units & No Uncert. & Box [$\Gamma = 1.0$] & Elliptical [$\Gamma = 1.0$] \\
 \hline
-$W_{fuel} $ (N) & 4430 & 10858 & 974 \\
+$W_{fuel}$ & $\mathrm{N}$ & 4430 & 10858 & 974 \\
 \hline
-P[failure] & No Uncert. & Box [$\Gamma = 1.0$] & Ellipsoidal [$\Gamma = 1.0$] \\
+P[failure] & & No Uncert. & Box [$\Gamma = 1.0$] & Elliptical [$\Gamma = 1.0$] \\
 \hline
-\% & 100 & 0 & 0\\
+\% & & 100 & 0 & 0\\
 \hline
 \end{tabular}
 \end{center}
@@ -99,7 +99,7 @@ run times. Since the setup time of the nominal problem is minimal, we have
 normalized the results by the run time of the nominal problem for comparison.
 The bottom axis ranks the methods by their level of conservativeness (Best Pairs
 and Simple Conservative formulations being the least and most conservative respectively),
-and the elliptical formulations are less conservative than the box formulations~\ref{Saab2018}.
+and the elliptical formulations are less conservative than the box formulations~\cite{Saab2018}.
 For the box uncertainty, solution times increase for increasing levels of conservativeness,
 whereas for the elliptical uncertainty they decrease.
 %The Best Pairs and Linearized Perturbations methods achieve good performance,
@@ -165,7 +165,7 @@ that would be expected to have a high degree of correlation and therefore yield 
  total (time and fuel) cost, total fuel, takeoff weight and mid-cruise lift-over-drag (L/D).
 
 \begin{figure}
-    \includegraphics[width = 0.95\linewidth]{figures/4objradar.png}
+    \includegraphics[width = \linewidth]{figures/4objradar.png}
     \caption{The spider plots of aircraft optimized for different objectives.
     The bolded titles are the design objectives for each plot, whereas the individual spiderwebs
     show the non-dimensionalized multiobjective performance of the aircraft designed under different
@@ -178,7 +178,7 @@ the different worst-case performance metrics of the different aircraft.
 For example, for the nominal case, it is possible to see that
 the aircraft designed for total fuel performs the best when all four objectives are considered,
 assuming that all objectives are weighted equally.
-However, this behavior changes when uncertainty is added. An aircraft optimized for total cost
+However, this behavior changes when uncertainty is considered. An aircraft optimized for total cost
 (bottom left graph) with a box uncertainty set (in green) has better worst-case multiobjective performance
 compared to an aircraft designed for total fuel with the same uncertainties.
 
@@ -187,8 +187,8 @@ shown to affect the efficacy of different objective functions to obtain solution
 with the best overall performance. If the three objective functions didn't
 have high degree of coupling, that the internal areas of the solution triangles may differ
 more significantly. This analysis could also be performed for the mean performance
-of the aircraft determined through ~\gls{mc} simulation, but the authors chose
-to limit their scope to the worst-case analysis.
+of the aircraft determined through ~\gls{mc} simulation, but this demonstration limits
+its scope to the worst-case analysis.
 
 \subsection{Risk minimization problems}
 
@@ -211,8 +211,9 @@ gives $(1+\delta)f_0^*$ as the upper bound on the objective value. Intuitively,
 this is a form of goal programming,
 where we specify the exact maximum worst-case value of an objective we can tolerate so that the program
 risk is acceptable, but in the meanwhile maximize the total size of the uncertainty we can handle.
-We call the method of minimizing an objective for set ${\Gamma}$ the $\Gamma$ method,
-while we call the goal programming approach, which maximizes $\Gamma$ for a set $\delta$, the $\delta$ method.
+We call the method of minimizing an objective for set ${\Gamma}$ \emph{the $\Gamma$ method},
+while we call the goal programming approach, which maximizes $\Gamma$ for a set $\delta$,
+\emph{the $\delta$ method}.
 
 The problem in Formulation~\ref{eq:goalprogramming} is not equivalent to the problem in Formulation~\ref{eq:normform},
 but should yield the same result. As a proof of concept, we perform the same probability of failure
@@ -241,27 +242,26 @@ optimization problem and the $\Gamma$ of the uncertainty set be maximized.
     \label{fig:deltaVsGamma}
 \end{figure}
 
-As expected, we get identical results from the outputs of the two formulations.
+As expected, we get identical results from the outputs of the two formulations (to confirm).
 We can also expand this framework to perform multivariate goal programming,
 by changing (a) in the formulation~\ref{eq:goalprogramming} to include all
 objectives we are interested in.
 
 \begin{align*}
-    f_{0,j}(x) \leq (1+\delta_j) f^*_{0,j},~\delta_j \geq 0,~i = 1,\ldots, m
+    f_{0,j}(x) \leq (1+\delta_j) f^*_{0,j},~\delta_j \geq 0,~j = 1,\ldots, m
     \label{eq:multigoal}
 \end{align*}
 
 The benefit of goal programming is that it allows us to explore multidisciplinary tradeoffs without
 having to enumerate the design space along each objective direction.
-
 In design it is not obvious whether an objective should in fact be a constraint instead. The most
 fundamental choice that an engineer can make in design is what the objective function is, and it is
 often the case that there are many potential objectives that are conflicting. The term multiobjective optimization is misleading
 because you can only optimize for one objective at once,
-and the design is going to be influenced by how engineers qualitatively weight different objectives.
-Risk minimization makes these implicit decisions explicit, and empowers engineers to choose
+and the design is going to be influenced by how engineers weight different objectives.
+Risk minimization makes these implicit decisions explicit, empowers engineers to choose
 how much performance they would be willing to sacrifice with respect
-to optimal but fragile designs to obtain robust designs, gives a prediction of the margin of error
+to optimal but fragile designs to obtain robust designs, and gives a prediction of the margin of error
 for every parameter that they have to make designs feasible.
 
 \section{Potential Future Work or Studies}
@@ -278,8 +278,8 @@ strongly than others.
 
 Another potentially valuable extension to the proposed framework is the concurrent implementation
 of multiple sets to contain the uncertain parameters, with the purpose of restricting uncertain
-outcomes further. One example of this would be to impose an  l1-norm on the integer number of uncertain parameters
-as well as an l2-norm on the overall size of uncertainty set
+outcomes further. One example of this would be to impose an  L1-norm on the integer number of uncertain parameters
+as well as an L2-norm on the overall size of uncertainty set
 This method can be used to set the total size of the uncertainty set in a Euclidian sense,
 but then also to restrict the stochasticity to a subset of all of the uncertain parameters,
 thereby somewhat restricting nature. This also turns the problem into an integer robust
