@@ -165,26 +165,42 @@ that would be expected to have a high degree of correlation and therefore yield 
  total (time and fuel) cost, total fuel, takeoff weight and mid-cruise lift-over-drag (L/D).
 
 \begin{figure}
-    \includegraphics[trim={2cm 0 1cm 0},clip]{figures/4objradar.png}
+    \begin{center}
+    \begin{tikzpicture}
+        \node[inner sep=0] (center) at (0,0)
+        {\includegraphics[trim={2cm 0 1cm 0},clip]{figures/4objradar.png}};
+        \node[inner sep=0] (ur) at (0.68,0.25)
+        {\includegraphics[trim={7cm 1cm 7cm 1cm}, clip, height=2.7cm]{figures/radar2.png}};
+        \node[inner sep=0] (ll) at (-0.68,-2)
+        {\includegraphics[trim={7cm 1cm 7cm 1cm}, clip, height=2.7cm]{figures/radar3.png}};
+        \node[inner sep=0] (ul) at (-0.68, 0.25)
+        {\includegraphics[trim={7cm 1cm 7cm 1cm}, clip, height=2.7cm]{figures/radar1.png}};
+        \node[inner sep=0] (lr) at (0.68,-2)
+        {\includegraphics[trim={7cm 1cm 7cm 1cm}, clip, height=2.7cm]{figures/radar4.png}};
+    \end{tikzpicture}
     \caption{The spider plots of aircraft optimized for different objectives.
     The bolded titles are the design objectives for each plot, whereas the individual spiderwebs
     show the non-dimensionalized multiobjective performance of the aircraft designed under different
     uncertainty sets.}
     \label{fig:spider}
+\end{center}
 \end{figure}
 
 In the spider plots in Figure~\ref{fig:spider}, it is possible to see the effect of robustness on
 the different worst-case performance metrics of the different aircraft.
 For example, for the nominal case, it is possible to see that
 the aircraft designed for total fuel performs the best when all four objectives are considered,
-assuming that all objectives are weighted equally.
-However, this behavior changes when uncertainty is considered. An aircraft optimized for total cost
-(bottom left graph) with a box uncertainty set (in green) has better worst-case multiobjective performance
-compared to an aircraft designed for total fuel with the same uncertainties.
+assuming that all objectives are weighted equally. As expected,
+the box uncertainty set is strictly more conservative than the elliptical uncertainty set, for
+all objectives. In this case, it is true that total fuel is the objective that maximizes
+the multiobjective outcome, but for certain \gls{rsp}s it is possible that the multiobjective behavior
+of aircraft designed using different uncertainty sets
 
-This is an interesting result, because the presence of an uncertainty set is
-shown to affect the efficacy of different objective functions to obtain solutions
-with the best overall performance. If the three objective functions didn't
+
+TODO: flesh out.
+In this example, four objectives that are highly coupled were chosen to demonstrate how
+\gls{ro} can
+If the three objective functions didn't
 have high degree of coupling, that the internal areas of the solution triangles may differ
 more significantly. This analysis could also be performed for the mean performance
 of the aircraft determined through ~\gls{mc} simulation, but this demonstration limits
