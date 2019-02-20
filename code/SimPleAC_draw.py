@@ -45,14 +45,16 @@ def SimPleAC_draw(sol):
 
     fig = plt.figure(0)
     ax = fig.add_subplot(111, aspect='equal')
-    ax.set_xlim(-0.6*b, 0.6*b)
-    ax.set_ylim(-0.6*b, 0.6*b)
+    fig.set_size_inches(3,3)
+    ax.set_xlim(-12,12)
+    ax.set_ylim(-12,12)
 
     for e in patches:
         ax.add_artist(e)
         e.set_clip_box(ax.bbox)
         e.set_alpha(0.4)
         e.set_facecolor('blue')
+    plt.axis('off')
     plt.show()
 
 

@@ -12,6 +12,8 @@ import csv
 from robust.robust import RobustModel
 from robust.simulations.simulate import generate_model_properties
 
+from SimPleAC_draw import SimPleAC_draw
+
 def gen_SimPleAC_radar(marray, objectives, baseobj):
     """
     Function to generate radar plots
@@ -157,6 +159,8 @@ if __name__ == "__main__":
         counti +=1
 
     solutions = gen_SimPleAC_radar(marray, objectives, baseobj)
+    for i in solutions:
+        SimPleAC_draw(i[0])
 
 
 
