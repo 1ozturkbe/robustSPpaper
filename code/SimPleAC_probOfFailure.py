@@ -16,7 +16,7 @@ from SimPleAC_save import save_obj
 if __name__ == '__main__':
     model, subs = SimPleAC_setup()
     number_of_time_average_solves = 3  # 100
-    number_of_iterations = 150  # 1000
+    number_of_iterations = 100  # 1000
     nominal_solution, nominal_solve_time, nominal_number_of_constraints, directly_uncertain_vars_subs = \
         simulate.generate_model_properties(model, number_of_time_average_solves, number_of_iterations,'normal')
 
@@ -45,9 +45,9 @@ if __name__ == '__main__':
     # Saving results
     for i,v in solutions.iteritems():
         v.save('obj/'+ str(i))
-    save_obj(solve_times, 'gammasolve_times')
-    save_obj(simulation_results, 'gammasimulation_results')
-    save_obj(number_of_constraints, 'gammanumber_of_constraints')
+    save_obj(solve_times, 'gammasolve_times', 'gammaResults')
+    save_obj(simulation_results, 'gammasimulation_results', 'gammaResults')
+    save_obj(number_of_constraints, 'gammanumber_of_constraints', 'gammaResults')
 
     # Plotting of cost and probability of failure for Best Pairs with elliptical uncertainty
     filteredResult = filter_gamma_result_dict(solutions, 1, 'Best Pairs', 2, 'elliptical')
