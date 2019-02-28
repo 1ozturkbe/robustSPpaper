@@ -7,7 +7,7 @@ from matplotlib.collections import PatchCollection
 
 from gpkit.small_scripts import mag
 
-def SimPleAC_draw(sol):
+def SimPleAC_draw(sol, color='blue', directory=None, name=None):
     # Defining variables
     AR = sol('A').magnitude
     S = sol('S').magnitude
@@ -46,25 +46,18 @@ def SimPleAC_draw(sol):
     fig = plt.figure(0)
     ax = fig.add_subplot(111, aspect='equal')
     fig.set_size_inches(3,3)
-    ax.set_xlim(-12,12)
-    ax.set_ylim(-12,12)
+    ax.set_xlim(-14,14)
+    ax.set_ylim(-14,14)
 
     for e in patches:
         ax.add_artist(e)
         e.set_clip_box(ax.bbox)
         e.set_alpha(0.4)
-        e.set_facecolor('blue')
+        e.set_facecolor(color)
     plt.axis('off')
-    plt.show()
+    fig = ax.get_figure()
+    if directory is not None and name is not None:
+        fig.savefig(directory + '/' + name )
+    else:
+        plt.show()
 
-
-    # ax.add_artist(ellipse)
-    # ax.add_artist(patch)
-    #
-    # colors = np.linspace(0, 1, len(patches))
-    # # collection = PatchCollection(patches) #cmap=plt.cm.hsv, alpha=0.3)
-    # # collection.set_array(np.array(colors))
-    # # ax.add_collection(collection)
-    # plt.axis('equal')
-    # plt.axis('off')
-    # plt.show()

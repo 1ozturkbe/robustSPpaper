@@ -154,13 +154,27 @@ if __name__ == "__main__":
             if j == 'nominal':
                 marray[counti].append(nm)
             else:
-                nm = RobustModel(nm, j, twoTem = False, gamma = 1)
+                nm = RobustModel(nm, j, twoTerm = False, gamma = 1)
                 marray[counti].append(nm)
         counti +=1
 
     solutions = gen_SimPleAC_radar(marray, objectives, baseobj)
+
+    colors = ['blue', 'red', 'green']
+    directory = 'savefigs'
+
+    plotno = 0
     for i in solutions:
-        SimPleAC_draw(i[0])
+        count = 0
+        for j in i:
+            name = str(plotno) + methods[count]
+            SimPleAC_draw(j, colors[count], directory, name)
+            count += 1
+        plotno += 1
+
+    # Creating the required latex
+
+
 
 
 
