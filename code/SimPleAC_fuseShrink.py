@@ -63,5 +63,8 @@ if __name__ == '__main__':
     # uncertainty_set = 'elliptical'
     # plot_gamma_result_PoFandCost(title, objective_name, objective_units, filteredResult, filteredSimulations)
 
+
+    for i in solutions:
+        print i('S')
     for i in solutions:
         SimPleAC_draw(i, color='blue')
