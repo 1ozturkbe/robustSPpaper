@@ -20,6 +20,11 @@ def SimPleAC_draw(sol, color='blue', directory=None, name=None):
     lfuse = 6*rfuse
 
     patches = []
+
+    # Creating fuselage patch
+    ellipse = mpatches.Ellipse((-0.25*croot,0), lfuse, rfuse)
+    patches.append(ellipse)
+
     # Creating wing patch
     wingCoords = np.array([[0,0], [0.25*croot - 0.25*ctip, b/2],
         [0.25*croot + 0.75*ctip, b/2], [croot, 0],
@@ -39,10 +44,7 @@ def SimPleAC_draw(sol, color='blue', directory=None, name=None):
     patch = mpatches.PathPatch(path)
     patches.append(patch)
 
-    # add an ellipse for the fuselage
-    ellipse = mpatches.Ellipse((-0.25*croot,0), lfuse, rfuse)
-    patches.append(ellipse)
-
+    plt.figure(0).clf()
     fig = plt.figure(0)
     ax = fig.add_subplot(111, aspect='equal')
     fig.set_size_inches(3,3)
@@ -52,12 +54,12 @@ def SimPleAC_draw(sol, color='blue', directory=None, name=None):
     for e in patches:
         ax.add_artist(e)
         e.set_clip_box(ax.bbox)
-        e.set_alpha(0.4)
+        e.set_alpha(0.8)
         e.set_facecolor(color)
     plt.axis('off')
     fig = ax.get_figure()
     if directory is not None and name is not None:
-        fig.savefig(directory + '/' + name )
+        fig.savefig(directory + '/' + name + '.pdf', transparent=True)
     else:
         plt.show()
 
