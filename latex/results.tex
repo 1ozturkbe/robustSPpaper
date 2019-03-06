@@ -236,16 +236,14 @@ that would be expected to have a high degree of correlation and therefore yield 
     \end{center}
 \end{figure}
 
-In the spider plots in Figure~\ref{fig:spider}, it is possible to see the effect of robustness on
+Figure~\ref{fig:spider} shows the effects of robustness on
 the different worst-case performance metrics of the different aircraft. In this example, four objectives that
 are highly coupled were chosen to make sure the we can do a comparative graphical analysis.
 For the nominal case, it is possible to see that
 the aircraft designed for total fuel performs the best when all four objectives are considered,
 assuming that all objectives are weighted equally. As expected,
 the box uncertainty set is strictly more conservative than the elliptical uncertainty set, for
-all objectives. In this case, it is true that total fuel is the objective that maximizes
-the multiobjective outcome, but for certain \gls{rsp}s it is possible that the multiobjective behavior
-of aircraft designed using different uncertainty sets
+all objectives.
 
 And interestingly enough, there is a convergence in the geometry of the aircraft as they are designed
 to be robust to uncertain outcomes. All of the robust designs eschew the storage of fuel in the fuselage
@@ -253,10 +251,45 @@ for larger wings that can store more fuel. This is not to say that none of the a
 fuselages; one example is a mission where flight time is a much more important objective
 than fuel weight.
 
-% TODO: add robust cases where there is a fuselage.
+As a demonstration, we take optimize aircraft for a range of $\Gamma$ with total cost
+being the objective.
 
+Interestingly enough, the relationship between total cost and
 
-In absence of understanding of the role of uncertainty in aircraft design,
+\begin{figure}
+    \begin{center}
+        \begin{tikzpicture}
+            \node[inner sep=0] (0) at (0,0)
+            {\includegraphics[height=5cm]{figures/fuse0.pdf}};
+            \node[inner sep=0] (1) at (0,0)
+            {\includegraphics[height=5cm]{figures/fuse1.pdf}};
+            \node[inner sep=0] (2) at (1.5,0)
+            {\includegraphics[height=5cm]{figures/fuse2.pdf}};
+            \node[inner sep=0] (3) at (3,0)
+            {\includegraphics[height=5cm]{figures/fuse3.pdf}};
+            \node[inner sep=0] (4) at (4.5,0)
+            {\includegraphics[height=5cm]{figures/fuse4.pdf}};
+            \node[inner sep=0] (5) at (6,0)
+            {\includegraphics[height=5cm]{figures/fuse5.pdf}};
+            \node[inner sep=0] (6) at (7.5,0)
+            {\includegraphics[height=5cm]{figures/fuse6.pdf}};
+            \node[inner sep=0] (7) at (9,0)
+            {\includegraphics[height=5cm]{figures/fuse7.pdf}};
+            \node[inner sep=0] (8) at (10.5,0)
+            {\includegraphics[height=5cm]{figures/fuse8.pdf}};
+            \node[inner sep=0] (9) at (12,0)
+            {\includegraphics[height=5cm]{figures/fuse9.pdf}};
+            \node[inner sep=0] (10) at (13.5,0)
+            {\includegraphics[height=5cm]{figures/fuse10.pdf}};
+        \end{tikzpicture}
+    \end{center}
+    \caption{Showing the fuselage evolution of aircraft designed for
+    different $\Gamma$s.}
+\end{figure}
+
+Based on these observations, we argue that there could be significant value left on the table
+if uncertainty is not considered with sufficient mathematical rigor in early phases of
+the engineering design process. \gls{rsp}s allow engineers to inject
 
 TODO: flesh out.
 This analysis could also be performed for the mean performance
