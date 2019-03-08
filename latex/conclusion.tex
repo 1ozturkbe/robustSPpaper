@@ -1,25 +1,28 @@
 \section{Conclusion}
 
-We have developed and applied a tractable \gls{rsp} formulation to a simple aircraft model,
-and then discussed the benefits of having robust solutions. Our \gls{rsp} formulations extend
-the tractable approximate RGP framework developed by Saab~\cite{Saab2018} to non-log-convex problems,
-and are valuable contributions to the fields of robust optimization and difference-of-convex programming.
+In this paper we have motivated the use of robust optimization in conceptual engineering
+design, in lieu of the mathematically non-rigorous methods of optimization under uncertainty
+widely used in the aerospace industry today. We have developed a tractable \gls{rsp} formulation
+in response to a need to optimize over uncertain parameters, extending
+the tractable approximate RGP framework developed by Saab~\cite{Saab2018} to non-log-convex problems.
+This \gls{rsp} formulation is a valuable contribution to the fields of robust
+optimization and difference-of-convex programming.
 
 \gls{rsp}s have a wide variety of potential applications in engineering design.
-We expect that using \gls{ro} in conceptual aircraft design will result in systems
+We demonstrated using a simple aircraft design problem
+that using \gls{ro}, and specifically \gls{rsp}s in conceptual aircraft design will result in systems
 that are more robust with respect to uncertainties in operational parameters,
 such as payload mass and range, as well as uncertain environmental and manufacturing parameters.
-By making designs immune to all realizations of uncertainty in a set, engineers can trade off
-robustness and optimality within the context of an optimization framework in a tractable manner.
+By making designs immune to all realizations of uncertainty in a set, engineers can use
+robust signomial programming to trade off
+robustness and optimality within engineered systems in a tractable manner.
 
 \gls{ro} has
 the potential to change current aerospace design paradigms by introducing
 mathematical rigor to design under uncertainty. Current aerospace
 conceptual design practices still rely heavily on the expertise of established
-engineers even in absence of prior experience exploring the design trade space.
-\gls{ro} is compatible for use alongside physics based models
+engineers even in absence of prior experience exploring the design space.
+\gls{rsp}s are compatible for use alongside physics based models
 that are deprived of or lacking in data, and so can bring quantitative
 measures of design reliability to the table and
 steer the field of aerospace design towards physics-based tools and methods.
-
-
