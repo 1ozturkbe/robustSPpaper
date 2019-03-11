@@ -14,7 +14,7 @@ if __name__ == "__main__":
     methods = [{'name': 'Best Pairs', 'twoTerm': True, 'boyd': False, 'simpleModel': False}]
     uncertainty_sets = ['elliptical']
 
-    bm = RobustModel(m, 'box', twoTerm = True, boyd = False, OsimpleModel = False, gamma = 1)
+    bm = RobustModel(m, 'box', twoTerm = True, boyd = False, simpleModel = False, gamma = 1)
     bsol = bm.robustsolve(verbosity=2)
 
     em = RobustModel(m, 'elliptical', twoTerm = True, boyd = False, simpleModel = False, gamma = 1)
