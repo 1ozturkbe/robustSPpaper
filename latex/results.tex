@@ -43,18 +43,25 @@ of uncertainty realizations for consistency. \\
     as a function of $\Gamma$ for different uncertainty sets.
     The dashed line and the band represent the mean and standard deviation of the performance
     of aircraft designed for different $\Gamma$,
-    and simulated with 100 \gls{mc} samples of uncertain parameters. TODO:update.}
+    and simulated with 100 \gls{mc} samples of uncertain parameters.}
     \label{fig:probOfFailure}
 \end{figure}
 
-We define the probability of failure of a design as the probability that any constraint
+We call the aircraft designed under box uncertainty and under elliptical uncertainty 'the box aircraft'
+and 'the elliptical aircraft' respectively. We
+define the probability of failure of a design as the probability that any constraint
 in the design optimization problem is violated in a \gls{mc} simulation.
 As expected, Figure \ref{fig:probOfFailure} shows that probability of failure goes to zero as $\Gamma$ increases.
-It is noteworthy that, for the nominal problem ($\Gamma = 0$) and for uncertainty up to $\Gamma \leq 0.8$, none of
-the 100 simulated uncertain parameters result in feasible solutions. Under uncertain parameters,
-the aircraft designed for the average case would almost surely fail to complete its mission.
-That being said, it is necessary to sacrifice performance to achieve a high degree ($3\sigma$) of
-reliability as in the solution for $\Gamma = 1$.
+It is noteworthy that, for the nominal problem ($\Gamma = 0$) about 10 percent of the realizations of
+uncertain variables result in feasible solutions.
+This means that an aircraft designed for the average case would almost surely
+fail to satisfy the mission requirements.
+That being said, depending on the configuration, it may necessary to sacrifice
+performance to achieve a high degree ($3\sigma$) of
+reliability as in the solution for $\Gamma = 1$. As shown by Figure~\ref{tab:results},
+the elliptical spends 74\% more fuel
+in the worst case than the aircraft designed for the nominal case, but it
+is also completely robust to all uncertain outcomes in the $3\sigma$ set.
 
 \begin{table}[!h]
 \begin{center}
@@ -82,16 +89,16 @@ $W_{fuel}$ & $\mathrm{N}$ & 511 & 1016 & 889 \\
 \hline
 P[failure] & & No Uncert. & Box [$\Gamma = 1.0$] & Elliptical [$\Gamma = 1.0$] \\
 \hline
-\% & & 100 & 0 & 0\\
+\% & & 90 & 0 & 0\\
 \hline
 \end{tabular}
 \end{center}
 \end{table}
 
-% TODO: update diagrams and graphs with solutions for the problem with composite objective
-
 Moreover, using margins would in the best case be as good as using a box uncertainty set, and therefore will lead
-to a more conservative solution with inferior performance.
+to a more conservative solution with inferior performance. This can be seen by the fact that
+the elliptical aircraft spends 14\% lower fuel in the worst case
+than the box aircraft, although they both protect against the same uncertain outcomes.
 
 Figure~\ref{compare_signomial} compares the different methodologies in terms of setup and
 run times. Since the setup time of the nominal problem is minimal, we have
@@ -99,13 +106,8 @@ normalized the results by the run time of the nominal problem for comparison.
 The bottom axis ranks the methods by their level of conservativeness (Best Pairs
 and Simple Conservative formulations being the least and most conservative respectively),
 and the elliptical formulations are less conservative than the box formulations~\cite{Saab2018}.
-For the box uncertainty, solution times increase for increasing levels of conservativeness,
-whereas for the elliptical uncertainty they decrease.
-%The Best Pairs and Linearized Perturbations methods achieve good performance,
-%however the Best Pairs methodology needs the most number of constraints,
-%while the Linearized perturbations requires the most setup and solve time.
-%The Simple Conservative formulation is significantly faster than the other formulations
-%and requires the least number of additional constraints.
+For the box uncertainty, solution times are almost identical for different levels of conservativeness,
+whereas for the elliptical uncertainty they decrease as the method becomes more conservative.
 
 \ \\
 \begin{figure}[ht]
@@ -255,7 +257,7 @@ than fuel weight. We optimize aircraft for a range of $\Gamma$ with total cost
 being the objective. In Figure~\ref{fig:fuseShrink}, we show that,
 depending on our willingness to tolerate risk exposure, we
 may have drastically different opinions about whether or not a fuselage is beneficial
-to the performance of the aircraft.
+to the performance of the aircraft. TODO: add more analysis.
 
 \begin{figure}
     \begin{center}
@@ -364,7 +366,7 @@ optimization problem and the $\Gamma$ of the uncertainty set be maximized.
     \label{fig:deltaVsGamma}
 \end{figure}
 
-As expected, we get identical results from the outputs of the two formulations (to confirm).
+As expected, we get identical results from the outputs of the two formulations.
 We can also expand this framework to perform multivariate goal programming,
 by changing (a) in the formulation~\ref{eq:goalprogramming} to include all
 objectives we are interested in.
