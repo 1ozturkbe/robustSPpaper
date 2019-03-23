@@ -7,21 +7,16 @@ from SimPleAC_save import load_obj
 import cPickle as pickle
 from gpkit.small_scripts import mag
 from SimPleAC_setup import SimPleAC_setup
+from SimPleAC_pof_simulate import pof_parameters
 
 
 if __name__ == '__main__':
     # Recalling simulation parameters
-    nGammas = 11
-    gammas = np.linspace(0, 1.0, nGammas)
-    methods = [{'name': 'Best Pairs', 'twoTerm': True, 'boyd': False, 'simpleModel': False},
-               {'name': 'Linearized Perturbations', 'twoTerm': False, 'boyd': False, 'simpleModel': False},
-               {'name': 'Simple Conservative', 'twoTerm': False, 'boyd': False, 'simpleModel': True}]
-    uncertainty_sets = ['box', 'elliptical']
-    model, subs = SimPleAC_setup()
-    number_of_time_average_solves = 3
-    number_of_iterations = 100
-    nominal_solution, nominal_solve_time, nominal_number_of_constraints, directly_uncertain_vars_subs = \
-        generate_model_properties(model, number_of_time_average_solves, number_of_iterations,'normal')
+    [model, methods, gammas, number_of_iterations,
+    min_num_of_linear_sections, max_num_of_linear_sections, verbosity, linearization_tolerance,
+    number_of_time_average_solves, uncertainty_sets, nominal_solution, directly_uncertain_vars_subs, parallel,
+     nominal_number_of_constraints, nominal_solve_time] = pof_parameters()
+    nGammas = len(gammas)
 
     # Loading results
     gamma = {}
@@ -48,7 +43,7 @@ if __name__ == '__main__':
             uncertainty_set = uncertainty_sets[j]
             plot_gamma_result_PoFandCost(title, objective_name, objective_units, filteredResult, filteredSimulations)
 
-
+    # Plotting solution times and costs
     for uncertainty_set in uncertainty_sets:
         gammaVal = 1.0
         filteredSolutions = filter_gamma_result_dict(gamma['solutions'], 0, gammaVal, 2, uncertainty_set)
