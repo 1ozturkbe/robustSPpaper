@@ -2,46 +2,55 @@
 
 from SimPleAC_setup import SimPleAC_setup
 from gpkit import units, Model, Variable, Monomial
-from gpkit.constraints.bounded import Bounded
 from gpkit.small_scripts import mag
 
-from robust.robust import RobustModel
-from robust.simulations.simulate import generate_model_properties
-from robust.robust_gp_tools import RobustGPTools
-from robust.simulations.simulate import simulate_robust_model
 import robust.simulations.simulate as simulate
 from robust.simulations.simulate import plot_gamma_result_PoFandCost
 from robust.simulations.simulate import filter_gamma_result_dict
 
 import numpy as np
-
 import matplotlib.pyplot as plt
 
 from SimPleAC_save import save_obj, load_obj
+from SimPleAC_pof_simulate import pof_parameters
+from SimPleAC_draw import SimPleAC_draw
 import cPickle as pickle
 
 if __name__ == "__main__":
-    model, subs = SimPleAC_setup()
-    number_of_time_average_solves = 3
-    number_of_iterations = 100
-    nominal_solution, nominal_solve_time, nominal_number_of_constraints, directly_uncertain_vars_subs = \
-        simulate.generate_model_properties(model, number_of_time_average_solves, number_of_iterations,'normal')
+    """
+    This script optimizes aircraft over the same deltas (change in objective)
+    as the prob. of failure simulation
+    """
+    # Recalling pof simulation parameters
+    [model, methods, gammas, number_of_iterations,
+    min_num_of_linear_sections, max_num_of_linear_sections, verbosity, linearization_tolerance,
+    number_of_time_average_solves, uncertainty_sets, nominal_solution, directly_uncertain_vars_subs, parallel,
+     nominal_number_of_constraints, nominal_solve_time] = pof_parameters()
+    nGammas = len(gammas)
 
-    model_name = 'SimPleAC'
-    nGammas = 11
-    gammas = np.linspace(0.0,1.0,nGammas)
-    min_num_of_linear_sections = 3
-    max_num_of_linear_sections = 99
-    linearization_tolerance = 1e-4
-    verbosity = 1
-
+    # Restricting method and uncertainty set to Best Pairs, elliptical and/or box for demonstration
+    # Note: can only run this simulation one at a time!
     methods = [{'name': 'Best Pairs', 'twoTerm': True, 'boyd': False, 'simpleModel': False}]
     uncertainty_sets = ['elliptical']
 
-    # Goal programming (risk minimization) setup
-    ndeltas = nGammas
-    deltas = np.linspace(0.0, 1.0, ndeltas)
-    hotstart = nominal_solution
+    # Loading pof results
+    gamma = {}
+    gamma['solutions'] = {}
+    for i in range(nGammas):
+        for j in range(len(methods)):
+            for k in range((len(uncertainty_sets))):
+                gamma['solutions'][gammas[i], methods[j]['name'], uncertainty_sets[k]] = pickle.load(open("gammaResults\\" +
+                                                                    str((gammas[i], methods[j]['name'], uncertainty_sets[k]))))
+    gamma['solve_times'] = load_obj('gammasolve_times', 'gammaResults')
+    gamma['simulation_results'] = load_obj('gammasimulation_results', 'gammaResults')
+    gamma['number_of_constraints'] = load_obj('gammanumber_of_constraints', 'gammaResults')
+
+    # # Goal programming (risk minimization) setup
+    deltas = []
+    for i in range(nGammas):
+        deltas.append(mag(gamma['solutions'][gammas[i], methods[0]['name'], uncertainty_sets[0]]['cost']/nominal_solution['cost'])-1.)
+    offset = 2
+    deltas = np.array(deltas)[offset:]
 
     # Solution using goal programming
     delta = {}
@@ -53,10 +62,23 @@ if __name__ == "__main__":
                                              number_of_time_average_solves,
                                              uncertainty_sets, nominal_solution, directly_uncertain_vars_subs, parallel=False)
 
-
-    # # Saving goal programmingresults
+    # # Saving goal programming results
     for i,v in delta['solutions'].iteritems():
         v.save('goalResults/'+ str(i))
-    save_obj(delta['solve_times'], 'deltasolve_times', 'goalResults')
-    save_obj(delta['simulation_results'], 'deltasimulation_results', 'goalResults')
-    save_obj(delta['number_of_constraints'], 'deltanumber_of_constraints', 'goalResults')
+    save_obj(delta['solve_times'], 'deltasolve_times' + uncertainty_sets[0], 'goalResults')
+    save_obj(delta['simulation_results'], 'deltasimulation_results' + uncertainty_sets[0], 'goalResults')
+    save_obj(delta['number_of_constraints'], 'deltanumber_of_constraints' + uncertainty_sets[0], 'goalResults')
+    save_obj(deltas, 'deltas'+ uncertainty_sets[0], 'goalResults')
+
+    # Plotting gamma vs delta solutions
+    count = 0
+    for i,v in sorted(gamma['solutions'].iteritems()):
+        SimPleAC_draw(v, color='blue', directory = 'goalResults/gammaShape', name='gamma'+uncertainty_sets[0]+str(count))
+        count += 1
+    count = offset
+    for i,v in sorted(delta['solutions'].iteritems()):
+        SimPleAC_draw(v, color='orange', directory = 'goalResults/deltaShape', name='delta'+uncertainty_sets[0]+str(count))
+        count += 1
+
+
+
