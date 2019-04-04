@@ -52,7 +52,7 @@ if __name__ == '__main__':
 
     # Plotting probability of failure and cost
     objective_name = 'Total cost'
-    objective_units = '-'
+    objective_units = 'fuel & time'
     title = ''
     uncertainty_set = 'elliptical'
     plot_gamma_result_PoFandCost(title, objective_name, objective_units, solutions, simulation_results)

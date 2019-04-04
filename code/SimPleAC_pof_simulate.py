@@ -42,7 +42,6 @@ if __name__ == '__main__':
 
     # Saving results
     for i,v in solutions.iteritems():
-        print i
         v.save('gammaResults/'+ str(i))
     save_obj(solve_times, 'gammasolve_times', 'gammaResults')
     save_obj(simulation_results, 'gammasimulation_results', 'gammaResults')

@@ -6,9 +6,8 @@ from robust.simulations.read_simulation_data import generate_comparison_plots
 from SimPleAC_save import load_obj
 import cPickle as pickle
 from gpkit.small_scripts import mag
-from SimPleAC_setup import SimPleAC_setup
 from SimPleAC_pof_simulate import pof_parameters
-
+from SimPleAC_draw import SimPleAC_draw
 
 if __name__ == '__main__':
     # Recalling simulation parameters
@@ -62,3 +61,11 @@ if __name__ == '__main__':
 
         generate_comparison_plots(relative_objective_values, objective_name, relative_number_of_constraints,
                                   relative_setup_times, relative_solve_times, uncertainty_set, [method['name'] for method in methods])
+
+    # Saving sketches of aircraft for Best Pairs, elliptical uncertainty
+    filteredSolutions = filter_gamma_result_dict(gamma['solutions'], 1, 'Best Pairs', 2, 'elliptical')
+    count = int(0)
+    for i, v in sorted(filteredSolutions.iteritems()):
+        SimPleAC_draw(v, color='blue', directory = 'gammaResults/', name='pof'+str(count))
+        count+=1
+
