@@ -70,18 +70,18 @@ is also completely robust to all uncertain outcomes in the $3\sigma$ set.
 \hline
 Free variable & Units & No Uncert. & Box [$\Gamma = 1.0$] & Elliptical [$\Gamma = 1.0$] \\
 \hline
-$L/D$ & - & 39.6 & 30.7 & 33.9 \\
-$AR$ & - & 21.9 & 11.4 & 14.4 \\
-$Re$ & - & $1.86 \times 10^6$ & $3.83\times 10^6$ & $3.12 \times 10^6$ \\
-$S$ & $\mathrm{m^2}$ & 18.1 & 45.1 & 39.3 \\
-$V$ & $\mathrm{m/s}$ & 40.9 & 38.7 & 38.0 \\
-$T_{flight}$ & $\mathrm{hr}$ & 20.4 & 21.6 & 22.0 \\
-$W_w$ & $\mathrm{N}$ & 2970 & 5400 & 4960 \\
-$W_{w,strc}$ & $\mathrm{N}$ & 1880 & 2420 & 2360 \\
-$W_{w,surf}$ & $\mathrm{N}$ & 1090 & 2980 & 2590 \\
-$V_{f,avail}$ & $\mathrm{m^3}$ & 0.0637 & 0.127 & 0.111 \\
+$L/D$ & - & 39.6 & 30.5 & 33.6 \\
+$AR$ & - & 21.9 & 11.1 & 14.1 \\
+$Re$ & - & $1.86 \times 10^6$ & $3.91\times 10^6$ & $3.19 \times 10^6$ \\
+$S$ & $\mathrm{m^2}$ & 18.1 & 43.7 & 38.1 \\
+$V$ & $\mathrm{m/s}$ & 40.9 & 39.8 & 39.0 \\
+$T_{flight}$ & $\mathrm{hr}$ & 20.4 & 21.0 & 21.4 \\
+$W_w$ & $\mathrm{N}$ & 2970 & 5370 & 4940 \\
+$W_{w,strc}$ & $\mathrm{N}$ & 1880 & 2470 & 2410 \\
+$W_{w,surf}$ & $\mathrm{N}$ & 1090 & 2900 & 2530 \\
+$V_{f,avail}$ & $\mathrm{m^3}$ & 0.0637 & 0.129 & 0.113 \\
 $V_{f,fuse}$ & $\mathrm{m^3}$ & 0.00437 & 0 & 0 \\
-$V_{f,wing}$ & $\mathrm{m^3}$ & 0.0593 & 0.127 & 0.111 \\
+$V_{f,wing}$ & $\mathrm{m^3}$ & 0.0593 & 0.129 & 0.113 \\
 \hline
 E[Objective] & Units & No Uncert. & Box [$\Gamma = 1.0$] & Elliptical [$\Gamma = 1.0$] \\
 \hline
@@ -257,7 +257,7 @@ than fuel weight. We optimize aircraft for a range of $\Gamma$ with total cost
 being the objective. In Figure~\ref{fig:fuseShrink}, we show that,
 depending on our willingness to tolerate risk exposure, we
 may have drastically different opinions about whether or not a fuselage is beneficial
-to the performance of the aircraft. TODO: add more analysis.
+to the performance of the aircraft.
 
 \begin{figure}
     \begin{center}
@@ -340,33 +340,115 @@ while we call the goal programming approach, which maximizes $\Gamma$ for a set 
 \emph{the $\delta$ method}.
 
 The problem in Formulation~\ref{eq:goalprogramming} is not equivalent to the problem in Formulation~\ref{eq:normform},
-but should yield the same result. As a proof of concept, we perform the same probability of failure
-analysis as in Figure~\ref{fig:deltaVsGamma}, but have the objective bound be an input to the
-optimization problem and the $\Gamma$ of the uncertainty set be maximized.
+but should yield similar results. As a proof of concept, we will use the objective values from the study
+show in Figure\ref{fig:probOfFailure} as inputs to the goal programming model, and compare the results.
+If we are able to obtain globally
+optimal solutions, we would expect that $\Gamma$ and $\delta$ are identical. The results are tabulated in
+Table~\ref{tab:deltaVsGamma}. Note that the two methods used \gls{mc} runs using the same 100 realizations
+of the uncertainty, for consistency in probability of failure results.
 
-\begin{figure}[ht]
-    \centering
-    \captionsetup{justification=centering, font=small}
-    \begin{subfigure}{0.49\textwidth}
-        \centering
-        \includegraphics[height=2.3in]{signomial_simple_flight/ell_best_pairs.pdf}
-         \caption{Elliptical Uncertainty, $\Gamma$ method}
-    \end{subfigure}%
-    ~
-    \begin{subfigure}{0.49\textwidth}
-        \centering
-        \includegraphics[height=2.3in]{signomial_simple_flight/deltaResults.png}
-         \caption{Elliptical Uncertainty, $\delta$ method}
-    \end{subfigure}
-    \caption{Simulated performance of the optimal robust aircraft, using the Best Pairs formulation
-    for the $\Gamma$ and $\delta$ methods.
-    The dashed line and the band represent the mean and standard deviation of the performance
-    of aircraft designed for different $\Gamma$,
-    and simulated with 100 \gls{mc} samples of uncertain parameters. TODO:update.}
-    \label{fig:deltaVsGamma}
-\end{figure}
+\begin{table}
+\begin{center}
+\caption{\label{tab:deltaVsGamma} Results of original \gls{ro} formulation versus goal program in terms
+of size of uncertainty set $\Gamma$, objective penalty $\delta$, and probability of failure. Note that the $\Gamma$
+and $\delta$ values obtained by the models match, but the probabilities of failure differ. }
+\begin{tabular}{c c c c c c c c}
+\hline
+ \gls{ro} form & $\Gamma$ & $\delta$ & PoF & Goal form & $\delta$ & $\Gamma$ & PoF \\
+\hline
+& 0.00 & $9 \times 10^{-5}$ & 0.9 & & - & - & - \\
+& 0.10 & 0.053 & 0.78 & & - & - & - \\
+& 0.20 & 0.113 & 0.56 & & 0.113 & 0.20 & 0.66 \\
+& 0.30 & 0.176 & 0.35 & & 0.176 & 0.30 & 0.41 \\
+& 0.40 & 0.245 & 0.23 & & 0.245 & 0.40 & 0.24 \\
+& 0.50 & 0.317 & 0.07 & & 0.317 & 0.50 & 0.06 \\
+& 0.60 & 0.395 & 0.05 & & 0.395 & 0.60 & 0.03 \\
+& 0.70 & 0.479 & 0.03 & & 0.479 & 0.70 & 0.01 \\
+& 0.80 & 0.570 & 0.00 & & 0.570 & 0.80 & 0.00 \\
+& 0.90 & 0.669 & 0.00 & & 0.669 & 0.90 & 0.00 \\
+& 1.00 & 0.775 & 0.00 & & 0.775 & 1.0 & 0.00 \\
+\end{tabular}
+\end{center}
+\end{table}
 
-As expected, we get identical results from the outputs of the two formulations.
+Firstly, note that there are no results reported for the two smallest uncertainty sets $\Gamma = [0.00, 0.10]$.
+This is because the feasible set of the two problems was small enough that the signomial program
+solution heuristic was unable to find an interior point from which to explore the solution space, and
+reported infeasible. Otherwise, the $\Gamma$ values found by the $\delta$ method match
+with the original \gls{ro} method, confirming that the two methods produce equivalent results. This
+was also confirmed by examining the physical dimensions of the aircraft.
+
+However, there were discrepancies found in the probability of failure.
+This is likely because of
+how numerical precision affects the solution of the feasibility problem solved as part of the \gls{mc} scheme.
+It is not possible to confirm which method is more conservative,
+but even with the discrepancies, the probability of failure of the resulting aircraft is consistent with expectations,
+being monotonic with the size of the uncertainty set and similar between the two methods.
+
+
+%\begin{figure}
+%    \begin{center}
+%        \makebox[0.8\textwidth]{
+%        \begin{tikzpicture}
+%            % top pof figures
+%            \node[inner sep=0] (0) at (0,5.7)
+%            {\includegraphics[height=4cm]{figures/pof0.pdf}};
+%            \node[inner sep=0] (1) at (1.2,5.7)
+%            {\includegraphics[height=4cm]{figures/pof1.pdf}};
+%            \node[inner sep=0] (2) at (2.4,5.7)
+%            {\includegraphics[height=4cm]{figures/pof2.pdf}};
+%            \node[inner sep=0] (3) at (3.6,5.7)
+%            {\includegraphics[height=4cm]{figures/pof3.pdf}};
+%            \node[inner sep=0] (4) at (4.8,5.7)
+%            {\includegraphics[height=4cm]{figures/pof4.pdf}};
+%            \node[inner sep=0] (5) at (6.0,5.7)
+%            {\includegraphics[height=4cm]{figures/pof5.pdf}};
+%            \node[inner sep=0] (6) at (7.2,5.7)
+%            {\includegraphics[height=4cm]{figures/pof6.pdf}};
+%            \node[inner sep=0] (7) at (8.4,5.7)
+%            {\includegraphics[height=4cm]{figures/pof7.pdf}};
+%            \node[inner sep=0] (8) at (9.6,5.7)
+%            {\includegraphics[height=4cm]{figures/pof8.pdf}};
+%            \node[inner sep=0] (9) at (10.8,5.7)
+%            {\includegraphics[height=4cm]{figures/pof9.pdf}};
+%            \node[inner sep=0] (10) at (12.0,5.7)
+%            {\includegraphics[height=4cm]{figures/pof10.pdf}};
+%            % Lower delta figures
+%            \node[inner sep=0] (4d) at (4.8,2.1)
+%            {\includegraphics[height=4cm]{figures/delta4.pdf}};
+%            \node[inner sep=0] (5d) at (6.0,2.1)
+%            {\includegraphics[height=4cm]{figures/delta5.pdf}};
+%            \node[inner sep=0] (6d) at (7.2,2.1)
+%            {\includegraphics[height=4cm]{figures/delta6.pdf}};
+%            \node[inner sep=0] (7d) at (8.4,2.1)
+%            {\includegraphics[height=4cm]{figures/delta7.pdf}};
+%            \node[inner sep=0] (8d) at (9.6,2.1)
+%            {\includegraphics[height=4cm]{figures/delta8.pdf}};
+%            \node[inner sep=0] (9d) at (10.8,2.1)
+%            {\includegraphics[height=4cm]{figures/delta9.pdf}};
+%            \node[inner sep=0] (10d) at (12.0,2.1)
+%            {\includegraphics[height=4cm]{figures/delta10.pdf}};
+%            % Labeling the figures...
+%            \node[above=-1.0cm, right=-0.25cm] at (0.north) {0.0};
+%            \node[above=-1.0cm, right=-0.25cm] at (1.north) {0.1};
+%            \node[above=-1.0cm, right=-0.25cm] at (2.north) {0.2};
+%            \node[above=-1.0cm, right=-0.25cm] at (3.north) {0.3};
+%            \node[above=-1.0cm, right=-0.25cm] at (4.north) {0.4};
+%            \node[above=-1.0cm, right=-0.25cm] at (5.north) {0.5};
+%            \node[above=-1.0cm, right=-0.25cm] at (6.north) {0.6};
+%            \node[above=-1.0cm, right=-0.25cm] at (7.north) {0.7};
+%            \node[above=-1.0cm, right=-0.25cm] at (8.north) {0.8};
+%            \node[above=-1.0cm, right=-0.25cm] at (9.north) {0.9};
+%            \node[above=-1.0cm, right=-0.25cm] at (10.north) {1.0};
+%        \end{tikzpicture}}
+%    \end{center}
+%    \caption{The evolution of aircraft designed with the $\Gamma$ method in blue,
+%    versus the $\delta$ method in orange,
+%    for different $\Gamma$s. Note that the first four levels of performance penalty were
+%    infeasible for the $\delta$ method.}
+%    \label{fig:deltaGammaAircraft}
+%\end{figure}
+
 We can also expand this framework to perform multivariate goal programming,
 by changing (a) in the formulation~\ref{eq:goalprogramming} to include all
 objectives we are interested in.
