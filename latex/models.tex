@@ -1,6 +1,6 @@
 \section{Models}
 
-We implemented the \gls{rsp} formulation above on a simple unmanned, gas-powered
+We implement the \gls{rsp} formulation above on a simple unmanned, gas-powered
 aircraft design problem that is systematically developed in~\cite{Ozturk2018}.
 We optimize a wing, fuselage, and engine given a payload and range requirement.
 The nominal model has 154 variables and 184 constraints, a common level of
@@ -11,7 +11,7 @@ associated with the parameters will be described in Section~\ref{uncertainties_a
 
 \subsection{Flight Profile}
 
-The flight profile models have been borrowed from ~\cite{York2018}. Within the model, the
+The flight profile models is borrowed from ~\cite{York2018}. Within the model, the
 trajectory of the aircraft is optimized over five steady flight segments,
 although we are restricted to modeling only climb segments
 and therefore the stored gravitational potential energy of the aircraft is not captured.
@@ -28,7 +28,7 @@ to be in steady flight, so that the thrust power is equal to the sum of the drag
 of potential energy of the aircraft, and the lift is equal to the total weight, ignoring the vertical component of
 thrust in climb. Its total weight is the sum of its components.
 The aircraft has to be able to takeoff at specified minimum speed without stalling as well.
-Its component models are detailed below.
+Aircraft component models are detailed below.
 
 \subsubsection{Wing}
 
@@ -43,16 +43,17 @@ form factor. The weight of the wing is the sum of skin and spar weights.
 \subsubsection{Fuselage}
 
 The fuselage is assumed to only contain fuel. The fuselage drag is exactly proportional to its frontal area.
-The fuselage is assumed not to contain any structural members, and so its weight consists only of skin weight.
+The fuselage is assumed not to contain any structural members, and so its weight consists only of skin weight, which
+is based on the minimum gauge of composites.
 
 \subsubsection{Engine}
 
 The aircraft is powered by a naturally aspirated piston engine. It is subject to
-power lapse at lower air densities at higher altitudes. Its weight is modeled using a posynomial fit of existing
-engines. Its \gls{bsfc} is modeled as a function of maximum thrust at a given altitude.
+power lapse at lower air densities at higher altitudes. Engine weight is modeled using a posynomial fit of existing
+engines. \gls{bsfc} is modeled as a function of maximum thrust at a given altitude.
 
 \subsection{Source of non-log-convexity: fuel volume}
-We have already detailed the fuel models in the wing and fuselage sections, but it is noteworthy that
+We have detailed the fuel models in the wing and fuselage sections, but it is noteworthy that
 the signomial constraint in the optimization appears in the aircraft total fuel volume constraint,
 as shown in Equation~\ref{eq:fuel}:
 

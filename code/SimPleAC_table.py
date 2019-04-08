@@ -14,18 +14,27 @@ if __name__ == "__main__":
     methods = [{'name': 'Best Pairs', 'twoTerm': True, 'boyd': False, 'simpleModel': False}]
     uncertainty_sets = ['elliptical']
 
+    rm = RobustModel(m, 'elliptical', twoTerm = True, boyd = False, simpleModel = False, gamma = 0)
+    rsol = rm.robustsolve(verbosity=2)
+
+
     bm = RobustModel(m, 'box', twoTerm = True, boyd = False, simpleModel = False, gamma = 1)
     bsol = bm.robustsolve(verbosity=2)
 
     em = RobustModel(m, 'elliptical', twoTerm = True, boyd = False, simpleModel = False, gamma = 1)
     esol = em.robustsolve(verbosity=2)
 
+    try:
+        soltab = [sol, rsol, bsol, esol]
+    except:
+        soltab = [sol, bsol, esol]
+
     for i in ['L/D', 'A', 'Re', 'S', 'V', 't_s', 'W_w', 'W_{w_{strc}}', 'W_{w_{surf}}',
               'V_{f_{avail}}', 'V_{f_{fuse}}', 'V_{f_{wing}}']:
         if i in ['L/D', 'Re', 'V']:
-            a = [mag(np.mean(s(i))) for s in [sol,bsol,esol]]
+            a = [mag(np.mean(s(i))) for s in soltab]
         elif i in [ 't_s']:
-            a = [mag(np.sum(s(i))) for s in [sol,bsol,esol]]
+            a = [mag(np.sum(s(i))) for s in soltab]
         else:
-            a = [mag(s(i))  for s in [sol,bsol,esol]]
+            a = [mag(s(i))  for s in soltab]
         print ["& " + str(round_sig(j,3)) for j in a]

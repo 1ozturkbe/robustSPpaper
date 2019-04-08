@@ -67,7 +67,7 @@ A posynomial $f(\vec{u})$ is the sum of $K \in \mathbb{Z}^+$ monomials:
 
 where $a_{ikj}$ is the $j^{th}$ component of a row vector $\vec{a_{ik}}$ in $\mathbb{R}^n$,
 $u_j$ is the $j^{th}$ component of a column vector $\vec{u}$ in $\mathbb{R}^n_+$, and $b_{ik}$
-is in $\mathbb{R}$ \cite{Boyd2007}. The stagnation pressure definition is a good example of a posynomial:
+is in $\mathbb{R}$ \cite{Boyd2007}. The stagnation pressure definition is a good example:
 $P_t = P + \frac{1}{2} \rho V^2$.\\
 
 A logarithmic change of the variables $x_j = \log(u_j)$ would turn a monomial into
@@ -86,7 +86,8 @@ A transformed posynomial $f_i(\vec{x})$ is the sum of $K_i \in \mathbb{Z}^+$ mon
 \end{displaymath}
 
 where $\vec{x}$ is a column vector in $\mathbb{R}^n$.
-A geometric program with transformed constraints is a \textbf{geometric program in exponential form}.
+A geometric program with transformed constraints is a \textbf{geometric program in exponential form}, and
+is a convex optimization problem.
 
 The positivity of exponential functions restricts the space spanned by posynomials and limits
 \gls{gp}s to certain classes of problems.
@@ -96,7 +97,7 @@ The restriction of posynomials to the \emph{less-than-side of
 inequalities} is a more significant barrier, and motivates the introduction of signomials.
 
 \subsection{Signomial Programming}
-A {\em signomial} can be defined as the difference between two posynomials, consequently,
+A {\em signomial} can be defined as the difference between two posynomials. Consequently,
 a \gls{sp} is a non-log-convex optimization problem of the form:
 
 \begin{equation}

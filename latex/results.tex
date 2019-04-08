@@ -6,12 +6,19 @@ to be minimized given a payload and a range requirement.
 
 \subsection{Mitigation of probability of failure}
 
-The problem is solved for different sizes of box and elliptical uncertainty sets
+The problem is solved for different sizes of box and elliptical uncertainty sets,
+whose sizes are defined by the L1- and L2-norms respectively,
 by varying the parameter $\Gamma$, as defined in Appendix \ref{LP_to_GP}. Mathematically, for box uncertainty,
-$\Gamma$ is a measure of the centered width in logspace of the defined parameter uncertainty, normalized by the
-standard deviation of the parameter. For elliptical uncertainty, it is the maximum diameter of the Euclidian norm
+$\Gamma$ is a scaling of the width of each defined parameter uncertainty. More intuitively,
+it is the width of the margin provided for each parameter, normalized by its standard deviation.\footnote{It
+can be easy to assume that using margins and box uncertainty sets will yield the same designs,
+but they fundamentally function
+differently. The worst case outcome in box uncertainty can come \emph{from the interior} of the uncertainty
+set, so the use of box uncertainty is strictly more conservative and more appropriate than the use of margins,
+which fail to capture the level of conservatism they signal.}
+For elliptical uncertainty, it is the maximum diameter of the Euclidian norm
 ball of $u_i$, which is the number of standard deviations of perturbation of each ith parameter from its nominal value.
-Intuitively, it is a measure of how much risk is being hedged against. $\Gamma = 0$
+Intuitively, $\Gamma$ is a measure of how much risk is being hedged against. $\Gamma = 0$
 implies that all of the parameters take their nominal values with zero uncertainty,
 and larger $\Gamma$ protects against more parameter uncertainty, where a box uncertainty is
 more conservative than elliptical uncertainty.
@@ -21,7 +28,7 @@ different realizations of the uncertain parameters in Table~\ref{tab:uncertainti
 to examine average design performance. In this~\gls{mc} scheme, the random variables
 are simulated from independent and identically distributed $3\sigma$ truncated Gaussians.
 We simulate from the truncated Gaussian since this makes it possible to
-confirm mathematically that for $\Gamma = 1$, all simulations of uncertain parameters are feasible.
+confirm mathematically that for $\Gamma = 1$, all simulations of $3\sigma$ uncertain parameters are feasible.
 Designs for each solution in Figure~\ref{fig:probOfFailure} are simulated with the same set
 of uncertainty realizations for consistency. \\
 
@@ -47,19 +54,22 @@ of uncertainty realizations for consistency. \\
     \label{fig:probOfFailure}
 \end{figure}
 
-We call the aircraft designed under box uncertainty and under elliptical uncertainty 'the box aircraft'
-and 'the elliptical aircraft' respectively. We
+We call the aircraft designed under box uncertainty and under elliptical uncertainty `the box aircraft'
+and `the elliptical aircraft' respectively. We
 define the probability of failure of a design as the probability that any constraint
 in the design optimization problem is violated in a \gls{mc} simulation.
-As expected, Figure \ref{fig:probOfFailure} shows that probability of failure goes to zero as $\Gamma$ increases.
-It is noteworthy that, for the nominal problem ($\Gamma = 0$) about 10 percent of the realizations of
+As expected, Figure \ref{fig:probOfFailure} shows that probability of failure goes to zero as $\Gamma$ increases,
+and the probability of failure curve approximates the tail of the inverse cumulative probability
+distribution of the Gaussian.
+It is noteworthy that, for the nominal problem ($\Gamma = 0$) only about 10 percent of the realizations of
 uncertain variables result in feasible solutions.
 This means that an aircraft designed for the average case would almost surely
-fail to satisfy the mission requirements.
-That being said, depending on the configuration, it may necessary to sacrifice
+fail to satisfy the mission requirements, even with equal likelihood of favorable versus
+unfavorable uncertain outcomes from the symmetric truncated Gaussian.
+That being said, depending on the problem, it may necessary to sacrifice
 performance to achieve a high degree ($3\sigma$) of
 reliability as in the solution for $\Gamma = 1$. As shown by Figure~\ref{tab:results},
-the elliptical spends 74\% more fuel
+the elliptical aircraft spends 74\% more fuel
 in the worst case than the aircraft designed for the nominal case, but it
 is also completely robust to all uncertain outcomes in the $3\sigma$ set.
 
@@ -95,17 +105,23 @@ P[failure] & & No Uncert. & Box [$\Gamma = 1.0$] & Elliptical [$\Gamma = 1.0$] \
 \end{center}
 \end{table}
 
-Moreover, using margins would in the best case be as good as using a box uncertainty set, and therefore will lead
+Moreover, using margins in design is similar to using a box uncertainty set, and therefore will lead
 to a more conservative solution with inferior performance. This can be seen by the fact that
 the elliptical aircraft spends 14\% lower fuel in the worst case
 than the box aircraft, although they both protect against the same uncertain outcomes.
+The significance of this cannot be understated: the use of margins or box uncertainty protects
+against the same amount of risk as using elliptical uncertainty, with strictly worse performance outcomes.
 
-Figure~\ref{compare_signomial} compares the different methodologies in terms of setup and
-run times. Since the setup time of the nominal problem is minimal, we have
-normalized the results by the run time of the nominal problem for comparison.
-The bottom axis ranks the methods by their level of conservativeness (Best Pairs
-and Simple Conservative formulations being the least and most conservative respectively),
-and the elliptical formulations are less conservative than the box formulations~\cite{Saab2018}.
+In absolute
+terms, the nominal \gls{sp} under zero uncertainty
+takes just under 0.9 seconds to solve on a modern personal computer; the authors
+refer to ~\cite{Kirschen2018Log} and ~\cite{York2018} for more in-depth \gls{sp} solution time analyses.
+We examine briefly in relative terms about how the different \gls{rsp} methodologies compare in terms of setup and
+run times in Figure~\ref{compare_signomial}. Since the setup time of the nominal problem is minimal,
+we have normalized the results by the run time of the nominal problem.
+The bottom axis ranks the methods by their level of conservativeness, Best Pairs
+and Simple Conservative formulations being the least and most conservative respectively,
+and where the elliptical formulations are less conservative than the box formulations.
 For the box uncertainty, solution times are almost identical for different levels of conservativeness,
 whereas for the elliptical uncertainty they decrease as the method becomes more conservative.
 
@@ -125,7 +141,7 @@ whereas for the elliptical uncertainty they decrease as the method becomes more 
     \caption{Robust signomial simple aircraft solution and setup times, normalized by the
     nominal problem solution time, for $\Gamma = 1$.
     Note that the problems with box uncertainty have much lower setup
-    time costs versus those with elliptical uncertainty. TODO:update.}
+    time costs versus those with elliptical uncertainty, but similar solve times.}
     \label{compare_signomial}
 \end{figure}
 
@@ -159,10 +175,11 @@ Spider plots are useful because they allow engineers to see the performance of
 different designs in a multi-objective
 environment. One way to envision the multi-objective
 performance of the aircraft is to consider the area contained within the web defined by the aircraft's
-performance; the smaller the web area the better.
+performance as the figure of merit; the smaller the web area the better.
 Due to the large disparities in the potential values of design variables depending
 on objective as shown in Table~\ref{tab:nondimresults}, we chose to demonstrate this using four objective functions
-that would be expected to have a high degree of correlation and therefore yield similar aircraft designs. These were
+that would be expected to have a high degree of correlation and therefore could yield a
+nuanced comparative analysis. These were
 total (time and fuel) cost, total fuel, takeoff weight and mid-cruise lift-over-drag (L/D).
 
 \begin{figure}
@@ -238,8 +255,7 @@ total (time and fuel) cost, total fuel, takeoff weight and mid-cruise lift-over-
 \end{figure}
 
 Figure~\ref{fig:spider} shows the effects of robustness on
-the different worst-case performance metrics of the different aircraft. In this example, four objectives that
-are highly coupled were chosen to make sure the we can do a comparative graphical analysis.
+the different worst-case performance metrics of the different aircraft.
 For the nominal case, it is possible to see that
 the aircraft designed for total fuel performs the best when all four objectives are considered,
 assuming that all objectives are weighted equally. As expected,
@@ -316,10 +332,9 @@ in the aerospace industry today.
 \subsection{Risk minimization problems}
 
 All of the previous multi-objective analyses have assumed that we have an
-understanding of exactly the spread of the uncertainty we are
+understanding of exactly the amount of uncertainty we are
 willing to tolerate. However, minimizing risk can also be the objective of our
-model, in the case we are uncertain about the total size of uncertainty in parameters
-we can tolerate. This would suggest the following formulation:
+model. This would suggest the following formulation:
 
 \begin{align*}
     \text{max} &~\Gamma \\
@@ -335,16 +350,17 @@ gives $(1+\delta)f_0^*$ as the upper bound on the objective value. Intuitively,
 this is a form of goal programming,
 where we specify the exact maximum worst-case value of an objective we can tolerate so that the program
 risk is acceptable, but in the meanwhile maximize the total size of the uncertainty we can handle.
-We call the method of minimizing an objective for set ${\Gamma}$ \emph{the $\Gamma$ method},
-while we call the goal programming approach, which maximizes $\Gamma$ for a set $\delta$,
+We call the method of minimizing an objective for a given uncertainty set \emph{the $\Gamma$ method},
+while we call the goal programming approach, which maximizes $\Gamma$ for a set $\delta$ objective penalty tolerance,
 \emph{the $\delta$ method}.
 
-The problem in Formulation~\ref{eq:goalprogramming} is not equivalent to the problem in Formulation~\ref{eq:normform},
+The problem in Formulation~\ref{eq:goalprogramming} is clearly
+not equivalent to the problem in Formulation~\ref{eq:normform},
 but should yield similar results. As a proof of concept, we will use the objective values from the study
-show in Figure\ref{fig:probOfFailure} as inputs to the goal programming model, and compare the results.
+shown in Figure\ref{fig:probOfFailure} as the $\delta$ inputs to the goal programming model, and compare the results.
 If we are able to obtain globally
-optimal solutions, we would expect that $\Gamma$ and $\delta$ are identical. The results are tabulated in
-Table~\ref{tab:deltaVsGamma}. Note that the two methods used \gls{mc} runs using the same 100 realizations
+optimal solutions, we would expect that $\Gamma$ and $\delta$  from both problems are identical. The results are tabulated in
+Table~\ref{tab:deltaVsGamma}. Note that the two methods were evaluated \gls{mc} runs using the same 100 realizations
 of the uncertainty, for consistency in probability of failure results.
 
 \begin{table}
@@ -381,10 +397,13 @@ was also confirmed by examining the physical dimensions of the aircraft.
 However, there were discrepancies found in the probability of failure.
 This is likely because of
 how numerical precision affects the solution of the feasibility problem solved as part of the \gls{mc} scheme.
-It is not possible to confirm which method is more conservative,
-but even with the discrepancies, the probability of failure of the resulting aircraft is consistent with expectations,
+Although both methods are conservative, since some of the solutions are likely on the border of feasibility,
+the design could fall in or out of the feasible set depending on the piecewise-linear
+approximations made.
+Based on these observations, it was not possible to confirm which method is more conservative,
+but the probability of failure of the resulting aircraft is
+consistent with our expectations,
 being monotonic with the size of the uncertainty set and similar between the two methods.
-
 
 %\begin{figure}
 %    \begin{center}
@@ -466,10 +485,10 @@ often the case that there are many potential objectives that are conflicting.
 The term multiobjective optimization is misleading
 because you can only optimize for one objective at once,
 and the design is going to be influenced by how engineers weight different objectives.
-Risk minimization makes these implicit decisions explicit, empowers engineers to choose
-how much performance they would be willing to sacrifice with respect
-to optimal but fragile designs to obtain robust designs, and gives a prediction of the margin of error
-for every parameter that they have to make designs feasible.
+But risk is ubiquitous in engineering design problems, so it
+is logical that minimal risk is the ultimate objective, while achieving performance
+goals. Goal programming empowers engineers to weigh
+different objectives around this global design variable.
 
 \section{Potential Future Work or Studies}
 

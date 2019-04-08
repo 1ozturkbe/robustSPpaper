@@ -1,6 +1,6 @@
 \section{Approach to Solving Robust Signomial Programs}
 
-This section presents a heuristic algorithm to safely solve a \gls{rsp}
+This section presents a heuristic algorithm to solve a \gls{rsp}
 based on our previous discussion on robust geometric programming.
 
 \subsection{General \gls{rsp} Solver}
@@ -20,8 +20,9 @@ local \gls{rgp} approximations. Below we provide a step-by-step algorithm to sol
     \end{enumerate}
 \end{enumerate}
 
-Similar to a \gls{sp}, a good initial guess would lead to faster convergence and possibly a better solution.
-A quick candidate is the deterministic solution of the uncertain \gls{sp}, which will certainly lead to a faster convergence.
+Similar to a \gls{sp}, a good initial guess will lead to faster convergence and possibly a better solution.
+The deterministic solution of the uncertain \gls{sp} is a good candidate $x_0$,
+and is used to speed up convergence.
 
 \begin{figure}
     \begin{center}
@@ -85,7 +86,7 @@ the robustified possibly signomial constraints locally, thus solving a
         \item Find the local GP approximation of the SP at $x_i$.
         \item Robustify the constraints of the local GP approximation using the Linearized Perturbations methodology.
         \item Find the local GP approximation of the resulting local SP at $x_i$.
-        \item Solve the local GP approximation in step c to obtain $x_{i+1}$
+        \item Solve the local GP approximation in step c to obtain $x_{i+1}$.
         \item If $x_{i+1} \approx x_{i}$: break.
     \end{enumerate}
 \end{enumerate}

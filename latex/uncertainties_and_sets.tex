@@ -1,8 +1,10 @@
 \section{Uncertainties and Sets}
 \label{uncertainties_and_sets}
 
-The uncertainties for the different parameters in the problem have been determined
-considering the parameters in aircraft design that often have the largest uncertainty.
+As aforementioned in Section~\ref{sec:robustvsstochastic}, one of the advantages
+of \gls{ro} over \gls{so} is the fact that it is more effective in absence of
+data, since the problem has uncertainty set bounds on parameters as inputs instead
+of complete probability distributions.
 These uncertainties, given by three times the \gls{cv}\footnote{The \gls{cv}
 is defined as follows: $\text{CV} = \frac{\sigma}{|\mu|}$, where $\sigma$ is the standard deviation and $\mu$ is the mean of the parameter.},
 are listed in Table~\ref{tab:uncertainties}. Since for the rest of this work
@@ -33,7 +35,8 @@ $W_{w_{coeff,ii}}$ & wing weight coefficient 2 & 60 $\mathrm{N/m^2}$ & 20\\
 \end{center}
 \end{table}
 
-The parameter uncertainties reflect aerospace engineering intuition.
+In this case of a conceptual aircraft design with no prior data,
+the parameter uncertainties reflect aerospace engineering intuition.
 The wing weight coefficients $W_{w_{coeff,i}}$ and $W_{w_{coeff,ii}}$, and the ultimate load factor $N_{ult}$ have
 large $3\sigma$s because the build quality of aircraft components is
 often difficult to quantify with a large degree of certainty.
@@ -44,5 +47,6 @@ physical constants ($\mu$, $\rho$) and those that can be determined or manufactu
 high degree of accuracy ($S_{wetratio}$, $e$) have relatively low deviations.
 Parameters that require testing to determine ($C_{L_{max}}$, $V_{min}$) have a level of uncertainty
 that reflects the expected variance of empirical studies. However, note that
-these quantities are ultimately picked by the designer and the level of conservatism in the
+these quantities are ultimately picked by the designer using prior experience and data,
+and the level of conservatism in the
 design will be greatly affected by the chosen $3\sigma$s.
