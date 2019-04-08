@@ -277,7 +277,7 @@ to the performance of the aircraft.
 
 \begin{figure}
     \begin{center}
-        \makebox[\textwidth]{
+        \resizebox{0.5\columnwidth}{!}{
         \begin{tikzpicture}
             \node[inner sep=0] (plot) at (6.0,0)
             {\includegraphics[height=11.56cm]{signomial_simple_flight/fuse_pvc.pdf}};
@@ -484,11 +484,9 @@ fundamental choice that an engineer can make in design is what the objective fun
 often the case that there are many potential objectives that are conflicting.
 The term multiobjective optimization is misleading
 because you can only optimize for one objective at once,
-and the design is going to be influenced by how engineers weight different objectives.
-But risk is ubiquitous in engineering design problems, so it
-is logical that minimal risk is the ultimate objective, while achieving performance
-goals. Goal programming empowers engineers to weigh
-different objectives around this global design variable.
+and the design is going to be influenced by how engineers weigh different objectives.
+But risk is ubiquitous in engineering design problems, so goal programming allows risk to be used as
+a global design variable against which all objectives can weighed.
 
 \section{Potential Future Work or Studies}
 
