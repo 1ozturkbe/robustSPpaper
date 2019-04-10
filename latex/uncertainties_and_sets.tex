@@ -18,18 +18,18 @@ to represent $3\text{CV}$.
 \hline
 Parameters & Description & Value & \% Uncert. ($3\sigma$) \\
 \hline
-$S_{wetratio}$ & wetted area ratio & 2.075 & 3\\
+$S_{\rm{wetratio}}$ & wetted area ratio & 2.075 & 3\\
 e & span efficiency & 0.92 & 3\\
-$\mu$ & air viscosity & $1.78 \times 10^{-5}~\mathrm{kg/(ms)}$ & 4 \\
-$\rho$ & air density & 1.23 $\mathrm{kg/m^3}$ & 5 \\
-$C_{L_{max}}$ & stall lift coefficient & 1.6 & 5\\
+$\mu$ & air viscosity (SL) & $1.78 \times 10^{-5}~\mathrm{kg/(ms)}$ & 4 \\
+$\rho$ & air density (SL) & 1.23 $\mathrm{kg/m^3}$ & 5 \\
+$C_{L_{\rm{max}}}$ & stall lift coefficient & 1.6 & 5\\
 k & fuselage form factor & 1.17 & 10\\
 $\tau$ & airfoil thickness ratio & 0.12 & 10\\
-$N_{ult}$ & ultimate load factor & 3.3 & 15\\
-$V_{min}$ & takeoff speed & 30 m/s & 20\\
+$N_{\rm{ult}}$ & ultimate load factor & 3.3 & 15\\
+$V_{\rm{min}}$ & takeoff speed & 30 m/s & 20\\
 $W_0$ & payload weight & 6250 N & 20\\
-$W_{w_{coeff,i}}$ & wing weight coefficient 1 & $2 \times 10^{-5}~1/\mathrm{m}$ & 20\\
-$W_{w_{coeff,ii}}$ & wing weight coefficient 2 & 60 $\mathrm{N/m^2}$ & 20\\
+$W_{w_{\rm{coeff,strc}}}$ & wing structural weight coefficient & $2 \times 10^{-5}~1/\mathrm{m}$ & 20\\
+$W_{w_{\rm{coeff,surf}}}$ & wing surface weight coefficient & 60 $\mathrm{N/m^2}$ & 20\\
 \hline
 \end{tabular}
 \end{center}
@@ -37,15 +37,16 @@ $W_{w_{coeff,ii}}$ & wing weight coefficient 2 & 60 $\mathrm{N/m^2}$ & 20\\
 
 In this case of a conceptual aircraft design with no prior data,
 the parameter uncertainties reflect aerospace engineering intuition.
-The wing weight coefficients $W_{w_{coeff,i}}$ and $W_{w_{coeff,ii}}$, and the ultimate load factor $N_{ult}$ have
+The wing weight coefficients $W_{w_{\rm{coeff,strc}}}$ and $W_{w_{\rm{coeff,surf}}}$,
+and the ultimate load factor $N_{\rm{ult}}$ have
 large $3\sigma$s because the build quality of aircraft components is
 often difficult to quantify with a large degree of certainty.
 The payload weight ($W_0$) has a large uncertainty for similar reasons,
 since it is often developed concurrently with the aircraft.
 Parameters that engineers take to be
-physical constants ($\mu$, $\rho$) and those that can be determined or manufactured with a relatively
-high degree of accuracy ($S_{wetratio}$, $e$) have relatively low deviations.
-Parameters that require testing to determine ($C_{L_{max}}$, $V_{min}$) have a level of uncertainty
+physical constants (sea level air viscosity and density, $\mu$ and $\rho$) and those that can be determined or manufactured with a relatively
+high degree of accuracy ($S_{\rm{wetratio}}$, $e$) have relatively low deviations.
+Parameters that require testing to determine ($C_{L_{\rm{max}}}$, $V_{\rm{min}}$) have a level of uncertainty
 that reflects the expected variance of empirical studies. However, note that
 these quantities are ultimately picked by the designer using prior experience and data,
 and the level of conservatism in the
