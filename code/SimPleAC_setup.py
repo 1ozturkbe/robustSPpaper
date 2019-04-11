@@ -8,8 +8,9 @@ def SimPleAC_setup():
     'h_{cruise_m}'   :5000*units('m'),
     'Range_m'        :3000*units('km'),
     'W_{p_m}'        :6250*units('N'),
+    '\\rho_{p_m}'    :1500*units('kg/m^3'),
     'C_m'            :120*units('1/hr'),
-    'V_{min_m}'      :30*units('m/s'),
+    'V_{min_m}'      :35*units('m/s'),
     'T/O factor_m'   :2,
     }
     m.substitutions.update(subs)

@@ -15,9 +15,8 @@ def SimPleAC_draw(sol, color='blue', directory=None, name=None):
     lam = 0.5
     croot = S/(1+lam)/b
     ctip = lam*croot
-    CDA0 = sol('(CDA0)')
-    rfuse = 50*mag((CDA0/np.pi)**0.5)
-    lfuse = 6*rfuse
+    rfuse = sol('r_{fuse}').magnitude
+    lfuse = sol('l_{fuse}').magnitude
 
     patches = []
 
