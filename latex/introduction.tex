@@ -1,37 +1,44 @@
 \section{Introduction}
 
-Aircraft design exists in a niche of design problems where "failure is
+Aircraft design exists in a niche of design problems where ``failure is
 not an option"\footnote{Quoting Gene Kranz, the mission director of Apollo 13.}.
 This is remarkable since aircraft design problems are rife with uncertainty about
 technological capabilities, environmental factors, manufacturing quality and the future
-state of markets and regulatory agencies. Optimization under uncertainty for aircraft presents
+state of markets and regulatory agencies. Design
+under uncertainty for aircraft presents
 low hanging fruit, since the program risk of aircraft design
-problems is high and the goal of these methods is to be able to provide designs that are robust
+problems is high and the goal of these methods is to provide designs that are robust
 to realizations of uncertainty in the real world.
 
-Zang et al.\cite{Zang2002} succinctly describe the categories of benefits for optimization under uncertainty for aircraft.
+Optimization has become ubiquitous in the design of engineered systems, and especially aerospace systems,
+in the late 20th and 21st centuries as computing has improved dramatically and as designs have
+continued to approach the limits of the second law of thermodynamics. Optimization under uncertainty
+has been identified by academia and industry as an area of opportunity
+in multiple review papers (\cite{Zang2002},~\cite{Yao2011}).
+Zang et al.\cite{Zang2002} succinctly
+describe the categories of benefits for optimization under uncertainty for aircraft.
 These are the following:
 \begin{itemize}
     \item \emph{Confidence in analysis tools will increase.}
     The uptake of new design tools in the aerospace industry has been low
     due to heavy reliance on legacy design methods and prior experience when
-    faced with risky design propositions,
-    even in the design of novel configurations where understanding
+    faced with risky design propositions, and notably in
+    the design of novel configurations where understanding
     of the design tradespaces is lacking. Robustness will increase
-    confidence in analysis tools because of its ability to better capture the
+    confidence in analysis tools because it appropriately captures the
     effects of technological uncertainty on the potential benefits of new
     configurations.
     \item \emph{Design cycle time, cost, and risk will be reduced.}
-    Design cycle costs as well as the engineering hours per aircraft have been increasing~\cite{Patt2012}
-    precipitously since the 1950's.
+    Design cycle costs as well as the engineering hours per aircraft have been increasing
+    precipitously since the 1950's~\cite{Patt2012}.
     Aircraft design and development is costly, so the ability to handle uncertainty in
     the conceptual design process is critical for the long-term success of an aircraft,
     helping reduce the program risk.
     \item \emph{System performance will increase while ensuring that reliability requirements
     are met.}
-    The effectiveness of an aircraft depends heavily on its
-    ability to deliver on performance, which is dependent on assumptions about the
-    current technological environment and the ability to produce vehicles of a certain quality.
+    The performance of an aircraft design depends heavily on assumptions about the
+    current and future technological environment and the ability to
+    produce vehicles of a certain quality.
     \item \emph{Designs will be more robust.}
     The ability to provide designs with feasibility and performance guarantees will mean
     that designs and products will be more robust to uncertainties in manufacturing quality,
@@ -39,11 +46,12 @@ These are the following:
     handle off-nominal operating conditions.
 \end{itemize}
 
+However, optimization under uncertainty has yet to gain significant traction in the aerospace field.
 In economics, the idea that risk is related to profit is well understood and leveraged.
-In aerospace engineering however we often forget that there is no such thing as a free lunch,
-and that the consequence of risk aversity necessarily is performance that is left on the table.
+In aerospace engineering, however, we often forget that there is no such thing as a free lunch,
+and that risk aversity necessarily results in lower performance.
 Considering that conceptual design in the aerospace industry hedges against program risk,
-the \gls{ro} frameworks proposed in this paper will
+the tractable \gls{ro} frameworks proposed in this paper will
 give aerospace engineers the ability to rigorously trade robustness and the performance penalties
 that result from it.
 
@@ -67,17 +75,18 @@ robustness and optimality~\cite{Yao2011}. This is a dangerous proposition especi
 conceptual design phase of new configurations, since prior information and expertise is not
 available. In these scenarios, it is especially important to go back to fundamental physics
 and use rigorous mathematics to explore the design space~\cite{York2018}. Furthermore,
-they are often \emph{too conservative}, ruling out potentially beneficial technologies
+the legacy methods are often \emph{too conservative}, ruling out potentially beneficial technologies
 and configurations due to the inability to adequately trade off performance and risk.
 
 There are two rigorous approaches to solving design optimization problems under uncertainty,
-which are \gls{so} and \gls{ro}. Stochastic optimization\footnote{Note that stochastic
+which are \gls{so} and \gls{ro}. Note that stochastic
 optimization is an overloaded term, and exists in three contexts in the literature. The first is the solution
 of deterministic problems with stochastic search space exploration. The second is the solution of simulations,
 often partial differential equations, with uncertain parameters. The final is the solution
-of design optimization problems with stochastic parameters. We explore the third category.}
-deals with probability distributions of
-uncertain parameters by propagating these uncertainties through the
+of design optimization problems with stochastic parameters, which is referenced in this paper.
+\gls{so} problems
+deal with probability distributions of
+uncertain parameters by propagating them through the
 physics of a design problem to ensure constraint feasibility with certain probabilistic guarantees.
 The goal of \gls{so} is predominantly to minimize the expectation of an objective function or
 to optimize on some desired characteristic of the probability density function of the objective~\cite{Diwekar2008}.
@@ -109,11 +118,15 @@ system evaluations.
 of possible constraints for a given uncertainty set. However, this is easily
 tackled by considering the worst case robust counterpart of each constraint, which
 results in many kinds of optimization problems having tractable robust formulations~\cite{Bertsimas2011}.
+These robust formulations are \emph{deterministic}. Different instances of a design problem with
+the same parameters will result in the same solution. This is not the case with \gls{so},
+which often relies on randomized algorithms~\cite{Shmoys2004}.
 
 Although \gls{ro} problems solve problems with uncertainty,
-\gls{ro} formulations result in solutions that are deterministically immune
-to all possible realizations of parameters in an uncertainty set~\cite{Bertsimas2011}, which is defined as conservativeness.
-\gls{so} formulations
+\gls{ro} formulations result in solutions that are \emph{deterministically immune}
+to all possible realizations of parameters in an uncertainty set~\cite{Bertsimas2011},
+which is defined as conservativeness. There is extensive literature on \gls{ro} methods
+that offer differing levels of conservativeness~\cite{Bertsimas2004}. \gls{so} formulations
 provide no such guarantees. \gls{ro} also does not require distributional information
 about uncertain parameters as \gls{so} does, and therefore can better address problems where there
 is a lack of experience or data. It is arguable that \gls{ro}

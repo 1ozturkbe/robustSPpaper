@@ -1,12 +1,13 @@
 \section{Models}
 
 We implement the \gls{rsp} formulation above on a simple unmanned, gas-powered
-aircraft design problem that is systematically developed in~\cite{Ozturk2018}.
+aircraft design problem that is systematically developed in~\cite{Ozturk2018},
+with the elliptical fuselage model borrowed from ~\cite{Burton2017}.
 We optimize a wing, fuselage, and engine given a payload and range requirement.
-The nominal model has 154 variables and 184 constraints, a common level of
+The nominal model has 176 variables and 154 constraints, a common level of
 sparsity for~\gls{gp} and~\gls{sp} models.
 A short qualitative overview of the model follows; for
-more detailed information, please refer to~\cite{Ozturk2018}. The uncertainties
+more detailed information, please refer to~\cite{Ozturk2018} and~\cite{Burton2017}. The uncertainties
 associated with the parameters will be described in Section~\ref{uncertainties_and_sets}.
 
 \subsection{Flight Profile}
@@ -42,9 +43,9 @@ form factor. The weight of the wing is the sum of skin and spar weights.
 
 \subsubsection{Fuselage}
 
-The fuselage is assumed to only contain fuel. The fuselage drag is exactly proportional to its frontal area.
-The fuselage is assumed not to contain any structural members, and so its weight consists only of skin weight, which
-is based on the minimum gauge of composites.
+The fuselage is assumed to be ellipsoidal in shape and to contain fuel and payload.
+The fuselage drag is estimated using a form factor.
+The fuselage is assumed not to contain any structural members, and so its weight consists only of skin weight.
 
 \subsubsection{Engine}
 
