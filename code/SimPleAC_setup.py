@@ -1,4 +1,4 @@
-from gpkitmodels.SP.SimPleAC.SimPleAC_mission import Mission, SimPleAC
+from SimPleAC_mission import Mission, SimPleAC
 from gpkit import Model, units
 
 def SimPleAC_setup():
