@@ -33,30 +33,6 @@ def gen_SimPleAC_radar(marray, objectives, baseobj):
             except:
                 solutions[i].append(marray[i][j].robustsolve())
 
-    def generate_radar_data(solutions, objectives, baseobj):
-        # Generating data amenable to radar plotting
-        data =[]
-        data.append([objectives[j]['name'] for j in objectives.iterkeys()])
-
-        maxesindata = np.zeros(len(objectives))
-        minsindata = 10.**8*np.ones(len(objectives))
-        counti = 0
-        for i in objectives.iterkeys():
-            case = objectives[i]['name']
-            caseData = [[] for i in range(len(solutions[counti]))]
-            for j in range(len(solutions[counti])):
-                countk = 0
-                for k in objectives.iterkeys():
-                    caseData[j].append(mag(solutions[counti][j](k)))
-                    if mag(solutions[counti][j](k)) >= maxesindata[countk]:
-                        maxesindata[countk] = mag(solutions[counti][j](k))
-                    if mag(solutions[counti][j](k)) <= minsindata[countk]:
-                        minsindata[countk] = mag(solutions[counti][j](k))
-                    countk +=1
-            data.append((case, caseData))
-            counti +=1
-        return data, maxesindata, minsindata
-
     def plot_radar_data(solutions, objectives, methods, data, maxesindata, minsindata):
 
             # Plotting
@@ -93,6 +69,29 @@ def gen_SimPleAC_radar(marray, objectives, baseobj):
 
     return solutions
 
+def generate_radar_data(solutions, objectives, baseobj):
+        # Generating data amenable to radar plotting
+        data =[]
+        data.append([objectives[j]['name'] for j in objectives.iterkeys()])
+
+        maxesindata = np.zeros(len(objectives))
+        minsindata = 10.**8*np.ones(len(objectives))
+        counti = 0
+        for i in objectives.iterkeys():
+            case = objectives[i]['name']
+            caseData = [[] for i in range(len(solutions[counti]))]
+            for j in range(len(solutions[counti])):
+                countk = 0
+                for k in objectives.iterkeys():
+                    caseData[j].append(mag(solutions[counti][j](k)))
+                    if mag(solutions[counti][j](k)) >= maxesindata[countk]:
+                        maxesindata[countk] = mag(solutions[counti][j](k))
+                    if mag(solutions[counti][j](k)) <= minsindata[countk]:
+                        minsindata[countk] = mag(solutions[counti][j](k))
+                    countk +=1
+            data.append((case, caseData))
+            counti +=1
+        return data, maxesindata, minsindata
 
 def objective_table_csv(objectives, data, baseresult):
     rawdata = [None] * (len(objectives) + 1)
@@ -100,7 +99,7 @@ def objective_table_csv(objectives, data, baseresult):
     count = 0
     for i in objectives.iterkeys():
         count += 1
-        rawdata[count] = [objectives[i]['name']] + list(np.around(np.array(data[count-1][1][0])/np.array(baseresult),decimals=2))
+        rawdata[count] = [objectives[i]['name']] + list(np.around(np.divide(np.array(data[count][1][0]),np.array(baseresult)),decimals=2))
     with open("savefigs/objective_table.csv",'wb') as resultFile:
         wr = csv.writer(resultFile, dialect='excel')
         wr.writerows(rawdata)
@@ -109,16 +108,15 @@ if __name__ == "__main__":
     m, subs = SimPleAC_setup()
     # Putting in objectives and associated substitutions
     # in a dictionary
-    objectives = {#m['W_{f_m}'] :                      {'name': 'Total fuel', 'added': {}, 'removed': {}},
-                  #m['C_m']*m['t_m'] :                 {'name': 'Time cost', 'added': {}, 'removed': {}},
-                  #m['V_{min_m}'] :                    {'added': {}, 'removed': [m['V_{min_m}']]},
-                  # m['W']:                             {'name': 'Takeoff weight', 'added': {}, 'removed': {}},
-                  #m['A']:                             {'name': 'Aspect ratio', 'added': {}, 'removed': {}},
-                  #m['W_e']:                           {'name': 'Engine weight', 'added': {}, 'removed': {}},
-                  #m['W']/m['S']:                      {'name': 'Wing loading', 'added': {}, 'removed': {}},
-                  # m['W_{f_m}']+m['C_m']*m['t_m']*units('N') : {'name': 'Total cost', 'added': {}, 'removed': {}},
-                  # 1/(m['L'][2]/m['D'][2]) : {'name': 'Cruise L/D', 'added': {}, 'removed': {}},
-                  }
+    # objectives = {m['W_{f_m}']                              : {'name': 'Total fuel', 'added': {}, 'removed': {}},
+    #               m['C_m']*m['t_m']                         : {'name': 'Time cost', 'added': {}, 'removed': {}},
+    #               m['W']                                    : {'name': 'Takeoff weight', 'added': {}, 'removed': {}},
+    #               m['A']                                    : {'name': 'Aspect ratio', 'added': {}, 'removed': {}},
+    #               m['W_e']                                  : {'name': 'Engine weight', 'added': {}, 'removed': {}},
+    #               m['W']/m['S']                             : {'name': 'Wing loading', 'added': {}, 'removed': {}},
+    #               m['W_{f_m}']+m['C_m']*m['t_m']*units('N') : {'name': 'Total cost', 'added': {}, 'removed': {}},
+    #               1/(m['L'][2]/m['D'][2])                   : {'name': 'Cruise L/D', 'added': {}, 'removed': {}},
+    #               }
 
     # L/D design study
     # objectives = {
@@ -162,6 +160,10 @@ if __name__ == "__main__":
 
     colors = ['blue', 'red', 'green']
     directory = 'savefigs'
+
+    # # Saving data
+    # [data, maxesindata, minsindata] = generate_radar_data(solutions, objectives, baseobj)
+    # objective_table_csv(objectives, data, data[1][1][0])
 
     plotno = 0
     for i in solutions:
