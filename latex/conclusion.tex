@@ -1,6 +1,6 @@
 \section{Conclusion}
 
-In this paper we have motivated the use of robust optimization in conceptual engineering
+This paper has motivated the use of robust optimization in conceptual engineering
 design, in lieu of the mathematically non-rigorous methods of optimization under uncertainty
 widely used in the aerospace industry today. We have developed a tractable \gls{rsp} formulation
 in response to a need to optimize over uncertain parameters, extending
@@ -13,9 +13,19 @@ We demonstrated using a simple aircraft design problem
 that using \gls{ro}, and specifically \gls{rsp}s in conceptual aircraft design will result in systems
 that are more robust with respect to uncertainties in operational parameters,
 such as payload mass and range, as well as uncertain environmental and manufacturing parameters.
-By making designs immune to realizations of uncertainty in a set, engineers can use
-robust signomial programming to trade off
-robustness and optimality within engineered systems in a tractable manner.
+We showed that this robustness has probabilistic guarantees, where sets of size $\Gamma=1$
+protect against all realizations of uncertainty for a given set of parameters.
+Thus engineers can use robust signomial programming to trade off
+robustness and optimality within engineered systems in a tractable and mathematically rigorous manner.
+
+We compared the results of designs created using box and elliptical uncertainty sets, where the
+box uncertainty approximates the use of margins in design. We
+have confirmed that designs using elliptical uncertainty are strictly less conservative
+than those that would be generated through the use of box uncertainty while protecting against the same
+parametric uncertainties. Since the results of \gls{rsp}s under elliptical uncertainty are less conservative
+than traditional design methods,
+\gls{rsp}s improve the viability of novel configurations in terms of
+program risk and performance with no sacrifice in reliability.
 
 \gls{ro} has
 the potential to change current aerospace design paradigms by introducing

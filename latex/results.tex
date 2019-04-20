@@ -58,9 +58,9 @@ We call the aircraft designed under box uncertainty and under elliptical uncerta
 and `the elliptical aircraft' respectively. We
 define the probability of failure of a design as the probability that any constraint
 in the design optimization problem is violated in a \gls{mc} simulation.
-As expected, Figure \ref{fig:probOfFailure} shows that probability of failure goes to zero as $\Gamma$ increases,
-and the probability of failure curve approximates the tail of the inverse cumulative probability
-distribution of the Gaussian.
+As expected, Figure \ref{fig:probOfFailure} shows that probability of failure goes monotonically
+to zero as $\Gamma$ increases. However, it is not smooth in its second derivative due to the
+presence of the non-log-convex fuel constraint.
 It is noteworthy that, for the nominal problem ($\Gamma = 0$) only about 10 percent of the realizations of
 uncertain variables result in feasible solutions.
 This means that an aircraft designed for the average case would almost surely
@@ -86,9 +86,9 @@ $Re$ & Reynolds number & - & $1.54 \times 10^6$ & $3.03\times 10^6$ & $250 \time
 $S$ & wing planform area &$\mathrm{m^2}$ & 13.6 & 32.0 & 28.1 \\
 $V$ & mean flight velocity &$\mathrm{m/s}$ & 41.6 & 38.9 & 38.4 \\
 $T_{\rm{flight}}$ & time of flight & $\mathrm{hr}$ & 20.1 & 21.4 & 21.7 \\
-$W_{\rm{w}}$ & Wing weight & $\mathrm{N}$ & 2830 & 4800 & 4480 \\
-$W_{\rm{w,strc}}$ & Wing structural weight &$\mathrm{N}$ & 2010 & 2670 & 2620 \\
-$W_{\rm{w,surf}}$ & Wing skin weight &$\mathrm{N}$ & 820 & 2120 & 1860 \\
+$W_{\rm{w}}$ & wing weight & $\mathrm{N}$ & 2830 & 4800 & 4480 \\
+$W_{\rm{w,strc}}$ & wing structural weight &$\mathrm{N}$ & 2010 & 2670 & 2620 \\
+$W_{\rm{w,surf}}$ & wing skin weight &$\mathrm{N}$ & 820 & 2120 & 1860 \\
 $W_{\rm{fuse}}$ & fuselage weight &$\mathrm{N}$ & 250 & 288 & 279 \\
 $V_{\rm{f,avail}}$ & total fuel volume & $\mathrm{m^3}$ & 0.0759 & 0.154 & 0.136 \\
 $V_{\rm{f,fuse}}$ & fuselage fuel volume & $\mathrm{m^3}$ & 0.0394 & 0 & 0.0159 \\
@@ -96,7 +96,7 @@ $V_{\rm{f,wing}}$ & wing fuel volume &$\mathrm{m^3}$ & 0.0365 & 0.154 & 0.120   
 \hline
 E[Objective] & Description & Units & No Uncert. & Box [$\Gamma = 1.0$] & Elliptical [$\Gamma = 1.0$] \\
 \hline
-$W_{\rm{fuel}}$ & Total fuel weight & $\mathrm{N}$ & 608 & 1240 & 1090 \\
+$W_{\rm{fuel}}$ & total fuel weight & $\mathrm{N}$ & 608 & 1240 & 1090 \\
 \hline
 P[failure] & & & No Uncert. & Box [$\Gamma = 1.0$] & Elliptical [$\Gamma = 1.0$] \\
 \hline
@@ -111,13 +111,13 @@ to a more conservative solution with inferior performance. This can be seen by t
 the elliptical aircraft spends 14\% lower fuel in the worst case
 than the box aircraft, although they both protect against the same uncertain outcomes.
 The significance of this cannot be understated: the use of margins or box uncertainty protects
-against the same amount of risk as using elliptical uncertainty, with strictly worse performance outcomes.
+against the same amount of risk as elliptical uncertainty, with strictly worse performance outcomes.
 
 In absolute
 terms, the nominal \gls{sp} under zero uncertainty
-takes just under 0.9 seconds to solve on a modern personal computer; the authors
-refer to ~\cite{Kirschen2018Log} and ~\cite{York2018} for more in-depth \gls{sp} solution time analyses.
-We examine briefly in relative terms about how the different \gls{rsp} methodologies compare in terms of setup and
+takes just under 0.9 seconds to solve on a modern laptop computer; the authors
+refer to ~\cite{Kirschen2018Log} and \cite{York2018} for more in-depth \gls{sp} solution time analyses.
+Here we examine briefly in relative terms about how the different \gls{rsp} methodologies compare in terms of setup and
 run times in Figure~\ref{compare_signomial}. Since the setup time of the nominal problem is minimal,
 we have normalized the results by the run time of the nominal problem.
 The bottom axis ranks the methods by their level of conservativeness, Best Pairs
@@ -149,28 +149,33 @@ whereas for the elliptical uncertainty they decrease as the method becomes more 
 \subsection{The Effect of Robustness on Multiobjective Performance}
 
 One of the benefits of convex and difference-of-convex optimization methods is the ability to optimize for
-different objectives~\cite{York2018}. As a demonstration, we optimized the aircraft without uncertainty
-for 7 different objectives, and show
+different objectives~\cite{York2018}. As a demonstration, we optimize the aircraft without uncertainty
+for 8 different objectives, and show
 the non-dimensionalized results in Table~\ref{tab:nondimresults}.
-Since the model is physics based, it is able to accommodate a range of objectives,
-even ones that are not often considered such as aspect ratio. The resulting aircraft
-also differ drastically with respect to performance and design variables.
+Since the model is physics based, the model can even accommodate objectives such as aspect ratio
+which are unintuitive and often not considered. The resulting aircraft
+differ drastically with respect to performance and design variables.
 As the most extreme example,
-the aircraft optimized for time cost has 150 times the engine weight as the aircraft
-optimized for total fuel, since a huge amount of power is required to fly fast.
+the aircraft optimized for time cost has more than 100 times the engine weight as the aircraft
+optimized for total fuel, since a huge amount of power is required to fly fast. Furthermore, we can see
+that some more traditional objectives such as wing loading pull the design
+towards extreme corners of the performance envelope. This shows the importance of considering many objectives
+in design, and demonstrates the power of \gls{sp}s in helping
+consider the multiobjective performance engineered systems.
 
 \begin{table}
     \resizebox{\textwidth}{!}{
     \csvautobooktabularcenter{figures/objective_table.csv}
     }
 \caption{Non-dimensionalized variations in objective values with respect to the aircraft optimized
-for different objectives. Objective values were normalized by the total fuel solution.}
+for different objectives. Objective values are normalized by the total fuel solution.}
     \label{tab:nondimresults}
 \end{table}
 
-Aside from this caricature example, we demonstrate the capabilities of \gls{rsp}s in
-multiobjective design by considering a more realistic scenario.
-We perform the optimization of the aircraft with no uncertainty and ellipsoidal uncertainty ($\Gamma = 1$)
+Aside from this caricature example, we demonstrate the capabilities of \gls{rsp}s
+by considering a more realistic scenario, now with uncertainty.
+We perform the optimization of the aircraft with no uncertainty and both box and
+ellipsoidal uncertainty ($\Gamma = 1$)
 for 4 different objective functions, and plot the results on spider plots.
 Spider plots are useful because they allow engineers to see the performance of
 different designs in a multi-objective
@@ -178,9 +183,9 @@ environment. One way to envision the multi-objective
 performance of the aircraft is to consider the area contained within the web defined by the aircraft's
 performance as the figure of merit; the smaller the web area the better.
 Due to the large disparities in the potential values of design variables depending
-on objective as shown in Table~\ref{tab:nondimresults}, we chose to demonstrate this using four objective functions
+on objective as shown in Table~\ref{tab:nondimresults}, we choose to demonstrate this using four objective functions
 that would be expected to have a high degree of correlation and therefore could yield a
-nuanced comparative analysis. These were
+nuanced comparative analysis. These are
 total (time and fuel) cost, total fuel, takeoff weight and mid-cruise lift-over-drag (L/D).
 
 \begin{figure}
@@ -260,74 +265,20 @@ the different worst-case performance metrics of the different aircraft.
 For the nominal case, it is possible to see that
 the aircraft designed for total fuel performs the best when all four objectives are considered,
 assuming that all objectives are weighted equally. As expected,
-the box uncertainty set is strictly more conservative than the elliptical uncertainty set, for
+the box uncertainty set is strictly more conservative than the elliptical uncertainty set for
 all objectives. Note that the spider plots show the worst-case performance of the vehicles.
-This analysis could also be performed for the mean performance
+This analysis can also be performed for the mean performance
 of the aircraft determined through ~\gls{mc} simulation, but this demonstration limits
 its scope to the worst-case analysis.
 
-One interesting observation is that there is a convergence in the geometry of the aircraft as they are designed
-to be robust to uncertain outcomes. All of the robust designs eschew the storage of fuel in the fuselage
-for larger wings that can store more fuel. This is not to say that none of the aircraft will ever have
-fuselages; one example is a mission where flight time is a much more important objective
-than fuel weight. We optimize aircraft for a range of $\Gamma$ with total cost
-being the objective. In Figure~\ref{fig:fuseShrink}, we show that,
-depending on our willingness to tolerate risk exposure, we
-may have drastically different opinions about whether or not a fuselage is beneficial
-to the performance of the aircraft.
-
-\begin{figure}
-    \begin{center}
-        \resizebox{0.5\columnwidth}{!}{
-        \begin{tikzpicture}
-            \node[inner sep=0] (plot) at (6.0,0)
-            {\includegraphics[height=11.56cm]{signomial_simple_flight/fuse_pvc.pdf}};
-            \node[inner sep=0] (0) at (0,5.7)
-            {\includegraphics[height=4cm]{figures/fuse0.pdf}};
-            \node[inner sep=0] (1) at (1.2,5.7)
-            {\includegraphics[height=4cm]{figures/fuse1.pdf}};
-            \node[inner sep=0] (2) at (2.4,5.7)
-            {\includegraphics[height=4cm]{figures/fuse2.pdf}};
-            \node[inner sep=0] (3) at (3.6,5.7)
-            {\includegraphics[height=4cm]{figures/fuse3.pdf}};
-            \node[inner sep=0] (4) at (4.8,5.7)
-            {\includegraphics[height=4cm]{figures/fuse4.pdf}};
-            \node[inner sep=0] (5) at (6.0,5.7)
-            {\includegraphics[height=4cm]{figures/fuse5.pdf}};
-            \node[inner sep=0] (6) at (7.2,5.7)
-            {\includegraphics[height=4cm]{figures/fuse6.pdf}};
-            \node[inner sep=0] (7) at (8.4,5.7)
-            {\includegraphics[height=4cm]{figures/fuse7.pdf}};
-            \node[inner sep=0] (8) at (9.6,5.7)
-            {\includegraphics[height=4cm]{figures/fuse8.pdf}};
-            \node[inner sep=0] (9) at (10.8,5.7)
-            {\includegraphics[height=4cm]{figures/fuse9.pdf}};
-            \node[inner sep=0] (10) at (12.0,5.7)
-            {\includegraphics[height=4cm]{figures/fuse10.pdf}};
-            % Labeling the figures...
-            \node[above=-1.0cm, right=-0.25cm] at (0.north) {0.0};
-            \node[above=-1.0cm, right=-0.25cm] at (1.north) {0.1};
-            \node[above=-1.0cm, right=-0.25cm] at (2.north) {0.2};
-            \node[above=-1.0cm, right=-0.25cm] at (3.north) {0.3};
-            \node[above=-1.0cm, right=-0.25cm] at (4.north) {0.4};
-            \node[above=-1.0cm, right=-0.25cm] at (5.north) {0.5};
-            \node[above=-1.0cm, right=-0.25cm] at (6.north) {0.6};
-            \node[above=-1.0cm, right=-0.25cm] at (7.north) {0.7};
-            \node[above=-1.0cm, right=-0.25cm] at (8.north) {0.8};
-            \node[above=-1.0cm, right=-0.25cm] at (9.north) {0.9};
-            \node[above=-1.0cm, right=-0.25cm] at (10.north) {1.0};
-        \end{tikzpicture}}
-    \end{center}
-    \caption{The evolution of aircraft designed for minimum total cost
-    for different $\Gamma$s.}
-    \label{fig:fuseShrink}
-\end{figure}
-
 Based on these observations, we argue that there could be significant value left on the table
 if uncertainty is not considered with sufficient mathematical rigor in early phases of
-the engineering design process. \gls{rsp}s allow engineers to capture these complex
-tradeoffs while considering uncertainty, and have the potential to change
-the mathematically non-rigorous paradigms of design under uncertainty in use
+the engineering design process. \gls{rsp}s allow engineers to capture complex
+tradeoffs in nonlinear optimization problems while considering uncertainty,
+resulting in \emph{less conservative} solutions
+than solutions that implement margins and other less rigorous methods for risk mitigation.
+Thus \gls{rsp}s improve significantly on the
+the paradigms of design under uncertainty in use
 in the aerospace industry today.
 
 \subsection{Risk minimization problems}
@@ -373,38 +324,38 @@ and $\delta$ values obtained by the models match, but the probabilities of failu
 \hline
  \gls{ro} form & $\Gamma$ & $\delta$ & PoF & Goal form & $\delta$ & $\Gamma$ & PoF \\
 \hline
-& 0.00 & $9 \times 10^{-5}$ & 0.9 & & - & - & - \\
-& 0.10 & 0.053 & 0.78 & & - & - & - \\
-& 0.20 & 0.113 & 0.56 & & 0.113 & 0.20 & 0.66 \\
-& 0.30 & 0.176 & 0.35 & & 0.176 & 0.30 & 0.41 \\
-& 0.40 & 0.245 & 0.23 & & 0.245 & 0.40 & 0.24 \\
-& 0.50 & 0.317 & 0.07 & & 0.317 & 0.50 & 0.06 \\
-& 0.60 & 0.395 & 0.05 & & 0.395 & 0.60 & 0.03 \\
-& 0.70 & 0.479 & 0.03 & & 0.479 & 0.70 & 0.01 \\
-& 0.80 & 0.570 & 0.00 & & 0.570 & 0.80 & 0.00 \\
-& 0.90 & 0.669 & 0.00 & & 0.669 & 0.90 & 0.00 \\
-& 1.00 & 0.775 & 0.00 & & 0.775 & 1.0 & 0.00 \\
+& 0.00 & $2.5 \times 10^{-4}$ & 0.92 & & - & - & - \\
+& 0.10 & 0.057 & 0.82 & & - & - & - \\
+& 0.20 & 0.118 & 0.72 & & - & - & - \\
+& 0.30 & 0.183 & 0.49 & & 0.183 & 0.30 & 0.69 \\
+& 0.40 & 0.252 & 0.35 & & 0.252 & 0.40 & 0.63 \\
+& 0.50 & 0.326 & 0.24 & & 0.326 & 0.50 & 0.50 \\
+& 0.60 & 0.406 & 0.15 & & 0.406 & 0.60 & 0.36 \\
+& 0.70 & 0.492 & 0.05 & & 0.492 & 0.70 & 0.22 \\
+& 0.80 & 0.583 & 0.01 & & 0.583 & 0.80 & 0.08 \\
+& 0.90 & 0.681 & 0.00 & & 0.681 & 0.90 & 0.06 \\
+& 1.00 & 0.787 & 0.00 & & 0.787 & 1.0 & 0.04 \\
 \end{tabular}
 \end{center}
 \end{table}
 
-Firstly, note that there are no results reported for the two smallest uncertainty sets $\Gamma = [0.00, 0.10]$.
-This is because the feasible set of the two problems was small enough that the signomial program
+Firstly, note that there are no results reported for the three smallest uncertainty sets $\Gamma = [0.00, 0.10, 0.20]$.
+This is because the feasible set of the goal problem was small enough that the signomial program
 solution heuristic was unable to find an interior point from which to explore the solution space, and
 reported infeasible. Otherwise, the $\Gamma$ values found by the $\delta$ method match
 with the original \gls{ro} method, confirming that the two methods produce equivalent results. This
 was also confirmed by examining the physical dimensions of the aircraft.
 
-However, there were discrepancies found in the probability of failure.
-This is likely because of
-how numerical precision affects the solution of the feasibility problem solved as part of the \gls{mc} scheme.
-Although both methods are conservative, since some of the solutions are likely on the border of feasibility,
-the design could fall in or out of the feasible set depending on the piecewise-linear
-approximations made.
-Based on these observations, it was not possible to confirm which method is more conservative,
-but the probability of failure of the resulting aircraft is
-consistent with our expectations,
-being monotonic with the size of the uncertainty set and similar between the two methods.
+However, there are discrepancies in the probability of failure, for the same set of \gls{mc} samples.
+This is no surprise, since the added objective penalty constraint restricts the feasible set of uncertain
+realizations further than the original problem. For example, in the case of the objective of low fuel consumption,
+a lower-than-mean payload mass or higher-than-mean payload density may allow for higher fuel consumption
+than the robust solution. This solution would be feasible for the original method but not the
+goal programming method. From this perspective, the original \gls{ro} method is more
+appropriate for probability of failure analyses.
+In either case, the probability of failure found is strictly more conservative using the goal programming method,
+and is consistent with our expectations,
+being monotonic with the size of the uncertainty set.
 
 %\begin{figure}
 %    \begin{center}
