@@ -4,20 +4,17 @@ Aircraft design exists in a niche of design problems where ``failure is
 not an option"\footnote{Quoting Gene Kranz, the mission director of Apollo 13.}.
 This is remarkable since aircraft design problems are rife with uncertainty about
 technological capabilities, environmental factors, manufacturing quality and the future
-state of markets and regulatory agencies. Design
-under uncertainty for aircraft presents
-low hanging fruit, since the program risk of aircraft design
-problems is high and the goal of these methods is to provide designs that are robust
-to realizations of uncertainty in the real world.
+state of markets and regulatory agencies.
+Optimization under uncertainty seeks to provide designs that are robust
+to realizations of uncertainty in the real world and can reduce
+the high risk of aerospace programs.
 
 Optimization has become ubiquitous in the design of engineered systems, and especially aerospace systems,
 in the late 20th and 21st centuries as computing has improved dramatically and as designs have
 continued to approach the limits of the second law of thermodynamics. Optimization under uncertainty
 has been identified by academia and industry as an area of opportunity
-in multiple review papers (\cite{Zang2002},~\cite{Yao2011}).
-Zang et al.\cite{Zang2002} succinctly
-describe the categories of benefits for optimization under uncertainty for aircraft.
-These are the following:
+in multiple review papers (\cite{Zang2002},~\cite{Yao2011}),
+and we elaborate on four potential benefits from \cite{Zang2002} below:
 \begin{itemize}
     \item \emph{Confidence in analysis tools will increase.}
     The uptake of new design tools in the aerospace industry has been low
@@ -48,8 +45,7 @@ These are the following:
 
 However, optimization under uncertainty has yet to gain significant traction in the aerospace field.
 In economics, the idea that risk is related to profit is well understood and leveraged.
-In aerospace engineering, however, we often forget that there is no such thing as a free lunch,
-and that risk aversity necessarily results in lower performance.
+In aerospace engineering however we often forget that risk aversity necessarily results in lower performance.
 Considering that conceptual design in the aerospace industry hedges against program risk,
 the tractable \gls{ro} frameworks proposed in this paper will
 give aerospace engineers the ability to rigorously trade robustness and the performance penalties
@@ -58,7 +54,7 @@ that result from it.
 \subsection{Approaches to optimization under uncertainty}
 \label{sec:approaches}
 
-Faced with the challenge of developing general nonlinear programs that can incorporate uncertainty,
+Faced with the challenge of finding designs that can handle uncertainty,
 the aerospace field has developed a number of mathematically non-rigorous methods to
 design under uncertainty. Oftentimes, aerospace engineers will implement
 \emph{margins} in the design process to account for uncertainties in parameters that a design's feasibility
@@ -68,7 +64,7 @@ which ensures that the aircraft is able to handle
 multiple kinds of missions in the presence of no uncertainty. This is a type of \emph{finitely
 adaptive} optimization geared to ensure objective performance in off-nominal operations.
 
-The weaknesses of these non-rigorous methods are many. They provide no quantitative measures of
+These methods have several weaknesses. They provide no quantitative measures of
 robustness or reliability~\cite{Zang2002}. They rely on the expertise of an experienced
 engineer to guide the design process, without explicit knowledge of the trade-off between
 robustness and optimality~\cite{Yao2011}. This is a dangerous proposition especially in the
@@ -131,7 +127,7 @@ provide no such guarantees. \gls{ro} also does not require distributional inform
 about uncertain parameters as \gls{so} does, and therefore can better address problems where there
 is a lack of experience or data. It is arguable that \gls{ro}
 leaves a lot on the table by not taking advantage of distributional information,
-however there is a growing body of research on distributionally robust optimization~\cite{Bertsimas2013}
+however there is a growing body of research on distributionally robust optimization~\cite{Bertsimas2017}
 which seeks to leverage existing data.
 
 There is significantly greater flexibility in the formulation of robust versus stochastic models
@@ -162,18 +158,18 @@ and reliably as in \cite{York2018}, \cite{Kirschen2016} and \cite{Kirschen2018}.
 Other interesting applications for SPs such as in network flow problems are being investigated.
 
 Robust formulations exist for solving geometric programs with parametric uncertainty~\cite{Saab2018}.
-We posit that the creation of a robust signomial programming framework to capture uncertainty in engineering
+The creation of a robust signomial programming framework to capture uncertainty in engineering
 design, and specifically aircraft design, will allow us to have more confidence in the results
 of the conceptual design phase, reduce program risk, and increase overall system performance.
 
 \subsection{Contributions}
 
-In this paper, we propose a tractable \gls{rsp} which we solve as a sequential \gls{rgp},
+This paper proposes a tractable \gls{rsp} which we solve as a sequential \gls{rgp},
 allowing us to implement robustness in non-log-convex problems such as aircraft design.
 We extend the \gls{rgp} framework developed by Saab~\cite{Saab2018} to \gls{sp}s.
 We implement the \gls{rsp} formulation on a simple aircraft design problem with several hundred
 variables as defined in~\cite{Ozturk2018}.
-We demonstrate the benefits of robust optimization both in ensuring design feasibility and performance
+The benefits of robust optimization are demonstrated both in ensuring design feasibility and performance
 using \gls{mc} simulations of the uncertain parameters.
 We further explore the benefits of \gls{ro} in multiobjective optimization, and propose
 a goal programming \gls{rsp} formulation for risk minimization problems.

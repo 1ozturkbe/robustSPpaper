@@ -13,26 +13,26 @@ We demonstrated using a simple aircraft design problem
 that using \gls{ro}, and specifically \gls{rsp}s in conceptual aircraft design will result in systems
 that are more robust with respect to uncertainties in operational parameters,
 such as payload mass and range, as well as uncertain environmental and manufacturing parameters.
-We showed that this robustness has probabilistic guarantees, where sets of size $\Gamma=1$
+Unlike legacy methods, this robustness has probabilistic guarantees, where sets of size $\Gamma=1$
 protect against all realizations of uncertainty for a given set of parameters.
 Thus engineers can use robust signomial programming to trade off
 robustness and optimality within engineered systems in a tractable and mathematically rigorous manner.
 
 We compared the results of designs created using box and elliptical uncertainty sets, where the
 box uncertainty approximates the use of margins in design. We
-have confirmed that designs using elliptical uncertainty are strictly less conservative
+confirmed that designs using elliptical uncertainty are strictly less conservative
 than those that would be generated through the use of box uncertainty while protecting against the same
-parametric uncertainties. Since the results of \gls{rsp}s under elliptical uncertainty are less conservative
-than traditional design methods,
-\gls{rsp}s improve the viability of novel configurations in terms of
-program risk and performance with no sacrifice in reliability.
+parametric uncertainties. Since designs found using robust signomial programming
+under elliptical uncertainty are less conservative
+than designs found through traditional methods, \gls{rsp}s have the potential to reduce
+the program risk and increase the performance
+of designs compared to traditional methods with no sacrifice in reliability.
 
-\gls{ro} has
-the potential to change current aerospace design paradigms by introducing
+\gls{ro} has the potential to change current aerospace design paradigms by introducing
 mathematical rigor to design under uncertainty. Current aerospace
 conceptual design practices still rely heavily on the expertise of established
 engineers even in absence of prior experience exploring the design space.
-\gls{rsp}s are compatible for use alongside physics based models
-that are deprived of or lacking in data, and so can bring quantitative
-measures of design reliability to the table and
-steer the field of aerospace design towards physics-based tools and methods.
+\gls{rsp}s provide new opportunities in aerospace conceptual design
+since they are compatible with physics based models
+that are deprived of or lacking in data, and bring quantitative
+measures of design reliability to the table.

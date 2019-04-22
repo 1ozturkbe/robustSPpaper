@@ -194,46 +194,24 @@ total (time and fuel) cost, total fuel, takeoff weight and mid-cruise lift-over-
         \node[inner sep=0] (center) at (0,0)
         {\includegraphics[trim={2cm 0 1cm 0},clip]{figures/4objradar.pdf}};
         \node[inner sep=0] (ul) at (-1.0, 0.25)
-        {\includegraphics[height=3.8cm]{figures/2nominal.pdf}};
-        \node[inner sep=0] (ur) at (1.0, 0.25)
-        {\includegraphics[height=3.8cm]{figures/3nominal.pdf}};
-        \node[inner sep=0] (ll) at (-1.0, -2)
         {\includegraphics[height=3.8cm]{figures/0nominal.pdf}};
-        \node[inner sep=0] (lr) at (1.0, -2)
+        \node[inner sep=0] (ur) at (1.0, 0.25)
         {\includegraphics[height=3.8cm]{figures/1nominal.pdf}};
+        \node[inner sep=0] (ll) at (-1.0, -2)
+        {\includegraphics[height=3.8cm]{figures/2nominal.pdf}};
+        \node[inner sep=0] (lr) at (1.0, -2)
+        {\includegraphics[height=3.8cm]{figures/3nominal.pdf}};
     \end{tikzpicture}
     \caption{The spider plots of aircraft performance, for aircraft optimized for different objectives.
     The bolded titles are the design objectives for each plot, whereas the individual spiderwebs
     show the non-dimensionalized multiobjective performance of the aircraft designed under different
-    uncertainty sets.}
+    uncertainty sets. Nominal aircraft shown for comparison. }
     \label{fig:spider}
 \end{center}
 \end{figure}
 
 \begin{figure}
     \begin{center}
-        \begin{subfigure}{0.4\linewidth}
-            \makebox[\textwidth]{\begin{tikzpicture}
-                \node[inner sep=0] (l) at (-2.5,0)
-                {\includegraphics[height=5cm]{figures/2nominal.pdf}};
-                \node[inner sep=0] (c) at (-1,0)
-                {\includegraphics[height=5cm]{figures/2elliptical.pdf}};
-                \node[inner sep=0] (r) at (.5,0)
-                {\includegraphics[height=5cm]{figures/2box.pdf}};
-            \end{tikzpicture}}
-            \caption{Total cost}
-        \end{subfigure}
-        \begin{subfigure}{0.4\linewidth}
-            \makebox[\textwidth]{\begin{tikzpicture}
-                \node[inner sep=0] (l) at (-2.5,0)
-                {\includegraphics[height=5cm]{figures/3nominal.pdf}};
-                \node[inner sep=0] (c) at (-1,0)
-                {\includegraphics[height=5cm]{figures/3elliptical.pdf}};
-                \node[inner sep=0] (r) at (.5,0)
-                {\includegraphics[height=5cm]{figures/3box.pdf}};
-            \end{tikzpicture}}
-            \caption{Mid-cruise L/D}
-        \end{subfigure}
         \begin{subfigure}{0.4\linewidth}
             \makebox[\textwidth]{\begin{tikzpicture}
                 \node[inner sep=0] (l) at (-2.5,0)
@@ -255,6 +233,28 @@ total (time and fuel) cost, total fuel, takeoff weight and mid-cruise lift-over-
                 {\includegraphics[height=5cm]{figures/1box.pdf}};
             \end{tikzpicture}}
             \caption{Takeoff weight}
+        \end{subfigure}
+        \begin{subfigure}{0.4\linewidth}
+            \makebox[\textwidth]{\begin{tikzpicture}
+                \node[inner sep=0] (l) at (-2.5,0)
+                {\includegraphics[height=5cm]{figures/2nominal.pdf}};
+                \node[inner sep=0] (c) at (-1,0)
+                {\includegraphics[height=5cm]{figures/2elliptical.pdf}};
+                \node[inner sep=0] (r) at (.5,0)
+                {\includegraphics[height=5cm]{figures/2box.pdf}};
+            \end{tikzpicture}}
+            \caption{Total cost}
+        \end{subfigure}
+        \begin{subfigure}{0.4\linewidth}
+            \makebox[\textwidth]{\begin{tikzpicture}
+                \node[inner sep=0] (l) at (-2.5,0)
+                {\includegraphics[height=5cm]{figures/3nominal.pdf}};
+                \node[inner sep=0] (c) at (-1,0)
+                {\includegraphics[height=5cm]{figures/3elliptical.pdf}};
+                \node[inner sep=0] (r) at (.5,0)
+                {\includegraphics[height=5cm]{figures/3box.pdf}};
+            \end{tikzpicture}}
+            \caption{Mid-cruise L/D}
         \end{subfigure}
         \caption{Sketches of the aircraft drawn for corresponding spider plots. Drawn to scale for comparison.}
     \end{center}
@@ -288,140 +288,74 @@ understanding of exactly the amount of uncertainty we are
 willing to tolerate. However, minimizing risk can also be the objective of our
 model. This would suggest the following formulation:
 
-\begin{align*}
+\begin{align}
+    \begin{split}
     \text{max} &~\Gamma \\
     \text{s.t.}     &~f_i(x,u) \leq 0, i = 1,\ldots,n \\
                     & \norm{u} \leq \Gamma \\
-                    &~f_0(x) \leq (1+\delta)f_0^*,~\delta \geq 0 \tag{a}
+                    &~f_0(x) \leq (1+\delta)f_0^*,~\delta \geq 0
+    \end{split}
     \label{eq:goalprogramming}
-\end{align*}
+\end{align}
 
-where $f_0^*$ is the optimum of the nominal problem in Formulation~\ref{eq:normform}, $\delta$
+where $f_0^*$ is the optimum of the nominal problem in Formulation~\ref{eq:normform} and $\delta$
 is a fractional measure of the objective that we are willing to sacrifice for robustness, which
 gives $(1+\delta)f_0^*$ as the upper bound on the objective value. Intuitively,
 this is a form of goal programming,
-where we specify the exact maximum worst-case value of an objective we can tolerate so that the program
-risk is acceptable, but in the meanwhile maximize the total size of the uncertainty we can handle.
-We call the method of minimizing an objective for a given uncertainty set \emph{the $\Gamma$ method},
-while we call the goal programming approach, which maximizes $\Gamma$ for a set $\delta$ objective penalty tolerance,
-\emph{the $\delta$ method}.
+where we specify the exact maximum worst-case value of an objective we can tolerate with
+the goal of maximizing the total size of the uncertainty $\Gamma$ we can handle.
 
-The problem in Formulation~\ref{eq:goalprogramming} is clearly
+The goal programming problem in Formulation~\ref{eq:goalprogramming} is clearly
 not equivalent to the problem in Formulation~\ref{eq:normform},
-but should yield similar results. As a proof of concept, we will use the objective values from the study
-shown in Figure\ref{fig:probOfFailure} as the $\delta$ inputs to the goal programming model, and compare the results.
-If we are able to obtain globally
-optimal solutions, we would expect that $\Gamma$ and $\delta$  from both problems are identical. The results are tabulated in
+but should yield the same results if the method is optimal.
+To show this optimality, we will use the objective values from the probability of failure study
+shown in Figure~\ref{fig:probOfFailure} as the $\delta$ inputs to the goal programming model, and compare the results.
+We expect that $\Gamma$ and $\delta$  from both problems are identical if the method is optimal.
+The results are tabulated in
 Table~\ref{tab:deltaVsGamma}. Note that the two methods were evaluated \gls{mc} runs using the same 100 realizations
 of the uncertainty, for consistency in probability of failure results.
 
 \begin{table}
 \begin{center}
-\caption{\label{tab:deltaVsGamma} Results of original \gls{ro} formulation versus goal program in terms
-of size of uncertainty set $\Gamma$, objective penalty $\delta$, and probability of failure. Note that the $\Gamma$
-and $\delta$ values obtained by the models match, but the probabilities of failure differ. }
+\caption{\label{tab:deltaVsGamma} Results of original \gls{ro} problem versus goal program in terms
+of size of uncertainty set $\Gamma$, objective penalty $\delta$, and probability of failure. Both methods
+use the Best Pairs formulation under elliptical uncertainty. The designs obtained through
+the two different methods match.}
 \begin{tabular}{c c c c c c c c}
 \hline
- \gls{ro} form & $\Gamma$ & $\delta$ & PoF & Goal form & $\delta$ & $\Gamma$ & PoF \\
+ \gls{ro} form & $\Gamma$ & $\delta$ & PoF & Goal form & $\delta$ & $\Gamma$ & PoF\\
 \hline
-& 0.00 & $2.5 \times 10^{-4}$ & 0.92 & & - & - & - \\
-& 0.10 & 0.057 & 0.82 & & - & - & - \\
-& 0.20 & 0.118 & 0.72 & & - & - & - \\
-& 0.30 & 0.183 & 0.49 & & 0.183 & 0.30 & 0.69 \\
-& 0.40 & 0.252 & 0.35 & & 0.252 & 0.40 & 0.63 \\
-& 0.50 & 0.326 & 0.24 & & 0.326 & 0.50 & 0.50 \\
-& 0.60 & 0.406 & 0.15 & & 0.406 & 0.60 & 0.36 \\
-& 0.70 & 0.492 & 0.05 & & 0.492 & 0.70 & 0.22 \\
-& 0.80 & 0.583 & 0.01 & & 0.583 & 0.80 & 0.08 \\
-& 0.90 & 0.681 & 0.00 & & 0.681 & 0.90 & 0.06 \\
-& 1.00 & 0.787 & 0.00 & & 0.787 & 1.0 & 0.04 \\
+& 0.00 & $2.5 \times 10^{-4}$ & 0.94 & & - & - & - \\
+& 0.10 & 0.057 & 0.87 & & 0.057 & 0.10 & 0.87 \\
+& 0.20 & 0.118 & 0.76 & & 0.118 & 0.20 & 0.76 \\
+& 0.30 & 0.183 & 0.60 & & 0.183 & 0.30 & 0.60 \\
+& 0.40 & 0.252 & 0.38 & & 0.252 & 0.40 & 0.38 \\
+& 0.50 & 0.326 & 0.20 & & 0.326 & 0.50 & 0.21 \\
+& 0.60 & 0.406 & 0.10 & & 0.406 & 0.60 & 0.10 \\
+& 0.70 & 0.492 & 0.07 & & 0.492 & 0.70 & 0.07 \\
+& 0.80 & 0.583 & 0.04 & & 0.583 & 0.80 & 0.04 \\
+& 0.90 & 0.681 & 0.01 & & 0.681 & 0.90 & 0.01 \\
+& 1.00 & 0.787 & 0.00 & & 0.787 & 1.00 & 0.00 \\
 \end{tabular}
 \end{center}
 \end{table}
 
-Firstly, note that there are no results reported for the three smallest uncertainty sets $\Gamma = [0.00, 0.10, 0.20]$.
-This is because the feasible set of the goal problem was small enough that the signomial program
-solution heuristic was unable to find an interior point from which to explore the solution space, and
-reported infeasible. Otherwise, the $\Gamma$ values found by the $\delta$ method match
-with the original \gls{ro} method, confirming that the two methods produce equivalent results. This
-was also confirmed by examining the physical dimensions of the aircraft.
-
-However, there are discrepancies in the probability of failure, for the same set of \gls{mc} samples.
-This is no surprise, since the added objective penalty constraint restricts the feasible set of uncertain
-realizations further than the original problem. For example, in the case of the objective of low fuel consumption,
-a lower-than-mean payload mass or higher-than-mean payload density may allow for higher fuel consumption
-than the robust solution. This solution would be feasible for the original method but not the
-goal programming method. From this perspective, the original \gls{ro} method is more
-appropriate for probability of failure analyses.
-In either case, the probability of failure found is strictly more conservative using the goal programming method,
-and is consistent with our expectations,
-being monotonic with the size of the uncertainty set.
-
-%\begin{figure}
-%    \begin{center}
-%        \makebox[0.8\textwidth]{
-%        \begin{tikzpicture}
-%            % top pof figures
-%            \node[inner sep=0] (0) at (0,5.7)
-%            {\includegraphics[height=4cm]{figures/pof0.pdf}};
-%            \node[inner sep=0] (1) at (1.2,5.7)
-%            {\includegraphics[height=4cm]{figures/pof1.pdf}};
-%            \node[inner sep=0] (2) at (2.4,5.7)
-%            {\includegraphics[height=4cm]{figures/pof2.pdf}};
-%            \node[inner sep=0] (3) at (3.6,5.7)
-%            {\includegraphics[height=4cm]{figures/pof3.pdf}};
-%            \node[inner sep=0] (4) at (4.8,5.7)
-%            {\includegraphics[height=4cm]{figures/pof4.pdf}};
-%            \node[inner sep=0] (5) at (6.0,5.7)
-%            {\includegraphics[height=4cm]{figures/pof5.pdf}};
-%            \node[inner sep=0] (6) at (7.2,5.7)
-%            {\includegraphics[height=4cm]{figures/pof6.pdf}};
-%            \node[inner sep=0] (7) at (8.4,5.7)
-%            {\includegraphics[height=4cm]{figures/pof7.pdf}};
-%            \node[inner sep=0] (8) at (9.6,5.7)
-%            {\includegraphics[height=4cm]{figures/pof8.pdf}};
-%            \node[inner sep=0] (9) at (10.8,5.7)
-%            {\includegraphics[height=4cm]{figures/pof9.pdf}};
-%            \node[inner sep=0] (10) at (12.0,5.7)
-%            {\includegraphics[height=4cm]{figures/pof10.pdf}};
-%            % Lower delta figures
-%            \node[inner sep=0] (4d) at (4.8,2.1)
-%            {\includegraphics[height=4cm]{figures/delta4.pdf}};
-%            \node[inner sep=0] (5d) at (6.0,2.1)
-%            {\includegraphics[height=4cm]{figures/delta5.pdf}};
-%            \node[inner sep=0] (6d) at (7.2,2.1)
-%            {\includegraphics[height=4cm]{figures/delta6.pdf}};
-%            \node[inner sep=0] (7d) at (8.4,2.1)
-%            {\includegraphics[height=4cm]{figures/delta7.pdf}};
-%            \node[inner sep=0] (8d) at (9.6,2.1)
-%            {\includegraphics[height=4cm]{figures/delta8.pdf}};
-%            \node[inner sep=0] (9d) at (10.8,2.1)
-%            {\includegraphics[height=4cm]{figures/delta9.pdf}};
-%            \node[inner sep=0] (10d) at (12.0,2.1)
-%            {\includegraphics[height=4cm]{figures/delta10.pdf}};
-%            % Labeling the figures...
-%            \node[above=-1.0cm, right=-0.25cm] at (0.north) {0.0};
-%            \node[above=-1.0cm, right=-0.25cm] at (1.north) {0.1};
-%            \node[above=-1.0cm, right=-0.25cm] at (2.north) {0.2};
-%            \node[above=-1.0cm, right=-0.25cm] at (3.north) {0.3};
-%            \node[above=-1.0cm, right=-0.25cm] at (4.north) {0.4};
-%            \node[above=-1.0cm, right=-0.25cm] at (5.north) {0.5};
-%            \node[above=-1.0cm, right=-0.25cm] at (6.north) {0.6};
-%            \node[above=-1.0cm, right=-0.25cm] at (7.north) {0.7};
-%            \node[above=-1.0cm, right=-0.25cm] at (8.north) {0.8};
-%            \node[above=-1.0cm, right=-0.25cm] at (9.north) {0.9};
-%            \node[above=-1.0cm, right=-0.25cm] at (10.north) {1.0};
-%        \end{tikzpicture}}
-%    \end{center}
-%    \caption{The evolution of aircraft designed with the $\Gamma$ method in blue,
-%    versus the $\delta$ method in orange,
-%    for different $\Gamma$s. Note that the first four levels of performance penalty were
-%    infeasible for the $\delta$ method.}
-%    \label{fig:deltaGammaAircraft}
-%\end{figure}
+Firstly, note that there are no results reported for the smallest uncertainty set $\Gamma = [0.00]$.
+Since the feasible set of this problem is a point design, the signomial program
+solution heuristic declares the problem infeasible after being
+unable to locate the singular feasible region.
+Otherwise, the $\Gamma$ values found by the goal programming method match exactly
+with the original \gls{ro} method. We confirm that both methods produce
+the same designs by examining the physical dimensions of the aircraft, and through the probability
+of failure found through \gls{mc} simulation in Table~\ref{tab:deltaVsGamma}.
+Note that there is a small discrepancy
+in the probability of failure, notably in the value for $\Gamma = 0.5$. This is
+because there are uncertainty realizations that can fall
+in or out of feasibility due to numerical precision
+since the interior point solvers used cannot make computations exactly~\cite{Nesterov1994}.
 
 We can also expand this framework to perform multivariate goal programming,
-by changing (a) in the formulation~\ref{eq:goalprogramming} to include all
+by changing Formulation~\ref{eq:goalprogramming} to include all
 objectives we are interested in.
 
 \begin{align*}
