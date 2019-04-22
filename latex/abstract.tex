@@ -1,22 +1,24 @@
 \begin{abstract}
-    Aircraft design benefits greatly from optimization under uncertainty, since design feasibility
+    Aircraft design benefits from optimization under uncertainty, since design feasibility
     and performance can have large sensitivities to uncertain parameters.
-    The traditional, mathematically non-rigorous methods of capturing uncertainty do not adequately
+    Traditional methods of capturing uncertainty do not adequately
     explain the trade-offs between feasibility and optimality, and require prior engineering knowledge
     which may not be available for novel aerospace vehicle concepts. This paper proposes a solution method
     for engineering design optimization problems under uncertainty using robust signomial programs (RSPs).
-    The proposed RSP formulation leverages an existing approximate robust geometric programming (RGP)
-    formulation developed by Saab,
-    and extends it by allowing difference-of-log-convex constraints that appear
+    The method transforms stochastic optimization problems to deterministic problems by considering
+    the worst-case robust counterpart of each design constraint.
+    The formulation leverages an existing approximate robust geometric programming (RGP)
+    formulation and extends it by allowing difference-of-log-convex constraints that appear
     in many design problems. Signomial programs have demonstrated
     potential in the solution of multidisciplinary non-convex optimization problems
     such as aircraft design, and
-    the formulation and solution of robust signomial programs (RSPs) allows
-    for conceptual engineering design that captures parametric uncertainty. The paper
-    details the method which is based on solving a sequence of RGPs,
+    the formulation of robust signomial programs (RSPs) allows
+    for conceptual engineering design that captures parametric uncertainty with
+    probabilistic guarantees of design feasibility.
+    The paper details a method based on solving a sequence of RGPs,
     where each RGP is a local approximation of the RSP. Then it explores
     the trade-off between robustness and optimality
-    rigorously by implementing RSPs on a simple aircraft design problem, and demonstrates the effect of robustness
+    rigorously by implementing RSPs on a simple aircraft design problem, and evaluates the effect of robustness
     requirements on aircraft design decisions.
 
 \end{abstract}
