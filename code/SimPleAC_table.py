@@ -19,8 +19,8 @@ if __name__ == "__main__":
     methods = [{'name': 'Best Pairs', 'twoTerm': True, 'boyd': False, 'simpleModel': False}]
     uncertainty_sets = ['elliptical']
 
-    rm = RobustModel(m, 'elliptical', twoTerm = True, boyd = False, simpleModel = False, gamma = 0)
-    rsol = rm.robustsolve(verbosity=2)
+    # rm = RobustModel(m, 'elliptical', twoTerm = True, boyd = False, simpleModel = False, gamma = 0)
+    # rsol = rm.robustsolve(verbosity=2)
 
 
     bm = RobustModel(m, 'box', twoTerm = True, boyd = False, simpleModel = False, gamma = 1)
@@ -35,7 +35,7 @@ if __name__ == "__main__":
         soltab = [sol, bsol, esol]
 
     for i in ['L/D', 'A', 'Re', 'S', 'V', 't_s', 'W_w', 'W_{w_{strc}}', 'W_{w_{surf}}',
-              'V_{f_{avail}}', 'V_{f_{fuse}}', 'V_{f_{wing}}']:
+              'W_{fuse}','V_{f_{avail}}', 'V_{f_{fuse}}', 'V_{f_{wing}}']:
         print i + " "
         if i in ['L/D', 'Re', 'V']:
             a = [mag(np.mean(s(i))) for s in soltab]

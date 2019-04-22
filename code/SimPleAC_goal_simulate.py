@@ -45,11 +45,19 @@ if __name__ == "__main__":
     gamma['simulation_results'] = load_obj('gammasimulation_results', 'gammaResults')
     gamma['number_of_constraints'] = load_obj('gammanumber_of_constraints', 'gammaResults')
 
-    # # Goal programming (risk minimization) setup
+    # Loading directly_uncertain_vars_subs
+    try:
+        pickle_in = open('directly_uncertain_dict.pickle', 'rb')
+        directly_uncertain_vars_subs = pickle.load(pickle_in)
+        pickle_in.close()
+    except:
+        print 'Warning: Please run pof_simulate first for consistent MC results.'
+
+    # Goal programming (risk minimization) setup
     deltas = []
     for i in range(nGammas):
         deltas.append(mag(gamma['solutions'][gammas[i], methods[0]['name'], uncertainty_sets[0]]['cost']/nominal_solution['cost'])-1.)
-    offset = 2
+    offset = 1
     deltas = np.array(deltas)[offset:]
 
     # Solution using goal programming
