@@ -2,6 +2,7 @@ import numpy as np
 from robust.simulations import simulate
 from SimPleAC_setup import SimPleAC_setup
 from SimPleAC_save import save_obj
+import cPickle as pickle
 
 def pof_parameters():
     model, subs = SimPleAC_setup()
@@ -9,7 +10,8 @@ def pof_parameters():
     number_of_iterations = 100
     methods = [{'name': 'Best Pairs', 'twoTerm': True, 'boyd': False, 'simpleModel': False},
                {'name': 'Linearized Perturbations', 'twoTerm': False, 'boyd': False, 'simpleModel': False},
-               {'name': 'Simple Conservative', 'twoTerm': False, 'boyd': False, 'simpleModel': True}]
+               {'name': 'Simple Conservative', 'twoTerm': False, 'boyd': False, 'simpleModel': True}
+               ]
     uncertainty_sets = ['box', 'elliptical']
     nGammas = 11
     gammas = np.linspace(0, 1.0, nGammas)
@@ -46,3 +48,8 @@ if __name__ == '__main__':
     save_obj(solve_times, 'gammasolve_times', 'gammaResults')
     save_obj(simulation_results, 'gammasimulation_results', 'gammaResults')
     save_obj(number_of_constraints, 'gammanumber_of_constraints', 'gammaResults')
+
+    # Saving MC inputs
+    pickle_out = open('directly_uncertain_dict.pickle', 'wb')
+    pickle.dump(directly_uncertain_vars_subs, pickle_out)
+    pickle_out.close()
