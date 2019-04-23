@@ -340,7 +340,8 @@ the two different methods match.}
 \end{center}
 \end{table}
 
-Firstly, note that there are no results reported for the smallest uncertainty set $\Gamma = [0.00]$.
+Firstly, note that there are no results reported for the goal program
+for zero uncertainty, $\Gamma = [0.00]$.
 Since the feasible set of this problem is a point design, the signomial program
 solution heuristic declares the problem infeasible after being
 unable to locate the singular feasible region.
@@ -350,9 +351,9 @@ the same designs by examining the physical dimensions of the aircraft, and throu
 of failure found through \gls{mc} simulation in Table~\ref{tab:deltaVsGamma}.
 Note that there is a small discrepancy
 in the probability of failure, notably in the value for $\Gamma = 0.5$. This is
-because there are uncertainty realizations that can fall
-in or out of feasibility due to numerical precision
-since the interior point solvers used cannot make computations exactly~\cite{Nesterov1994}.
+possible because there are uncertainty realizations that can fall
+in or out of feasibility due to numerical precision. The interior point solvers
+used cannot make computations exactly~\cite{Nesterov1994}.
 
 We can also expand this framework to perform multivariate goal programming,
 by changing Formulation~\ref{eq:goalprogramming} to include all
