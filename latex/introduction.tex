@@ -31,16 +31,16 @@ and we elaborate on four potential benefits from \cite{Zang2002} below:
     Aircraft design and development is costly, so the ability to handle uncertainty in
     the conceptual design process is critical for the long-term success of an aircraft,
     helping reduce the program risk.
-    \item \emph{System performance will increase while ensuring that reliability requirements
-    are met.}
-    The performance of an aircraft design depends heavily on assumptions about the
-    current and future technological environment and the ability to
-    produce vehicles of a certain quality.
     \item \emph{Designs will be more robust.}
-    The ability to provide designs with feasibility and performance guarantees will mean
+    The ability to provide designs with feasibility guarantees will mean
     that designs and products will be more robust to uncertainties in manufacturing quality,
     environmental factors, technology level and markets, and better able to
     handle off-nominal operating conditions.
+    \item \emph{System performance will increase while ensuring that reliability requirements
+    are met.}
+    Design under uncertainty will allow for a better understanding of the trade-off between risk and
+    performance. As a result, it will allow for designs that are less conservative than
+    traditional designs while meeting the same reliability requirements.
 \end{itemize}
 
 However, optimization under uncertainty has yet to gain significant traction in the aerospace field.
@@ -48,14 +48,14 @@ In economics, the idea that risk is related to profit is well understood and lev
 In aerospace engineering however we often forget that risk aversity necessarily results in lower performance.
 Considering that conceptual design in the aerospace industry hedges against program risk,
 the tractable \gls{ro} frameworks proposed in this paper will
-give aerospace engineers the ability to rigorously trade robustness and the performance penalties
-that result from it.
+give aerospace engineers the ability to rigorously trade-off robustness to uncertainty with the performance penalties
+that result.
 
 \subsection{Approaches to optimization under uncertainty}
 \label{sec:approaches}
 
 Faced with the challenge of finding designs that can handle uncertainty,
-the aerospace field has developed a number of mathematically non-rigorous methods to
+the aerospace field has developed a number of methods to
 design under uncertainty. Oftentimes, aerospace engineers will implement
 \emph{margins} in the design process to account for uncertainties in parameters that a design's feasibility
 may be sensitive to, such as material properties or maximum lift coefficient.
@@ -71,67 +71,112 @@ robustness and optimality~\cite{Yao2011}. This is a dangerous proposition especi
 conceptual design phase of new configurations, since prior information and expertise is not
 available. In these scenarios, it is especially important to go back to fundamental physics
 and use rigorous mathematics to explore the design space~\cite{York2018}. Furthermore,
-the legacy methods are often \emph{too conservative}, ruling out potentially beneficial technologies
+the legacy methods are often too conservative, ruling out potentially beneficial technologies
 and configurations due to the inability to adequately trade off performance and risk.
 
 There are two rigorous approaches to solving design optimization problems under uncertainty,
 which are \gls{so} and \gls{ro}. Note that stochastic
-optimization is an overloaded term, and exists in three contexts in the literature. The first is the solution
-of deterministic problems with stochastic search space exploration. The second is the solution of simulations,
-often partial differential equations, with uncertain parameters. The final is the solution
-of design optimization problems with stochastic parameters, which is referenced in this paper.
-\gls{so} problems
-deal with probability distributions of
+optimization is an overloaded term, and exists in at least two contexts in the literature. The first is the solution
+of deterministic problems with stochastic search space exploration. The second is the solution
+of design optimization problems with stochastic parameters, which is the focus of this paper.
+In this context, \gls{so} problems deal with probability distributions of
 uncertain parameters by propagating them through the
 physics of a design problem to ensure constraint feasibility with certain probabilistic guarantees.
-The goal of \gls{so} is predominantly to minimize the expectation of an objective function or
-to optimize on some desired characteristic of the probability density function of the objective~\cite{Diwekar2008}.
-Robust optimization takes a different approach, instead choosing to make designs immune to
-uncertainties in parameters as long as the parameter values come from within the defined
-uncertainty set. As such, \gls{ro} minimizes the worst-case objective outcome from a defined uncertainty set.
+The predominant goal of \gls{so} is to minimize some characteristics, for example moments or risk measures,
+of the probability density function of the quantity of interest~\cite{Diwekar2008}.
+In contrast, \gls{ro} takes a different approach, instead choosing to make designs immune to
+uncertainties in parameters as long as the parameter values come from within a defined
+uncertainty set. As such, \gls{ro} avoids the need to propagate entire probability
+distributions by minimizing the worst-case objective outcome of a design for a
+given set over the uncertain parameters.
 
-\subsection{Advantages of robust over stochastic optimization}
+\subsection{Comparison of robust and stochastic optimization methods for conceptual design}
 \label{sec:robustvsstochastic}
 
-The formulation of stochastic models as \gls{ro} problems has many advantages
-over general stochastic optimization methods as explored in detail in~\cite{Bertsimas2011}.
-These generally fall into three categories, which are tractability, conservativeness and flexibility.
-\gls{ro} is more tractable than \gls{so} due to the nature of uncertainty propagation.
-General stochastic methods involve the propagation of uncertainties throughout a model
+Both \gls{ro} and \gls{so} have relative advantages in implementation. This paper will
+argue specifically that the formulation of conceptual engineering design problems under uncertainty as
+\gls{ro} problems has advantages over \gls{so} formulations (a more
+mathematical programming centric comparison is made in~\cite{Bertsimas2011}).
+
+\subsubsection{Generality and tractability}
+
+In the context of engineering, we claim that an optimization method is general
+when it can be used to solve a range of problems of interest. On the other hand,
+tractability describes whether or not the problems are solved to a satisfactory
+optimum with reasonable computational time. Optimization
+under uncertainty is a difficult task, which puts these two desirable subjective traits
+at odds with each other.
+
+\gls{so} has the advantage of generality.
+\gls{so} methods are easily applicable to black box models or input-output systems.
+They require little knowledge, if any, about the constraints in the system of interest.
+\gls{ro} methods are less general, since they require
+the design objective and constraints to be explicit and cast in a form that has a worst-case
+counterpart. The models for \gls{ro} have to be transparent,
+and \gls{ro} cannot be applied to black box models without significant prior data
+manipulation at a minimum. A mitigating factor
+many classes of conceptual engineering design problems can be immediately in a form that
+is compatible with robust optimization, such as linear, quadratic, semidefinite
+and geometric programs.
+
+\gls{ro} is more tractable than \gls{so} due to the difference in method of uncertainty propagation.
+As aforementioned, stochastic methods involve the propagation of probability densities throughout a model
 to determine their effects on constraint feasibility and the objective function.
 This requires the integration of the product of probability distributions with potential outcomes,
 and since the integration of continuous functions is difficult this is often achieved through
 a combination of high-dimensional quadrature and discretizations of the uncertainty into
 possible scenarios. The propagation of parameter
 scenarios results in a combinatorial explosion of possible outcomes which need to be evaluated to determine constraint
-satisfaction and the distribution of the objective.
+satisfaction and the distribution of the objective. Few problems can be addressed purely
+through stochastic optimization (eg. the recourse problem as
+shown in~\cite{Kall1982},\cite{Higle1991}, and energy planning problem such as in~\cite{Pereira1991}), and
+even these are limited by combinatorics and costly system evaluations. Furthermore, they require
+problem-specific approximations, so that generality is compromised.
 
-Few problems can be addressed purely through stochastic optimization (eg. the recourse problem as
-shown in~\cite{Kall1982},\cite{Higle1991}, and energy planning problem such as in~\cite{Pereira1991}).
-It is arguable that the methods used are still limited by the combinatorics and costly
-system evaluations.
-\gls{ro} has to deal with a somewhat related problem, which is the issue of a countably infinite number
-of possible constraints for a given uncertainty set. However, this is easily
-tackled by considering the worst case robust counterpart of each constraint, which
-results in many kinds of optimization problems having tractable robust formulations~\cite{Bertsimas2011}.
-These robust formulations are \emph{deterministic}. Different instances of a design problem with
-the same parameters will result in the same solution. This is not the case with \gls{so},
-which often relies on randomized algorithms~\cite{Shmoys2004}.
+Robust versions of tractable optimization problem are not
+guaranteed to be tractable, but in practice the aforementioned classes of optimization problems
+have tractable robust formulations~\cite{Bertsimas2011}. In \gls{ro}, there are no separate optimization and evaluation
+loops by construction, offering much faster solution times
+
+
+\gls{ro} circumvents these issues through the use of the worst-case robust counterpart. Since
+
+Conceptual design optimization values tractability, since the best opportunities
+to reduce program risk occur early on in the design process when more aspects
+of the design are fluid.
+
+
+
+
+\subsubsection{Use of data}
+
+\gls{so} problems generally require complete knowledge of the probability distribution of
+parameters. During conceptual design, this data is not available or is unreliable.
+\gls{ro} requires only `modest assumptions  about distributions, such as a known mean and
+bounded support'~\cite{Chen2007}. Since \gls{ro} does not require as much information
+about uncertain parameters as \gls{so} does, it can better address problems where there
+is a lack of experience or data. It is arguable that \gls{ro}
+leaves a lot on the table by not taking advantage of distributional information,
+however there is a growing body of research on distributionally robust optimization~\cite{Bertsimas2017}
+which seeks to leverage existing data.
+
+\subsection{Conservativeness}
 
 Although \gls{ro} problems solve problems with uncertainty,
 \gls{ro} formulations result in solutions that are \emph{deterministically immune}
 to all possible realizations of parameters in an uncertainty set~\cite{Bertsimas2011},
 which is defined as conservativeness. There is extensive literature on \gls{ro} methods
 that offer differing levels of conservativeness~\cite{Bertsimas2004}. \gls{so} formulations
-provide no such guarantees. \gls{ro} also does not require distributional information
-about uncertain parameters as \gls{so} does, and therefore can better address problems where there
-is a lack of experience or data. It is arguable that \gls{ro}
-leaves a lot on the table by not taking advantage of distributional information,
-however there is a growing body of research on distributionally robust optimization~\cite{Bertsimas2017}
-which seeks to leverage existing data.
+provide no such guarantees, since the solution methods themselves are stochastic.
 
-There is significantly greater flexibility in the formulation of robust versus stochastic models
-since the methods proposed are more general. It is important to highlight that,
+
+\subsubsection{Stochasticity}
+
+These robust formulations are \emph{deterministic}. Different instances of a design problem with
+the same parameters will result in the same solution. This is not the case with \gls{so},
+which often relies on randomized algorithms~\cite{Shmoys2004}.
+
+It is important to highlight that,
 although both \gls{ro} and \gls{so} seek to address the problem
 of optimization under uncertainty, they solve fundamentally different problems. In an ideal world where
 we have a problem that is tractable and globally optimal for both methods, the two different
@@ -173,6 +218,5 @@ The benefits of robust optimization are demonstrated both in ensuring design fea
 using \gls{mc} simulations of the uncertain parameters.
 We further explore the benefits of \gls{ro} in multiobjective optimization, and propose
 a goal programming \gls{rsp} formulation for risk minimization problems.
-
 
 
