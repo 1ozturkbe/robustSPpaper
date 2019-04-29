@@ -21,7 +21,7 @@ def SimPleAC_draw(sol, color='blue', directory=None, name=None):
     patches = []
 
     # Creating fuselage patch
-    ellipse = mpatches.Ellipse((-0.25*croot,0), lfuse, rfuse)
+    ellipse = mpatches.Ellipse((-0.1*croot,0), lfuse, rfuse)
     patches.append(ellipse)
 
     # Creating wing patch
