@@ -2,7 +2,7 @@
 
 We implement our \gls{rsp} heuristic algorithm on the aforementioned conceptual aircraft design problem.
 Our nominal objective function is total fuel consumption, which is
-to be minimized given a payload and a range requirement.
+to be minimized given a payload and range requirement.
 
 \subsection{Mitigation of probability of failure}
 
@@ -59,9 +59,8 @@ and `the elliptical aircraft' respectively. We
 define the probability of failure of a design as the probability that any constraint
 in the design optimization problem is violated in a \gls{mc} simulation.
 As expected, Figure \ref{fig:probOfFailure} shows that probability of failure goes monotonically
-to zero as $\Gamma$ increases. However, it is not smooth in its second derivative due to the
-presence of the non-log-convex fuel constraint.
-It is noteworthy that, for the nominal problem ($\Gamma = 0$) only about 10 percent of the realizations of
+to zero as $\Gamma$ increases.
+It is noteworthy that, for the nominal problem ($\Gamma = 0$) only 6 percent of the realizations of
 uncertain variables result in feasible solutions.
 This means that an aircraft designed for the average case would almost surely
 fail to satisfy the mission requirements, even with equal likelihood of favorable versus
@@ -307,10 +306,9 @@ the goal of maximizing the total size of the uncertainty $\Gamma$ we can handle.
 
 The goal programming problem in Formulation~\ref{eq:goalprogramming} is clearly
 not equivalent to the problem in Formulation~\ref{eq:normform},
-but should yield the same results if the method is optimal.
-To show this optimality, we will use the objective values from the probability of failure study
+but should yield the same results if both methods are optimal.
+To show this, we use the objective values from the probability of failure study
 shown in Figure~\ref{fig:probOfFailure} as the $\delta$ inputs to the goal programming model, and compare the results.
-We expect that $\Gamma$ and $\delta$  from both problems are identical if the method is optimal.
 The results are tabulated in
 Table~\ref{tab:deltaVsGamma}. Note that the two methods were evaluated \gls{mc} runs using the same 100 realizations
 of the uncertainty, for consistency in probability of failure results.
@@ -344,9 +342,12 @@ Firstly, note that there are no results reported for the goal program
 for zero uncertainty, $\Gamma = [0.00]$.
 Since the feasible set of this problem is a point design, the signomial program
 solution heuristic declares the problem infeasible after being
-unable to locate the singular feasible region.
-Otherwise, the $\Gamma$ values found by the goal programming method match exactly
-with the original \gls{ro} method. We confirm that both methods produce
+unable to locate the singular feasible region. However we confirm that when we perturb
+the singularity so that
+$\delta = \epsilon = 10^{-10}$, the goal program has a non-empty feasible set and
+returns the same solution as the original \gls{ro} method.
+Otherwise, the $\Gamma$ values found by the goal program match exactly
+with the original \gls{ro} problem. We confirm that both methods produce
 the same designs by examining the physical dimensions of the aircraft, and through the probability
 of failure found through \gls{mc} simulation in Table~\ref{tab:deltaVsGamma}.
 Note that there is a small discrepancy
