@@ -1,0 +1,504 @@
+% Aero Astro template
+% Max Opgenoord
+
+% ============================== Beamer ================================ %
+
+\mode<presentation>
+
+\newif\if@nofooter
+\@nofooterfalse
+\newif\if@nopagenum
+\@nopagenumfalse
+
+\DeclareOptionBeamer{nofooter}{\@nofootertrue}
+\DeclareOptionBeamer{nopagenum}{\@nopagenumtrue}
+\ProcessOptionsBeamer
+% ====================================================================== %
+
+% ============================== Outer Theme =========================== %
+% Note that the options do not carry through to outer theme so have to
+%   define these commands here
+\newcommand{\pagenumcmd}{\insertframenumber{}}
+\if@nopagenum
+  \renewcommand{\pagenumcmd}{\mbox{}}
+\fi
+\newcommand{\pagenumcmdapp}{\insertframenumber{}}
+\if@nopagenum
+  \renewcommand{\pagenumcmdapp}{\mbox{}}
+\fi
+
+\useoutertheme{AeroAstro}
+
+\if@nofooter
+  \setbeamertemplate{footline}[empty]
+\else
+  \setbeamertemplate{footline}[full]
+\fi
+% ====================================================================== %
+
+% ============================== Packages ============================== %
+% ------------------------------ Math ---------------------------------- %
+\RequirePackage{amsfonts}
+\RequirePackage{amsmath}
+\RequirePackage{relsize}
+\RequirePackage{siunitx} % to align numbers on the period
+\newcommand\bmmax{2}
+\RequirePackage{bm}
+\RequirePackage{amssymb}
+\RequirePackage{mathtools}
+\RequirePackage{textcomp}
+% ---------------------------------------------------------------------- %
+
+% ------------------------------ Fonts --------------------------------- %
+\RequirePackage{ifxetex}
+\ifxetex
+  \RequirePackage{xltxtra}
+  \RequirePackage{fontspec}
+  \setsansfont{Fira Sans}
+\else
+  \RequirePackage{sansmathfonts}
+  \RequirePackage[scaled]{helvet}
+
+  % \RequirePackage{FiraSans}
+  \RequirePackage[T1]{fontenc}
+  \RequirePackage{type1cm} % Scalable fonts
+  % \RequirePackage[lf]{MyriadPro}
+\fi
+% \usefonttheme{professionalfonts}
+% \usefonttheme[onlymath]{serif}
+% \RequirePackage{units}
+% ---------------------------------------------------------------------- %
+
+% ------------------------------ If statements ------------------------- %
+\RequirePackage{ifthen}
+% ---------------------------------------------------------------------- %
+
+% ------------------------------ Graphics ------------------------------ %
+\RequirePackage{graphicx}
+\RequirePackage{float}
+\RequirePackage{morefloats} % Increase float limit of 18
+\RequirePackage{booktabs,colortbl}  % Make nice tables
+\RequirePackage{epstopdf}
+\RequirePackage{tikz}
+\RequirePackage{standalone}
+% ---------------------------------------------------------------------- %
+
+% ------------------------------ Enumeration --------------------------- %
+\RequirePackage{ulem}
+% ---------------------------------------------------------------------- %
+
+% ------------------------------ Back-up Slides ------------------------ %
+\RequirePackage{appendixnumberbeamer}
+% ---------------------------------------------------------------------- %
+% ====================================================================== %
+
+% ============================== Formatting ============================ %
+% ------------------------------ Notes --------------------------------- %
+\setbeamertemplate{note page}[plain]
+\setbeamerfont{note page}{size=\footnotesize}
+% ---------------------------------------------------------------------- %
+
+% ------------------------------ PDF ----------------------------------- %
+\hypersetup{pdfpagemode=UseNone} % don't show bookmarks on initial view
+\hypersetup{pdfstartview={Fit}}
+% ---------------------------------------------------------------------- %
+
+% ------------------------------ Full-size pictures -------------------- %
+\newcommand{\fullsizePic}[2][]{%
+\bgroup
+\usebackgroundtemplate{%
+\begin{tikzpicture}[remember picture,overlay]
+   \node[at=(current page.south),anchor=south,yshift=-0.125cm] {
+      #2
+   };
+\end{tikzpicture}}%
+\setbeamertemplate{footline}[onlypage]
+\begin{frame}{#1}
+%
+\end{frame}
+\egroup
+}
+% ---------------------------------------------------------------------- %
+
+% ------------------------------ Headline ------------------------------ %
+\setbeamercolor{palette quaternary}{fg=AAblue,bg=white}
+\setbeamercolor{titlelike}{parent=palette quaternary}
+\setbeamercolor{frametitle}{fg=AAblue,bg=white}
+\setbeamercolor{frametitledark}{fg=white,bg=AAblue}
+
+\setbeamercolor{title page}{fg=AAblue,bg=white}
+
+\setbeamerfont{framesubtitle}{size=\normalfont\tiny}
+\setbeamercolor{framesubtitle}{fg=AAbl}
+
+\defbeamertemplate{frametitle}{light}
+{
+    \nointerlineskip
+    {\pgfsetfillopacity{0}
+        \vbox{}\vskip2.5ex%
+        \pgfsetfillopacity{1.0}%
+        \strut\insertframetitle\strut%
+    }
+}
+
+\defbeamertemplate{frametitle}{dark}
+{
+    \nointerlineskip
+    {\pgfsetfillopacity{0}
+        \vbox{}\vskip2.5ex%
+        \pgfsetfillopacity{1.0}%
+        \strut\textcolor{white}{\insertframetitle}\strut%
+    }
+}
+\setbeamertemplate{frametitle}[light]
+% ---------------------------------------------------------------------- %
+
+% ------------------------------ Continuation -------------------------- %
+\setbeamertemplate{frametitle continuation}{(\insertcontinuationcount)}
+% ---------------------------------------------------------------------- %
+
+% ------------------------------ Title page ---------------------------- %
+\setbeamerfont{title}{size=\huge}
+\setbeamerfont{subtitle}{size=\large}
+\setbeamerfont{author}{size=\Large}
+\setbeamerfont{institute}{size=\large}
+\setbeamercolor{title}{fg=white,bg=white}
+\setbeamercolor{titleinsec}{fg=gray,bg=gray}
+\setbeamercolor{author}{fg=AAlb}
+\setbeamercolor{institute}{fg=AAgray}
+\setbeamercolor{subtitle}{fg=AAgray}
+\setbeamercolor{titlepages}{fg=white,bg=AAblue}
+
+\defbeamertemplate*{title page}{aeroastro}
+{\setbeamercolor{background canvas}{bg=AAblue}
+  \nointerlineskip%
+  \begin{tikzpicture}[remember picture,overlay]
+      \fill[AAblue] (current page.south east) rectangle (current page.north west);
+      \node[at=(current page.north west),anchor=north west,xshift=2.5em,yshift=-2.5em,text width=0.6\paperwidth] {% 1.75em
+          \usebeamerfont{title}\usebeamercolor[fg]{title}\inserttitle\par
+      };
+      \node[at=(current page.south west),anchor=south west,yshift=0.6in,xshift=1.75em,text width=0.5\paperwidth] {
+          \includegraphics[width=0.5\textwidth]{figures/logos/AeroAstroWhite.pdf}
+      };
+      \node[at=(current page.south),anchor=south west,yshift=0.7in,xshift=-0.25in,text width=0.55\paperwidth] {%
+          {\usebeamerfont{author}\usebeamercolor[fg]{author}\insertauthor\par}\medskip
+    	  	{\usebeamerfont{institute}\usebeamercolor[fg]{institute}\insertinstitute\par}
+      };
+  \end{tikzpicture}
+}
+% ---------------------------------------------------------------------- %
+
+% ------------------------------ Navigation bar ------------------------ %
+\RequirePackage{etoolbox}
+\makeatletter
+\patchcmd{\beamer@sectionintoc}{\vskip1.5em}{\vskip0.1em}{}{}
+\pretocmd{\beamer@subsectionintoc}{}{}{\vskip1.25\itemsep}{}
+\makeatother
+
+\setbeamercolor{section in toc}{fg=white}
+\setbeamerfont{section in toc}{size=\Large}
+\setbeamerfont{section in toc shaded}{size=\Large}
+\setbeamercolor{section in toc shaded}{fg=gray}
+\setbeamertemplate{section in toc shaded}[default][100]
+
+\setbeamercolor{subsection in toc}{fg=AAlb}
+\setbeamerfont{subsection in toc}{size=\large}
+\setbeamerfont{subsection in toc shaded}{size=\large}
+\setbeamercolor{subsection in toc shaded}{fg=gray}
+\setbeamertemplate{subsection in toc shaded}[default][100]
+
+\setbeamertemplate{section in toc}
+{\leavevmode\inserttocsection\par}
+
+\setbeamertemplate{subsection in toc}
+{\leavevmode\mbox{}\vskip-0.75em\leftskip=2em\inserttocsubsection\par}
+
+
+% ---------------------------------------------------------------------- %
+
+% ------------------------------ Progress bar -------------------------- %
+\makeatletter
+\def\progressbar@progressbar{} % the progress bar
+\newcount\progressbar@tmpcounta% auxiliary counter
+\newcount\progressbar@tmpcountb% auxiliary counter
+\newdimen\progressbar@pbht %progressbar height
+\newdimen\progressbar@pbwd %progressbar width
+\newdimen\progressbar@tmpdim % auxiliary dimension
+
+\progressbar@pbwd=0.95\paperwidth
+\progressbar@pbht=1pt
+
+% the progress bar
+\def\progressbar@progressbar{%
+
+    \progressbar@tmpcounta=\insertframenumber
+    \progressbar@tmpcountb=\insertpresentationendframe
+    \progressbar@tmpdim=\progressbar@pbwd
+      \divide\progressbar@tmpdim  by 1000
+    \multiply\progressbar@tmpdim by \progressbar@tmpcounta
+    \divide\progressbar@tmpdim by \progressbar@tmpcountb
+      \multiply\progressbar@tmpdim  by 1000
+
+  \begin{tikzpicture}[very thin]
+
+    \fill[color=AAgray]
+      (0pt, 0pt) rectangle ++ (\progressbar@pbwd, \progressbar@pbht);
+
+      \fill[color=AAlb] %
+        (0pt, 0pt) rectangle ++ (\progressbar@tmpdim, \progressbar@pbht);
+
+  \end{tikzpicture}%
+}
+% ---------------------------------------------------------------------- %
+
+% ------------------------------ Section title page -------------------- %
+\setbeamertemplate{section in toc}[sections numbered]
+\newcommand{\thesecimage}{\mbox{}}
+\newcommand{\secimage}[1]{\renewcommand{\thesecimage}{#1}}
+\setbeamerfont{sectionpage}{size=\huge}
+\defbeamertemplate*{section page}{aeroastro}
+{\nointerlineskip%
+	\begin{tikzpicture}[remember picture,overlay]
+      \node[at=(current page.north west),anchor=north west,xshift=2.5em,yshift=-2.5em,text width=0.6\paperwidth] {% 1.75em
+          \usebeamerfont{title}\usebeamercolor[fg]{titleinsec}\inserttitle\par
+      };
+  		\node[at=(current page.west),anchor=north west,yshift=0.15in,xshift=1.75em,text width=0.5\paperwidth] {
+      		\thesecimage
+  		};
+  		\node[at=(current page.center),anchor=north west,yshift=0.15in,xshift=-0.25in,text width=0.55\paperwidth] {%
+      		\LARGE\tableofcontents[sectionstyle=show/shaded,hideallsubsections]
+  		};
+      \node[at=(current page.south),anchor=south,text width=0.95\paperwidth] {
+          \progressbar@progressbar
+      };
+	\end{tikzpicture}
+}
+\AtBeginSection[]{\label{sec:\thesection}{\setbeamercolor{background canvas}{bg=AAblue}\setbeamertemplate{footline}{}\frame{\sectionpage\addtocounter{framenumber}{-1}}}}
+% ---------------------------------------------------------------------- %
+
+\newcommand{\secpageSep}[1]{\nointerlineskip%
+	{\addtocounter{framenumber}{-1}\setbeamercolor{background canvas}{bg=AAblue}
+	\setbeamertemplate{footline}{}\frame{
+		\begin{tikzpicture}[remember picture,overlay]
+   		\node[at=(current page.west),anchor=west,xshift=0.05\textwidth,text width=0.58\paperwidth] {
+      		\baselineskip=20pt \usebeamerfont{sectionpage}\usebeamercolor[fg]{frametitle}\raggedright#1\par
+  		};
+  		\node[at=(current page.east),anchor=east,xshift=-0.03\textwidth,text width=0.3\paperwidth] {
+      		\includegraphics[width=\linewidth]{figures/logos/AeroAstroWhite.pdf}
+  		};
+	\end{tikzpicture}}}
+}
+
+% ------------------------------ Subsection title page -------------------- %
+% \setbeamertemplate{subsection in toc}[subsections numbered]
+\newcommand{\thesubsecimage}{\mbox{}}
+\newcommand{\subsecimage}[1]{\renewcommand{\thesubsecimage}{#1}}
+\setbeamercolor{sectiontitlepage}{fg=AAlb}
+\setbeamerfont{subsectionpage}{size=\Large}
+\defbeamertemplate*{subsection page}{ifttheme}
+{\nointerlineskip%
+  \begin{tikzpicture}[remember picture,overlay]
+      \node[at=(current page.north west),anchor=north west,xshift=2.5em,yshift=-2.5em,text width=0.6\paperwidth] {% 1.75em
+          \usebeamerfont{title}\usebeamercolor[fg]{titleinsec}\inserttitle\par
+      };
+      \node[at=(current page.west),anchor=north west,yshift=0.15in,xshift=1.75em,text width=0.5\paperwidth] {
+          \thesubsecimage
+      };
+      \node[at=(current page.center),anchor=north west,yshift=0.15in,xshift=-0.25in,text width=0.55\paperwidth] {%
+      		\LARGE\tableofcontents[currentsubsection,sectionstyle=show/shaded,subsectionstyle=show/shaded/hide]
+  		};
+  \node[at=(current page.south),anchor=south,text width=0.95\paperwidth] {
+      \progressbar@progressbar
+  };
+  \end{tikzpicture}
+}
+\AtBeginSubsection[]{\label{subsec:\thesection:\thesubsection}{\setbeamercolor{background canvas}{bg=AAblue}\setbeamertemplate{footline}{}\frame{\subsectionpage\addtocounter{framenumber}{-1}}}}
+% ---------------------------------------------------------------------- %
+% ------------------------------ Enumeration and Itemization ----------- %
+\setbeamercolor{enumerate item}{fg=AAblue}
+\setbeamercolor{enumerate subitem}{fg=AAblue}
+\setbeamercolor{enumerate subsubitem}{fg=AAblue}
+
+\setbeamercolor{itemize item}{fg=AAblue}
+\setbeamercolor{itemize subitem}{fg=AAblue}
+\setbeamercolor{itemize subsubitem}{fg=AAblue}
+
+\setbeamertemplate{itemize items}{$\blacksquare$}
+\useitemizeitemtemplate{%
+    \tiny\raise1.5pt\hbox{\color{AAblue}$\blacksquare$}%
+}
+\usesubitemizeitemtemplate{%
+    \tiny\raise1.5pt\hbox{\color{AAblue}$\blacksquare$}%
+}
+\usesubsubitemizeitemtemplate{%
+    \tiny\raise1.5pt\hbox{\color{AAblue}$\blacksquare$}%
+}
+
+\newenvironment{items}{\itemize\addtolength{\topsep}{3pt}\addtolength{\itemsep}{3pt}}{\enditemize}
+\newenvironment{enums}{\enumerate\addtolength{\topsep}{3pt}\addtolength{\itemsep}{3pt}}{\endenumerate}
+% ---------------------------------------------------------------------- %
+
+% ------------------------------ URL Style ----------------------------- %
+\urlstyle{same}
+% ---------------------------------------------------------------------- %
+
+% ------------------------------ Bibliography -------------------------- %
+\RequirePackage[hyperref=true,style=aiaa,backend=biber,giveninits=true,doi=true,isbn=true,url=false,maxcitenames=1,labeldateparts]{biblatex}
+\setbeamercolor{bibliography item}{fg=black}
+\setbeamercolor*{bibliography entry title}{fg=black}
+\setbeamercolor*{bibliography entry author}{fg=black}
+\setbeamercolor*{bibliography entry location}{fg=black}
+\setbeamercolor*{bibliography entry note}{fg=black}
+\setbeamertemplate{bibliography item}[text]
+%\RequirePackage{xpatch}
+%\xapptobibmacro{cite}{\setunit{\nametitledelim}\printfield{year}}{}{}
+\renewcommand*{\bibfont}{\small}
+\setlength\bibitemsep{1.5\itemsep}
+
+\setbeamercolor{footnote mark}{fg=AAblue}
+\setbeamercolor{footnote}{fg=black!75}
+\setbeamertemplate{footnote}{%
+  \parindent 0em\noindent%
+  \raggedright
+  %\usebeamercolor{footnote}\hbox to 0.8em{\hfil\insertfootnotemark}\insertfootnotetext\par%
+  \usebeamercolor{footnote}\insertfootnotemark\insertfootnotetext\par%
+}
+
+% No underlining! -- we're not in the 80s anymore
+\RequirePackage{ulem}
+\normalem
+
+\let\svthefootnote\thefootnote
+\textheight 1in
+\newcommand\blankfootnote[1]{%
+  \let\thefootnote\relax\footnotetext{#1}%
+  \let\thefootnote\svthefootnote%
+}
+
+\DeclareFieldFormat{sidecite}{\blankfootnote{\footnotesize#1}}
+\newbibmacro{sidecite}{%
+  \printtext[sidecite]{%
+    \raggedright
+    \printtext[bibhyperref]{\textcolor{AAblue}{\printfield{labelnumber}.}}
+    \textcolor{gray}{%
+    \printnames{labelname}%
+    \unspace, %
+    %\setunit{\printdelim{nametitledelim}}%
+    %\printfield[citetitle]{labeltitle}%
+    \iffieldundef{doi}{%
+      \iffieldundef{isbn}{%
+        \iffieldundef{url}{%
+          \ifentrytype{patent}{%
+            \href{https://patents.google.com/patent/US\thefield{number}/en}{\printfield[citetitle]{labeltitle}}%
+          }{%
+            \printfield[citetitle]{labeltitle}%
+          }%
+        }{% if only url is available
+          \href{https://\thefield{url}}{\printfield[citetitle]{labeltitle}}%
+        }%
+        %\printfield[citetitle]{labeltitle}%
+      }{% if only url or isbn is available
+        \href{https://books.google.com/books?vid=ISBN\thefield{isbn}}{\printfield[citetitle]{labeltitle}}%
+      }%
+    }%
+    {%
+      \href{https://dx.doi.org/\thefield{doi}}{\printfield[citetitle]{labeltitle}}%
+    }%
+    \setunit{\addperiod\space}%
+    \printfield{year}%
+    }
+    }%
+  \setunit{}}
+
+\makeatletter
+%%%% hack to move punctuation like autocite
+\long\def\blx@defcitecmd@iii#1[#2]{%
+  \protected\long\csedef{blx@cite@#1}##1##2##3##4{%
+    \begingroup
+    \blx@citeinit
+    \ifstrequal{#1}{superpluscite}{\noexpand\unspace##4}{}%
+    \unexpanded{#2}{\blxciteicmd{#1}{##1}{##2}{##3}{}}%
+    \ifstrequal{#1}{superpluscite}{}{##4}\endgroup}%
+  \blx@defcitecmd@iv{#1}}
+%%%% hack end
+
+\DeclareCiteCommand{\cbx@mcite}[\mkbibsuperscript]
+  {\usebibmacro{cite:init}%
+   \let\multicitedelim=\supercitedelim
+   \iffieldundef{prenote}
+     {}
+     {\BibliographyWarning{Ignoring prenote argument}}%
+   \iffieldundef{postnote}
+     {}
+     {\BibliographyWarning{Ignoring postnote argument}}%
+   }
+  {\usebibmacro{citeindex}%
+   \usebibmacro{cite:comp}}
+  {}
+  {\usebibmacro{cite:dump}}
+
+\DeclareCiteCommand{\mcitetext} % only prints number and puts reference in margin
+  {}
+  {\usebibmacro{sidecite}}
+  {}
+  {}
+
+\DeclareCiteCommand{\mcitemark}[\cbx@mcite@init\cbx@mcite]
+  {\gdef\cbx@savedkeys{}%
+   \citetrackerfalse%
+   \pagetrackerfalse%
+   \DeferNextCitekeyHook%
+   \usebibmacro{cite:init}%
+   }
+  {\xappto\cbx@savedkeys{\thefield{entrykey},}%
+   }%\usebibmacro{sidecite}}
+  {}
+  {\protected@xappto\cbx@savedcites{{\cbx@savedkeys}}}
+
+\DeclareCiteCommand{\mcite}[\cbx@mcite@init\cbx@mcite]
+  {\gdef\cbx@savedkeys{}%
+   \citetrackerfalse%
+   \pagetrackerfalse%
+   \DeferNextCitekeyHook%
+   \usebibmacro{cite:init}%
+   }
+  {\xappto\cbx@savedkeys{\thefield{entrykey},}%
+   \usebibmacro{sidecite}}
+  {}
+  {\protected@xappto\cbx@savedcites{{\cbx@savedkeys}}}
+
+\newrobustcmd{\cbx@mcite@init}[2]{%
+  \def\cbx@savedcites{#1}#2\cbx@savedcites\empty}
+\makeatother
+% ---------------------------------------------------------------------- %
+
+% ------------------------------ Dark Slide ---------------------------- %
+\RequirePackage{environ}
+% Darkframe
+\NewEnviron{framedark}[2][]{%
+\setbeamertemplate{frametitle}[dark]
+% \if@nofooter
+  \setbeamertemplate{footline}[darkempty]
+% \else
+  % \setbeamertemplate{footline}[dark]
+% \fi
+\setbeamercolor{normal text}{fg=white}
+\setbeamercolor{background canvas}{bg=AAblue}
+\usebeamercolor[fg]{normal text}
+\begin{frame}[#1]{#2}
+\BODY
+\end{frame}
+}
+% ---------------------------------------------------------------------- %
+
+% ------------------------------ Footnotes ----------------------------- %
+\renewcommand{\footnoterule}{} % Disable footnoterule
+% ---------------------------------------------------------------------- %
+
+% ------------------------------ Slide size ---------------------------- %
+\setbeamersize{text margin left=2em,text margin right=2em}
+
+\mode
+<all>
+% ---------------------------------------------------------------------- %
+% ====================================================================== %

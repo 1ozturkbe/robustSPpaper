@@ -1,0 +1,122 @@
+% Aero Astro template
+% Max Opgenoord
+
+% ============================== Beamer ================================ %
+
+\mode<presentation>
+
+% ====================================================================== %
+
+% ============================== Formatting ============================ %
+
+% ------------------------------ Color definitions --------------------- %
+\definecolor{AAblue}{RGB}{0, 23, 53}
+\definecolor{AAgray}{RGB}{123, 118, 117}
+\definecolor{AAlb}{RGB}{0, 135, 188}
+\definecolor{MITred}{RGB}{163, 31, 52}
+\definecolor{MITdg}{RGB}{138, 139, 140}
+\definecolor{MITlg}{RGB}{194, 192, 191}
+\definecolor{AAMITmix}{RGB}{82, 27, 53}
+
+\setbeamercolor{section in footer}{fg=white,bg=AAblue}
+\setbeamercolor{subsection in footer}{fg=white,bg=AAblue!90!white}
+\setbeamercolor{pagenumber in footer}{fg=white,bg=AAblue!80!white}
+\setbeamercolor{alerted text}{fg=AAblue}
+\setbeamerfont{alerted text}{series=\bfseries}
+% ---------------------------------------------------------------------- %
+
+% ------------------------------ Frametitle ---------------------------- %
+\setbeamerfont{frametitle}{size=\Large}%,series=\fontseries{m}\selectfont}%,series=\bfseries}
+% ---------------------------------------------------------------------- %
+
+% ------------------------------ Footline ---------------------------- %
+\def\insertpresentationendframe{\inserttotalframenumber}
+\makeatletter
+\g@addto@macro{\appendix}{\immediate\write\@auxout{\string\@writefile{nav}{\noexpand\headcommand{\noexpand\def\noexpand\insertpresentationendframe{\the\c@framenumber}}}}}
+\makeatother
+
+\defbeamertemplate*{footline}{full}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.4\paperwidth,ht=3.00ex,dp=1ex,center]{section in footer}%
+    \vbox to2.75ex{\vfil\footnotesize\insertsectionhead}
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.4\paperwidth,ht=3.00ex,dp=1ex,center]{subsection in footer}%
+    \vbox to2.75ex{\vfil\footnotesize\insertsubsectionhead}
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.2\paperwidth,ht=3.00ex,dp=1ex,center]{pagenumber in footer}%
+    \vbox to2.75ex{\vfil\footnotesize\pagenumcmd\hspace*{2ex}}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+\defbeamertemplate*{footline}{empty}
+{
+  \leavevmode%
+  \hfill%
+  \begin{beamercolorbox}[wd=.2\paperwidth,ht=4.50ex,dp=1ex,right]{fg=AAblue,bg=white}%
+   \vbox to1ex{\pgfsetfillopacity{1.0}\small\pagenumcmd\hspace*{2ex}}
+  \end{beamercolorbox}%
+  \vskip0pt%
+}
+
+\defbeamertemplate*{footline}{apppages}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.4\paperwidth,ht=3.00ex,dp=1ex,center]{section in footer}%
+    \vbox to2.75ex{\vfil\footnotesize\insertsectionhead}
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.4\paperwidth,ht=3.00ex,dp=1ex,center]{subsection in footer}%
+    \vbox to2.75ex{\vfil\footnotesize\insertsubsectionhead}
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.2\paperwidth,ht=3.00ex,dp=1ex,center]{pagenumber in footer}%
+    \vbox to2.75ex{\vfil\footnotesize\pagenumcmdapp\hspace*{2ex}}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+\defbeamertemplate*{footline}{emptyapp}
+{
+  \leavevmode%
+  \hfill%
+  \begin{beamercolorbox}[wd=.2\paperwidth,ht=3.00ex,dp=1ex,right]{fg=AAblue,bg=white}%
+   \vbox to2.75ex{\vfil\pgfsetfillopacity{1.0}\small\pagenumcmdapp\hspace*{2ex}}
+  \end{beamercolorbox}%
+  \vskip0pt%
+}
+
+\defbeamertemplate*{footline}{dark}
+{
+  \leavevmode%
+  \hbox{\pgfsetfillopacity{0}%
+  \begin{beamercolorbox}[wd=.4\paperwidth,ht=3.00ex,dp=1ex,center]{section in footer}%
+    \pgfsetfillopacity{1.0}%\footnotesize\insertsectionhead
+  \end{beamercolorbox}\pgfsetfillopacity{0}%
+  \begin{beamercolorbox}[wd=.4\paperwidth,ht=3.00ex,dp=1ex,center]{subsection in footer}%
+    \pgfsetfillopacity{1.0}%\footnotesize\insertsubsectionhead
+  \end{beamercolorbox}\pgfsetfillopacity{0}%
+  \begin{beamercolorbox}[wd=.2\paperwidth,ht=3.00ex,dp=1ex,center]{pagenumber in footer}%
+   \vbox to2.75ex{\vfil\pgfsetfillopacity{1.0}\footnotesize\pagenumcmd\hspace*{2ex}}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+\defbeamertemplate*{footline}{darkempty}
+{
+  \leavevmode%
+  \hfill%
+  \begin{beamercolorbox}[wd=.2\paperwidth,ht=3.00ex,dp=1ex,right]{bg=AAblue,fg=white}%
+   \vbox to2.75ex{\vfil\pgfsetfillopacity{1.0}\small\pagenumcmd\hspace*{2ex}}
+  \end{beamercolorbox}%
+  \vskip0pt%
+}
+
+\mode
+<all>
+% ---------------------------------------------------------------------- %
+
+\setbeamercovered{invisible}
+
+% ====================================================================== %

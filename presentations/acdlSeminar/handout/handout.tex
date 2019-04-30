@@ -1,0 +1,51 @@
+\documentclass[aspectratio=1610,8pt]{beamer}
+\usepackage{tikz,etoolbox}
+
+\usepackage{helvet}
+
+\usepackage{etex}
+
+\definecolor{AAorange}{RGB}{188,100,14}
+
+\beamertemplatenavigationsymbolsempty
+
+\setbeamercolor{normal text}{fg=black!25}
+\setbeamercolor{background canvas}{fg=white,bg=black!80}
+
+\begin{document}
+
+{%
+\setbeamercolor{normal text}{fg=white}
+\usebeamercolor[fg]{normal text}
+\begin{frame}[plain]
+
+    \begin{minipage}[t]{0.49\textwidth}
+        {\huge Important Presentation} \vspace{0.75pc} \\
+        {\large \underline{\textbf{Max Opgenoord}}, John Doe} \vspace{1.5pc} \\
+        AIAA Aviation \\
+        June 26, 2018
+    \end{minipage}
+    \hspace{0.05\textwidth}
+    \begin{minipage}[t]{0.4\textwidth}
+      Even when research or engineering work is groundbreaking, its impact can be limited when the findings are not communicated well. In this talk, we explore strategies for more effective visual communication, focusing on the design of slides and graphs/illustrations. This will be mostly an introductory talk, reviewing the work by experts in the field of communication and information design, while also showing some examples.
+      The solutions that are shown for some common mistakes, should not be used as general guidelines. Instead, decide on the best solution based on what message needs to get across.
+    \end{minipage}
+
+\end{frame}
+
+}
+\foreach \x in {1,2,...,21} {%
+
+    \begin{frame}[plain]
+    \includegraphics[page=\x,width=0.75\textwidth]{main.pdf}\hfill%
+    \begin{minipage}[b][0.5625\textwidth][b]{0.2\textwidth}
+        \includegraphics[width=\textwidth]{../figures/logos/AeroAstroWhite}\\
+        \vfill
+            \textit{Visual Communication\\ for Scientists \\ and Engineers} \vskip7pt
+            Max Opgenoord \vspace{1pc} \\
+            { ACDL Seminar\\ October 26, 2018}
+    \end{minipage}
+\end{frame}%
+
+}
+ \end{document}

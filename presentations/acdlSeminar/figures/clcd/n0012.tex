@@ -1,0 +1,42 @@
+% This file was created by matlab2tikz.
+%
+%The latest updates can be retrieved from
+%  http://www.mathworks.com/matlabcentral/fileexchange/22022-matlab2tikz-matlab2tikz
+%where you can also make suggestions and rate matlab2tikz.
+%
+
+
+\documentclass[11pt]{standalone}
+%
+
+\input{../preamble_figures}
+
+\begin{document}
+
+\colorlet{mycolor4}{MITred}
+%
+\begin{tikzpicture}
+
+\begin{axis}[%
+width=5in,
+height=0.9523in,
+at={(1.3in,0.814in)},
+scale only axis,
+xmin=-0.025,
+xmax=1.025,
+ymin=-0.1,
+ymax=0.1,
+axis line style={draw=none},
+ticks=none,
+clip=false,
+axis x line*=bottom,
+axis y line*=left
+]
+
+\addplot [color=mycolor4, fill=mycolor4!35, line width=1.5pt]
+  table{n0012.dat} -- cycle;
+
+\end{axis}
+\end{tikzpicture}%
+
+\end{document}
