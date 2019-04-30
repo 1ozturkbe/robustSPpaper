@@ -43,7 +43,6 @@ and we elaborate on four potential benefits from \cite{Zang2002} below:
     traditional designs while meeting the same reliability requirements.
 \end{itemize}
 
-However, optimization under uncertainty has yet to gain significant traction in the aerospace field.
 In economics, the idea that risk is related to profit is well understood and leveraged.
 In aerospace engineering however we often forget that risk aversity necessarily results in lower performance.
 Considering that conceptual design in the aerospace industry hedges against program risk,
@@ -104,7 +103,7 @@ In the context of engineering, we claim that an optimization method is general
 when it can be used to solve a range of problems of interest. On the other hand,
 tractability describes whether or not the problems are solved to a satisfactory
 optimum with reasonable computational time. Optimization
-under uncertainty is a difficult task, which puts these two desirable subjective traits
+under uncertainty is a difficult task that puts these two desirable subjective traits
 at odds with each other.
 
 \gls{so} has the advantage of generality.
@@ -112,14 +111,14 @@ at odds with each other.
 They require little knowledge, if any, about the constraints in the system of interest.
 \gls{ro} methods are less general, since they require
 the design objective and constraints to be explicit and cast in a form that has a worst-case
-counterpart. The models for \gls{ro} have to be transparent,
+counterpart. Thus models for \gls{ro} have to be transparent,
 and \gls{ro} cannot be applied to black box models without significant prior data
-manipulation at a minimum. A mitigating factor
-many classes of conceptual engineering design problems can be immediately in a form that
+manipulation at a minimum. A mitigating factor is that
+many classes of conceptual engineering design problems can be cast or approximated in a form that
 is compatible with robust optimization, such as linear, quadratic, semidefinite
 and geometric programs.
 
-\gls{ro} is more tractable than \gls{so} due to the difference in method of uncertainty propagation.
+On the other hand, \gls{ro} is more tractable than \gls{so} due to the difference in method of uncertainty propagation.
 As aforementioned, stochastic methods involve the propagation of probability densities throughout a model
 to determine their effects on constraint feasibility and the objective function.
 This requires the integration of the product of probability distributions with potential outcomes,
@@ -132,21 +131,24 @@ through stochastic optimization (eg. the recourse problem as
 shown in~\cite{Kall1982},\cite{Higle1991}, and energy planning problem such as in~\cite{Pereira1991}), and
 even these are limited by combinatorics and costly system evaluations. Furthermore, they require
 problem-specific approximations, so that generality is compromised.
-
 Robust versions of tractable optimization problem are not
 guaranteed to be tractable, but in practice the aforementioned classes of optimization problems
-have tractable robust formulations~\cite{Bertsimas2011}. In \gls{ro}, there are no separate optimization and evaluation
-loops by construction, offering much faster solution times
+have tractable robust formulations~\cite{Bertsimas2011}. In \gls{ro},
+there are no separate optimization and evaluation
+loops by construction, and thus \gls{ro} problems can be solved optimally
+many orders of magnitude faster than \gls{so} problems of the same form~\cite{Bertsimas2011}.
 
-
-\gls{ro} circumvents these issues through the use of the worst-case robust counterpart. Since
-
-Conceptual design optimization values tractability, since the best opportunities
-to reduce program risk occur early on in the design process when more aspects
-of the design are fluid.
-
-
-
+Conceptual design optimization values generality, because engineers would like to
+apply methods for optimization under uncertainty without significant mathematical groundwork,
+and tractability, because fast solution times are critical
+to reduce program risk early on in the design process when more aspects
+of the design are fluid. From this perspective, the relative intractability of
+\gls{so}-based approaches makes them unreliable for conceptual design, since significant time is
+needed both to develop problem-specific tractable formulations, and to find satisfactory optima.
+Furthermore,
+many engineering design problems such as aircraft design are approximable by optimization
+forms that have tractable robust counterparts, making \gls{ro} better suited
+to conceptual design.
 
 \subsubsection{Use of data}
 
@@ -160,21 +162,27 @@ leaves a lot on the table by not taking advantage of distributional information,
 however there is a growing body of research on distributionally robust optimization~\cite{Bertsimas2017}
 which seeks to leverage existing data.
 
-\subsection{Conservativeness}
+During conceptual design, data about the distributions of uncertain parameters
+is sparse and often not available. Since \gls{so} requires full probability distributions
+of parameters, it is more sensitive to the assumptions made about 
+
+\subsubsection{Conservativeness}
 
 Although \gls{ro} problems solve problems with uncertainty,
 \gls{ro} formulations result in solutions that are \emph{deterministically immune}
 to all possible realizations of parameters in an uncertainty set~\cite{Bertsimas2011},
 which is defined as conservativeness. There is extensive literature on \gls{ro} methods
-that offer differing levels of conservativeness~\cite{Bertsimas2004}. \gls{so} formulations
-provide no such guarantees, since the solution methods themselves are stochastic.
-
+that offer differing levels of conservativeness~\cite{Bertsimas2004}, especially
+depending on the kind of uncertainty set considered.
+\gls{so} formulations provide no guarantees of conservativity,
+since the solution methods rely on randomized algorithms~\cite{Shmoys2004}.
 
 \subsubsection{Stochasticity}
 
-These robust formulations are \emph{deterministic}. Different instances of a design problem with
+The solution of \gls{ro} problems is deterministic,
+meaning that different instances of a design problem with
 the same parameters will result in the same solution. This is not the case with \gls{so},
-which often relies on randomized algorithms~\cite{Shmoys2004}.
+since the optimum depends on realizations of random variables.
 
 It is important to highlight that,
 although both \gls{ro} and \gls{so} seek to address the problem
