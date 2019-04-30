@@ -1,8 +1,9 @@
 from SimPleAC_setup import SimPleAC_setup
-from gpkit import units
+from gpkit import Model
 from robust.robust import RobustModel
 import numpy as np
 from gpkit.small_scripts import mag
+from robust.robust import RobustGPTools
 
 from SimPleAC_draw import SimPleAC_draw
 
@@ -18,19 +19,26 @@ if __name__ == "__main__":
 
     methods = [{'name': 'Best Pairs', 'twoTerm': True, 'boyd': False, 'simpleModel': False}]
     uncertainty_sets = ['elliptical']
+    gamma = 1
+    margin_subs = {k: v + np.sign(mag(sol['sensitivities']['constants'](k.key)))*k.key.pr * v / 100.0
+                                     for k, v in m.substitutions.items()
+                                     if k in m.varkeys and RobustGPTools.is_directly_uncertain(k)}
 
-    # rm = RobustModel(m, 'elliptical', twoTerm = True, boyd = False, simpleModel = False, gamma = 0)
-    # rsol = rm.robustsolve(verbosity=2)
+   # Model with margins
+    mm = Model(m.cost, m, subs)
+    mm.substitutions.update(margin_subs)
+    msol = mm.localsolve(verbosity=2)
 
-
-    bm = RobustModel(m, 'box', twoTerm = True, boyd = False, simpleModel = False, gamma = 1)
+    # Model with box uncertainty
+    bm = RobustModel(m, 'box', twoTerm = True, boyd = False, simpleModel = False, gamma = gamma)
     bsol = bm.robustsolve(verbosity=2)
 
-    em = RobustModel(m, 'elliptical', twoTerm = True, boyd = False, simpleModel = False, gamma = 1)
+    # Model with elliptical uncertainty
+    em = RobustModel(m, 'elliptical', twoTerm = True, boyd = False, simpleModel = False, gamma = gamma)
     esol = em.robustsolve(verbosity=2)
 
     try:
-        soltab = [sol, rsol, bsol, esol]
+        soltab = [sol, msol, bsol, esol]
     except:
         soltab = [sol, bsol, esol]
 
