@@ -35,14 +35,14 @@ if __name__ == "__main__":
     title = ''
     filteredResult = margin['solutions']
     filteredSimulations = margin['simulation_results']
-    objective_varkey = model.cost.key
+    objective_varkey = 'W_{f_m}'
 
     objective_costs = []
     pofs = []
     objective_stddev = []
     for i in sorted(filteredResult.keys()):
         objective_stddev.append(filteredSimulations[i][2])
-        objective_costs.append(mag(filteredResult[i](objective_varkey)))
+        objective_costs.append(mag(filteredSimulations[i][1]))
         pofs.append(filteredSimulations[i][0])
     objective_proboffailure_vs_gamma(margins, objective_costs, objective_name, objective_units,
                                      np.min(objective_costs), np.max(objective_costs), pofs, title, objective_stddev)
