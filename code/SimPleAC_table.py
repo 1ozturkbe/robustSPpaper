@@ -56,5 +56,8 @@ if __name__ == "__main__":
     for i in soltab:
         print i['cost']
 
+    colors = ['blue', 'orange', 'red', 'green']
+    count = 0
     for i in soltab:
-        SimPleAC_draw(i)
+        SimPleAC_draw(i, colors[count])
+        count += 1
