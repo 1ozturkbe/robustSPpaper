@@ -1,57 +1,107 @@
- \title{Optimal Aircraft Design Decisions under Uncertainty via Robust Signomial Programming}
+\title{Optimal Aircraft Design Decisions under Uncertainty via Robust Signomial Programming}
 
- \author{
-  B. Ozturk%
-    \thanks{PhD Candidate, MIT AeroAstro, Cambridge, MA, AIAA Member}
-  \ and A. Saab
-     \thanks{SM Candidate, MIT AeroAstro, Cambridge, MA}
-\\
-  {\normalsize\itshape
-   Massachusetts Institute of Technology, Cambridge, Massachusetts 02139}\\
-  % \and
-  % Third E. Burnell%
-  %  \thanks{Job Title, Department, Address, and AIAA Member Grade.}\\
-  % {\normalsize\itshape
-  % Business or Academic Affiliation, City, Province, Zipcode, Country}
-  % \and
-  % Fourth W. Hoburg%
-  % \thanks{Job Title, Department, Address, and AIAA Member Grade.}\\
-  % {\normalsize\itshape
-  % Business or Academic Affiliation, City, Province, Zipcode, Country}
- }
+\author{Berk Ozturk \footnote{PhD Candidate, Department of Aeronautics and Astronautics, AIAA Member}
+and Ali Saab\footnote{S.M., Department of Aeronautics and Astronautics.}}
+\affil{Massachusetts Institute of Technology, Cambridge, MA, 02139}
 
- % Data used by 'handcarry' option if invoked
- \AIAApapernumber{YEAR-NUMBER}
- \AIAAconference{Conference Name, Date, and Location}
- \AIAAcopyright{\AIAAcopyrightD{YEAR}}
+% Data used by 'handcarry' option if invoked
+% \AIAApapernumber{2019}
+% \AIAAconference{Conference Name, Date, and Location}
+% \AIAAcopyright{\AIAAcopyrightD{2019}}
 
- % Define commands to assure consistent treatment throughout document
- \newcommand{\eqnref}[1]{(\ref{#1})}
- \newcommand{\class}[1]{\texttt{#1}}
- \newcommand{\package}[1]{\texttt{#1}}
- \newcommand{\file}[1]{\texttt{#1}}
- \newcommand{\BibTeX}{\textsc{Bib}\TeX}
+% Define commands to assure consistent treatment throughout document
+\newcommand{\eqnref}[1]{(\ref{#1})}
+\newcommand{\class}[1]{\texttt{#1}}
+\newcommand{\package}[1]{\texttt{#1}}
+\newcommand{\file}[1]{\texttt{#1}}
+\newcommand{\BibTeX}{\textsc{Bib}\TeX}
 
 \renewcommand{\vec}{\mathbf}
 \newcommand{\mat}{\mathbf}
 
 \usepackage[utf8]{inputenc}
 \usepackage{algorithm}
+\usepackage{array}
 \usepackage{bbm}
+\usepackage{booktabs}
+
 \usepackage{amsmath}
-\usepackage{amsthm}
+%\usepackage{amsthm}
 \usepackage{amssymb}
+\usepackage{csvsimple}
+\usepackage{filecontents}
+\usepackage[acronyms]{glossaries}
 \usepackage{multicol}
 \usepackage{tabularx}
 \usepackage[toc,page]{appendix}
 \usepackage{verbatim}
 \usepackage{tikz}
 \usepackage{tkz-kiviat}
-\usetikzlibrary{arrows}
-\usepackage{subcaption} 
+\usetikzlibrary{shapes, arrows, positioning, decorations.markings, fit}
+\usepackage{pgfplotstable}
+\usepackage{subcaption}
 \usepackage{graphicx}
+%\usepackage[sort, numbers]{natbib}
+\makeglossaries
 
- \newtheorem{theorem}{Theorem}[section]
- \newtheorem{corollary}{Corollary}[theorem]
- \newtheorem{lemma}[theorem]{Lemma}
- \newtheorem{proposition}[theorem]{Proposition}
+\tikzstyle{block} = [draw, rectangle,
+minimum height=3em, minimum width=6em]
+\tikzstyle{sum} = [draw, circle]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+\tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
+\tikzstyle{vecArrow} = [thick, decoration={markings,mark=at position
+1 with {\arrow[semithick]{open triangle 60}}},
+double distance=1.4pt, shorten >= 5.5pt,
+preaction = {decorate},
+postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
+\tikzstyle{innerWhite} = [semithick, white,line width=1.4pt, shorten >= 4.5pt]
+
+\makeatletter
+\csvset{
+autotabularcenter/.style={
+file=#1,
+after head=\csv@pretable\begin{tabular}{|*{\csv@columncount}{c|}}
+                            \csv@tablehead,
+                            table head=\hline\csvlinetotablerow\\\hline,
+                            late after line=\\,
+                            table foot=\\\hline,
+                            late after last line=\csv@tablefoot
+\end{tabular}\csv@posttable,
+command=\csvlinetotablerow},
+autobooktabularcenter/.style={
+file=#1,
+after head=\csv@pretable\begin{tabular}{*{\csv@columncount}{c}}
+                            \csv@tablehead,
+                            table head=\toprule\csvlinetotablerow\\\midrule,
+                            late after line=\\,
+                            table foot=\\\bottomrule,
+                            late after last line=\csv@tablefoot
+\end{tabular}\csv@posttable,
+command=\csvlinetotablerow},
+}
+\makeatother
+\newcommand{\csvautotabularcenter}[2][]{\csvloop{autotabularcenter={#2},#1}}
+\newcommand{\csvautobooktabularcenter}[2][]{\csvloop{autobooktabularcenter={#2},#1}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\newacronym{bsfc}{BSFC}{brake specific fuel consumption}
+\newacronym{ceg}{CEG}{Convex Engineering Group}
+\newacronym{gp}{GP}{Geometric Program}
+\newacronym{mc}{MC}{Monte Carlo}
+\newacronym{sp}{SP}{Signomial Program}
+\newacronym{rgp}{RGP}{Robust Geometric Program}
+\newacronym{rsp}{RSP}{Robust Signomial Program}
+\newacronym{ro}{RO}{Robust Optimization}
+\newacronym{so}{SO}{Stochastic Optimization}
+\newacronym{mdo}{MDO}{Multidisciplinary Design Optimization}
+\newacronym{dc}{DC}{difference-of-convex}
+\newacronym{nlp}{NLP}{Nonlinear Program}
+\newacronym{rhs}{RHS}{right hand side}
+\newacronym{lhs}{LHS}{left hand side}
+\newacronym{cv}{CV}{coefficient of variation}
+
+\newcommand{\AR}{A\!R}
+\newcommand{\BSFC}{{\rm B\!S\!F\!C}}
+\newcommand{\CDA}{C\!D\!A}
+\newcommand{\RC}{{\rm R\!C}}

@@ -2,79 +2,8 @@
 
 \typeout{}\typeout{If latex fails to find aiaa-tc, read the README file!}
 %
-\documentclass[]{aiaa-tc}% insert '[draft]' option to show overfull boxes
-
-\usepackage[acronyms]{glossaries}
-\usepackage{amsmath}
-\usepackage{pgfplotstable}
-\usepackage{array}
-\usepackage[sort, numbers]{natbib}
-\usepackage{pgfplotstable,filecontents}
-\usepackage{csvsimple}
-\usepackage{booktabs}
-\usepackage{subcaption}
-\usepackage{tikz}
-\usetikzlibrary{shapes, arrows, positioning, decorations.markings, fit}
-\makeglossaries
-
-\tikzstyle{block} = [draw, rectangle, 
-    minimum height=3em, minimum width=6em]
-\tikzstyle{sum} = [draw, circle]
-\tikzstyle{input} = [coordinate]
-\tikzstyle{output} = [coordinate]
-\tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
-\tikzstyle{vecArrow} = [thick, decoration={markings,mark=at position
-   1 with {\arrow[semithick]{open triangle 60}}},
-   double distance=1.4pt, shorten >= 5.5pt,
-   preaction = {decorate},
-   postaction = {draw,line width=1.4pt, white,shorten >= 4.5pt}]
-\tikzstyle{innerWhite} = [semithick, white,line width=1.4pt, shorten >= 4.5pt]
-
-\makeatletter
-\csvset{
-  autotabularcenter/.style={
-    file=#1,
-    after head=\csv@pretable\begin{tabular}{|*{\csv@columncount}{c|}}\csv@tablehead,
-    table head=\hline\csvlinetotablerow\\\hline,
-    late after line=\\,
-    table foot=\\\hline,
-    late after last line=\csv@tablefoot\end{tabular}\csv@posttable,
-    command=\csvlinetotablerow},
-  autobooktabularcenter/.style={
-    file=#1,
-    after head=\csv@pretable\begin{tabular}{*{\csv@columncount}{c}}\csv@tablehead,
-    table head=\toprule\csvlinetotablerow\\\midrule,
-    late after line=\\,
-    table foot=\\\bottomrule,
-    late after last line=\csv@tablefoot\end{tabular}\csv@posttable,
-    command=\csvlinetotablerow},
-}
-\makeatother
-\newcommand{\csvautotabularcenter}[2][]{\csvloop{autotabularcenter={#2},#1}}
-\newcommand{\csvautobooktabularcenter}[2][]{\csvloop{autobooktabularcenter={#2},#1}}
-\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
-
-\newacronym{bsfc}{BSFC}{brake specific fuel consumption}
-\newacronym{ceg}{CEG}{Convex Engineering Group}
-\newacronym{gp}{GP}{Geometric Program}
-\newacronym{mc}{MC}{Monte Carlo}
-\newacronym{sp}{SP}{Signomial Program}
-\newacronym{rgp}{RGP}{Robust Geometric Program}
-\newacronym{rsp}{RSP}{Robust Signomial Program}
-\newacronym{ro}{RO}{Robust Optimization}
-\newacronym{so}{SO}{Stochastic Optimization}
-\newacronym{mdo}{MDO}{Multidisciplinary Design Optimization}
-\newacronym{dc}{DC}{difference-of-convex}
-\newacronym{nlp}{NLP}{Nonlinear Program}
-\newacronym{rhs}{RHS}{right hand side}
-\newacronym{lhs}{LHS}{left hand side}
-\newacronym{cv}{CV}{coefficient of variation}
-
-\newcommand{\AR}{A\!R}
-\newcommand{\BSFC}{{\rm B\!S\!F\!C}}
-\newcommand{\CDA}{C\!D\!A}
-\newcommand{\RC}{{\rm R\!C}}
-
+%\documentclass[]{aiaa-tc}% insert '[draft]' option to show overfull boxes
+\documentclass[journal]{new-aiaa}
 
 \input{shared}
 
