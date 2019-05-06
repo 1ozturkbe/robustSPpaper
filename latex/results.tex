@@ -7,78 +7,18 @@ to be minimized given a payload and range requirement.
 \subsection{Mitigation of probability of failure}
 
 First, the optimization problem is solved in presence of no uncertainty. It is expected
-that this aircraft is sensitive to the outcomes of the uncertain parameters. Then, using the
-sensitivities of the nominal solution, we assign $3\sigma$ margins for each parameter,
-and generate a design using margins.
-
-These two solutions are compared with \gls{ro} results for box and elliptical uncertainty sets
-at $\Gamma = 1$. We expect that
-
-The problem is solved for different sizes of box and elliptical uncertainty sets,
-whose sizes are defined by the L1- and L2-norms respectively,
-by varying the parameter $\Gamma$, as defined in Appendix \ref{LP_to_GP}. Mathematically, for box uncertainty,
-$\Gamma$ is a scaling of the width of each defined parameter uncertainty. More intuitively,
-it is the width of the margin provided for each parameter, normalized by its standard deviation.\footnote{It
-can be easy to assume that using margins and box uncertainty sets will yield the same designs,
-but they fundamentally function
-differently. The worst case outcome in box uncertainty can come \emph{from the interior} of the uncertainty
-set, so the use of box uncertainty is strictly more conservative and more appropriate than the use of margins,
-which fail to capture the level of conservatism they signal.}
-For elliptical uncertainty, it is the maximum diameter of the Euclidian norm
-ball of $u_i$, which is the number of standard deviations of perturbation of each ith parameter from its nominal value.
-Intuitively, $\Gamma$ is a measure of how much risk is being hedged against. $\Gamma = 0$
-implies that all of the parameters take their nominal values with zero uncertainty,
-and larger $\Gamma$ protects against more parameter uncertainty, where a box uncertainty is
-more conservative than elliptical uncertainty.
-
-The design variables are then fixed for each solution so that the design can be simulated for
+that this aircraft is sensitive to the outcomes of the uncertain parameters. Then, using the sign of
+sensitivities of the nominal solution, we assign $3\sigma$ margins for each parameter
+and generate a design using margins. These two solutions are compared with \gls{ro} results for
+box and elliptical uncertainty sets at $\Gamma = 1$.
+The design variables are then fixed for each solution, and the designs are simulated for
 different realizations of the uncertain parameters in Table~\ref{tab:uncertainties}
-to examine average design performance. In this~\gls{mc} scheme, the random variables
+to examine the statistics of design performance. In this~\gls{mc} scheme, the random variables
 are simulated from independent and identically distributed $3\sigma$ truncated Gaussians.
 We simulate from the truncated Gaussian since this makes it possible to
 confirm mathematically that for $\Gamma = 1$, all simulations of $3\sigma$ uncertain parameters are feasible.
-Designs for each solution in Figure~\ref{fig:probOfFailure} are simulated with the same set
+Designs for each solution in Table~\ref{tab:results} and Figure~\ref{fig:probOfFailure} are simulated with the same set
 of uncertainty realizations for consistency. \\
-
-\begin{figure}[ht]
-    \centering
-    \captionsetup{justification=centering, font=small}
-    \begin{subfigure}{0.49\textwidth}
-        \centering
-        \includegraphics[height=2.3in]{signomial_simple_flight/box_best_pairs.pdf}
-         \caption{Box Uncertainty Set}
-    \end{subfigure}%
-    ~ 
-    \begin{subfigure}{0.49\textwidth}
-        \centering
-        \includegraphics[height=2.3in]{signomial_simple_flight/ell_best_pairs.pdf}
-         \caption{Elliptical Uncertainty Set}
-    \end{subfigure}
-    \caption{Simulated performance of the optimal robust aircraft, using the Best Pairs formulation,
-    as a function of $\Gamma$ for different uncertainty sets.
-    The dashed line and the band represent the mean and standard deviation of the performance
-    of aircraft designed for different $\Gamma$,
-    and simulated with 100 \gls{mc} samples of uncertain parameters.}
-    \label{fig:probOfFailure}
-\end{figure}
-
-We call the aircraft designed under box uncertainty and under elliptical uncertainty `the box aircraft'
-and `the elliptical aircraft' respectively. We
-define the probability of failure of a design as the probability that any constraint
-in the design optimization problem is violated in a \gls{mc} simulation.
-As expected, Figure \ref{fig:probOfFailure} shows that probability of failure goes monotonically
-to zero as $\Gamma$ increases.
-It is noteworthy that, for the nominal problem ($\Gamma = 0$) only 6 percent of the realizations of
-uncertain variables result in feasible solutions.
-This means that an aircraft designed for the average case would almost surely
-fail to satisfy the mission requirements, even with equal likelihood of favorable versus
-unfavorable uncertain outcomes from the symmetric truncated Gaussian.
-That being said, depending on the problem, it may necessary to sacrifice
-performance to achieve a high degree ($3\sigma$) of
-reliability as in the solution for $\Gamma = 1$. As shown by Figure~\ref{tab:results},
-the elliptical aircraft spends 74\% more fuel
-in the worst case than the aircraft designed for the nominal case, but it
-is also completely robust to all uncertain outcomes in the $3\sigma$ set.
 
 \begin{table}[!h]
 \begin{center}
@@ -105,7 +45,7 @@ Objective metric & Description & Units & No Uncert. & Margins & Box & Elliptical
 \hline
 Objective & total fuel weight & $\mathrm{N}$ & 608 & 1170 & 1240 & 1090 \\
 \hline
-E[Objective] & expected total fuel weight & $\mathrm{N}$ & 964 & 976 & 856 \\
+E[Objective] & expected total fuel weight & $\mathrm{N}$ & 572 & 964 & 976 & 856 \\
 \hline
 $\sigma$[Objective] & std. dev. of fuel weight & $\mathrm{N}$ & 9 & 32 & 32 & 29 \\
 \hline
@@ -115,16 +55,70 @@ P[failure] & probability of failure & \% & 94 & 0 & 0 & 0\\
 \end{center}
 \end{table}
 
-Moreover, using margins in design is similar to using a box uncertainty set, and therefore will lead
-to a more conservative solution with inferior performance. This can be seen by the fact that
+We call the aircraft designed under box uncertainty and under elliptical uncertainty `the box aircraft'
+and `the elliptical aircraft' respectively. We
+define the probability of failure of a design as the probability that any constraint
+in the design optimization problem is violated in a \gls{mc} simulation.
+
+\begin{figure}[ht]
+    \centering
+    \captionsetup{justification=centering, font=small}
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[height=2.3in]{signomial_simple_flight/margins.pdf}
+         \caption{Margins}
+    \end{subfigure}%
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[height=2.3in]{signomial_simple_flight/box_best_pairs.pdf}
+         \caption{Box Uncertainty Set}
+    \end{subfigure}%
+    \bigskip
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[height=2.3in]{signomial_simple_flight/ell_best_pairs.pdf}
+         \caption{Elliptical Uncertainty Set}
+    \end{subfigure}
+    \caption{Simulated performance of the optimal robust aircraft, using margins, box and elliptical uncertainty sets,
+    as a function of $\Gamma$. The robust solutions use the Best Pairs formulation.
+    The dashed line and the band represent the mean and standard deviation of the performance
+    of aircraft, simulated with 100 \gls{mc} samples of uncertain parameters.}
+    \label{fig:probOfFailure}
+\end{figure}
+
+
+As expected, Figure \ref{fig:probOfFailure} shows that probability of failure goes monotonically
+to zero as $\Gamma$ increases.
+It is noteworthy that, for the nominal problem ($\Gamma = 0$) only 6 percent of the realizations of
+uncertain variables result in feasible solutions.
+This means that an aircraft designed for the average case would almost surely
+fail to satisfy the mission requirements, even with equal likelihood of favorable versus
+unfavorable uncertain outcomes from the symmetric truncated Gaussian.
+That being said, depending on the problem, it may necessary to sacrifice
+performance to achieve a high degree ($3\sigma$) of
+reliability as in the solution for $\Gamma = 1$. As shown by Figure~\ref{tab:results}, the box aircraft
+and the elliptical aircraft spend on average 71\% and 50\% more fuel
+than the aircraft designed for the nominal case, but they also are
+completely robust to all uncertain outcomes in the $3\sigma$ set.
+
+Note that the box solution is strictly more conservative than the solution with margins.
+This indicates that margins are not a good method of allocating uncertainty,
+since margins claim to protect against the worst case outcome of each parameter but in
+fact do not. There are no probabilistic guarantees that the aircraft
+with margins would not fail one of the \gls{mc} simulations. It is almost surely true
+that another set of truncated Gaussian samples will violate feasibility for the design with margins,
+whereas box uncertainty guarantees deterministically that the constraints are satisfied.
+
+This can be seen by the fact that
 the elliptical aircraft spends 14\% lower fuel in the worst case
 than the box aircraft, although they both protect against the same uncertain outcomes.
 The significance of this cannot be understated: the use of margins or box uncertainty protects
 against the same amount of risk as elliptical uncertainty, with strictly worse performance outcomes.
 
 In absolute
-terms, the nominal \gls{sp} under zero uncertainty
-takes just under 0.9 seconds to solve on a modern laptop computer; the authors
+terms, the nominal \gls{sp} under zero uncertainty or with margins
+takes just under 0.9 seconds to solve on a modern laptop computer using Mosek~\cite{mosek},
+an interior point solver that is free for academic use; the authors
 refer to ~\cite{Kirschen2018Log} and \cite{York2018} for more in-depth \gls{sp} solution time analyses.
 Here we examine briefly in relative terms about how the different \gls{rsp} methodologies compare in terms of setup and
 run times in Figure~\ref{compare_signomial}. Since the setup time of the nominal problem is minimal,
@@ -352,9 +346,8 @@ Firstly, note that there are no results reported for the goal program
 for zero uncertainty, $\Gamma = [0.00]$.
 Since the feasible set of this problem is a point design, the signomial program
 solution heuristic declares the problem infeasible after being
-unable to locate the singular feasible region. However we confirm that when we perturb
-the singularity so that
-$\delta = \epsilon = 10^{-10}$, the goal program has a non-empty feasible set and
+unable to locate the singular feasible region. However we confirm that when we positively perturb
+the singular $\delta$, the goal program has a non-empty feasible set and
 returns the same solution as the original \gls{ro} method.
 Otherwise, the $\Gamma$ values found by the goal program match exactly
 with the original \gls{ro} problem. We confirm that both methods produce
