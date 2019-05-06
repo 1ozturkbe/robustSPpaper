@@ -83,11 +83,15 @@ in conceptual design, since (1) margins fail to capture the level of conservatis
 information is required to allocate margin effectively.
 
 For elliptical uncertainty, $\Gamma$ is the maximum diameter of the Euclidian norm
-ball of $u_i$, which is the number of standard deviations of perturbation of each ith parameter from its nominal value.
-Intuitively, $\Gamma$ is a measure of how much risk is being hedged against. $\Gamma = 0$
+ball of $u_i$, which is the number of standard deviations of perturbation of each
+ith parameter from its nominal value.
+Elliptical uncertainty relies on the fact that the joint probability of
+multiple uncertain parameters taking values in the tails of their respective distributions is
+very low. So while it does not protect deterministically for all outcomes of the uncertain
+parameters within $3\sigma$, it is expected to protect against uncertain outcomes
+less conservatively than the box uncertainty set, with little compromise in probability of failure
+of the design.
+Intuitively, for both sets, $\Gamma$ is a measure of how much risk is being
+hedged against. $\Gamma = 0$
 implies that all of the parameters take their nominal values with zero uncertainty,
-and larger $\Gamma$ protects against more parameter uncertainty. An elliptical set
-is expected to provide less conservative solutions than a box uncertainty set, while
-protecting against the same parametric uncertainty.
-
-
+and larger $\Gamma$ protects against more parameter uncertainty.

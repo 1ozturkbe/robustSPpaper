@@ -10,15 +10,22 @@ First, the optimization problem is solved in presence of no uncertainty. It is e
 that this aircraft is sensitive to the outcomes of the uncertain parameters. Then, using the sign of
 sensitivities of the nominal solution, we assign $3\sigma$ margins for each parameter
 and generate a design using margins. These two solutions are compared with \gls{ro} results for
-box and elliptical uncertainty sets at $\Gamma = 1$.
+box and elliptical uncertainty sets at $\Gamma = 1$. From here onward we refer to
+aircraft designed under box uncertainty and
+under elliptical uncertainty as `the box aircraft' and `the elliptical aircraft' respectively.
+
 The design variables are then fixed for each solution, and the designs are simulated for
-different realizations of the uncertain parameters in Table~\ref{tab:uncertainties}
-to examine the statistics of design performance. In this~\gls{mc} scheme, the random variables
+different realizations of the uncertain parameters in Table~\ref{tab:uncertainties}.
+This allows for statistical analysis of design performance, and
+an estimate of each design's probability of constraint
+violation, which we define as its probability of failure.
+In this~\gls{mc} scheme, the random variables
 are simulated from independent and identically distributed $3\sigma$ truncated Gaussians.
 We simulate from the truncated Gaussian since this makes it possible to
-confirm mathematically that for $\Gamma = 1$, all simulations of $3\sigma$ uncertain parameters are feasible.
-Designs for each solution in Table~\ref{tab:results} and Figure~\ref{fig:probOfFailure} are simulated with the same set
-of uncertainty realizations for consistency. \\
+confirm mathematically that for $\Gamma = 1$, all simulations of $3\sigma$ uncertain parameters are
+deterministically feasible for the box uncertainty set.
+Designs for each solution in Table~\ref{tab:results} and Figure~\ref{fig:probOfFailure}
+are simulated with the same set of uncertainty realizations for consistency.
 
 \begin{table}[!h]
 \begin{center}
@@ -55,10 +62,40 @@ P[failure] & probability of failure & \% & 94 & 0 & 0 & 0\\
 \end{center}
 \end{table}
 
-We call the aircraft designed under box uncertainty and under elliptical uncertainty `the box aircraft'
-and `the elliptical aircraft' respectively. We
-define the probability of failure of a design as the probability that any constraint
-in the design optimization problem is violated in a \gls{mc} simulation.
+It is noteworthy in Table~\ref{tab:results} that, for the nominal problem ($\Gamma = 0$)
+only 6 percent of the realizations of
+uncertain variables result in feasible solutions.
+This means that an aircraft designed for the average case would almost surely
+fail to satisfy the mission requirements, even with equal likelihood of favorable versus
+unfavorable uncertain outcomes from the symmetric truncated Gaussian.
+That being said, depending on the problem, it may necessary to sacrifice
+performance to achieve a high degree ($3\sigma$) of
+reliability as in the solution for $\Gamma = 1$. As shown by Figure~\ref{tab:results}, the box aircraft
+and the elliptical aircraft spend on average 71\% and 50\% more fuel respectively
+than the aircraft designed for the nominal case, but they also are
+robust to all uncertain outcomes in the $3\sigma$ set.
+
+Table~\ref{tab:results} also indicates that margins are not a good method of
+allocating uncertainty. Since the box design at $\Gamma=1$ is strictly
+more conservative (worse worst-case outcome) over the $3\sigma$ hypercube
+than the margin design, we see that a margin from the interior of the hypercube
+rather than its corner is more effective in protecting against the worst case.
+The claim for the use of margins is that they protect against the worst case outcome of
+each parameter, but we assert otherwise. Furthermore, there are no probabilistic
+guarantees that the aircraft
+with margins would not fail one of the \gls{mc} simulations. It is almost surely true
+that another set of truncated Gaussian samples will violate feasibility for the design with margins,
+whereas box uncertainty guarantees deterministically that the constraints are satisfied.
+
+We also posited that the elliptical uncertainty, although it doesn't
+protect against all $3\sigma$ uncertainties, would be less conservative than the
+margin and box designs while not sacrificing probability of failure. This was
+also confirmed. The elliptical design fails none of the random samples,
+and spends 11 and 12\% less fuel on average
+than the margin and box aircraft respectively.
+The significance of this cannot be understated: the use of elliptical uncertainty
+results in designs that have strictly better performance outcomes, while protecting
+against a similar amount of risk as designs using margins or box uncertainty.
 
 \begin{figure}[ht]
     \centering
@@ -73,7 +110,7 @@ in the design optimization problem is violated in a \gls{mc} simulation.
         \includegraphics[height=2.3in]{signomial_simple_flight/box_best_pairs.pdf}
          \caption{Box Uncertainty Set}
     \end{subfigure}%
-    \bigskip
+    \\
     \begin{subfigure}{0.49\textwidth}
         \centering
         \includegraphics[height=2.3in]{signomial_simple_flight/ell_best_pairs.pdf}
@@ -86,34 +123,12 @@ in the design optimization problem is violated in a \gls{mc} simulation.
     \label{fig:probOfFailure}
 \end{figure}
 
-
-As expected, Figure \ref{fig:probOfFailure} shows that probability of failure goes monotonically
-to zero as $\Gamma$ increases.
-It is noteworthy that, for the nominal problem ($\Gamma = 0$) only 6 percent of the realizations of
-uncertain variables result in feasible solutions.
-This means that an aircraft designed for the average case would almost surely
-fail to satisfy the mission requirements, even with equal likelihood of favorable versus
-unfavorable uncertain outcomes from the symmetric truncated Gaussian.
-That being said, depending on the problem, it may necessary to sacrifice
-performance to achieve a high degree ($3\sigma$) of
-reliability as in the solution for $\Gamma = 1$. As shown by Figure~\ref{tab:results}, the box aircraft
-and the elliptical aircraft spend on average 71\% and 50\% more fuel
-than the aircraft designed for the nominal case, but they also are
-completely robust to all uncertain outcomes in the $3\sigma$ set.
-
-Note that the box solution is strictly more conservative than the solution with margins.
-This indicates that margins are not a good method of allocating uncertainty,
-since margins claim to protect against the worst case outcome of each parameter but in
-fact do not. There are no probabilistic guarantees that the aircraft
-with margins would not fail one of the \gls{mc} simulations. It is almost surely true
-that another set of truncated Gaussian samples will violate feasibility for the design with margins,
-whereas box uncertainty guarantees deterministically that the constraints are satisfied.
-
-This can be seen by the fact that
-the elliptical aircraft spends 14\% lower fuel in the worst case
-than the box aircraft, although they both protect against the same uncertain outcomes.
-The significance of this cannot be understated: the use of margins or box uncertainty protects
-against the same amount of risk as elliptical uncertainty, with strictly worse performance outcomes.
+An analysis on the range $\Gamma=[0,1]$ was performed to confirm that the trends from
+Table~\ref{tab:results} hold for all $\Gamma$. Figure~\ref{fig:probOfFailure}
+shows that probability of failure goes monotonically
+towards zero as $\Gamma$ increases for all three methods, where box uncertainty is
+more conservative than margins, and elliptical uncertainty is less conservative
+than the other two methods over the whole $\Gamma$ domain.
 
 In absolute
 terms, the nominal \gls{sp} under zero uncertainty or with margins
