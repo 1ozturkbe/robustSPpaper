@@ -72,9 +72,9 @@ which are \gls{so} and \gls{ro}. Note that stochastic
 optimization is an overloaded term, and exists in at least two contexts in the literature. The first is the solution
 of deterministic problems with stochastic search space exploration. The second is the solution
 of design optimization problems with stochastic parameters, which is the focus of this paper.
-In this context, \gls{so} problems deal with probability distributions of
-uncertain parameters by propagating them through the
-physics of a design problem to ensure constraint feasibility with certain probabilistic guarantees.
+In this context, \gls{so} problems deal with uncertainty by propagating the probability distributions of
+uncertain parameters through the
+physics of a design problem to ensure constraint feasibility with certain probability.
 The predominant goal of \gls{so} is to minimize some characteristics, for example moments or risk measures,
 of the probability density function of the quantity of interest~\cite{Diwekar2008}.
 In contrast, \gls{ro} takes a different approach, instead choosing to make designs immune to
@@ -125,7 +125,7 @@ through stochastic optimization (eg. the recourse problem as
 shown in~\cite{Kall1982},\cite{Higle1991}, and energy planning problem such as in~\cite{Pereira1991}), and
 even these are limited by combinatorics and costly system evaluations. Furthermore, they require
 problem-specific approximations, so that generality is compromised.
-Robust versions of tractable optimization problem are not
+Robust versions of tractable optimization problems are not
 guaranteed to be tractable, but in practice the aforementioned classes of optimization problems
 have tractable robust formulations~\cite{Bertsimas2011}. In \gls{ro},
 there are no separate optimization and evaluation
@@ -147,18 +147,14 @@ to conceptual design.
 \subsubsection{Use of data}
 
 \gls{so} problems generally require complete knowledge of the probability distribution of
-parameters. During conceptual design, this data is not available or is unreliable.
+parameters.
 \gls{ro} requires only `modest assumptions  about distributions, such as a known mean and
 bounded support'~\cite{Chen2007}. Since \gls{ro} does not require as much information
-about uncertain parameters as \gls{so} does, it can better address problems where there
-is a lack of experience or data. It is arguable that \gls{ro}
+about uncertain parameters as \gls{so} does, it can better address conceptual design problems where there
+is a lack of experience, or sparse and noisy data~\cite{Bertsimas2011}. It is arguable that \gls{ro}
 leaves a lot on the table by not taking advantage of distributional information,
 however there is a growing body of research on distributionally robust optimization~\cite{Bertsimas2017}
 which seeks to leverage existing data.
-
-During conceptual design, data about the distributions of uncertain parameters
-is sparse and often not available. Since \gls{so} requires full probability distributions
-of parameters, it is more sensitive to the assumptions made about 
 
 \subsubsection{Conservativeness}
 
@@ -166,17 +162,25 @@ Although \gls{ro} problems solve problems with uncertainty,
 \gls{ro} formulations result in solutions that are \emph{deterministically immune}
 to all possible realizations of parameters in an uncertainty set~\cite{Bertsimas2011},
 which is defined as conservativeness. There is extensive literature on \gls{ro} methods
-that offer differing levels of conservativeness~\cite{Bertsimas2004}, especially
+that offer differing levels of conservativeness~\cite{Bertsimas2004},
 depending on the kind of uncertainty set considered.
 \gls{so} formulations provide no guarantees of conservativeness,
-since the solution methods rely on randomized algorithms~\cite{Shmoys2004}.
+since the solution methods rely on randomized algorithms~\cite{Shmoys2004}. Conservativeness
+is an advantage in conceptual design, since we would like to have some guarantees
+that a design can handle uncertainty in parameters.
 
 \subsubsection{Stochasticity}
 
 The solution of \gls{ro} problems is deterministic,
 meaning that different instances of a design problem with
-the same parameters will result in the same solution. This is not the case with \gls{so},
-since the optimum depends on realizations of random variables.
+the same parameters will result in the same solution.
+This is not the case with \gls{so},
+since the optimum depends on realizations of random variables. This
+is not satisfactory from an engineering perspective, since a design
+can be sensitive to issues in sampling schemes. Furthermore,
+optimization runs over the same parameters may result in different
+solutions. In the context of engineering design determinism makes
+\gls{ro} superior with respect to \gls{so}.
 
 It is important to highlight that,
 although both \gls{ro} and \gls{so} seek to address the problem
