@@ -52,23 +52,29 @@ Parameters that require testing to determine ($C_{L_{\rm{max}}}$, $C_{f_{\rm{fus
 $V_{\rm{min}}$) have a level of uncertainty
 that reflects the expected variance of empirical studies. However, note that
 these quantities are ultimately picked by the designer using prior experience and data,
-and the level of conservatism in the
+and the level of conservativeness in the
 design will be greatly affected by the chosen $3\sigma$s.
 
 \subsection{Types of uncertainty sets considered}
 
 The robust design problem is solved for box and elliptical uncertainty sets,
 which are defined by the L$\infty$- and L2-norms and sized
-by varying the parameter $\Gamma$, as defined in Appendix \ref{LP_to_GP}. Mathematically, for box uncertainty,
-$\Gamma$ is the width of the L-$\infty$ hypercube, whose dimension is the same as the number of uncertain parameters (14). More intuitively,
-it is defines the range of the set provided for each parameter, normalized by its standard deviation.
+by varying the parameter $\Gamma$, as defined in Appendix \ref{LP_to_GP}.
+Intuitively, for both sets, $\Gamma$ is a measure of how much risk is being
+hedged against. $\Gamma = 0$
+implies that all of the parameters take their nominal values with zero uncertainty,
+and larger $\Gamma$ protects against more parameter uncertainty.
 
+Mathematically, for box uncertainty,
+$\Gamma$ is the width of the L-$\infty$ hypercube, whose dimension is the same as the number of uncertain parameters (14).
+More intuitively,
+it is defines the range of the set provided for each parameter, normalized by its standard deviation.
 It can be easy to assume that using margins and box uncertainty sets will yield the same designs,
 but they fundamentally function differently.
 Firstly, the worst case outcome in box uncertainty can come \emph{from the interior} of the uncertainty
 set, instead of the corner of the hypercube considered
-by margins. Furthermore, there is no guarantee that the chosen corner, i.e. particular
-allocation of margins,
+by margins. Furthermore, there is no guarantee (and it is highly unlikely)
+that the chosen corner, i.e. particular allocation of margins,
 is the most conservative point in the uncertainty set.
 It is even possible that the \emph{the wrong sign of margin} is allocated for certain parameters,
 since \gls{sp}s are nonlinear and local sensitivities cannot be used reliably to intuit global behavior. Consider
@@ -79,7 +85,7 @@ of this paper the direction of margins is determined using the local sensitiviti
 which are obtained at no extra computational cost in the solution of the terminal \gls{gp} approximation of the \gls{sp}.
 With these considerations in mind, box uncertainty is expected to be strictly more conservative
 and more appropriate than the use of margins
-in conceptual design, since (1) margins fail to capture the level of conservatism they signal, and (2) prior
+in conceptual design, since (1) margins fail to capture the level of conservativeness they signal, and (2) prior
 information is required to allocate margin effectively.
 
 For elliptical uncertainty, $\Gamma$ is the maximum diameter of the Euclidian norm
@@ -91,7 +97,3 @@ very low. So while it does not protect deterministically for all outcomes of the
 parameters within $3\sigma$, it is expected to protect against uncertain outcomes
 less conservatively than the box uncertainty set, with little compromise in probability of failure
 of the design.
-Intuitively, for both sets, $\Gamma$ is a measure of how much risk is being
-hedged against. $\Gamma = 0$
-implies that all of the parameters take their nominal values with zero uncertainty,
-and larger $\Gamma$ protects against more parameter uncertainty.
