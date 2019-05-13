@@ -1,8 +1,8 @@
 \section{Introduction}
 
-Aircraft design exists in a niche of design problems where ``failure is
+Aerospace design exists in a niche of design problems where ``failure is
 not an option"\footnote{Quoting Gene Kranz, the mission director of Apollo 13.}.
-This is remarkable since aircraft design problems are rife with uncertainty about
+This is remarkable since aerospace design problems are rife with uncertainty about
 technological capabilities, environmental factors, manufacturing quality and the future
 state of markets and regulatory agencies.
 Optimization under uncertainty seeks to provide designs that are robust
@@ -57,7 +57,7 @@ which ensures that the aircraft is able to handle
 multiple kinds of missions in the presence of no uncertainty. This is a type of \emph{finitely
 adaptive} optimization geared to ensure objective performance in off-nominal operations.
 
-These methods have several weaknesses. They provide no quantitative measures of
+These legacy methods have several weaknesses. They provide no quantitative measures of
 robustness or reliability~\cite{Zang2002}. They rely on the expertise of an experienced
 engineer to guide the design process, without explicit knowledge of the trade-off between
 robustness and optimality~\cite{Yao2011}. This is a dangerous proposition especially in the
@@ -77,7 +77,7 @@ uncertain parameters through the
 physics of a design problem to ensure constraint feasibility with certain probability.
 The predominant goal of \gls{so} is to minimize some characteristics, for example moments or risk measures,
 of the probability density function of the quantity of interest~\cite{Diwekar2008}.
-In contrast, \gls{ro} takes a different approach, instead choosing to make designs immune to
+\gls{ro} takes a different approach, instead choosing to make designs immune to
 uncertainties in parameters as long as the parameter values come from within a defined
 uncertainty set. As such, \gls{ro} avoids the need to propagate entire probability
 distributions by minimizing the worst-case objective outcome of a design for a
@@ -113,13 +113,13 @@ is compatible with robust optimization, such as linear, quadratic, semidefinite
 and geometric programs.
 
 On the other hand, \gls{ro} is more tractable than \gls{so} due to the difference in method of uncertainty propagation.
-As aforementioned, stochastic methods involve the propagation of probability densities throughout a model
+As aforementioned, \gls{so} methods involve the propagation of probability densities throughout a model
 to determine their effects on constraint feasibility and the objective function.
 This requires the integration of the product of probability distributions with potential outcomes,
 and since the integration of continuous functions is difficult this is often achieved through
 a combination of high-dimensional quadrature and discretizations of the uncertainty into
-possible scenarios. The propagation of parameter
-scenarios results in a combinatorial explosion of possible outcomes which need to be evaluated to determine constraint
+possible scenarios. This propagation method
+results in a combinatorial explosion of possible outcomes which need to be evaluated to determine constraint
 satisfaction and the distribution of the objective. Few problems can be addressed purely
 through stochastic optimization (eg. the recourse problem as
 shown in~\cite{Kall1982},\cite{Higle1991}, and energy planning problem such as in~\cite{Pereira1991}), and
@@ -156,31 +156,28 @@ leaves a lot on the table by not taking advantage of distributional information,
 however there is a growing body of research on distributionally robust optimization~\cite{Bertsimas2017}
 which seeks to leverage existing data.
 
-\subsubsection{Conservativeness}
+\subsubsection{Stochasticity and probabilistic guarantees}
 
 Although \gls{ro} problems solve problems with uncertainty,
-\gls{ro} formulations result in solutions that are \emph{deterministically immune}
-to all possible realizations of parameters in an uncertainty set~\cite{Bertsimas2011},
-which is defined as conservativeness. There is extensive literature on \gls{ro} methods
-that offer differing levels of conservativeness~\cite{Bertsimas2004},
-depending on the kind of uncertainty set considered.
-\gls{so} formulations provide no guarantees of conservativeness,
-since the solution methods rely on randomized algorithms~\cite{Shmoys2004}. Conservativeness
-is an advantage in conceptual design, since we would like to have some guarantees
-that a design can handle uncertainty in parameters.
+\gls{ro} formulations result in \emph{deterministic}\footnote{Deterministic means that
+different instances of a design problem with
+the same parameters will result in the same solution.} solutions that are immune
+to all possible realizations of parameters in an uncertainty set~\cite{Bertsimas2011}.
+There is extensive literature on \gls{ro} methods
+that offer differing levels of conservativeness~\cite{Bertsimas2004}
+depending on the kind of uncertainty set considered, that are guaranteed
+to be feasible over the set of interest.
 
-\subsubsection{Stochasticity}
-
-The solution of \gls{ro} problems is deterministic,
-meaning that different instances of a design problem with
-the same parameters will result in the same solution.
-This is not the case with \gls{so},
-since the optimum depends on realizations of random variables. This
-is not satisfactory from an engineering perspective, since a design
-can be sensitive to issues in sampling schemes. Furthermore,
+\gls{so} formulations provide no probabilistic guarantees
+since the optimum depends on realizations of random variables, and therefore solution
+design variables are random variables themselves~\cite{Shmoys2004}.
+This is not satisfactory from an engineering perspective, since
 optimization runs over the same parameters may result in different
-solutions. In the context of engineering design determinism makes
-\gls{ro} superior with respect to \gls{so}.
+solutions. Furthermore, designs
+can be sensitive to issues in sampling schemes over potentially unknown
+probability distributions. In the context of engineering design, the determinism
+and probabilistic guarantees of \gls{ro} makes
+\gls{ro} superior to \gls{so}.
 
 It is important to highlight that,
 although both \gls{ro} and \gls{so} seek to address the problem

@@ -1,18 +1,19 @@
 \section{Results}
 
 We implement our \gls{rsp} heuristic algorithm on the aforementioned conceptual aircraft design problem.
-Our nominal objective function is total fuel consumption, which is
+Our objective function is total fuel consumption, which is
 to be minimized given a payload and range requirement.
 
 \subsection{Mitigation of probability of failure}
 
 First, the optimization problem is solved in presence of no uncertainty. It is expected
-that this aircraft is sensitive to the outcomes of the uncertain parameters. Then, using the sign of
+that this aircraft has a high probability of failure due to its sensitivity
+to the outcomes of the uncertain parameters. Then, using the sign of
 sensitivities of the nominal solution, we assign $3\sigma$ margins for each parameter
 and generate a design using margins. These two solutions are compared with \gls{ro} results for
 box and elliptical uncertainty sets at $\Gamma = 1$. From here onward we refer to
-aircraft designed under box uncertainty and
-under elliptical uncertainty as `the box aircraft' and `the elliptical aircraft' respectively.
+aircraft designed under margins, under box uncertainty and
+under elliptical uncertainty as `the margin aircraft', `the box aircraft' and `the elliptical aircraft' respectively.
 
 The design variables are then fixed for each solution, and the designs are simulated for
 different realizations of the uncertain parameters in Table~\ref{tab:uncertainties}.
@@ -62,9 +63,8 @@ P[failure] & probability of failure & \% & 94 & 0 & 0 & 0\\
 \end{center}
 \end{table}
 
-It is noteworthy in Table~\ref{tab:results} that, for the nominal problem ($\Gamma = 0$)
-only 6 percent of the realizations of
-uncertain variables result in feasible solutions.
+It is noteworthy in Table~\ref{tab:results} that, for the nominal problem ($\Gamma = 0$),
+only 6 percent of the \gls{mc} evaluations result in feasible solutions.
 This means that an aircraft designed for the average case would almost surely
 fail to satisfy the mission requirements, even with equal likelihood of favorable versus
 unfavorable uncertain outcomes from the symmetric truncated Gaussian.
@@ -76,20 +76,22 @@ than the aircraft designed for the nominal case, but they also are
 robust to all uncertain outcomes in the $3\sigma$ set.
 
 Table~\ref{tab:results} also indicates that margins are not a good method of
-allocating uncertainty. Since the box design at $\Gamma=1$ is strictly
+allocating uncertainty. The claim for the use of margins is that they protect against
+the worst case outcome of each parameter, but the results show otherwise.
+Since the box design at $\Gamma=1$ is strictly
 more conservative (worse worst-case outcome) over the $3\sigma$ hypercube
 than the margin design, we see that a margin from the interior of the hypercube
 rather than its corner is more effective in protecting against the worst case.
-The claim for the use of margins is that they protect against the worst case outcome of
-each parameter, but we assert otherwise. Furthermore, there are no probabilistic
+Furthermore, there are no probabilistic
 guarantees that the aircraft
-with margins would not fail one of the \gls{mc} simulations. It is almost surely true
-that another set of truncated Gaussian samples will violate feasibility for the design with margins,
+with margins would not fail one of the \gls{mc} simulations. Given enough samples,
+it is almost surely true that some \gls{mc} simulations will violate feasibility
+for the design with margins,
 whereas box uncertainty guarantees deterministically that the constraints are satisfied.
 
 We also posited that the elliptical uncertainty, although it doesn't
-protect against all $3\sigma$ uncertainties, would be less conservative than the
-margin and box designs while not sacrificing probability of failure. This was
+protect deterministically against all $3\sigma$ uncertainties, would be less conservative than the
+margin and box designs while not significantly sacrificing probability of failure. This was
 also confirmed. The elliptical design fails none of the random samples,
 and spends 11 and 12\% less fuel on average
 than the margin and box aircraft respectively.
@@ -194,12 +196,11 @@ Aside from this caricature example, we demonstrate the capabilities of \gls{rsp}
 by considering a more realistic scenario, now with uncertainty.
 We perform the optimization of the aircraft with no uncertainty and both box and
 ellipsoidal uncertainty ($\Gamma = 1$)
-for 4 different objective functions, and plot the results on spider plots.
-Spider plots are useful because they allow engineers to see the performance of
-different designs in a multi-objective
-environment. One way to envision the multi-objective
-performance of the aircraft is to consider the area contained within the web defined by the aircraft's
-performance as the figure of merit; the smaller the web area the better.
+for 4 different objective functions, and plot the results on radar plots.
+Radar plots are useful because they allow engineers to visualize the performance
+of designs in many dimensions. One way to envision the multi-objective
+performance of the aircraft is to consider the area of the polygon defined by the aircraft's
+performance as the figure of merit; the smaller the better.
 Due to the large disparities in the potential values of design variables depending
 on objective as shown in Table~\ref{tab:nondimresults}, we choose to demonstrate this using four objective functions
 that would be expected to have a high degree of correlation and therefore could yield a
@@ -210,7 +211,7 @@ total (time and fuel) cost, total fuel, takeoff weight and mid-cruise lift-over-
     \begin{center}
     \begin{tikzpicture}
         \node[inner sep=0] (center) at (0,0)
-        {\includegraphics[trim={2cm 0 1cm 0},clip]{figures/4objradar.pdf}};
+        {\includegraphics[trim={2cm 0 1cm 0},clip,scale=0.6]{figures/4objradar.pdf}};
         \node[inner sep=0] (ul) at (-1.0, 0.25)
         {\includegraphics[height=3.8cm]{figures/2nominal.pdf}};
         \node[inner sep=0] (ur) at (1.0, 0.25)
@@ -220,11 +221,11 @@ total (time and fuel) cost, total fuel, takeoff weight and mid-cruise lift-over-
         \node[inner sep=0] (lr) at (1.0, -2)
         {\includegraphics[height=3.8cm]{figures/1nominal.pdf}};
     \end{tikzpicture}
-    \caption{The spider plots of aircraft performance, for aircraft optimized for different objectives.
-    The bolded titles are the design objectives for each plot, whereas the individual spiderwebs
+    \caption{The radar plots of aircraft performance, for aircraft optimized for different objectives.
+    The bolded titles are the design objectives for each plot, whereas the individual plots
     show the non-dimensionalized multiobjective performance of the aircraft designed under different
     uncertainty sets. Nominal aircraft shown for comparison. }
-    \label{fig:spider}
+    \label{fig:radar}
 \end{center}
 \end{figure}
 
@@ -274,21 +275,21 @@ total (time and fuel) cost, total fuel, takeoff weight and mid-cruise lift-over-
             \end{tikzpicture}}
             \caption{Mid-cruise L/D}
         \end{subfigure}
-        \caption{Sketches of the aircraft drawn for corresponding spider plots. Drawn to scale for comparison.}
+        \caption{Sketches of the aircraft drawn for corresponding radar plots. Drawn to scale for comparison.}
     \end{center}
 \end{figure}
 
-Figure~\ref{fig:spider} shows the effects of robustness on
+Figure~\ref{fig:radar} shows the effects of robustness on
 the different worst-case performance metrics of the different aircraft.
-For the nominal case, it is possible to see that
-the aircraft designed for total fuel performs the best when all four objectives are considered,
-assuming that all objectives are weighted equally. As expected,
-the box uncertainty set is strictly more conservative than the elliptical uncertainty set for
-all objectives. Note that the spider plots show the worst-case performance of the vehicles.
+As expected, the box uncertainty set is strictly more conservative than the elliptical uncertainty set for
+all objectives. Note that the radar plots show the worst-case performance of the vehicles.
 This analysis can also be performed for the mean performance
 of the aircraft determined through ~\gls{mc} simulation, but this demonstration limits
 its scope to the worst-case analysis.
 
+Notably, mid-cruise lift-over-drag, which is a commonly used
+performance metric, produces designs that are low-performing in the worst-case
+in all other objectives, especially under robustness conditions.
 Based on these observations, we argue that there could be significant value left on the table
 if uncertainty is not considered with sufficient mathematical rigor in early phases of
 the engineering design process. \gls{rsp}s allow engineers to capture complex
