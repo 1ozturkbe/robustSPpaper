@@ -1,6 +1,6 @@
 \section{Conclusion}
 
-This paper has motivated the use of robust optimization in conceptual engineering
+This paper has motivated the use of \gls{rsp}s in conceptual engineering
 design, in lieu of the mathematically non-rigorous methods of optimization under uncertainty
 widely used in the aerospace industry today. We have developed a tractable \gls{rsp} formulation
 in response to a need to optimize over uncertain parameters, extending
@@ -9,16 +9,16 @@ This \gls{rsp} formulation is a valuable contribution to the fields of robust
 optimization and difference-of-convex programming.
 
 \gls{rsp}s have a wide variety of potential applications in engineering design.
-We demonstrated using a simple aircraft design problem
+We demonstrated using an unmanned aircraft design problem
 that using \gls{ro}, and specifically \gls{rsp}s in conceptual aircraft design will result in systems
-that are more robust with respect to uncertainties in operational parameters,
+that are more robust to uncertainties in operational parameters,
 such as payload mass and range, as well as uncertain environmental and manufacturing parameters.
 Unlike legacy methods, this robustness has probabilistic guarantees, where sets of size $\Gamma=1$
 protect against all realizations of uncertainty for a given set of parameters.
 Thus engineers can use robust signomial programming to trade off
 robustness and optimality within engineered systems in a tractable and mathematically rigorous manner.
 
-We compared the results of designs with no uncertainty and margins with robust solutions
+We compared designs under certainty and margins with robust solutions
 determined through the use of box and elliptical uncertainty sets. We
 confirmed that designs using box uncertainty are strictly more conservative
 than designs using margins. This indicates that the traditional method of allocating margins
@@ -29,7 +29,7 @@ but provides probabilistic guarantees of feasibility unlike its counterpart.
 
 We also confirmed that elliptical designs are strictly less conservative
 than those that would be generated through the use of box uncertainty while protecting against the same
-parametric uncertainties. Since designs found using robust signomial programming
+parametric uncertainties. Since designs found using \gls{rsp}
 under elliptical uncertainty are less conservative
 than designs found through traditional methods, \gls{rsp}s have the potential to reduce
 the program risk and increase the performance

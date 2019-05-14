@@ -2,7 +2,7 @@
 
 \subsection{Robust Optimization}
 
-Given a general optimization problem under parametric uncertainty, we can define the set of possible
+Given a general optimization problem under parametric uncertainty, we define the set of possible
 realizations of uncertain vector of parameters $u$ in the uncertainty set $\mathcal{U}$. This
 allows us to define the problem under uncertainty below.
 
@@ -21,8 +21,8 @@ we can define the following robust formulation of the uncertain problem below.
 \end{align*}
 
 This formulation hedges against the worst-case realization of the uncertainty in the defined uncertainty
-set. This is often posed by creating an uncertainty set to contain all possible
-realizations of the uncertainty we are concerned about, usually through a norm,
+set. The set is often described by a norm, which contains possible uncertain outcomes from distributions with
+bounded support
 
 \begin{equation}
 \begin{aligned}
@@ -33,12 +33,12 @@ realizations of the uncertainty we are concerned about, usually through a norm,
         \label{eq:normform}
 \end{equation}
 
-where $\Gamma$ is defined by the user as an uncertainty bound. The larger the $\Gamma$,
+where $\Gamma$ is defined by the user as a global uncertainty bound. The larger the $\Gamma$,
 the greater the size of the uncertainty set that is protected against.
 
 \subsection{Geometric Programming}
 
-A \textbf{geometric program in posynomial form} is a log-convex optimization problem of the form:
+A \emph{geometric program in posynomial form} is a log-convex optimization problem of the form:
 
 \begin{equation}
 \begin{aligned}
@@ -86,7 +86,7 @@ A transformed posynomial $f_i(\vec{x})$ is the sum of $K_i \in \mathbb{Z}^+$ mon
 \end{displaymath}
 
 where $\vec{x}$ is a column vector in $\mathbb{R}^n$.
-A geometric program with transformed constraints is a \textbf{geometric program in exponential form}, and
+A geometric program with transformed constraints is a \emph{geometric program in exponential form}, and
 is a convex optimization problem.
 
 The positivity of exponential functions restricts the space spanned by posynomials and limits

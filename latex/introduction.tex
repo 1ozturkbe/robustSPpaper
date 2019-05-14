@@ -53,7 +53,7 @@ design under uncertainty. Oftentimes, aerospace engineers will implement
 \emph{margins} in the design process to account for uncertainties in parameters that a design's feasibility
 may be sensitive to, such as material properties or maximum lift coefficient.
 Another traditional method of adding robustness is through \emph{multi-mission design}~\cite{York2018},
-which ensures that the aircraft is able to handle
+which ensures that the design is able to handle
 multiple kinds of missions in the presence of no uncertainty. This is a type of \emph{finitely
 adaptive} optimization geared to ensure objective performance in off-nominal operations.
 
@@ -202,7 +202,7 @@ The \gls{sp} is the difference-of-log-convex extension of the \gls{gp} which can
 solve this larger set of problems, albeit with the loss of some mathematical guarantees compared to the \gls{gp}~\cite{Kirschen2018}.
 Aircraft pose some of the most challenging design problems~\cite{York2018}, and signomial programming
 has been used to great effect in modeling and designing complex aircraft at a conceptual level quickly
-and reliably as in \cite{York2018}, \cite{Kirschen2016} and \cite{Kirschen2018}.
+and reliably as in \cite{York2018}, \cite{Kirschen2018} and \cite{Kirschen2016}.
 Other interesting applications for SPs such as in network flow problems are being investigated.
 
 Robust formulations exist for solving geometric programs with parametric uncertainty~\cite{Saab2018}.
@@ -217,7 +217,7 @@ allowing us to implement robustness in non-log-convex problems such as aircraft 
 We extend the \gls{rgp} framework developed by Saab~\cite{Saab2018} to \gls{sp}s.
 We implement the \gls{rsp} formulation on a simple aircraft design problem with several hundred
 variables as defined in~\cite{Ozturk2018}.
-The benefits of robust optimization are demonstrated both in ensuring design feasibility and performance
+The benefits of \gls{ro} are demonstrated both in ensuring design feasibility and performance
 using \gls{mc} simulations of the uncertain parameters.
 We further explore the benefits of \gls{ro} in multiobjective optimization, and propose
 a goal programming \gls{rsp} formulation for risk minimization problems.

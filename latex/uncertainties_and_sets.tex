@@ -2,8 +2,8 @@
 \label{uncertainties_and_sets}
 
 As aforementioned in Section~\ref{sec:robustvsstochastic}, one of the advantages
-of \gls{ro} over \gls{so} is the fact that it is more effective in absence of
-data, since the problem has uncertainty set bounds on parameters as inputs instead
+of \gls{ro} over \gls{so} is the fact that it only requires
+uncertainty set bounds on parameters as inputs instead
 of complete probability distributions.
 These uncertainties, given by three times the \gls{cv}\footnote{The \gls{cv}
 is defined as follows: $\text{CV} = \frac{\sigma}{|\mu|}$, where $\sigma$ is the standard deviation and $\mu$ is the mean of the parameter.},
@@ -28,7 +28,7 @@ $C_{f_{\rm{fuse, ref}}}$ & fuselage skin friction factor & 0.455 & 10 \\
 $\rho_{\rm{p}}$ & payload density & 1.5 $\mathrm{kg/m^3}$ & 10 \\
 $\tau$ & airfoil thickness ratio & 0.12 & 10\\
 $N_{\rm{ult}}$ & ultimate load factor & 3.3 & 15\\
-$V_{\rm{min}}$ & takeoff speed & 30 m/s & 20\\
+$V_{\rm{min}}$ & takeoff speed & $30 \mathrm{m/s}$ & 20\\
 $W_{\rm{p}}$ & payload weight & 6250 N & 20\\
 $W_{\rm{w}_{\rm{coeff,strc}}}$ & wing structural weight coefficient & $2 \times 10^{-5}~1/\mathrm{m}$ & 20\\
 $W_{\rm{w}_{\rm{coeff,surf}}}$ & wing surface weight coefficient & 60 $\mathrm{N/m^2}$ & 20\\
@@ -43,7 +43,7 @@ The wing weight coefficients $W_{\rm{w}_{\rm{coeff,strc}}}$ and $W_{\rm{w}_{\rm{
 and the ultimate load factor $N_{\rm{ult}}$ have
 large $3\sigma$s because the build quality of aircraft components is
 often difficult to quantify with a large degree of certainty.
-The payload weight and density ($W_{\rm{p}}$ and $\rho_{\rm{p}}$) have large uncertainties for similar reasons,
+The payload weight and density ($W_{\rm{p}}$ and $\rho_{\rm{p}}$) have large uncertainties
 since the payload is often developed concurrently with the aircraft.
 Parameters that engineers take to be
 physical constants (sea level air viscosity and density, $\mu$ and $\rho$) and those that can be determined or manufactured with a relatively
@@ -53,7 +53,7 @@ $V_{\rm{min}}$) have a level of uncertainty
 that reflects the expected variance of empirical studies. However, note that
 these quantities are ultimately picked by the designer using prior experience and data,
 and the level of conservativeness in the
-design will be greatly affected by the chosen $3\sigma$s.
+design will be greatly affected by the chosen $3\sigma$'s.
 
 \subsection{Types of uncertainty sets considered}
 
@@ -63,12 +63,13 @@ by varying the parameter $\Gamma$, as defined in Appendix \ref{LP_to_GP}.
 Intuitively, for both sets, $\Gamma$ is a measure of how much risk is being
 hedged against. $\Gamma = 0$
 implies that all of the parameters take their nominal values with zero uncertainty,
+which we call the nominal problem,
 and larger $\Gamma$ protects against more parameter uncertainty.
 
 Mathematically, for box uncertainty,
 $\Gamma$ is the width of the L-$\infty$ hypercube, whose dimension is the same as the number of uncertain parameters (14).
 More intuitively,
-it is defines the range of the set provided for each parameter, normalized by its standard deviation.
+it is defines the range of the possible values of each parameter, normalized by its standard deviation.
 It can be easy to assume that using margins and box uncertainty sets will yield the same designs,
 but they fundamentally function differently.
 Firstly, the worst case outcome in box uncertainty can come \emph{from the interior} of the uncertainty
@@ -79,17 +80,17 @@ is the most conservative point in the uncertainty set.
 It is even possible that the \emph{the wrong sign of margin} is allocated for certain parameters,
 since \gls{sp}s are nonlinear and local sensitivities cannot be used reliably to intuit global behavior. Consider
 in this particular example wing thickness $\tau$.
-A thicker wing is beneficial for the wing structure, but detrimental to cruise aerodynamics, so it is difficult
+A thicker wing is beneficial for wing structure, but detrimental to cruise aerodynamics, so it is difficult
 for a designer to determine how to best allocate margin on $\tau$. Thus for the rest
 of this paper the direction of margins is determined using the local sensitivities of the nominal solution,
 which are obtained at no extra computational cost in the solution of the terminal \gls{gp} approximation of the \gls{sp}.
 With these considerations in mind, box uncertainty is expected to be strictly more conservative
 and more appropriate than the use of margins
 in conceptual design, since (1) margins fail to capture the level of conservativeness they signal, and (2) prior
-information is required to allocate margin effectively.
+information (in this case the nominal solution) is required to allocate margin effectively.
 
 For elliptical uncertainty, $\Gamma$ is the maximum diameter of the Euclidian norm
-ball of $u_i$, which is the number of standard deviations of perturbation of each
+ball of \textbf{u}, where $u_i$ is the number of standard deviations of perturbation of the
 ith parameter from its nominal value.
 Elliptical uncertainty relies on the fact that the joint probability of
 multiple uncertain parameters taking values in the tails of their respective distributions is

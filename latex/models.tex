@@ -9,14 +9,14 @@ provides abstractions for using \gls{gp}s in engineering design~\cite{gpkit}.
 The nominal model has 176 variables and 154 constraints, a common level of
 sparsity for~\gls{gp} and~\gls{sp} models.
 A short qualitative overview of the model follows; for
-more detailed information, please refer to~\cite{Ozturk2018} and~\cite{Burton2017}. The uncertainties
+more detailed information, please refer to~\cite{Burton2017} and~\cite{Ozturk2018}. The uncertainties
 associated with the parameters will be described in Section~\ref{uncertainties_and_sets}.
 
 \subsection{Flight Profile}
 
-The flight profile models is borrowed from ~\cite{York2018}. Within the model, the
+The flight profile model is borrowed from ~\cite{York2018}. Within the model, the
 trajectory of the aircraft is optimized over five steady flight segments,
-although we are restricted to modeling only climb segments
+although we only model climb segments
 and therefore the stored gravitational potential energy of the aircraft is not captured.
 
 \subsection{Atmosphere}
@@ -62,7 +62,7 @@ as shown in Equation~\ref{eq:fuel}:
 
 \begin{equation}
 \label{eq:fuel}
-V_f \leq V_{f_{wing}} + V_{f_{fuse}} 
+V_{\mathrm{f}} \leq V_{\mathrm{f_{wing}}} + V_{\mathrm{f_{fuse}}}
 \end{equation}
 
 The signomial constraints makes the problem non-log-convex, which means that the solution methods

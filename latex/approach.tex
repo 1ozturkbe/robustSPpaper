@@ -4,23 +4,13 @@ This section presents a heuristic algorithm to solve a \gls{rsp}
 based on our previous discussion on robust geometric programming.
 
 \subsection{General \gls{rsp} Solver}
-As mentioned before, a common heuristic algorithm to solve a \gls{sp} is
-by sequentially solving local \gls{gp} approximations, but the solution is not guaranteed
-to be globally optimal. Our approach to solve a \gls{rsp} is based on sequentially solving
-local \gls{rgp} approximations. Below we provide a step-by-step algorithm to solve a \gls{rsp}:
-
-\begin{enumerate}
-    \item Choose an initial guess $x_0$.
-    \item Repeat:
-    \begin{enumerate}
-        \item Find the local GP approximation of the \gls{sp} at $x_i$.
-        \item Find the RGP formulation of the GP.
-        \item Solve the RGP to obtain $x_{i+1}$.
-        \item If $x_{i+1} \approx x_{i}$: break
-    \end{enumerate}
-\end{enumerate}
-
-Similar to a \gls{sp}, a good initial guess will lead to faster convergence and possibly a better solution.
+As aforementioned, a common heuristic algorithm to solve a \gls{sp} is
+by sequentially solving local \gls{gp} approximations.
+Similarly, our approach to solve a \gls{rsp} is based on solving
+a sequence of local \gls{rgp} approximations. In Figure~\ref{fig:rspsolve},
+we provide a step-by-step algorithm.
+In this heuristic, a good initial guess will lead to faster
+convergence and possibly a better solution.
 The deterministic solution of the uncertain \gls{sp} is a good candidate $x_0$,
 and is used to speed up convergence.
 
@@ -48,10 +38,23 @@ and is used to speed up convergence.
 \end{center}
 \end{figure}
 
+For comparisons between methods ahead, we write the algorithm explicitly as follows:
+
+\begin{enumerate}
+    \item Choose an initial guess $x_0$.
+    \item Repeat:
+    \begin{enumerate}
+        \item Find the local GP approximation of the \gls{sp} at $x_i$.
+        \item Find the RGP formulation of the GP.
+        \item Solve the RGP to obtain $x_{i+1}$.
+        \item If $x_{i+1} \approx x_{i}$: break
+    \end{enumerate}
+\end{enumerate}
+
 Any of the previously mentioned methodologies can be used to formulate the local RGP approximation. 
-However, depending on the RGP formulation chosen to solve a \gls{rsp}, the last formulation and solution
+However, depending on the RGP formulation chosen to solve a \gls{rsp}, the formulation and solution
 blocks in Figure \ref{fig:rspsolve} are adjusted for a faster rate of convergence.
-\ \\
+
 \subsection{Best Pairs \gls{rsp} Solver}
 
 If the Best Pairs methodology is exploited, then the above algorithm would change so that
