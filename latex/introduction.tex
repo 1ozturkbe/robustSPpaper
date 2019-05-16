@@ -55,15 +55,15 @@ may be sensitive to, such as material properties or maximum lift coefficient.
 Another traditional method of adding robustness is through \emph{multi-mission design}~\cite{York2018},
 which ensures that the design is able to handle
 multiple kinds of missions in the presence of no uncertainty. This is a type of \emph{finitely
-adaptive} optimization geared to ensure objective performance in off-nominal operations.
+adaptive} optimization geared to ensure performance in off-nominal operations.
 
 These legacy methods have several weaknesses. They provide no quantitative measures of
 robustness or reliability~\cite{Zang2002}. They rely on the expertise of an experienced
 engineer to guide the design process, without explicit knowledge of the trade-off between
 robustness and optimality~\cite{Yao2011}. This is a dangerous proposition especially in the
 conceptual design phase of new configurations, since prior information and expertise is not
-available. In these scenarios, it is especially important to go back to fundamental physics
-and use rigorous mathematics to explore the design space~\cite{York2018}. Furthermore,
+available. In these scenarios, it is especially important to implement physics-based tools
+to explore the design space~\cite{York2018}. Furthermore,
 the legacy methods are often too conservative, ruling out potentially beneficial technologies
 and configurations due to the inability to adequately trade off performance and risk.
 
@@ -159,8 +159,9 @@ which seeks to leverage existing data.
 \subsubsection{Stochasticity and probabilistic guarantees}
 
 Although \gls{ro} problems solve problems with uncertainty,
-\gls{ro} formulations result in \emph{deterministic}\footnote{Deterministic means that
-different instances of a design problem with
+\gls{ro} formulations result in \emph{deterministic}\footnote{Determinism in this case
+refers to the outcomes of free variables in the optimization model.
+Different instances of a deterministic design problem with
 the same parameters will result in the same solution.} solutions that are immune
 to all possible realizations of parameters in an uncertainty set~\cite{Bertsimas2011}.
 There is extensive literature on \gls{ro} methods
@@ -177,7 +178,7 @@ solutions. Furthermore, designs
 can be sensitive to issues in sampling schemes over potentially unknown
 probability distributions. In the context of engineering design, the determinism
 and probabilistic guarantees of \gls{ro} makes
-\gls{ro} superior to \gls{so}.
+it superior to \gls{so}.
 
 It is important to highlight that,
 although both \gls{ro} and \gls{so} seek to address the problem

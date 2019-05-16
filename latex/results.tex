@@ -35,19 +35,19 @@ are simulated with the same set of uncertainty realizations for consistency.
 \hline
 Free variable & Description & Units & No Uncert. & Margins & Box & Elliptical \\
 \hline
-$L/D$ & mean lift-to-drag ratio & - & 33.6 & 23.6 & 25.1 & 27.7 \\
-$AR$ & aspect ratio & - & 24.6 & 13.3 & 13.0 & 16.3 \\
-$Re$ & Reynolds number & - & $1.54 \times 10^6$ & $2.65 \times 10^6$ & $3.03\times 10^6$ & $2.50 \times 10^6$ \\
-$S$ & wing planform area &$\mathrm{m^2}$ & 13.6 & 32.8 & 32.0 & 28.1 \\
-$V$ & mean flight velocity &$\mathrm{m/s}$ & 41.6 & 37.3 & 38.9 & 38.4 \\
-$T_{\rm{flight}}$ & time of flight & $\mathrm{hr}$ & 20.1 & 22.4 & 21.4 & 21.7 \\
-$W_{\rm{w}}$ & wing weight & $\mathrm{N}$ & 2830 & 4760 & 4800 & 4480 \\
-$W_{\rm{w,strc}}$ & wing structural weight &$\mathrm{N}$ & 2010 & 4760 & 2670 & 2620 \\
-$W_{\rm{w,surf}}$ & wing skin weight &$\mathrm{N}$ & 820 & 2170 & 2120 & 1860 \\
+$L/D$ & mean lift-to-drag ratio & - & 33.4 & 23.4 & 24.8 & 27.5 \\
+$AR$ & aspect ratio & - & 24.2 & 13.0 & 12.8 & 16.1 \\
+$Re$ & Reynolds number & - & $1.56 \times 10^6$ & $2.69 \times 10^6$ & $3.08\times 10^6$ & $2.53 \times 10^6$ \\
+$S$ & wing planform area &$\mathrm{m^2}$ & 13.6 & 32.9 & 32.1 & 28.2 \\
+$V$ & mean flight velocity &$\mathrm{m/s}$ & 41.7 & 37.4 & 39.1 & 38.5 \\
+$T_{\rm{flight}}$ & time of flight & $\mathrm{hr}$ & 20.0 & 22.3 & 21.4 & 21.7 \\
+$W_{\rm{w}}$ & wing weight & $\mathrm{N}$ & 2840 & 4790 & 4820 & 4510 \\
+$W_{\rm{w,strc}}$ & wing structural weight &$\mathrm{N}$ & 2020 & 2610 & 2690 & 2640 \\
+$W_{\rm{w,surf}}$ & wing skin weight &$\mathrm{N}$ & 818 & 2170 & 2130 & 1870 \\
 $W_{\rm{fuse}}$ & fuselage weight &$\mathrm{N}$ & 250 & 314 & 288 & 279 \\
-$V_{\rm{f,avail}}$ & total fuel volume & $\mathrm{m^3}$ & 0.0759 & 0.146 & 0.154 & 0.136 \\
-$V_{\rm{f,fuse}}$ & fuselage fuel volume & $\mathrm{m^3}$ & 0.0394 & 0 & 0 & 0.0159 \\
-$V_{\rm{f,wing}}$ & wing fuel volume &$\mathrm{m^3}$ & 0.0365 & 0.167 & 0.154 & 0.120    \\
+$V_{\rm{f,avail}}$ & total fuel volume & $\mathrm{m^3}$ & 0.0765 & 0.148 & 0.156 & 0.137 \\
+$V_{\rm{f,fuse}}$ & fuselage fuel volume & $\mathrm{m^3}$ & 0.0396 & 0 & 0 & 0.0156 \\
+$V_{\rm{f,wing}}$ & wing fuel volume &$\mathrm{m^3}$ & 0.0368 & 0.169 & 0.166 & 0.121    \\
 & \begin{tabular}{c} sketches to scale \end{tabular} & &
     \begin{tabular}{c}\includegraphics[trim={9.5cm 2cm 8.5cm 2cm},clip,height=3.8cm]{figures/nominal.pdf}\end{tabular} &
     \begin{tabular}{c}\includegraphics[trim={9.5cm 2cm 8.5cm 2cm},clip,height=3.8cm]{figures/margins.pdf}\end{tabular} &
@@ -56,8 +56,8 @@ $V_{\rm{f,wing}}$ & wing fuel volume &$\mathrm{m^3}$ & 0.0365 & 0.167 & 0.154 & 
 \hline
 Objective metric & Description & Units & No Uncert. & Margins & Box & Elliptical \\
 \hline
-Objective & total fuel weight & $\mathrm{N}$ & 608 & 1170 & 1240 & 1090 \\
-E[Objective] & expected total fuel weight & $\mathrm{N}$ & 572 & 964 & 976 & 856 \\
+Objective & total fuel weight & $\mathrm{N}$ & 612 & 1182 & 1252 & 1098 \\
+E[Objective] & expected total fuel weight & $\mathrm{N}$ & 591 & 982 & 993 & 871 \\
 $\sigma$[Objective] & std. dev. of fuel weight & $\mathrm{N}$ & 9 & 32 & 32 & 29 \\
 P[failure] & probability of failure & \% & 94 & 0 & 0 & 0\\
 \hline
@@ -214,13 +214,13 @@ These are total (time and fuel) cost, total fuel, takeoff weight and mid-cruise 
         \node[inner sep=0] (center) at (0,0)
         {\includegraphics[trim={2cm 0 1cm 0},clip,scale=0.6]{figures/4objradar.pdf}};
         \node[inner sep=0] (ul) at (-1.0, 0.25)
-        {\includegraphics[height=3.8cm]{figures/2nominal.pdf}};
-        \node[inner sep=0] (ur) at (1.0, 0.25)
-        {\includegraphics[height=3.8cm]{figures/3nominal.pdf}};
-        \node[inner sep=0] (ll) at (-1.0, -2)
         {\includegraphics[height=3.8cm]{figures/0nominal.pdf}};
-        \node[inner sep=0] (lr) at (1.0, -2)
+        \node[inner sep=0] (ur) at (1.0, 0.25)
         {\includegraphics[height=3.8cm]{figures/1nominal.pdf}};
+        \node[inner sep=0] (ll) at (-1.0, -2)
+        {\includegraphics[height=3.8cm]{figures/2nominal.pdf}};
+        \node[inner sep=0] (lr) at (1.0, -2)
+        {\includegraphics[height=3.8cm]{figures/3nominal.pdf}};
     \end{tikzpicture}
     \caption{The radar plots of aircraft performance, for aircraft optimized for different objectives.
     The bolded titles are the design objectives for each plot, whereas the individual plots
@@ -235,35 +235,13 @@ These are total (time and fuel) cost, total fuel, takeoff weight and mid-cruise 
         \begin{subfigure}{0.4\linewidth}
             \makebox[\textwidth]{\begin{tikzpicture}
                 \node[inner sep=0] (l) at (-2.5,0)
-                {\includegraphics[height=5cm]{figures/2nominal.pdf}};
-                \node[inner sep=0] (c) at (-1,0)
-                {\includegraphics[height=5cm]{figures/2elliptical.pdf}};
-                \node[inner sep=0] (r) at (.5,0)
-                {\includegraphics[height=5cm]{figures/2box.pdf}};
-            \end{tikzpicture}}
-            \caption{Total fuel}
-        \end{subfigure}
-        \begin{subfigure}{0.4\linewidth}
-            \makebox[\textwidth]{\begin{tikzpicture}
-                \node[inner sep=0] (l) at (-2.5,0)
-                {\includegraphics[height=5cm]{figures/3nominal.pdf}};
-                \node[inner sep=0] (c) at (-1,0)
-                {\includegraphics[height=5cm]{figures/3elliptical.pdf}};
-                \node[inner sep=0] (r) at (.5,0)
-                {\includegraphics[height=5cm]{figures/3box.pdf}};
-            \end{tikzpicture}}
-            \caption{Takeoff weight}
-        \end{subfigure}
-        \begin{subfigure}{0.4\linewidth}
-            \makebox[\textwidth]{\begin{tikzpicture}
-                \node[inner sep=0] (l) at (-2.5,0)
                 {\includegraphics[height=5cm]{figures/0nominal.pdf}};
                 \node[inner sep=0] (c) at (-1,0)
                 {\includegraphics[height=5cm]{figures/0elliptical.pdf}};
                 \node[inner sep=0] (r) at (.5,0)
                 {\includegraphics[height=5cm]{figures/0box.pdf}};
             \end{tikzpicture}}
-            \caption{Total cost}
+            \caption{Total fuel}
         \end{subfigure}
         \begin{subfigure}{0.4\linewidth}
             \makebox[\textwidth]{\begin{tikzpicture}
@@ -273,6 +251,28 @@ These are total (time and fuel) cost, total fuel, takeoff weight and mid-cruise 
                 {\includegraphics[height=5cm]{figures/1elliptical.pdf}};
                 \node[inner sep=0] (r) at (.5,0)
                 {\includegraphics[height=5cm]{figures/1box.pdf}};
+            \end{tikzpicture}}
+            \caption{Takeoff weight}
+        \end{subfigure}
+        \begin{subfigure}{0.4\linewidth}
+            \makebox[\textwidth]{\begin{tikzpicture}
+                \node[inner sep=0] (l) at (-2.5,0)
+                {\includegraphics[height=5cm]{figures/2nominal.pdf}};
+                \node[inner sep=0] (c) at (-1,0)
+                {\includegraphics[height=5cm]{figures/2elliptical.pdf}};
+                \node[inner sep=0] (r) at (.5,0)
+                {\includegraphics[height=5cm]{figures/2box.pdf}};
+            \end{tikzpicture}}
+            \caption{Total cost}
+        \end{subfigure}
+        \begin{subfigure}{0.4\linewidth}
+            \makebox[\textwidth]{\begin{tikzpicture}
+                \node[inner sep=0] (l) at (-2.5,0)
+                {\includegraphics[height=5cm]{figures/3nominal.pdf}};
+                \node[inner sep=0] (c) at (-1,0)
+                {\includegraphics[height=5cm]{figures/3elliptical.pdf}};
+                \node[inner sep=0] (r) at (.5,0)
+                {\includegraphics[height=5cm]{figures/3box.pdf}};
             \end{tikzpicture}}
             \caption{Mid-cruise L/D}
         \end{subfigure}

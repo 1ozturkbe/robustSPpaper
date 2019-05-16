@@ -289,7 +289,8 @@ class Mission(Model):
         constraints += [self.aircraft.wing['W_{w_{strc}}']**2. >=
                         self.aircraft.wing['W_{w_{coeff1}}']**2. / self.aircraft.wing['\\tau']**2. *
                         (self.aircraft.wing['N_{ult}']**2. * self.aircraft.wing['A'] ** 3. *
-                        ((W_p+self.aircraft.fuse['V_{f_{fuse}}']*self.aircraft['g']*self.aircraft['\\rho_f']) *
+                        ((W_p + self.aircraft.fuse['W_{fuse}'] +
+                          self.aircraft['W_e'] + self.aircraft.fuse['V_{f_{fuse}}']*self.aircraft['g']*self.aircraft['\\rho_f']) *
                          self.aircraft['W'] * self.aircraft.wing['S']))]
 
         # Fuselage volume and weight
