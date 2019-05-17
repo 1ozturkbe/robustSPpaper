@@ -141,12 +141,19 @@ an interior point solver that is free for academic use; the authors
 refer to ~\cite{Kirschen2018Log} and \cite{York2018} for more in-depth \gls{sp} solution time analyses.
 Here we examine briefly in relative terms about how the different \gls{rsp} methodologies compare in terms of setup and
 run times in Figure~\ref{compare_signomial}. Since the setup time of the nominal problem is minimal,
-we have normalized the results by the run time of the nominal problem.
+we have normalized the results by the solution time of the nominal problem.
 The bottom axis ranks the methods by their level of conservativeness, Best Pairs
 and Simple Conservative formulations being the least and most conservative respectively,
 and where the elliptical formulations are less conservative than the box formulations.
-For the box uncertainty, solution times are almost identical for different levels of conservativeness,
-whereas for the elliptical uncertainty they decrease as the method becomes more conservative.
+For this aircraft design problem, the preferred Best Pairs methodology
+is competitive in solution and setup times for both types of uncertainty set. Furthermore
+the box uncertainty set generally requires much lower setup time (other than the Simple Conservative case)
+than the elliptical uncertainty set.
+Note that setup and solution times for \gls{rsp}s are highly problem-specific, so it is not possible
+to predict the time performance of other \gls{rsp}-compatible problems from these results.
+Time performance will vary depending on the number of inequality constraints,
+the degree of coupling between monomials
+in each inequality, and the \gls{rgp} approximation and uncertainty set used.
 
 \ \\
 \begin{figure}[ht]
@@ -154,12 +161,12 @@ whereas for the elliptical uncertainty they decrease as the method becomes more 
     \captionsetup{justification=centering, font=small}
     \begin{subfigure}{0.49\textwidth}
         \centering
-        \includegraphics[height=2.3in]{signomial_simple_flight/box_sst.pdf}
+        \includegraphics[height=1.9in]{signomial_simple_flight/box_sst.pdf}
     \end{subfigure}
     ~
     \begin{subfigure}{0.49\textwidth}
         \centering
-        \includegraphics[height=2.3in]{signomial_simple_flight/ell_sst.pdf}
+        \includegraphics[height=1.9in]{signomial_simple_flight/ell_sst.pdf}
     \end{subfigure}
     \caption{Robust signomial simple aircraft solution and setup times, normalized by the
     nominal problem solution time, for $\Gamma = 1$.
@@ -178,8 +185,8 @@ Since the model is physics based, the model can even accommodate objectives such
 which are unintuitive and often not considered. The resulting aircraft
 differ drastically with respect to performance.
 As the most extreme example,
-the aircraft optimized for time cost has more than 100 times the engine weight as the aircraft
-optimized for total fuel, since a huge amount of power is required to fly fast. Furthermore, we can see
+the aircraft optimized for time cost has nearly 200 times the engine weight as the aircraft
+optimized for total fuel, since drag power increases dramatically with speed. Furthermore, we can see
 that some more traditional objectives such as wing loading pull the design
 towards extreme corners of the performance envelope. This shows the importance of considering many objectives
 in design, and demonstrates the power of \gls{sp}s in helping
@@ -206,7 +213,7 @@ performance as the figure of merit; the smaller the better.
 Due to the large disparities in the figures of merit depending on the objective function choice
 in Table~\ref{tab:nondimresults}, we choose to demonstrate this using four objective functions
 that would traditionally be used in aircraft design, and be expected to have a high degree of correlation.
-These are total (time and fuel) cost, total fuel, takeoff weight and mid-cruise lift-over-drag (L/D).
+These are total (time and fuel) cost, total fuel, takeoff weight and inverse cruise lift-over-drag (L/D).
 
 \begin{figure}
     \begin{center}
@@ -274,7 +281,7 @@ These are total (time and fuel) cost, total fuel, takeoff weight and mid-cruise 
                 \node[inner sep=0] (r) at (.5,0)
                 {\includegraphics[height=5cm]{figures/3box.pdf}};
             \end{tikzpicture}}
-            \caption{Mid-cruise L/D}
+            \caption{1/(Cruise L/D)}
         \end{subfigure}
         \caption{Sketches of the aircraft drawn for corresponding radar plots. Drawn to scale for comparison.}
     \end{center}
@@ -287,13 +294,21 @@ all objectives. Note that the radar plots show the worst-case performance of the
 this analysis can also be performed for the mean performance
 of the aircraft determined through ~\gls{mc} simulation.
 
-Notably, mid-cruise lift-over-drag, which is a commonly used
-performance metric, produces designs that are low-performing in the worst-case
-in all other objectives, especially under robustness conditions.
+This multiobjective comparison underscores the importance of optimization under uncertainty
+in conceptual design especially when multiple, potentially conflicting objectives are present.
+If the inverse cruise L/D solution
+on the lower-right of Figure~\ref{fig:radar} is compared with the nominal total fuel solution on the upper-left, their
+performance profiles are similar. When parametric uncertainty is added however, we see that aircraft
+that maximize cruise L/D perform badly in the worst-case
+in all other objectives under uncertainty. This means that robust requirements can
+affect the efficacy of different objective functions in ensuring multiobjective performance.
+Since \gls{rsp}s can be solved quickly and reliably over a variety of objective functions,
+they allows engineers to understand these kinds of complex trade-offs early on in the design process.
+
 Based on these observations, we argue that there could be significant value left on the table
 if uncertainty is not considered with sufficient mathematical rigor in early phases of
 the engineering design process. \gls{rsp}s allow engineers to capture complex
-tradeoffs in nonlinear optimization problems while considering uncertainty,
+trade-offs in nonlinear optimization problems while considering uncertainty,
 resulting in \emph{less conservative} solutions
 than solutions that implement margins and other less mathematically
 rigorous methods for risk mitigation.
@@ -307,8 +322,7 @@ All of the previous multi-objective analyses have assumed that we have an
 understanding of exactly the amount of uncertainty we are
 willing to tolerate. However, minimizing risk can also be the objective of our
 model. This would suggest the following formulation:
-
-\begin{align}
+\begin{equation}
     \begin{split}
     \text{max} &~\Gamma \\
     \text{s.t.}     &~f_i(x,u) \leq,~i = 1,\ldots,n \\
@@ -316,7 +330,7 @@ model. This would suggest the following formulation:
                     &~f_0(x) \leq (1+\delta)f_0^*,~\delta \geq 0
     \end{split}
     \label{eq:goalprogramming}
-\end{align}
+\end{equation}
 
 where $f_0^*$ is the optimum of the nominal problem in Formulation~\ref{eq:normform} and $\delta$
 is a fractional penalty on the objective that we are willing to sacrifice for robustness, which
@@ -344,8 +358,6 @@ the two different methods match.}
 \hline
  \gls{ro} form & $\Gamma$ & $\delta$ & PoF & Goal form & $\delta$ & $\Gamma$ & PoF\\
 \hline
-[0.05743024, 0.11851723, 0.18380981, 0.25366356, 0.32846855,
-       0.40865086, 0.49467057, 0.58711924, 0.68640341, 0.79334624]
 & 0.00 & $1.66 \times 10^{-4}$ & 0.94 & & $1.66 \times 10^{-4}$ & - & - \\
 & 0.10 & 0.0574 & 0.86 & & 0.0574 & 0.10 & 0.86 \\
 & 0.20 & 0.119 & 0.70 & & 0.119 & 0.20 & 0.70 \\
@@ -387,7 +399,7 @@ objectives we are interested in.
     \label{eq:multigoal}
 \end{align*}
 
-The benefit of goal programming is that it allows us to explore multidisciplinary tradeoffs without
+The benefit of goal programming is that it allows us to explore multidisciplinary trade-offs without
 having to enumerate the design space along each objective direction.
 The term multiobjective optimization is misleading
 because you can only optimize for one objective at once.

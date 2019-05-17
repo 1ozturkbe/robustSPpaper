@@ -15,7 +15,7 @@ from mpl_toolkits.mplot3d import Axes3D
 def generate_flight_envelope(m, var1, var2, var1range, rm = None, rmsol = None):
     """
     Generates the flight envelope of an optimized aircraft
-    This is a method to compare the objective tradeoff performance
+    This is a method to compare the objective trade-off performance
     of an already designed aircraft (nominal and robust)
     Want to MAXIMIZE both var1 and var2 (bigger envelope)
     :param m: already solved model
