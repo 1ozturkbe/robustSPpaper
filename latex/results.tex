@@ -72,10 +72,10 @@ fail to satisfy the mission requirements, even with equal likelihood of favorabl
 unfavorable uncertain outcomes from the symmetric truncated Gaussian.
 That being said, depending on the problem, it may necessary to sacrifice
 performance to achieve a high degree ($3\sigma$) of
-reliability as in the solution for $\Gamma = 1$. As shown by Figure~\ref{tab:results}, the box aircraft
-and the elliptical aircraft spend on average 71\% and 50\% more fuel respectively
+reliability as in the solution for $\Gamma = 1$. As shown by Figure~\ref{tab:results}, the margin aircraft, the box aircraft
+and the elliptical aircraft spend on average 66\%, 68\% and 47\% more fuel respectively
 than the aircraft designed for the nominal case, but they also are
-robust to all uncertain outcomes in the $3\sigma$ set.
+robust to all uncertain outcomes in the $3\sigma$ set for the given \gls{mc} simulation.
 
 Table~\ref{tab:results} also indicates that margins are not a good method of
 allocating uncertainty. The claim for the use of margins is that they protect against
@@ -344,17 +344,19 @@ the two different methods match.}
 \hline
  \gls{ro} form & $\Gamma$ & $\delta$ & PoF & Goal form & $\delta$ & $\Gamma$ & PoF\\
 \hline
-& 0.00 & $2.5 \times 10^{-4}$ & 0.94 & & - & - & - \\
-& 0.10 & 0.057 & 0.87 & & 0.057 & 0.10 & 0.87 \\
-& 0.20 & 0.118 & 0.76 & & 0.118 & 0.20 & 0.76 \\
-& 0.30 & 0.183 & 0.60 & & 0.183 & 0.30 & 0.60 \\
-& 0.40 & 0.252 & 0.38 & & 0.252 & 0.40 & 0.38 \\
-& 0.50 & 0.326 & 0.20 & & 0.326 & 0.50 & 0.21 \\
-& 0.60 & 0.406 & 0.10 & & 0.406 & 0.60 & 0.10 \\
-& 0.70 & 0.492 & 0.07 & & 0.492 & 0.70 & 0.07 \\
-& 0.80 & 0.583 & 0.04 & & 0.583 & 0.80 & 0.04 \\
-& 0.90 & 0.681 & 0.01 & & 0.681 & 0.90 & 0.01 \\
-& 1.00 & 0.787 & 0.00 & & 0.787 & 1.00 & 0.00 \\
+[0.05743024, 0.11851723, 0.18380981, 0.25366356, 0.32846855,
+       0.40865086, 0.49467057, 0.58711924, 0.68640341, 0.79334624]
+& 0.00 & $1.66 \times 10^{-4}$ & 0.94 & & $1.66 \times 10^{-4}$ & - & - \\
+& 0.10 & 0.0574 & 0.86 & & 0.0574 & 0.10 & 0.86 \\
+& 0.20 & 0.119 & 0.70 & & 0.119 & 0.20 & 0.70 \\
+& 0.30 & 0.184 & 0.51 & & 0.184 & 0.30 & 0.51 \\
+& 0.40 & 0.254 & 0.28 & & 0.254 & 0.40 & 0.28 \\
+& 0.50 & 0.328 & 0.19 & & 0.328 & 0.50 & 0.20 \\
+& 0.60 & 0.409 & 0.13 & & 0.409 & 0.60 & 0.13 \\
+& 0.70 & 0.495 & 0.02 & & 0.495 & 0.70 & 0.02 \\
+& 0.80 & 0.587 & 0.01 & & 0.587 & 0.80 & 0.01 \\
+& 0.90 & 0.686 & 0.00 & & 0.686 & 0.90 & 0.00 \\
+& 1.00 & 0.793 & 0.00 & & 0.793 & 1.00 & 0.00 \\
 \end{tabular}
 \end{center}
 \end{table}
