@@ -7,14 +7,14 @@ realizations of uncertain vector of parameters $u$ in the uncertainty set $\math
 allows us to define the problem under uncertainty below.
 \begin{align*}
     \text{min} &~f_0(x) \\
-    \text{s.t.}     &~f_i(x,u) \leq 0,~\forall u \in \mathcal{U},~i = 1,\ldots,n \\
+    \text{s.t.}     &~f_i(x,u) \leq 0,~\forall u \in \mathcal{U},~i = 1,\ldots,n
 \end{align*}
 This problem is infinite-dimensional, since it is possible to formulate an infinite number of constraints
 with the countably infinite number of possible realizations of $u \in \mathcal{U}$. To circumvent this issue,
 we can define the following robust formulation of the uncertain problem below.
 \begin{align*}
     \text{min} &~f_0(x) \\
-    \text{s.t.}     &~\underset{u \in \mathcal{U}}{\text{max}}~f_i(x,u) \leq 0,~i = 1,\ldots,n \\
+    \text{s.t.}     &~\underset{u \in \mathcal{U}}{\text{max}}~f_i(x,u) \leq 0,~i = 1,\ldots,n
 \end{align*}
 This formulation hedges against the worst-case realization of the uncertainty in the defined uncertainty
 set. The set is often described by a norm, which contains possible uncertain outcomes from distributions with
@@ -22,7 +22,7 @@ bounded support
 \begin{equation}
 \begin{aligned}
     \text{min} &~f_0(x) \\
-    \text{s.t.}     &~\underset{u}{\text{max}}~f_i(x,u) \leq 0,~i = 1,\ldots,n \\
+    \text{s.t.}     &~\underset{u}{\text{max}}~f_i(x,u) \leq 0,~i = 1,\ldots,n
                     &~\norm{u} \leq \Gamma \\
 \end{aligned}
         \label{eq:normform}
@@ -37,7 +37,7 @@ A \emph{geometric program in posynomial form} is a log-convex optimization probl
 \begin{aligned}
 	& \text{min} && f_0 \left(\vec{u}\right) \\
 	& \text{s.t.} && f_i \left(\vec{u}\right) \leq 1, i = 1,...,m_p\\
-	& && h_i \left(\vec{u}\right) = 1, i = 1, ...,m_e\\
+	& && h_i \left(\vec{u}\right) = 1, i = 1, ...,m_e
 \end{aligned}
 \label{GP_standard}
 \end{equation}
