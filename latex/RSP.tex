@@ -6,11 +6,11 @@ through the process shown in Figure~\ref{fig:blockdiag}. As long as the original
 is \gls{sp}-compatible, a tractable robust formulation of the problem exists, making this method
 general. We derive the intractable formulation of a \gls{rsp} below.
 
-\begin{figure}[H]
+\begin{figure}[h]
     \begin{center}
     \begin{tikzpicture}[auto, align=center, text width=2.75cm, scale = 0.85]
         \begin{scope}[node distance=2cm]
-        \node[block, name=reqs] at (0,0) (reqs) {Requirements \\ Resources};
+        \node[block, name=reqs] at (0,0) (reqs) {Requirements \\ Configuration};
         \node[block, name=SPmodels] at (6,0) (SPmodels) {SP compatible \\ models};
         \node[block, name=optimum] at (6,-4) (optimum) {Optimal solution \\ Sensitivities};
         \node[block, name=distr] at (14,0) (distr) {Distributional \\ information};
@@ -64,8 +64,8 @@ and $\zeta_l$ is the $l^{th}$ component of $\vec{\zeta}$ belonging to a perturba
 \label{perturbation_set}
 \end{equation}
 
-As mentioned earlier, there should exist a formulation immune to
-uncertainty in the system's data. Accordingly, the robust counterpart
+As aforementioned, our goal is a formulation that is immune to
+uncertainty in the data. Accordingly, the robust counterpart
 of the uncertain \gls{sp} in \eqref{SP_exponential} is:
 \begin{equation}
 \begin{aligned}

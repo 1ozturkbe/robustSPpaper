@@ -89,11 +89,11 @@ posynomial is robustified using techniques from robust linear programming. The r
 therefore, a \gls{rgp} can be approximated as a \gls{sp}.
 
 \subsubsection{Best Pairs Formulation}
-If the exponents are also uncertain, then large posynomials can't be approximated as an \gls{sp}, and further simplification is needed.
+If the exponents are also uncertain, then large posynomials can't be approximated as a \gls{sp}, and further simplification is needed.
 This formulation aims to maximize each pair of monomials in each posynomial,
 while finding the best combination of monomials that gives the least conservative solution.
 \cite{Saab2018} provides a descent algorithm to find locally optimal combinations of the monomials,
 and shows how the uncertain \gls{gp} can be approximated as a \gls{gp} for polyhedral uncertainty,
 and a conic optimization problem for elliptical uncertainty with uncertain exponents.
 For a detailed description of the above formulations refer to \cite{Saab2018}.
-An algorithm for solving an \gls{rsp} based on the above formulations is provided in the next section.
+An algorithm for solving a \gls{rsp} based on the above formulations is provided in the next section.

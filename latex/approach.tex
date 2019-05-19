@@ -33,7 +33,7 @@ and is used to speed up convergence.
         \draw[->] (xi) -- node[name=yes] {Yes.} (solution);
         \end{scope}
     \end{tikzpicture}
-    \caption{A block diagram showing the steps of solving an \gls{rsp}.}
+    \caption{A block diagram showing the steps of solving a \gls{rsp}.}
         \label{fig:rspsolve}
 \end{center}
 \end{figure}
@@ -80,7 +80,7 @@ On the other hand, if the Linearized Perturbations formulation is to be used,
 then we can avoid solving a \gls{sp} at each iteration by first
 approximating the original \gls{sp} constraints locally, and in the same loop approximating
 the robustified possibly signomial constraints locally, thus solving a
-\gls{gp} at each iteration instead of an \gls{sp}. The algorithm would then become as follows:
+\gls{gp} at each iteration instead of a \gls{sp}. The algorithm would then become as follows:
 
 \begin{enumerate}
     \item Choose an initial guess $x_0$.

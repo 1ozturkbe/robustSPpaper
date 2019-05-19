@@ -149,7 +149,7 @@ than the other two methods over the whole $\Gamma$ domain.
     \end{subfigure}
     \caption{Robust signomial simple aircraft solution and setup times, normalized by the
     nominal problem solution time, for $\Gamma = 1$.
-    Note that the problems with box uncertainty have much lower setup
+    Note that the problems with box uncertainty have lower setup
     time costs versus those with elliptical uncertainty, but similar solve times.}
     \label{compare_signomial}
 \end{figure}
@@ -167,7 +167,7 @@ and Simple Conservative formulations being the least and most conservative respe
 and where the elliptical formulations are less conservative than the box formulations.
 For this aircraft design problem, the preferred Best Pairs methodology
 is competitive in solution and setup times for both types of uncertainty set. Furthermore
-the box uncertainty set generally requires much lower setup time (other than the Simple Conservative case)
+the box uncertainty set generally requires lower setup time (other than the Simple Conservative case)
 than the elliptical uncertainty set.
 Note that setup and solution times for \gls{rsp}s are highly problem-specific, so it is not possible
 to predict the time performance of other \gls{rsp}-compatible problems from these results.
@@ -215,7 +215,7 @@ in Table~\ref{tab:nondimresults}, we choose to demonstrate this using four objec
 that would traditionally be used in aircraft design, and be expected to have a high degree of correlation.
 These are total (time and fuel) cost, total fuel, takeoff weight and invertrimse cruise lift-over-drag (L/D).
 
-\begin{figure}
+\begin{figure}[!h]
     \begin{center}
     \begin{tikzpicture}
         \node[inner sep=0] (center) at (0,0)
@@ -325,7 +325,7 @@ model. This would suggest the following formulation:
 \begin{equation}
     \begin{split}
     \text{max} &~\Gamma \\
-    \text{s.t.}     &~f_i(x,u) \leq,~i = 1,\ldots,n \\
+    \text{s.t.}     &~f_i(x,u) \leq 0,~i = 1,\ldots,n \\
                     & \norm{u} \leq \Gamma \\
                     &~f_0(x) \leq (1+\delta)f_0^*,~\delta \geq 0
     \end{split}
@@ -343,7 +343,7 @@ not equivalent to the problem in Formulation~\ref{eq:normform},
 but should yield the same results if both methods are optimal.
 To show this, we use the worst-case objective values from the probability of failure study
 shown in Figure~\ref{fig:probOfFailure} as the $\delta$ inputs to the goal programming model, and compare the results.
-The results are tabulated in
+The results are presented in
 Table~\ref{tab:deltaVsGamma}. Note that the two methods were evaluated \gls{mc} runs using the same 100 realizations
 of the uncertainty, for consistency in probability of failure results.
 
