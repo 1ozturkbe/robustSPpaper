@@ -1,6 +1,6 @@
 \section{Results}
 
-We implement our \gls{rsp} heuristic algorithm on the aforementioned conceptual aircraft design problem.
+We implement our \gls{rsp} algorithm on the aforementioned conceptual aircraft design problem.
 Our objective function is total fuel consumption, which is
 to be minimized given a payload and range requirement.
 
@@ -8,7 +8,7 @@ to be minimized given a payload and range requirement.
 
 First, the optimization problem is solved in presence of no uncertainty. It is expected
 that this aircraft has a high probability of failure due to its sensitivity
-to the outcomes of the uncertain parameters. Then, using the sign of
+to the outcomes of uncertain parameters. Then, using the sign of
 sensitivities of the nominal solution, we assign $3\sigma$ margins for each parameter
 and generate a design using margins. These two solutions are compared with \gls{ro} results for
 box and elliptical uncertainty sets at $\Gamma = 1$. From here onward we refer to
@@ -65,14 +65,15 @@ P[failure] & probability of failure & \% & 94 & 0 & 0 & 0\\
 \end{center}
 \end{table}
 
-It is noteworthy in Table~\ref{tab:results} that, for the nominal problem ($\Gamma = 0$),
+It is noteworthy in the probability of failure at the bottom of Table~\ref{tab:results} that,
+for the nominal problem ($\Gamma = 0$),
 only 6 percent of the \gls{mc} evaluations result in feasible solutions.
 This means that an aircraft designed for the average case would almost surely
 fail to satisfy the mission requirements, even with equal likelihood of favorable versus
 unfavorable uncertain outcomes from the symmetric truncated Gaussian.
 That being said, depending on the problem, it may necessary to sacrifice
 performance to achieve a high degree ($3\sigma$) of
-reliability as in the solution for $\Gamma = 1$. As shown by Figure~\ref{tab:results}, the margin aircraft, the box aircraft
+reliability as in the solution for $\Gamma = 1$. Furthermore, the margin aircraft, the box aircraft
 and the elliptical aircraft spend on average 66\%, 68\% and 47\% more fuel respectively
 than the aircraft designed for the nominal case, but they also are
 robust to all uncertain outcomes in the $3\sigma$ set for the given \gls{mc} simulation.
@@ -134,6 +135,25 @@ towards zero as $\Gamma$ increases for all three methods, where box uncertainty 
 more conservative than margins, and elliptical uncertainty is less conservative
 than the other two methods over the whole $\Gamma$ domain.
 
+\begin{figure}[ht]
+    \centering
+    \captionsetup{justification=centering, font=small}
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[height=1.9in]{signomial_simple_flight/box_sst.pdf}
+    \end{subfigure}
+    ~
+    \begin{subfigure}{0.49\textwidth}
+        \centering
+        \includegraphics[height=1.9in]{signomial_simple_flight/ell_sst.pdf}
+    \end{subfigure}
+    \caption{Robust signomial simple aircraft solution and setup times, normalized by the
+    nominal problem solution time, for $\Gamma = 1$.
+    Note that the problems with box uncertainty have much lower setup
+    time costs versus those with elliptical uncertainty, but similar solve times.}
+    \label{compare_signomial}
+\end{figure}
+
 In absolute
 terms, the nominal \gls{sp} under zero uncertainty or with margins
 takes just under 0.9 seconds to solve on a modern laptop computer using Mosek~\cite{mosek},
@@ -154,26 +174,6 @@ to predict the time performance of other \gls{rsp}-compatible problems from thes
 Time performance will vary depending on the number of inequality constraints,
 the degree of coupling between monomials
 in each inequality, and the \gls{rgp} approximation and uncertainty set used.
-
-\ \\
-\begin{figure}[ht]
-    \centering
-    \captionsetup{justification=centering, font=small}
-    \begin{subfigure}{0.49\textwidth}
-        \centering
-        \includegraphics[height=1.9in]{signomial_simple_flight/box_sst.pdf}
-    \end{subfigure}
-    ~
-    \begin{subfigure}{0.49\textwidth}
-        \centering
-        \includegraphics[height=1.9in]{signomial_simple_flight/ell_sst.pdf}
-    \end{subfigure}
-    \caption{Robust signomial simple aircraft solution and setup times, normalized by the
-    nominal problem solution time, for $\Gamma = 1$.
-    Note that the problems with box uncertainty have much lower setup
-    time costs versus those with elliptical uncertainty, but similar solve times.}
-    \label{compare_signomial}
-\end{figure}
 
 \subsection{The Effect of Robustness on Multiobjective Performance}
 
@@ -203,7 +203,7 @@ for different objectives. Objective values are normalized by the total fuel solu
 
 Aside from this caricature example, we demonstrate the capabilities of \gls{rsp}s
 by considering a more realistic scenario, now with uncertainty.
-We perform the optimization of the aircraft with no uncertainty and both box and
+We perform the optimization of the aircraft with no uncertainty, and both box and
 ellipsoidal uncertainty ($\Gamma = 1$)
 for 4 different objective functions, and plot the results on radar plots.
 Radar plots are useful because they allow engineers to visualize the performance
@@ -213,7 +213,7 @@ performance as the figure of merit; the smaller the better.
 Due to the large disparities in the figures of merit depending on the objective function choice
 in Table~\ref{tab:nondimresults}, we choose to demonstrate this using four objective functions
 that would traditionally be used in aircraft design, and be expected to have a high degree of correlation.
-These are total (time and fuel) cost, total fuel, takeoff weight and inverse cruise lift-over-drag (L/D).
+These are total (time and fuel) cost, total fuel, takeoff weight and invertrimse cruise lift-over-drag (L/D).
 
 \begin{figure}
     \begin{center}
@@ -242,44 +242,44 @@ These are total (time and fuel) cost, total fuel, takeoff weight and inverse cru
         \begin{subfigure}{0.4\linewidth}
             \makebox[\textwidth]{\begin{tikzpicture}
                 \node[inner sep=0] (l) at (-2.5,0)
-                {\includegraphics[height=5cm]{figures/0nominal.pdf}};
+                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{figures/0nominal.pdf}};
                 \node[inner sep=0] (c) at (-1,0)
-                {\includegraphics[height=5cm]{figures/0elliptical.pdf}};
+                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{figures/0elliptical.pdf}};
                 \node[inner sep=0] (r) at (.5,0)
-                {\includegraphics[height=5cm]{figures/0box.pdf}};
+                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{figures/0box.pdf}};
             \end{tikzpicture}}
             \caption{Total fuel}
         \end{subfigure}
         \begin{subfigure}{0.4\linewidth}
             \makebox[\textwidth]{\begin{tikzpicture}
                 \node[inner sep=0] (l) at (-2.5,0)
-                {\includegraphics[height=5cm]{figures/1nominal.pdf}};
+                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{figures/1nominal.pdf}};
                 \node[inner sep=0] (c) at (-1,0)
-                {\includegraphics[height=5cm]{figures/1elliptical.pdf}};
+                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{figures/1elliptical.pdf}};
                 \node[inner sep=0] (r) at (.5,0)
-                {\includegraphics[height=5cm]{figures/1box.pdf}};
+                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{figures/1box.pdf}};
             \end{tikzpicture}}
             \caption{Takeoff weight}
         \end{subfigure}
         \begin{subfigure}{0.4\linewidth}
             \makebox[\textwidth]{\begin{tikzpicture}
                 \node[inner sep=0] (l) at (-2.5,0)
-                {\includegraphics[height=5cm]{figures/2nominal.pdf}};
+                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{figures/2nominal.pdf}};
                 \node[inner sep=0] (c) at (-1,0)
-                {\includegraphics[height=5cm]{figures/2elliptical.pdf}};
+                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{figures/2elliptical.pdf}};
                 \node[inner sep=0] (r) at (.5,0)
-                {\includegraphics[height=5cm]{figures/2box.pdf}};
+                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{figures/2box.pdf}};
             \end{tikzpicture}}
             \caption{Total cost}
         \end{subfigure}
         \begin{subfigure}{0.4\linewidth}
             \makebox[\textwidth]{\begin{tikzpicture}
                 \node[inner sep=0] (l) at (-2.5,0)
-                {\includegraphics[height=5cm]{figures/3nominal.pdf}};
+                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{figures/3nominal.pdf}};
                 \node[inner sep=0] (c) at (-1,0)
-                {\includegraphics[height=5cm]{figures/3elliptical.pdf}};
+                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{figures/3elliptical.pdf}};
                 \node[inner sep=0] (r) at (.5,0)
-                {\includegraphics[height=5cm]{figures/3box.pdf}};
+                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{figures/3box.pdf}};
             \end{tikzpicture}}
             \caption{1/(Cruise L/D)}
         \end{subfigure}
@@ -300,14 +300,14 @@ If the inverse cruise L/D solution
 on the lower-right of Figure~\ref{fig:radar} is compared with the nominal total fuel solution on the upper-left, their
 performance profiles are similar. When parametric uncertainty is added however, we see that aircraft
 that maximize cruise L/D perform badly in the worst-case
-in all other objectives under uncertainty. This means that robust requirements can
+in all other objectives. This means that robust requirements can
 affect the efficacy of different objective functions in ensuring multiobjective performance.
 Since \gls{rsp}s can be solved quickly and reliably over a variety of objective functions,
-they allows engineers to understand these kinds of complex trade-offs early on in the design process.
+they allow engineers to understand these kinds of complex trade-offs early on in the design process.
 
 Based on these observations, we argue that there could be significant value left on the table
 if uncertainty is not considered with sufficient mathematical rigor in early phases of
-the engineering design process. \gls{rsp}s allow engineers to capture complex
+the design process. \gls{rsp}s allow engineers to capture complex
 trade-offs in nonlinear optimization problems while considering uncertainty,
 resulting in \emph{less conservative} solutions
 than solutions that implement margins and other less mathematically
@@ -331,7 +331,6 @@ model. This would suggest the following formulation:
     \end{split}
     \label{eq:goalprogramming}
 \end{equation}
-
 where $f_0^*$ is the optimum of the nominal problem in Formulation~\ref{eq:normform} and $\delta$
 is a fractional penalty on the objective that we are willing to sacrifice for robustness, which
 gives $(1+\delta)f_0^*$ as the upper bound on the objective value. Intuitively,
@@ -342,7 +341,7 @@ the goal of maximizing the total size of the uncertainty $\Gamma$ we can handle.
 The goal programming problem in Formulation~\ref{eq:goalprogramming} is clearly
 not equivalent to the problem in Formulation~\ref{eq:normform},
 but should yield the same results if both methods are optimal.
-To show this, we use the objective values from the probability of failure study
+To show this, we use the worst-case objective values from the probability of failure study
 shown in Figure~\ref{fig:probOfFailure} as the $\delta$ inputs to the goal programming model, and compare the results.
 The results are tabulated in
 Table~\ref{tab:deltaVsGamma}. Note that the two methods were evaluated \gls{mc} runs using the same 100 realizations
@@ -377,7 +376,7 @@ Firstly, note that there are no results reported for the goal program
 for zero uncertainty, $\Gamma = [0.00]$.
 Since the feasible set of this problem is a point design, the signomial program
 solution heuristic declares the problem infeasible after being
-unable to locate the singular feasible region. However we confirm that when we positively perturb
+unable to locate the singular feasible region. However when we positively perturb
 the singular $\delta$, the goal program has a non-empty feasible set and
 returns the same solution as the original \gls{ro} method.
 Otherwise, the $\Gamma$ values found by the goal program match exactly
@@ -393,18 +392,17 @@ used cannot make computations exactly~\cite{Nesterov1994}.
 We can also expand this framework to perform multivariate goal programming,
 by changing Formulation~\ref{eq:goalprogramming} to include all
 objectives we are interested in.
-
-\begin{align*}
+\begin{equation}
     f_{0,j}(x) \leq (1+\delta_j) f^*_{0,j},~\delta_j \geq 0,~j = 1,\ldots, m
     \label{eq:multigoal}
-\end{align*}
+\end{equation}
 
 The benefit of goal programming is that it allows us to explore multidisciplinary trade-offs without
 having to enumerate the design space along each objective direction.
 The term multiobjective optimization is misleading
 because you can only optimize for one objective at once.
 The design is going to be influenced by how engineers weigh different objectives, and
-it is not obvious whether an objective should in fact be a constraint instead. The most
+it is not obvious whether an objective should be a constraint instead. The most
 fundamental choice that an engineer can make in design is what the objective function is, and it is
 often the case that there are many potential objectives that are conflicting.
 But risk is ubiquitous in engineering design problems, so goal programming allows risk to be used as

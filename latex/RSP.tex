@@ -6,7 +6,7 @@ through the process shown in Figure~\ref{fig:blockdiag}. As long as the original
 is \gls{sp}-compatible, a tractable robust formulation of the problem exists, making this method
 general. We derive the intractable formulation of a \gls{rsp} below.
 
-\begin{figure}
+\begin{figure}[H]
     \begin{center}
     \begin{tikzpicture}[auto, align=center, text width=2.75cm, scale = 0.85]
         \begin{scope}[node distance=2cm]
@@ -36,7 +36,6 @@ general. We derive the intractable formulation of a \gls{rsp} below.
 \end{figure}
 
 A \emph{\gls{sp} in exponential form} is as follows:
-
 \begin{equation}
     \label{SP_exponential}
 \begin{aligned}
@@ -44,7 +43,6 @@ A \emph{\gls{sp} in exponential form} is as follows:
 	& \text{s.t.} && \textstyle{\sum}_{k=1}^{K_i}e^{\vec{a_{ik}}\vec{x} + b_{ik}} - \textstyle{\sum}_{k=1}^{G_i}e^{\vec{c_{ik}}\vec{x} + d_{ik}} \leq 0 \quad \forall i \in 1,...,m\\
 \end{aligned}
 \end{equation}
-
 where the constraints are represented as difference-of-posynomials in exponential form.
 Let $\vec{a_{ik}}$ and $\vec{c_{ik}}$ be the $((i-1)\times m + k)^{th}$ rows of the exponents matrices
 $\mat{A}$ and $\mat{C}$ respectively, and $b_{ik}$ and $d_{ik}$ be the $((i-1)\times m + k)^{th}$ elements
@@ -53,12 +51,14 @@ of the coefficients vectors $\vec{b}$ and $\vec{d}$ respectively.
 The data ($\mat{A}$, $\mat{C}$, $\vec{b}$, $\vec{d}$) is assumed to be uncertain and
 living in an uncertainty set $\mathcal{U}$, where $\mathcal{U}$ is parametrized
 affinely by a perturbation vector $\vec{\zeta}$:
-
 \begin{equation}
 \mathcal{U} = \left\{\left[\mat{A};\mat{C};\vec{b};\vec{d}\right] = \left[\mat{A}^0;\mat{C}^0;\vec{b}^0\;\vec{d}^0 \right] + \textstyle{\sum_{l=1}^{L}\zeta_l\left[\mat{A}^l;\mat{C}^l;\vec{b}^l; \vec{d}^l\right]}\right\}
 \label{Data}
 \end{equation}
-where $\mat{A}^0$, $\mat{C}^0$, $\vec{b}^0$, and $\vec{d}^0$ are the nominal exponents and coefficients, $\left\{\mat{A}^l\right\}_{l=1}^{L}$, $\left\{\mat{C}^l\right\}_{l=1}^{L}$, $\left\{\vec{b}^l\right\}_{l=1}^{L}$, and $\left\{\vec{d}^l\right\}_{l=1}^{L}$ are the basic shifts of the exponents and coefficients, and $\zeta_l$ is the $l^{th}$ component of $\vec{\zeta}$ belonging to a perturbation set $\mathcal{Z} \in \mathbb{R}^L$ such that
+where $\mat{A}^0$, $\mat{C}^0$, $\vec{b}^0$, and $\vec{d}^0$ are the nominal exponents and coefficients,
+$\left\{\mat{A}^l\right\}_{l=1}^{L}$, $\left\{\mat{C}^l\right\}_{l=1}^{L}$, $\left\{\vec{b}^l\right\}_{l=1}^{L}$, and
+$\left\{\vec{d}^l\right\}_{l=1}^{L}$ are the basic shifts of the exponents and coefficients,
+and $\zeta_l$ is the $l^{th}$ component of $\vec{\zeta}$ belonging to a perturbation set $\mathcal{Z} \in \mathbb{R}^L$ such that
 \begin{equation}
 \mathcal{Z} = \left\{ \vec{\zeta} \in \mathbb{R}^L: \norm{\vec{\zeta}} \leq \Gamma \right\}
 \label{perturbation_set}
@@ -67,7 +67,6 @@ where $\mat{A}^0$, $\mat{C}^0$, $\vec{b}^0$, and $\vec{d}^0$ are the nominal exp
 As mentioned earlier, there should exist a formulation immune to
 uncertainty in the system's data. Accordingly, the robust counterpart
 of the uncertain \gls{sp} in \eqref{SP_exponential} is:
-
 \begin{equation}
 \begin{aligned}
 & \min &&f_0\left(\vec{x}\right)\\

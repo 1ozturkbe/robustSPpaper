@@ -41,7 +41,7 @@ In this case of a conceptual aircraft design with no prior data,
 the parameter uncertainties reflect aerospace engineering intuition.
 The wing weight coefficients $W_{\rm{w}_{\rm{coeff,strc}}}$ and $W_{\rm{w}_{\rm{coeff,surf}}}$,
 and the ultimate load factor $N_{\rm{ult}}$ have
-large $3\sigma$s because the build quality of aircraft components is
+large $3\sigma$'s because the build quality of aircraft components is
 often difficult to quantify with a large degree of certainty.
 The payload weight and density ($W_{\rm{p}}$ and $\rho_{\rm{p}}$) have large uncertainties
 since the payload is often developed concurrently with the aircraft.
@@ -64,17 +64,17 @@ Intuitively, for both sets, $\Gamma$ is a measure of how much risk is being
 hedged against. $\Gamma = 0$
 implies that all of the parameters take their nominal values with zero uncertainty,
 which we call the nominal problem,
-and larger $\Gamma$ protects against more parameter uncertainty.
+and larger $\Gamma$ protects against greater uncertainty.
 
 Mathematically, for box uncertainty,
-$\Gamma$ is the width of the L-$\infty$ hypercube, whose dimension is the same as the number of uncertain parameters (14).
+$\Gamma$ is the width of the L$\infty$ hypercube, whose dimension is the same as the number of uncertain parameters (14).
 More intuitively,
 it is defines the range of the possible values of each parameter, normalized by its standard deviation.
 It can be easy to assume that using margins and box uncertainty sets will yield the same designs,
 but they fundamentally function differently.
 Firstly, the worst case outcome in box uncertainty can come \emph{from the interior} of the uncertainty
 set, instead of the corner of the hypercube considered
-by margins. Furthermore, there is no guarantee (and it is highly unlikely)
+by margins. Furthermore, there is no guarantee (and it is unlikely)
 that the chosen corner, i.e. particular allocation of margins,
 is the most conservative point in the uncertainty set.
 It is even possible that the \emph{the wrong sign of margin} is allocated for certain parameters,
@@ -92,7 +92,7 @@ information (in this case the nominal solution) is required to allocate margin e
 For elliptical uncertainty, $\Gamma$ is the maximum diameter of the Euclidian norm
 ball of \textbf{u}, where $u_i$ is the number of standard deviations of perturbation of the
 ith parameter from its nominal value.
-Elliptical uncertainty relies on the fact that the joint probability of
+Elliptical uncertainty exploits the fact that the joint probability of
 multiple uncertain parameters taking values in the tails of their respective distributions is
 very low. So while it does not protect deterministically for all outcomes of the uncertain
 parameters within $3\sigma$, it is expected to protect against uncertain outcomes
