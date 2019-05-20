@@ -20,12 +20,12 @@ where the uncertain data is contained in a set defined by equations \eqref{Data}
 
 \subsubsection{Box Uncertainty Set}
 If the perturbation set $\mathcal{Z}$ given in equation \eqref{perturbation_set} is a box
-uncertainty set, i.e. $\|\vec{\zeta}\|_{\infty} \leq \Gamma$, then the robust formulation of the $i^{th}$ constraint is equivalent to
+uncertainty set, i.e. $\|\vec{\zeta}\|_{\infty} \leq \Gamma$, then the robust formulation of the $i$th constraint is equivalent to
 \begin{equation}
 \Gamma \textstyle{\sum}_{l=1}^L |- {b}^l_{i} - \vec{a}^l_i\vec{x}| + \vec{a}^0_i\vec{x} + b^0_i \leq 0
 \label{box_absolute}
 \end{equation}
-If only $b$ is uncertain, i.e. $A^l = 0~\forall l = 1,2,...,L$, then equation \eqref{box_absolute} becomes
+If only $b$ is uncertain, i.e. $A^l = 0,~\forall l = 1,2,...,L$, then equation \eqref{box_absolute} becomes
 \begin{equation}
 \textstyle{\sum}_{l=1}^L \vec{a}^0_{i}\vec{x} + b^0_{i} + \Gamma \textstyle{\sum}_{l=1}^L |b^l_{i}| \leq 0
 \label{box_coeff}
@@ -51,7 +51,7 @@ then the robust formulation of the $i^{th}$ constraint is equivalent to
 \end{equation}
 which is a second order conic constraint.
 
-If only $b$ is uncertain, i.e. $\mathbb{A}^l = 0 \quad \forall l = 1,2,...,L$, then equation \eqref{ell_absolute} becomes
+If only $b$ is uncertain, i.e. $\mathbb{A}^l = 0,~\forall l = 1,2,...,L$, then equation \eqref{ell_absolute} becomes
 \begin{equation}
 \textstyle{\sum}_{l=1}^L \vec{a}^0_{i}\vec{x} + b^0_{i} + \Gamma \sqrt{\textstyle{\sum}_{l=1}^L \sigma_l^2(b^l_{i})^2} \leq 0
 \label{ell_coeff}

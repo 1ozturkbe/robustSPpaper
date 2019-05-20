@@ -81,7 +81,7 @@ The restriction of posynomials to the \emph{less-than-side of
 inequalities} is a more significant barrier, and motivates the introduction of signomials.
 
 \subsection{Signomial Programming}
-A {\em signomial} can be defined as the difference between two posynomials. Consequently,
+A {\em signomial} can be defined as the difference of two posynomials. Consequently,
 a \gls{sp} is a non-log-convex optimization problem of the form:
 \begin{equation}
 \begin{aligned}
@@ -94,5 +94,5 @@ where $f_{i}$ and $g_{i}$ are both posynomials, and $\vec{x}$ is a column vector
 Reliably solving a \gls{sp} to a local optimum has been described in \cite{Boyd2007} and \cite{Lipp2016}.
 A common solution heuristic involves solving a \gls{sp} as a sequence of \gls{gp}s,
 where each \gls{gp} is a local approximation of the \gls{sp}.
-Although it is a powerful tool, applications involving \gls{sp}s are usually prone
+Although signomial programming is a powerful tool, applications involving \gls{sp}s are usually prone
 to uncertainties that have a significant effect on the solution.
