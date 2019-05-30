@@ -49,10 +49,10 @@ $V_{\rm{f,avail}}$ & total fuel volume & $\mathrm{m^3}$ & 0.0765 & 0.148 & 0.156
 $V_{\rm{f,fuse}}$ & fuselage fuel volume & $\mathrm{m^3}$ & 0.0396 & 0 & 0 & 0.0156 \\
 $V_{\rm{f,wing}}$ & wing fuel volume &$\mathrm{m^3}$ & 0.0368 & 0.169 & 0.166 & 0.121    \\
 & \begin{tabular}{c} sketches to scale \end{tabular} & &
-    \begin{tabular}{c}\includegraphics[trim={9.5cm 2cm 8.5cm 2cm},clip,height=3.8cm]{figures/nominal.pdf}\end{tabular} &
-    \begin{tabular}{c}\includegraphics[trim={9.5cm 2cm 8.5cm 2cm},clip,height=3.8cm]{figures/margins.pdf}\end{tabular} &
-    \begin{tabular}{c}\includegraphics[trim={9.5cm 2cm 8.5cm 2cm},clip,height=3.8cm]{figures/box.pdf}\end{tabular} &
-    \begin{tabular}{c}\includegraphics[trim={9.5cm 2cm 8.5cm 2cm},clip,height=3.8cm]{figures/elliptical.pdf}\end{tabular} \\
+    \begin{tabular}{c}\includegraphics[trim={9.5cm 2cm 8.5cm 2cm},clip,height=3.8cm]{figures/nominal.eps}\end{tabular} &
+    \begin{tabular}{c}\includegraphics[trim={9.5cm 2cm 8.5cm 2cm},clip,height=3.8cm]{figures/margins.eps}\end{tabular} &
+    \begin{tabular}{c}\includegraphics[trim={9.5cm 2cm 8.5cm 2cm},clip,height=3.8cm]{figures/box.eps}\end{tabular} &
+    \begin{tabular}{c}\includegraphics[trim={9.5cm 2cm 8.5cm 2cm},clip,height=3.8cm]{figures/elliptical.eps}\end{tabular} \\
 \hline
 Objective metric & Description & Units & No Uncert. & Margins & Box & Elliptical \\
 \hline
@@ -219,15 +219,15 @@ These are total (time and fuel) cost, total fuel, takeoff weight and inverse cru
     \begin{center}
     \begin{tikzpicture}
         \node[inner sep=0] (center) at (0,0)
-        {\includegraphics[trim={2cm 0 1cm 0},clip,scale=0.6]{figures/4objradar.pdf}};
+        {\includegraphics[trim={2cm 0 1cm 0},clip,scale=0.6]{figures/4objradar.eps}};
         \node[inner sep=0] (ul) at (-1.0, 0.25)
-        {\includegraphics[height=3.8cm]{figures/0nominal.pdf}};
+        {\includegraphics[height=3.8cm]{figures/0nominal.eps}};
         \node[inner sep=0] (ur) at (1.0, 0.25)
-        {\includegraphics[height=3.8cm]{figures/1nominal.pdf}};
+        {\includegraphics[height=3.8cm]{figures/1nominal.eps}};
         \node[inner sep=0] (ll) at (-1.0, -2)
-        {\includegraphics[height=3.8cm]{figures/2nominal.pdf}};
+        {\includegraphics[height=3.8cm]{figures/2nominal.eps}};
         \node[inner sep=0] (lr) at (1.0, -2)
-        {\includegraphics[height=3.8cm]{figures/3nominal.pdf}};
+        {\includegraphics[height=3.8cm]{figures/3nominal.eps}};
     \end{tikzpicture}
     \caption{The radar plots of aircraft performance, for aircraft optimized for different objectives.
     The bolded titles are the design objectives for each plot, whereas the individual plots
@@ -242,44 +242,44 @@ These are total (time and fuel) cost, total fuel, takeoff weight and inverse cru
         \begin{subfigure}{0.4\linewidth}
             \makebox[\textwidth]{\begin{tikzpicture}
                 \node[inner sep=0] (l) at (-2.5,0)
-                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{figures/0nominal.pdf}};
+                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{figures/0nominal.eps}};
                 \node[inner sep=0] (c) at (-1,0)
-                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{figures/0elliptical.pdf}};
+                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{figures/0elliptical.eps}};
                 \node[inner sep=0] (r) at (.5,0)
-                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{figures/0box.pdf}};
+                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{figures/0box.eps}};
             \end{tikzpicture}}
             \caption{Total fuel}
         \end{subfigure}
         \begin{subfigure}{0.4\linewidth}
             \makebox[\textwidth]{\begin{tikzpicture}
                 \node[inner sep=0] (l) at (-2.5,0)
-                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{figures/1nominal.pdf}};
+                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{figures/1nominal.eps}};
                 \node[inner sep=0] (c) at (-1,0)
-                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{figures/1elliptical.pdf}};
+                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{figures/1elliptical.eps}};
                 \node[inner sep=0] (r) at (.5,0)
-                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{figures/1box.pdf}};
+                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{figures/1box.eps}};
             \end{tikzpicture}}
             \caption{Takeoff weight}
         \end{subfigure}
         \begin{subfigure}{0.4\linewidth}
             \makebox[\textwidth]{\begin{tikzpicture}
                 \node[inner sep=0] (l) at (-2.5,0)
-                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{figures/2nominal.pdf}};
+                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{figures/2nominal.eps}};
                 \node[inner sep=0] (c) at (-1,0)
-                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{figures/2elliptical.pdf}};
+                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{figures/2elliptical.eps}};
                 \node[inner sep=0] (r) at (.5,0)
-                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{figures/2box.pdf}};
+                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{figures/2box.eps}};
             \end{tikzpicture}}
             \caption{Total cost}
         \end{subfigure}
         \begin{subfigure}{0.4\linewidth}
             \makebox[\textwidth]{\begin{tikzpicture}
                 \node[inner sep=0] (l) at (-2.5,0)
-                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{figures/3nominal.pdf}};
+                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{figures/3nominal.eps}};
                 \node[inner sep=0] (c) at (-1,0)
-                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{figures/3elliptical.pdf}};
+                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{figures/3elliptical.eps}};
                 \node[inner sep=0] (r) at (.5,0)
-                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{figures/3box.pdf}};
+                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{figures/3box.eps}};
             \end{tikzpicture}}
             \caption{1/(Cruise L/D)}
         \end{subfigure}
