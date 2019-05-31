@@ -20,7 +20,7 @@ if __name__ == "__main__":
     methods = [{'name': 'Best Pairs', 'twoTerm': True, 'boyd': False, 'simpleModel': False}]
     uncertainty_sets = ['elliptical']
     gamma = 1
-    margin_subs = {k: v + np.sign(mag(sol['sensitivities']['constants'](k.key)))*k.key.pr * v / 100.0
+    margin_subs = {k: v + np.sign(mag(sol['sensitivities']['constants'][k.key]))*k.key.pr * v / 100.0
                                      for k, v in m.substitutions.items()
                                      if k in m.varkeys and RobustGPTools.is_directly_uncertain(k)}
 

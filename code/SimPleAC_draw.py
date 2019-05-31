@@ -58,7 +58,7 @@ def SimPleAC_draw(sol, color='blue', directory=None, name=None):
     plt.axis('off')
     fig = ax.get_figure()
     if directory is not None and name is not None:
-        fig.savefig(directory + '/' + name + '.pdf', transparent=True)
+        fig.savefig(directory + '/' + name + '.eps', format='eps', transparent=True)
     else:
         plt.show()
 
