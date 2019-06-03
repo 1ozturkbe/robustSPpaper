@@ -57,7 +57,9 @@ if __name__ == "__main__":
         print i['cost']
 
     colors = ['blue', 'orange', 'red', 'green']
+    labels = ['nominal', 'margins', 'box', 'elliptical']
+    directory = 'savefigs'
     count = 0
     for i in soltab:
-        SimPleAC_draw(i, colors[count])
+        SimPleAC_draw(i, colors[count], directory, labels[count])
         count += 1
