@@ -1,9 +1,7 @@
 import numpy as np
-from gpkit import Model, Variable, SignomialsEnabled, SignomialEquality, VarKey, units,Vectorize
-from gpkit.constraints.bounded import Bounded
-from gpkit.constraints.tight import Tight
+from gpkit import Model, Variable, SignomialsEnabled, SignomialEquality, VarKey, units, Vectorize
 
-# Importing models
+# Importing atmospheric model
 from gpkitmodels.SP.atmosphere.atmosphere import Atmosphere
 
 # SimPleAC with mission design and flight segments, and lapse rate and BSFC model (3.4.2)
