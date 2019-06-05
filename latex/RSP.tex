@@ -39,28 +39,28 @@ A \emph{\gls{sp} in exponential form} is as follows:
 \begin{equation}
     \label{SP_exponential}
 \begin{aligned}
-	& \min && f_0\left(\vec{x}\right) \\
-	& \text{s.t.} && \textstyle{\sum}_{k=1}^{K_i}e^{\vec{a_{ik}}\vec{x} + b_{ik}} - \textstyle{\sum}_{k=1}^{G_i}e^{\vec{c_{ik}}\vec{x} + d_{ik}} \leq 0 \quad \forall i \in 1,...,m\\
+	& \min && f_0\left(\mathbf{x}\right) \\
+	& \text{s.t.} && \textstyle{\sum}_{k=1}^{K_i}e^{\mathbf{a_{ik}}\mathbf{x} + b_{ik}} - \textstyle{\sum}_{k=1}^{G_i}e^{\mathbf{c_{ik}}\mathbf{x} + d_{ik}} \leq 0 \quad \forall i \in 1,...,m\\
 \end{aligned}
 \end{equation}
 where the constraints are represented as difference-of-posynomials in exponential form.
-Let $\vec{a_{ik}}$ and $\vec{c_{ik}}$ be the $((i-1)\times m + k)^{th}$ rows of the exponents matrices
-$\mat{A}$ and $\mat{C}$ respectively, and $b_{ik}$ and $d_{ik}$ be the $((i-1)\times m + k)^{th}$ elements
-of the coefficients vectors $\vec{b}$ and $\vec{d}$ respectively.
+Let $\mathbf{a_{ik}}$ and $\mathbf{c_{ik}}$ be the $((i-1)\times m + k)^{th}$ rows of the exponents matrices
+$\mathbf{A}$ and $\mathbf{C}$ respectively, and $b_{ik}$ and $d_{ik}$ be the $((i-1)\times m + k)^{th}$ elements
+of the coefficients vectors $\mathbf{b}$ and $\mathbf{d}$ respectively.
 
-The data ($\mat{A}$, $\mat{C}$, $\vec{b}$, $\vec{d}$) is assumed to be uncertain and
+The data ($\mathbf{A}$, $\mathbf{C}$, $\mathbf{b}$, $\mathbf{d}$) is assumed to be uncertain and
 living in an uncertainty set $\mathcal{U}$, where $\mathcal{U}$ is parametrized
-affinely by a perturbation vector $\vec{\zeta}$:
+affinely by a perturbation vector $\mathbf{\zeta}$:
 \begin{equation}
-\mathcal{U} = \left\{\left[\mat{A};\mat{C};\vec{b};\vec{d}\right] = \left[\mat{A}^0;\mat{C}^0;\vec{b}^0\;\vec{d}^0 \right] + \textstyle{\sum_{l=1}^{L}\zeta_l\left[\mat{A}^l;\mat{C}^l;\vec{b}^l; \vec{d}^l\right]}\right\}
+\mathcal{U} = \left\{\left[\mathbf{A};\mathbf{C};\mathbf{b};\mathbf{d}\right] = \left[\mathbf{A}^0;\mathbf{C}^0;\mathbf{b}^0\;\mathbf{d}^0 \right] + \textstyle{\sum_{l=1}^{L}\zeta_l\left[\mathbf{A}^l;\mathbf{C}^l;\mathbf{b}^l; \mathbf{d}^l\right]}\right\}
 \label{Data}
 \end{equation}
-where $\mat{A}^0$, $\mat{C}^0$, $\vec{b}^0$, and $\vec{d}^0$ are the nominal exponents and coefficients,
-$\left\{\mat{A}^l\right\}_{l=1}^{L}$, $\left\{\mat{C}^l\right\}_{l=1}^{L}$, $\left\{\vec{b}^l\right\}_{l=1}^{L}$, and
-$\left\{\vec{d}^l\right\}_{l=1}^{L}$ are the basic shifts of the exponents and coefficients,
-and $\zeta_l$ is the $l^{th}$ component of $\vec{\zeta}$ belonging to a perturbation set $\mathcal{Z} \in \mathbb{R}^L$ such that
+where $\mathbf{A}^0$, $\mathbf{C}^0$, $\mathbf{b}^0$, and $\mathbf{d}^0$ are the nominal exponents and coefficients,
+$\left\{\mathbf{A}^l\right\}_{l=1}^{L}$, $\left\{\mathbf{C}^l\right\}_{l=1}^{L}$, $\left\{\mathbf{b}^l\right\}_{l=1}^{L}$, and
+$\left\{\mathbf{d}^l\right\}_{l=1}^{L}$ are the basic shifts of the exponents and coefficients,
+and $\zeta_l$ is the $l^{th}$ component of $\mathbf{\zeta}$ belonging to a perturbation set $\mathcal{Z} \in \mathbb{R}^L$ such that
 \begin{equation}
-\mathcal{Z} = \left\{ \vec{\zeta} \in \mathbb{R}^L: \norm{\vec{\zeta}} \leq \Gamma \right\}
+\mathcal{Z} = \left\{ \mathbf{\zeta} \in \mathbb{R}^L: \norm{\mathbf{\zeta}} \leq \Gamma \right\}
 \label{perturbation_set}
 \end{equation}
 
@@ -69,8 +69,8 @@ uncertainty in the data. Accordingly, the robust counterpart
 of the uncertain \gls{sp} in \eqref{SP_exponential} is:
 \begin{equation}
 \begin{aligned}
-& \min &&f_0\left(\vec{x}\right)\\
-& \text{subject to} &&\max_{\vec{\zeta} \in \mathcal{Z}} \left\{\textstyle{\sum}_{k=1}^{K_i}e^{\vec{a_{ik}}\left(\zeta\right)\vec{x} + b_{ik}\left(\zeta\right)} - \textstyle{\sum}_{k=1}^{G_i}e^{\vec{c_{ik}}\left(\zeta\right)\vec{x} + d_{ik}\left(\zeta\right)}\right\} &&\leq 1 &&\forall i \in 1,...,m\\
+& \min &&f_0\left(\mathbf{x}\right)\\
+& \text{subject to} &&\max_{\mathbf{\zeta} \in \mathcal{Z}} \left\{\textstyle{\sum}_{k=1}^{K_i}e^{\mathbf{a_{ik}}\left(\zeta\right)\mathbf{x} + b_{ik}\left(\zeta\right)} - \textstyle{\sum}_{k=1}^{G_i}e^{\mathbf{c_{ik}}\left(\zeta\right)\mathbf{x} + d_{ik}\left(\zeta\right)}\right\} &&\leq 1 &&\forall i \in 1,...,m\\
 \end{aligned}
 \label{SP_counterparts_finite}
 \end{equation}

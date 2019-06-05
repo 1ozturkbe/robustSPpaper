@@ -5,8 +5,8 @@ tractable optimization problem as discussed in~\cite{Saab2018}.
 The robust counterpart of an uncertain geometric program is:
 \begin{equation}
 \begin{aligned}
-& \min &&f_0\left(\vec{x}\right)\\
-& \text{subject to} &&\max_{\vec{\zeta} \in \mathcal{Z}} \left\{\textstyle{\sum}_{k=1}^{K_i}e^{\vec{a_{ik}}\left(\zeta\right)\vec{x} + b_{ik}\left(\zeta\right)}\right\} &&\leq 1 &&\forall i \in 1,...,m\\
+& \min &&f_0\left(\mathbf{x}\right)\\
+& \text{subject to} &&\max_{\mathbf{\zeta} \in \mathcal{Z}} \left\{\textstyle{\sum}_{k=1}^{K_i}e^{\mathbf{a_{ik}}\left(\zeta\right)\mathbf{x} + b_{ik}\left(\zeta\right)}\right\} &&\leq 1 &&\forall i \in 1,...,m\\
 \end{aligned}
 \label{GP_counterparts_finite}
 \end{equation}
@@ -17,8 +17,8 @@ One way to approach the intractability in \eqref{GP_counterparts_finite} is to r
 Replacing the max-of-sum in \eqref{GP_counterparts_finite} by the sum-of-max will lead to the following formulation.
 \begin{equation}
 \begin{aligned}
-& \min &&f_0\left(\vec{x}\right)\\
-& \text{subject to} &&\textstyle{\sum}_{k=1}^{K_i} {\displaystyle \max_{\vec{\zeta} \in \mathcal{Z}}} \left\{e^{\vec{a_{ik}}\left(\zeta\right)\vec{x} + b_{ik}\left(\zeta\right)}\right\} &&\leq 1 &&\forall i \in 1,...,m
+& \min &&f_0\left(\mathbf{x}\right)\\
+& \text{subject to} &&\textstyle{\sum}_{k=1}^{K_i} {\displaystyle \max_{\mathbf{\zeta} \in \mathcal{Z}}} \left\{e^{\mathbf{a_{ik}}\left(\zeta\right)\mathbf{x} + b_{ik}\left(\zeta\right)}\right\} &&\leq 1 &&\forall i \in 1,...,m
 \end{aligned}
 \label{GP_safe_conservative}
 \end{equation}
