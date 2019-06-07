@@ -37,11 +37,11 @@ general. We derive the intractable formulation of a \gls{rsp} below.
 
 A \emph{\gls{sp} in exponential form} is as follows:
 \begin{equation}
-    \label{SP_exponential}
-\begin{aligned}
-	& \min && f_0\left(\mathbf{x}\right) \\
-	& \text{s.t.} && \textstyle{\sum}_{k=1}^{K_i}e^{\mathbf{a_{ik}}\mathbf{x} + b_{ik}} - \textstyle{\sum}_{k=1}^{G_i}e^{\mathbf{c_{ik}}\mathbf{x} + d_{ik}} \leq 0 \quad \forall i \in 1,...,m\\
-\end{aligned}
+    \begin{split}
+	\min & f_0\left(\mathbf{x}\right) \\
+	\text{s.t.} & \textstyle{\sum}_{k=1}^{K_i}e^{\mathbf{a_{ik}}\mathbf{x} + b_{ik}} - \textstyle{\sum}_{k=1}^{G_i}e^{\mathbf{c_{ik}}\mathbf{x} + d_{ik}} \leq 0,~\forall i \in 1,...,m\\
+\end{split}
+\label{SP_exponential}
 \end{equation}
 where the constraints are represented as difference-of-posynomials in exponential form.
 Let $\mathbf{a_{ik}}$ and $\mathbf{c_{ik}}$ be the $((i-1)\times m + k)^{th}$ rows of the exponents matrices
@@ -52,7 +52,8 @@ The data ($\mathbf{A}$, $\mathbf{C}$, $\mathbf{b}$, $\mathbf{d}$) is assumed to 
 living in an uncertainty set $\mathcal{U}$, where $\mathcal{U}$ is parametrized
 affinely by a perturbation vector $\mathbf{\zeta}$:
 \begin{equation}
-\mathcal{U} = \left\{\left[\mathbf{A};\mathbf{C};\mathbf{b};\mathbf{d}\right] = \left[\mathbf{A}^0;\mathbf{C}^0;\mathbf{b}^0\;\mathbf{d}^0 \right] + \textstyle{\sum_{l=1}^{L}\zeta_l\left[\mathbf{A}^l;\mathbf{C}^l;\mathbf{b}^l; \mathbf{d}^l\right]}\right\}
+\mathcal{U} = \left\{\left[\mathbf{A};\mathbf{C};\mathbf{b};\mathbf{d}\right] = \left[\mathbf{A}^0;\mathbf{C}^0;\mathbf{b}^0\;\mathbf{d}^0 \right] +
+\textstyle{\sum_{l=1}^{L}\zeta_l\left[\mathbf{A}^l;\mathbf{C}^l;\mathbf{b}^l; \mathbf{d}^l\right]}\right\}
 \label{Data}
 \end{equation}
 where $\mathbf{A}^0$, $\mathbf{C}^0$, $\mathbf{b}^0$, and $\mathbf{d}^0$ are the nominal exponents and coefficients,
@@ -68,11 +69,11 @@ As aforementioned, our goal is a formulation that is immune to
 uncertainty in the data. Accordingly, the robust counterpart
 of the uncertain \gls{sp} in \eqref{SP_exponential} is:
 \begin{equation}
-\begin{aligned}
-& \min &&f_0\left(\mathbf{x}\right)\\
-& \text{subject to} &&\max_{\mathbf{\zeta} \in \mathcal{Z}} \left\{\textstyle{\sum}_{k=1}^{K_i}e^{\mathbf{a_{ik}}\left(\zeta\right)\mathbf{x} + b_{ik}\left(\zeta\right)} - \textstyle{\sum}_{k=1}^{G_i}e^{\mathbf{c_{ik}}\left(\zeta\right)\mathbf{x} + d_{ik}\left(\zeta\right)}\right\} &&\leq 1 &&\forall i \in 1,...,m\\
-\end{aligned}
-\label{SP_counterparts_finite}
+    \label{SP_counterparts_finite}
+    \begin{split}
+        \min & f_0\left(\mathbf{x}\right)\\
+        \text{subject to} &\max_{\mathbf{\zeta} \in \mathcal{Z}} \left\{\textstyle{\sum}_{k=1}^{K_i}e^{\mathbf{a_{ik}}\left(\zeta\right)\mathbf{x} + b_{ik}\left(\zeta\right)} - \textstyle{\sum}_{k=1}^{G_i}e^{\mathbf{c_{ik}}\left(\zeta\right)\mathbf{x} + d_{ik}\left(\zeta\right)}\right\} \leq 1 \forall i \in 1,...,m\\
+    \end{split}
 \end{equation}
 
 The optimization problem in \eqref{SP_counterparts_finite} is intractable using current solvers,

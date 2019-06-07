@@ -6,26 +6,27 @@ Given a general optimization problem under parametric uncertainty, we define the
 realizations of uncertain vector of parameters $u$ in the uncertainty set $\mathcal{U}$. This
 allows us to define the problem under uncertainty below.
 \begin{align*}
-    \text{min} &~f_0(x) \\
-    \text{s.t.}     &~f_i(x,u) \leq 0,~\forall u \in \mathcal{U},~i = 1,\ldots,n
+    \text{min} &~~f_0(x) \\
+    \text{s.t.}     &~~f_i(x,u) \leq 0,~\forall u \in \mathcal{U},~i = 1,\ldots,n
 \end{align*}
 This problem is infinite-dimensional, since it is possible to formulate an infinite number of constraints
 with the countably infinite number of possible realizations of $u \in \mathcal{U}$. To circumvent this issue,
 we can define the following robust formulation of the uncertain problem below.
 \begin{align*}
-    \text{min} &~f_0(x) \\
-    \text{s.t.}     &~\underset{u \in \mathcal{U}}{\text{max}}~f_i(x,u) \leq 0,~i = 1,\ldots,n
+    \text{min} &~~f_0(x) \\
+    \text{s.t.}     &~~\underset{u \in \mathcal{U}}{\text{max}}~f_i(x,u) \leq 0,~i = 1,\ldots,n
 \end{align*}
 This formulation hedges against the worst-case realization of the uncertainty in the defined uncertainty
 set. The set is often described by a norm, which contains possible uncertain outcomes from distributions with
 bounded support
+
 \begin{equation}
-\begin{aligned}
-    \text{min} &~f_0(x) \\
-    \text{s.t.}     &~\underset{u}{\text{max}}~f_i(x,u) \leq 0,~i = 1,\ldots,n
-                    &~\left\lVert u \right\rVert \leq \Gamma \\
-\end{aligned}
-        \label{eq:normform}
+    \begin{split}
+        \text{min} &~~f_0(x) \\
+    \text{s.t.}     &~~\underset{u}{\text{max}}~f_i(x,u) \leq 0,~i = 1,\ldots,n \\
+                    &~~\left\lVert u \right\rVert \leq \Gamma \\
+        \end{split}
+    \label{eq:normform}
 \end{equation}
 where $\Gamma$ is defined by the user as a global uncertainty bound. The larger the $\Gamma$,
 the greater the size of the uncertainty set that is protected against.
@@ -34,12 +35,12 @@ the greater the size of the uncertainty set that is protected against.
 
 A \emph{geometric program in posynomial form} is a log-convex optimization problem of the form:
 \begin{equation}
-\begin{aligned}
-	& \text{min} && f_0 \left(\mathbf{u}\right) \\
-	& \text{s.t.} && f_i \left(\mathbf{u}\right) \leq 1, i = 1,...,m_p\\
-	& && h_i \left(\mathbf{u}\right) = 1, i = 1, ...,m_e
-\end{aligned}
-\label{GP_standard}
+    \label{GP_standard}
+	\begin{split}
+ \text{min} &~~f_0 \left(\mathbf{u}\right) \\
+ \text{s.t.} &~~f_i \left(\mathbf{u}\right) \leq 1, i = 1,\ldots,m_p \\
+ &~~h_i \left(\mathbf{u}\right) = 1, i = 1,\ldots,m_e
+\end{split}
 \end{equation}
 where each $f_i$ is a {\em posynomial}, each $h_i$ is a {\em monomial}, $m_p$ is the number of posynomials,
 and $m_e$ is the number of monomials. A monomial $h(\mathbf{u})$ is a function of the form:
@@ -84,12 +85,12 @@ inequalities} is a more significant barrier, and motivates the introduction of s
 A {\em signomial} can be defined as the difference of two posynomials. Consequently,
 a \gls{sp} is a non-log-convex optimization problem of the form:
 \begin{equation}
-\begin{aligned}
-&\text{minimize } && f_{0}(\mathbf{x}) \\
-&\text{subject to } && f_{i}(\mathbf{x}) - g_{i}(\mathbf{x})& \leq 0, i = 1, ...., m \\
-\end{aligned}
+    \begin{split}
+\text{minimize } &~~f_{0}(\mathbf{x}) \\
+\text{s.t.} &~~f_{i}(\mathbf{x}) - g_{i}(\mathbf{x}) \leq 0, i = 1,\ldots, m \\
+\end{split}
 \end{equation}
-where $f_{i}$ and $g_{i}$ are both posynomials, and $\mathbf{x}$ is a column vector in $\mathbb{R}^n$. 
+where $f_{i}$ and $g_{i}$ are both posynomials, and $\mathbf{x}$ is a column vector in $\mathbb{R}^n$.
 
 Reliably solving a \gls{sp} to a local optimum has been described in \cite{Boyd2007} and \cite{Lipp2016}.
 A common solution heuristic involves solving a \gls{sp} as a sequence of \gls{gp}s,

@@ -334,10 +334,10 @@ willing to tolerate. However, minimizing risk can also be the objective of our
 model. This would suggest the following formulation:
 \begin{equation}
     \begin{split}
-    \text{max} &~\Gamma \\
-    \text{s.t.}     &~f_i(x,u) \leq 0,~i = 1,\ldots,n \\
-                    & \left\lVert u \right\rVert \leq \Gamma \\
-                    &~f_0(x) \leq (1+\delta)f_0^*,~\delta \geq 0
+    \text{max}~~\Gamma \\
+    \text{s.t.}~~f_i(x,u) &\leq 0,~i = 1,\ldots,n \\
+                    \left\lVert u \right\rVert &\leq \Gamma \\
+                    f_0(x) &\leq (1+\delta)f_0^*,~\delta \geq 0
     \end{split}
     \label{eq:goalprogramming}
 \end{equation}

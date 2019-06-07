@@ -9,52 +9,50 @@ Consider the system of linear constraints
     \mathbb{A}\mathbf{x} + \mathbf{b} \leq 0
 \end{equation*}
 where
-\begin{equation*}
-\begin{aligned}
-\mathbb{A} &\text{ is $m \times n$}\\
-\mathbf{x} &\text{ is $n \times 1$}\\
-\mathbf{b} &\text{ is $m \times 1$}\\
-\end{aligned}
-\end{equation*}
+\begin{align*}
+    \mathbb{A} &\text{ is $m \times n$}\\
+    \mathbf{x} &\text{ is $n \times 1$}\\
+    \mathbf{b} &\text{ is $m \times 1$}\\
+\end{align*}
 where the uncertain data is contained in a set defined by equations \eqref{Data} and \eqref{perturbation_set}.
 
 \subsubsection{Box Uncertainty Set}
 If the perturbation set $\mathcal{Z}$ given in equation \eqref{perturbation_set} is a box
 uncertainty set, i.e. $\|\mathbf{\zeta}\|_{\infty} \leq \Gamma$, then the robust formulation of the $i$th constraint is equivalent to
 \begin{equation}
-\Gamma \textstyle{\sum}_{l=1}^L |- {b}^l_{i} - \mathbf{a}^l_i\mathbf{x}| + \mathbf{a}^0_i\mathbf{x} + b^0_i \leq 0
-\label{box_absolute}
+    \Gamma \textstyle{\sum}_{l=1}^L |- {b}^l_{i} - \mathbf{a}^l_i\mathbf{x}| + \mathbf{a}^0_i\mathbf{x} + b^0_i \leq 0
+    \label{box_absolute}
 \end{equation}
 If only $b$ is uncertain, i.e. $A^l = 0,~\forall l = 1,2,...,L$, then equation \eqref{box_absolute} becomes
 \begin{equation}
-\textstyle{\sum}_{l=1}^L \mathbf{a}^0_{i}\mathbf{x} + b^0_{i} + \Gamma \textstyle{\sum}_{l=1}^L |b^l_{i}| \leq 0
-\label{box_coeff}
+    \textstyle{\sum}_{l=1}^L \mathbf{a}^0_{i}\mathbf{x} + b^0_{i} + \Gamma \textstyle{\sum}_{l=1}^L |b^l_{i}| \leq 0
+    \label{box_coeff}
 \end{equation}
 which is a linear constraint.
 
 On the other hand, if $A$ is uncertain, the equation \eqref{box_absolute} is equivalent to the following set of linear constraints
 \begin{equation}
-\begin{aligned}
-\Gamma \textstyle{\sum}_{l=1}^L w^l_{i} + \mathbf{a}^0_{i}\mathbf{x} + b^0_{i} &\leq 0\\
-- b^l_{i} - \mathbf{a}^l_{i}\mathbf{x} &\leq w^l_{i} &&\forall l \in 1,...,L\\
-b^l_{i} + \mathbf{a}^l_{i}\mathbf{x} &\leq w^l_{i} &&\forall l \in 1,...,L\\
-\end{aligned}
-\label{box_linear}
+    \label{box_linear}
+    \begin{split}
+        \Gamma \textstyle{\sum}_{l=1}^L w^l_{i} + \mathbf{a}^0_{i}\mathbf{x} + b^0_{i} &\leq 0 \\
+        - b^l_{i} - \mathbf{a}^l_{i}\mathbf{x} &\leq w^l_{i},~\forall l \in 1,...,L\\
+        b^l_{i} + \mathbf{a}^l_{i}\mathbf{x} &\leq w^l_{i},~\forall l \in 1,...,L\\
+    \end{split}
 \end{equation}
 
 \subsubsection{Elliptical Uncertainty Set}
 If the perturbation set $\mathcal{Z}$ is an elliptical, i.e. $\textstyle{\sum}_{l=1}^L\frac{\zeta_l^2}{\sigma_l^2} \leq \Gamma^2$,
 then the robust formulation of the $i^{th}$ constraint is equivalent to
 \begin{equation}
-\Gamma \sqrt{\textstyle{\sum}_{l=1}^L \sigma_l^2(- b^l_{i} - \mathbf{a}^l_{i}\mathbf{x})^2} + \mathbf{a}^0_{i}\mathbf{x} + b^0_{i} \leq 0
-\label{ell_absolute}
+    \Gamma \sqrt{\textstyle{\sum}_{l=1}^L \sigma_l^2(- b^l_{i} - \mathbf{a}^l_{i}\mathbf{x})^2} + \mathbf{a}^0_{i}\mathbf{x} + b^0_{i} \leq 0
+    \label{ell_absolute}
 \end{equation}
 which is a second order conic constraint.
 
 If only $b$ is uncertain, i.e. $\mathbb{A}^l = 0,~\forall l = 1,2,...,L$, then equation \eqref{ell_absolute} becomes
 \begin{equation}
-\textstyle{\sum}_{l=1}^L \mathbf{a}^0_{i}\mathbf{x} + b^0_{i} + \Gamma \sqrt{\textstyle{\sum}_{l=1}^L \sigma_l^2(b^l_{i})^2} \leq 0
-\label{ell_coeff}
+    \textstyle{\sum}_{l=1}^L \mathbf{a}^0_{i}\mathbf{x} + b^0_{i} + \Gamma \sqrt{\textstyle{\sum}_{l=1}^L \sigma_l^2(b^l_{i})^2} \leq 0
+    \label{ell_coeff}
 \end{equation}
 which is a linear constraint.
 
@@ -63,16 +61,16 @@ which is a linear constraint.
 If the perturbation set represented by $\mathcal{Z}$ is a norm-1 uncertainty set, i.e. $\|\mathbf{\zeta}\|_1 \leq \Gamma$,
 then the robust constraint is
 \begin{equation}
-\textstyle{\sum}_{l=1}^L \mathbf{a}^0_{i}\mathbf{x} + b^0_{i} + \Gamma \max_{l=1,..,L} |b^l_{i}| \leq 0
-\label{rom_coeff}
+    \textstyle{\sum}_{l=1}^L \mathbf{a}^0_{i}\mathbf{x} + b^0_{i} + \Gamma \max_{l=1,..,L} |b^l_{i}| \leq 0
+    \label{rom_coeff}
 \end{equation}
-when $\mathbb{A}^l = 0$, and 
+when $\mathbb{A}^l = 0$, and
 \begin{equation}
-\begin{aligned}
-\Gamma w_{i} + \mathbf{a}^0_{i}\mathbf{x} + b^0_{i} &\leq 0\\
-- b^l_{i} - \mathbf{a}^l_{i}\mathbf{x} &\leq w_{i} &&\forall l \in 1,...,L\\
-b^l_{i} + \mathbf{a}^l_{i}\mathbf{x} &\leq w_{i} &&\forall l \in 1,...,L\\
-\end{aligned}
-\label{rom_linear}
+    \begin{split}
+        \Gamma w_{i} + \mathbf{a}^0_{i}\mathbf{x} + b^0_{i} &\leq 0 \\
+        - b^l_{i} - \mathbf{a}^l_{i}\mathbf{x} &\leq w_{i},~\forall l \in 1,...,L\\
+        b^l_{i} + \mathbf{a}^l_{i}\mathbf{x} &\leq w_{i},~\forall l \in 1,...,L\\
+    \end{split}
+    \label{rom_linear}
 \end{equation}
 if $\mathbb{A}^l \neq 0$. Note that for this type of uncertainty, the robust constraints are linear.

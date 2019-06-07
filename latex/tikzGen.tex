@@ -1,0 +1,19 @@
+\documentclass{article}
+\usepackage{tikz}
+
+% set up externalization
+\usetikzlibrary{external}
+\tikzset{external/system call={pdflatex \tikzexternalcheckshellescape -halt-on-error
+-interaction=batchmode -jobname "\image" "\texsource" && % or ;
+pdftops -eps "\image".pdf}}
+%\tikzset{external/system call={pdflatex \tikzexternalcheckshellescape -halt-on-error
+%-interaction=batchmode -jobname "\image" "\texsource" &&
+%dvips -o "\image".ps "\image".dvi &&
+%ps2eps "\image.ps"}}
+\tikzexternalize[shell escape=-enable-write18] % MikTeX uses a -enable-write18 instead of --shell-escape.
+
+\begin{document}
+\begin{tikzpicture}
+\draw (0,0) circle (1cm);
+\end{tikzpicture}
+\end{document}

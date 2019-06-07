@@ -4,11 +4,11 @@ This section presents a brief review of the approximation of an RGP as a
 tractable optimization problem as discussed in~\cite{Saab2018}.
 The robust counterpart of an uncertain geometric program is:
 \begin{equation}
-\begin{aligned}
-& \min &&f_0\left(\mathbf{x}\right)\\
-& \text{subject to} &&\max_{\mathbf{\zeta} \in \mathcal{Z}} \left\{\textstyle{\sum}_{k=1}^{K_i}e^{\mathbf{a_{ik}}\left(\zeta\right)\mathbf{x} + b_{ik}\left(\zeta\right)}\right\} &&\leq 1 &&\forall i \in 1,...,m\\
-\end{aligned}
-\label{GP_counterparts_finite}
+    \begin{split}
+        \min &f_0\left(\mathbf{x}\right)\\
+        \text{subject to} &\max_{\mathbf{\zeta} \in \mathcal{Z}} \left\{\textstyle{\sum}_{k=1}^{K_i}e^{\mathbf{a_{ik}}\left(\zeta\right)\mathbf{x} + b_{ik}\left(\zeta\right)}\right\} \leq 1, ~\forall i \in 1,...,m\\
+    \end{split}
+    \label{GP_counterparts_finite}
 \end{equation}
 which is Co-NP hard in its natural posynomial form \cite{RGPcoNP}. We will present three approximate formulations of a \gls{rgp}.
 
@@ -16,11 +16,11 @@ which is Co-NP hard in its natural posynomial form \cite{RGPcoNP}. We will prese
 One way to approach the intractability in \eqref{GP_counterparts_finite} is to replace each constraint by a tractable approximation.
 Replacing the max-of-sum in \eqref{GP_counterparts_finite} by the sum-of-max will lead to the following formulation.
 \begin{equation}
-\begin{aligned}
-& \min &&f_0\left(\mathbf{x}\right)\\
-& \text{subject to} &&\textstyle{\sum}_{k=1}^{K_i} {\displaystyle \max_{\mathbf{\zeta} \in \mathcal{Z}}} \left\{e^{\mathbf{a_{ik}}\left(\zeta\right)\mathbf{x} + b_{ik}\left(\zeta\right)}\right\} &&\leq 1 &&\forall i \in 1,...,m
-\end{aligned}
-\label{GP_safe_conservative}
+    \begin{split}
+        \min &f_0\left(\mathbf{x}\right)\\
+        \text{subject to} &\textstyle{\sum}_{k=1}^{K_i} {\displaystyle \max_{\mathbf{\zeta} \in \mathcal{Z}}} \left\{e^{\mathbf{a_{ik}}\left(\zeta\right)\mathbf{x} + b_{ik}\left(\zeta\right)}\right\} \leq 1, ~\forall i \in 1,...,m
+    \end{split}
+    \label{GP_safe_conservative}
 \end{equation}
 Maximizing a monomial term is equivalent to maximizing an affine function, therefore \eqref{GP_safe_conservative} is tractable.
 
