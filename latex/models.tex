@@ -60,11 +60,9 @@ engines. Brake specific fuel consumption is modeled as a function of maximum thr
 The fuel models have been detailed in the previous sections, but it is noteworthy that
 the signomial constraint in the optimization appears in the aircraft total fuel volume constraint,
 as shown in Equation~\ref{eq:fuel}:
-
 \begin{equation}
 \label{eq:fuel}
 V_{\mathrm{f}} \leq V_{\mathrm{f_{wing}}} + V_{\mathrm{f_{fuse}}}
 \end{equation}
-
 The signomial constraints makes the problem non-log-convex, which means that the solution methods
 detailed by Saab~\cite{Saab2018} need to be extended to accommodate this optimization problem.
