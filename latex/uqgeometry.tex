@@ -1,0 +1,97 @@
+\documentclass[journal]{new-aiaa}
+
+\input{shared}
+
+\title{Implications of robustness for geometry}
+\author{Berk {\"O}zt{\"u}rk\footnote{PhD Candidate, Department of Aeronautics and Astronautics.}}
+\affil{Massachusetts Institute of Technology, Cambridge, MA, 02139}
+
+\begin{document}
+
+\maketitle
+
+\input{nomenclature}
+
+\printglossary
+
+\section{Mathematical ideas behind robust optimization}
+
+RO is a tractable method for optimization under uncertainty, and specifically under uncertain
+parameters. It optimizes the worst-case objective outcome over uncertainty sets,
+unlike general stochastic optimization methods which optimize statistics of the distribution
+of the objective over probability distributions of uncertain parameters. As such, RO
+sacrifices generality for tractability, probabilistic guarantees and engineering intuition. The following
+descriptions have been paraphrased from~\cite{Ozturk2019}.
+
+Given a general optimization problem under parametric uncertainty, we define the set of possible
+realizations of uncertain vector of parameters $u$ in the uncertainty set $\mathcal{U}$. This
+allows us to define the problem under uncertainty below.
+\begin{align*}
+    \text{min} &~~f_0(x) \\
+    \text{s.t.}     &~~f_i(x,u) \leq 0,~\forall u \in \mathcal{U},~i = 1,\ldots,n
+\end{align*}
+This problem is infinite-dimensional, since it is possible to formulate an infinite number of constraints
+with the countably infinite number of possible realizations of $u \in \mathcal{U}$. To circumvent this issue,
+we can define the following robust formulation of the uncertain problem below.
+\begin{align*}
+    \text{min} &~~f_0(x) \\
+    \text{s.t.}     &~~\underset{u \in \mathcal{U}}{\text{max}}~f_i(x,u) \leq 0,~i = 1,\ldots,n
+\end{align*}
+This formulation hedges against the worst-case realization of the uncertainty in the defined uncertainty
+set. The set is often described by a norm, which contains possible uncertain outcomes from distributions with
+bounded support
+\begin{equation}
+    \begin{split}
+        \text{min} &~~f_0(x) \\
+    \text{s.t.}     &~~\underset{u}{\text{max}}~f_i(x,u) \leq 0,~i = 1,\ldots,n \\
+                    &~~\left\lVert u \right\rVert \leq \Gamma \\
+        \end{split}
+    \label{eq:normform}
+\end{equation}
+where $\Gamma$ is defined by the user as a global uncertainty bound. The larger the $\Gamma$,
+the greater the size of the uncertainty set that is protected against.
+
+\subsection{Clarification of nomenclature}
+
+In the context of optimization, the inputs to a design problem are referred to as parameters,
+and the outputs are the objective and design variables.
+This can be confusing since ESP refers to its driving variables as parameters,
+which are actually the design variables of the original problem.
+Since optimization here is occurring prior to geometry generation,
+I will refer to optimization inputs as parameters, optimization outputs
+as design variables.
+
+\section{Role of sensitivities}
+
+As a result of the primal-dual interior point solution method,
+GPkit returns the sensitivities of the objective function to each parameter.
+
+\begin{equation}
+
+\end{equation}
+
+Note that this is the total derivative, which means that other variables are
+also free to change when the parameter is perturbed.
+
+The partial derivate implies tha
+
+
+\section{Geometric representations of the Jacobian}
+
+The total derivatives of design variables with respect to input parameters
+gives us an idea about the sensitivity of the geometry to perturbations in the parameters.
+Geometry tools (eg. ESP) already have methods to handle the sensitivity of the geometry
+
+\section{Goals}
+
+The goals of this framework will be to:
+\begin{itemize}
+    \item \textbf{}
+\end{itemize}
+
+\bibliographystyle{new-aiaa}
+\bibliography{main}
+
+\end{document}
+
+% - Release $Name:  $ -
