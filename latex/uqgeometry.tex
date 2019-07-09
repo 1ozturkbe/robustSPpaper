@@ -2,7 +2,7 @@
 
 \input{shared}
 
-\title{Implications of robustness for geometry}
+\title{Implications of robustness to uncertainty for design geometry}
 \author{Berk {\"O}zt{\"u}rk\footnote{PhD Candidate, Department of Aeronautics and Astronautics.}}
 \affil{Massachusetts Institute of Technology, Cambridge, MA, 02139}
 
@@ -10,11 +10,84 @@
 
 \maketitle
 
-\input{nomenclature}
+\section*{Nomenclature}
 
+\begin{tabbing}
+  XXXXX \= \kill% this line sets tab stop
+  GP \> geometric program \\
+  MDAO \> multidisciplinary analysis and optimization \\
+  MDO \> multidisciplinary design optimization \\
+  SP \> signomial program \\
+  RGP \> robust geometric program \\
+  RO \> robust optimization \\
+  RSP \> robust signomial program \\
+  SO \> stochastic optimization \\
+  UQ \> uncertainty quantification \\ 
+ \end{tabbing}
 \printglossary
 
-\section{Mathematical ideas behind robust optimization}
+\section{Motivation}
+
+Geometry is a key component of the design process. Most obviously, it translates values of design variables
+through a configuration to allow engineers to visualize and compare designs. But it also
+serves other critical purposes in design, most notably in analysis and manufacturing.
+However, a lot of information is lost between different phases of
+the design process as different tools 
+require varying levels of detail or fidelity. 
+There have been attempts to have a seamless relationship between geometry and design,
+especially through our initiatives to
+create a GPkit-ESP integration. We call this `continuum design', where a single representation
+can serve as a common medium to explain design trade-offs, but can also be used to bring
+high-fidelity analysis tools and manufacturing considerations into the mix.
+
+In parallel to these efforts, we have been developing optimization tools
+that provide designs that are robust to uncertainty in
+problem parameters. Optimization under uncertainty has been underutilized for aerospace
+system design for several reasons. Uncertainty propagation in general \gls{mdao}
+methods, otherwise known as stochastic optimization, is computationally costly and
+generally intractable. This is unfortunately the only form of uncertainty propagation
+available for most conceptual aerospace design tools
+since they have black-box analyses\cite{Yao2011}.
+For design problems with explicit constraints,
+we have proposed robust optimization in a recent paper
+as a tractable alternative to general stochastic methods~\cite{Ozturk2019}.
+Our framework was applied to an aircraft design problem with success, reducing
+the probability of constraint violation of the design.
+
+An interesting next step is to determine what role robustness plays in design geometry.
+We hope to get insight into the degree to which
+geometric sensitivities to design parameters are affected by the size of the uncertainty
+sets we protect against. Searches on Google Scholar on topics such as `uncertain geometry',
+`geometry sensitivity' and `robust geometry' yield no relevant results. As such, we
+will be exploring an uncharted research area that has many potential applications in design.
+
+\section{Background}
+
+\subsection{Why optimization under uncertainty?}
+
+Simply, we want to preserve constraint feasibility under perturbations of uncertain parameters,
+with as little a penalty as possible to objective performance. In other words,
+we want designs that protect against uncertainty least conservatively,
+especially when compared to designs that leverage conventional methods
+of uncertainty protection such as design with margins or multimission design.
+
+Systems designed for the mean value of a parameter are doomed to be
+sensitive to parametric uncertainty. In the simplest
+example of a linear inequality (i.e. a hyperplane) separating the
+feasible and infeasible set of designs, 50\% of designs would be
+infeasible when parameters are perturbed.
+In many dimensions this becomes an even more dismal proposition.
+In an aircraft design example, we have shown that
+designing for nominal values of uncertain parameters yields
+design that are woefully inadequate in their ability to be robust
+to uncertainty, with greater than 90\% probability of constraint
+violation~\cite{Ozturk2019}.
+
+Optimization under uncertainty introduces mathematical
+rigor to design under uncertain parameters, and aims to
+reduce the sensitivity of design performance to uncertain parameters, thereby reducing risk.
+
+\subsection{Mathematical ideas behind robust optimization}
 
 RO is a tractable method for optimization under uncertainty, and specifically under uncertain
 parameters. It optimizes the worst-case objective outcome over uncertainty sets,
@@ -51,42 +124,83 @@ bounded support
 where $\Gamma$ is defined by the user as a global uncertainty bound. The larger the $\Gamma$,
 the greater the size of the uncertainty set that is protected against.
 
-\subsection{Clarification of nomenclature}
+\subsubsection{Clarification of nomenclature}
 
 In the context of optimization, the inputs to a design problem are referred to as parameters,
 and the outputs are the objective and design variables.
 This can be confusing since ESP refers to its driving variables as parameters,
 which are actually the design variables of the original problem.
-Since optimization here is occurring prior to geometry generation,
-I will refer to optimization inputs as parameters, optimization outputs
+In this case, optimization occurs prior to geometry generation,
+so we refer to optimization inputs as parameters, optimization outputs (which drive geometry)
 as design variables.
 
 \section{Role of sensitivities}
 
 As a result of the primal-dual interior point solution method,
-GPkit returns the sensitivities of the objective function to each parameter.
+GPkit returns the sensitivities of the objective function to each parameter, as shown below.
+We use $F$, $x$ and $y$ to denote objectives, optimization parameters and design variables respectively.
 
 \begin{equation}
-
+\begin{split}
+\frac{dF}{dx} &= \frac{\text{fractional change in objective}}{\text{fractional change in design parameter}} \\ 
+\frac{dF}{dy} &= \frac{\text{fractional change in objective}}{\text{fractional change in variable}} = 0 \\ 
+\end{split}
 \end{equation}
 
-Note that this is the total derivative, which means that other variables are
-also free to change when the parameter is perturbed.
+The objective sensitivities to parameters are important since they signal
+how much parameters affect the performance of the design relative to each other.
+Since the solution of a \gls{gp} or \gls{sp} is at least locally optimal,
+we expect that the variable sensitivity is 0. Note that the above are total derivatives.
+$\frac{dF}{dx}$ means that other variables are free to change when the parameter is perturbed.
+The partial derivative $\frac{\partial F}{\partial x}$ implies that other variables are fixed when the parameter is perturbed. 
 
-The partial derivate implies tha
 
+\subsection{The Jacobian}
 
-\section{Geometric representations of the Jacobian}
+The total derivative of the objective w.r.t. parameters gives us the sensitivity of performance,
+but not of geometry. To be able to determine the effects of parameters on some aspect of geometry,
+such as OML, we require the matrix of total derivatives of design variables with respect to input parameters,
+called the Jacobian. We paraphrase \cite{Martins2013} below to explain
+the process of obtaining the Jacobian from total derivatives of the objective. 
 
-The total derivatives of design variables with respect to input parameters
-gives us an idea about the sensitivity of the geometry to perturbations in the parameters.
-Geometry tools (eg. ESP) already have methods to handle the sensitivity of the geometry
+\begin{equation}
+\begin{split}
+\frac{dF}{dx} &= \frac{\partial F}{\partial x} + \frac{\partial F}{\partial y} \frac{dy}{dx}  \\ 
+\frac{dr}{dx} &= \frac{\partial R}{\partial x} + \frac{\partial R}{\partial y} \frac{dy}{dx} = 0
+\end{split}
+\end{equation}
+
+The first equation above is simply a statement of the chain rule for 
+the total derivative. The second equation
+explores the idea that the total derivatives of the residuals of the optimization must be zero under small
+perturbations of the parameters, meaning that the constraints must be satisfied.
+We can rewrite this in the following format:
+
+\begin{equation}
+\frac{dy}{dx} = - \Big[\frac{\partial R}{\partial y} \Big]^{-1} \Big[ \frac{\partial R}{\partial x} \Big] 
+\end{equation}
+
+Given the solution of
+our optimization problem, we can analytically compute the partial derivatives $\frac{\partial R}{\partial y}$
+and $\frac{\partial R}{\partial x}$.
+Geometry tools (eg. ESP) already have methods to handle the sensitivity of the geometry to design variables,
+but these are not yet coupled to optimization tools like GPkit. By coupling the Jacobian of variable sensitivities
+to parameters from GPkit with geometry sensitivities to design variables in ESP, we can hope to map how
+robustness considerations affect geometry. 
 
 \section{Goals}
 
 The goals of this framework will be to:
 \begin{itemize}
-    \item \textbf{}
+    \item \textbf{Determine the Jacobian of a solved \gls{gp}:}
+                This will help us understand the local behavior
+                of the design variables with respect to the input parameters.
+    \item \textbf{Map variable sensitivities from the Jacobian to geometry for a sample problem:}
+                For an aircraft design problem under zero uncertainty, we hope to be able to
+                go from variables to geometry, and then map sensitivities onto the boundary representation.
+    \item \textbf{Evaluate effect of robustness on geometry sensitivities:}
+                Using the mapping, we hope to see how optimization under uncertainty
+                helps reduce geometry sensitivity to design parameters. 
 \end{itemize}
 
 \bibliographystyle{new-aiaa}
