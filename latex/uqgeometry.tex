@@ -175,10 +175,20 @@ the total derivative. The second equation
 explores the idea that the total derivatives of the residuals of the optimization must be zero under small
 perturbations of the parameters, meaning that the constraints must be satisfied.
 We can rewrite this in the following format:
-
 \begin{equation}
 \frac{dy}{dx} = - \Big[\frac{\partial R}{\partial y} \Big]^{-1} \Big[ \frac{\partial R}{\partial x} \Big] 
 \end{equation}
+
+The adjoint analytic method from Gray et. al 
+shows that one linear solve is required per objective and constraint variable. 
+\begin{equation}
+\begin{split}
+\frac{dF}{dx} &= \frac{\partial F}{\partial x} + \Psi^T\Big[\frac{\partial R}{\partial x}\Big] \\ 
+\Psi &= - \Big[\frac{\partial R}{\partial y}^T \Big]^{-1} \Big[\frac{\partial F}{\partial y}^T\Big]
+\end{split}
+\end{equation}
+
+This means, for a given GP with $m$ parameters and $n$ variables, $m+n$ GP solves are required to generate the partial derivatives of the objective with respect to the parameters and variables, and then obtain the Jacobian. 
 
 Given the solution of
 our optimization problem, we can analytically compute the partial derivatives $\frac{\partial R}{\partial y}$
