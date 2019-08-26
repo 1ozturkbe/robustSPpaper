@@ -1,3 +1,6 @@
+from __future__ import division
+from builtins import zip
+from builtins import range
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.path as mpath
@@ -38,7 +41,7 @@ def SimPleAC_draw(sol, color='blue', directory=None, name=None):
             path_data.append((Path.CLOSEPOLY, wingCoords[i]))
         else:
             path_data.append((Path.LINETO, wingCoords[i]))
-    codes, verts = zip(*path_data)
+    codes, verts = list(zip(*path_data))
     path = mpath.Path(verts, codes)
     patch = mpatches.PathPatch(path)
     patches.append(patch)

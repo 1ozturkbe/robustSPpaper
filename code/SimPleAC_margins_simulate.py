@@ -1,3 +1,8 @@
+from __future__ import print_function
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
+from builtins import range
 import numpy as np
 from SimPleAC_setup import SimPleAC_setup
 from SimPleAC_save import save_obj
@@ -6,7 +11,7 @@ from gpkit import Model
 
 from SimPleAC_pof_simulate import pof_parameters
 from robust.simulations.simulate import RobustGPTools
-import cPickle as pickle
+import pickle as pickle
 
 if __name__ == '__main__':
     [model, methods, gammas, number_of_iterations,
@@ -20,7 +25,7 @@ if __name__ == '__main__':
         directly_uncertain_vars_subs = pickle.load(pickle_in)
         pickle_in.close()
     except:
-        print 'Warning: Please run pof_simulate first for consistent MC results.'
+        print('Warning: Please run pof_simulate first for consistent MC results.')
 
 
     nGammas = len(gammas)
@@ -28,9 +33,9 @@ if __name__ == '__main__':
     simulation_results = {}
     number_of_constraints = {}
     for i in range(nGammas):
-        print i
+        print(i)
         margin_subs = {k: v + gammas[i]*np.sign(mag(nominal_solution['sensitivities']['constants'](k.key)))*k.key.pr * v / 100.0
-                                     for k, v in model.substitutions.items()
+                                     for k, v in list(model.substitutions.items())
                                      if k in model.varkeys and RobustGPTools.is_directly_uncertain(k)}
 
         mm = Model(model.cost, model)
@@ -42,10 +47,10 @@ if __name__ == '__main__':
             number_of_constraints[gammas[i]] = len([cnstrnt for cnstrnt in mm.flat(constraintsets=False)])
         except AttributeError:
             number_of_constraints[gammas[i]] = len([cnstrnt for cnstrnt in mm[-1].flat(constraintsets=False)])
-        print simulation_results[gammas[i]]
+        print(simulation_results[gammas[i]])
 
     # Saving results
-    for i,v in solutions.iteritems():
+    for i,v in solutions.items():
         v.save('marginResults/'+ str(i))
     save_obj(number_of_constraints, 'marginnumber_of_constraints', 'marginResults')
     save_obj(simulation_results, 'marginsimulation_results', 'marginResults')

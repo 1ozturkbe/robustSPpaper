@@ -1,3 +1,4 @@
+from __future__ import division
 from SimPleAC_setup import *
 from gpkit import units
 from gpkit.small_scripts import mag
@@ -27,14 +28,14 @@ def generate_flight_envelope(m, var1, var2, var1range, rm = None, rmsol = None):
     :return: nominal sweep solution, robust sweep solution
     """
     dm = RobustGPTools.DesignedModel(m, m.solution, {})
-    if var2.key in m.substitutions.keys():
+    if var2.key in list(m.substitutions.keys()):
         del dm.substitutions[var2.key]
     dm.cost = 1/var2 #*var2.units*dm.cost.units #dm.cost/var2 #
     dm.substitutions.update({var1.key:('sweep',var1range)})
     sol = dm.localsolve(skipsweepfailures=True)
     if rm:
         drm = RobustGPTools.DesignedModel(m, rmsol, {})
-        if var2.key in rm.substitutions.keys():
+        if var2.key in list(rm.substitutions.keys()):
             del drm.substitutions[var2.key]
         drm.cost = 1/var2 #drm.cost + 1/var2*var2.units*drm.cost.units #drm.cost/var2
         drm.substitutions.update({var1.key:('sweep',var1range)})

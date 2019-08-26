@@ -1,10 +1,15 @@
+from __future__ import print_function
+from __future__ import division
 
-import numpy as np
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
+from builtins import range
 from robust.simulations.simulate import plot_gamma_result_PoFandCost
 from robust.simulations.simulate import filter_gamma_result_dict, generate_model_properties
 from robust.simulations.read_simulation_data import generate_comparison_plots
 from SimPleAC_save import load_obj
-import cPickle as pickle
+import pickle as pickle
 from gpkit.small_scripts import mag
 from SimPleAC_pof_simulate import pof_parameters
 from SimPleAC_draw import SimPleAC_draw
@@ -35,8 +40,8 @@ if __name__ == '__main__':
     title = ''
     for i in range(len(methods)):
         for j in range(len(uncertainty_sets)):
-            print "Method: " + methods[i]['name']
-            print "Uncertainty Set: " + uncertainty_sets[j]
+            print("Method: " + methods[i]['name'])
+            print("Uncertainty Set: " + uncertainty_sets[j])
             filteredResult = filter_gamma_result_dict(gamma['solutions'], 1, methods[i]['name'], 2, uncertainty_sets[j])
             filteredSimulations = filter_gamma_result_dict(gamma['simulation_results'], 1, methods[i]['name'], 2, uncertainty_sets[j])
             uncertainty_set = uncertainty_sets[j]
@@ -47,17 +52,17 @@ if __name__ == '__main__':
         gammaVal = 1.0
         filteredSolutions = filter_gamma_result_dict(gamma['solutions'], 0, gammaVal, 2, uncertainty_set)
         filteredsetup_times = {}
-        for i in filteredSolutions.iterkeys():
+        for i in filteredSolutions.keys():
             filteredsetup_times[i] = filteredSolutions[i]['setuptime']
         filteredSimulations =  filter_gamma_result_dict(gamma['simulation_results'], 0, gammaVal, 2, uncertainty_set)
         filteredsolve_times = filter_gamma_result_dict(gamma['solve_times'], 0, gammaVal, 2, uncertainty_set)
         filteredCosts = {i:v[1]/nominal_solution['cost'] for i,v in filteredSimulations.iteritems()}
         filteredn_of_constr = filter_gamma_result_dict(gamma['number_of_constraints'], 0, gammaVal, 2, uncertainty_set)
 
-        relative_objective_values = [mag(v) for i,v in sorted(filteredCosts.iteritems())]
-        relative_number_of_constraints = [v/nominal_number_of_constraints for i,v in sorted(filteredn_of_constr.iteritems())]
-        relative_setup_times = [v/nominal_solve_time for i,v in sorted(filteredsetup_times.iteritems())]
-        relative_solve_times = [v/nominal_solve_time for i,v in sorted(filteredsolve_times.iteritems())]
+        relative_objective_values = [mag(v) for i,v in sorted(filteredCosts.items())]
+        relative_number_of_constraints = [v/nominal_number_of_constraints for i,v in sorted(filteredn_of_constr.items())]
+        relative_setup_times = [v/nominal_solve_time for i,v in sorted(filteredsetup_times.items())]
+        relative_solve_times = [v/nominal_solve_time for i,v in sorted(filteredsolve_times.items())]
 
         generate_comparison_plots(relative_objective_values, objective_name, relative_number_of_constraints,
                                   relative_setup_times, relative_solve_times, uncertainty_set, [method['name'] for method in methods])
@@ -65,7 +70,7 @@ if __name__ == '__main__':
     # Saving sketches of aircraft for Best Pairs, elliptical uncertainty
     filteredSolutions = filter_gamma_result_dict(gamma['solutions'], 1, 'Best Pairs', 2, 'elliptical')
     count = int(0)
-    for i, v in sorted(filteredSolutions.iteritems()):
+    for i, v in sorted(filteredSolutions.items()):
         SimPleAC_draw(v, color='blue', directory = 'gammaResults/', name='pof'+str(count))
         count+=1
 

@@ -1,5 +1,11 @@
+from __future__ import print_function
+from __future__ import division
 # This script implements a goal programming approach with SimPleAC
 
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
+from builtins import range
 from SimPleAC_setup import SimPleAC_setup
 from gpkit import units, Model, Variable, Monomial
 from gpkit.small_scripts import mag
@@ -14,7 +20,7 @@ import matplotlib.pyplot as plt
 from SimPleAC_save import save_obj, load_obj
 from SimPleAC_pof_simulate import pof_parameters
 from SimPleAC_draw import SimPleAC_draw
-import cPickle as pickle
+import pickle as pickle
 
 if __name__ == "__main__":
     """
@@ -51,7 +57,7 @@ if __name__ == "__main__":
         directly_uncertain_vars_subs = pickle.load(pickle_in)
         pickle_in.close()
     except:
-        print 'Warning: Please run pof_simulate first for consistent MC results.'
+        print('Warning: Please run pof_simulate first for consistent MC results.')
 
     # Goal programming (risk minimization) setup
     deltas = []
@@ -71,7 +77,7 @@ if __name__ == "__main__":
                                              uncertainty_sets, nominal_solution, directly_uncertain_vars_subs, parallel=False)
 
     # # Saving goal programming results
-    for i,v in delta['solutions'].iteritems():
+    for i,v in delta['solutions'].items():
         v.save('goalResults/'+ str(i))
     save_obj(delta['solve_times'], 'deltasolve_times' + uncertainty_sets[0], 'goalResults')
     save_obj(delta['simulation_results'], 'deltasimulation_results' + uncertainty_sets[0], 'goalResults')
@@ -80,11 +86,11 @@ if __name__ == "__main__":
 
     # Plotting gamma vs delta solutions
     count = 0
-    for i,v in sorted(gamma['solutions'].iteritems()):
+    for i,v in sorted(gamma['solutions'].items()):
         SimPleAC_draw(v, color='blue', directory = 'goalResults/gammaShape', name='gamma'+uncertainty_sets[0]+str(count))
         count += 1
     count = offset
-    for i,v in sorted(delta['solutions'].iteritems()):
+    for i,v in sorted(delta['solutions'].items()):
         SimPleAC_draw(v, color='orange', directory = 'goalResults/deltaShape', name='delta'+uncertainty_sets[0]+str(count))
         count += 1
 

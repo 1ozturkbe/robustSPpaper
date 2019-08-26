@@ -1,11 +1,15 @@
 # This script implements a goal programming approach with SimPleAC
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
+from builtins import range
 from robust.simulations.simulate import plot_goal_result_PoFandCost
 from robust.simulations.simulate import filter_gamma_result_dict
 
 import numpy as np
 from SimPleAC_save import save_obj, load_obj
 from SimPleAC_pof_simulate import pof_parameters
-import cPickle as pickle
+import pickle as pickle
 
 if __name__ == "__main__":
     # Retrieving pof parameters

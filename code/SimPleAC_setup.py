@@ -1,3 +1,4 @@
+from __future__ import print_function
 from gpkitmodels.SP.SimPleAC.SimPleAC_mission import Mission, SimPleAC
 from gpkit import Model, units
 
@@ -20,5 +21,5 @@ def SimPleAC_setup():
 if __name__ == "__main__":
     m, subs = SimPleAC_setup()
     sol = m.localsolve()
-    print sol.table()
+    print(sol.table())
 

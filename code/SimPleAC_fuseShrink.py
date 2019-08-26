@@ -1,3 +1,5 @@
+from __future__ import division
+from builtins import str
 from gpkit import Variable, Model, SignomialsEnabled, units
 from gpkit.small_scripts import mag
 
@@ -44,7 +46,7 @@ if __name__ == '__main__':
 
 
     # Saving results
-    for i,v in solutions.iteritems():
+    for i,v in solutions.items():
         v.save('fuseResults/'+ str(i))
     save_obj(solve_times, 'fusesolve_times', 'fuseResults')
     save_obj(simulation_results, 'fusesimulation_results', 'fuseResults')
@@ -58,9 +60,9 @@ if __name__ == '__main__':
     plot_gamma_result_PoFandCost(title, objective_name, objective_units, solutions, simulation_results)
 
     # Plotting fuel vs. time cost
-    fuelCost = np.array([mag(v(model['W_{f_m}'])) for i,v in sorted(solutions.iteritems())])
-    timeCost = np.array([mag(v(model['C_m']*model['t_m'])) for i,v in sorted(solutions.iteritems())])
-    timeSens = np.array([mag(v['sensitivities']['constants'][model['C_m']]) for i,v in sorted(solutions.iteritems())])
+    fuelCost = np.array([mag(v(model['W_{f_m}'])) for i,v in sorted(solutions.items())])
+    timeCost = np.array([mag(v(model['C_m']*model['t_m'])) for i,v in sorted(solutions.items())])
+    timeSens = np.array([mag(v['sensitivities']['constants'][model['C_m']]) for i,v in sorted(solutions.items())])
     fig, ax1 = plt.subplots()
     ax1.set_xlabel(r'Size of uncertainty set, $\Gamma$', size='large')
     ax1.set_ylabel(r'Ratio of time to fuel cost, $c_t / c_f$', color='b', size='large')
@@ -72,6 +74,6 @@ if __name__ == '__main__':
 
     # Saving sketches of aircraft
     count = int(0)
-    for i, v in sorted(solutions.iteritems()):
+    for i, v in sorted(solutions.items()):
         SimPleAC_draw(v, color='blue', directory = 'fuseResults/', name='fuse'+str(count))
         count+=1

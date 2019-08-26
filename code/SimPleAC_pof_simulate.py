@@ -1,8 +1,11 @@
+from future import standard_library
+standard_library.install_aliases()
+from builtins import str
 import numpy as np
 from robust.simulations import simulate
 from SimPleAC_setup import SimPleAC_setup
 from SimPleAC_save import save_obj
-import cPickle as pickle
+import pickle as pickle
 
 def pof_parameters():
     model, subs = SimPleAC_setup()
@@ -43,7 +46,7 @@ if __name__ == '__main__':
                                              uncertainty_sets, nominal_solution, directly_uncertain_vars_subs, parallel=parallel)
 
     # Saving results
-    for i,v in solutions.iteritems():
+    for i,v in solutions.items():
         v.save('gammaResults/'+ str(i))
     save_obj(solve_times, 'gammasolve_times', 'gammaResults')
     save_obj(simulation_results, 'gammasimulation_results', 'gammaResults')

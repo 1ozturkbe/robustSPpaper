@@ -1,3 +1,4 @@
+from __future__ import print_function
 from SimPleAC_setup import SimPleAC_setup
 
 from gpkit import Model
@@ -11,7 +12,7 @@ class fixedModel(Model):
             if model[i].key.fix == True:
                 fixsubs.update({i:sol(i)})
         if not fixsubs:
-            print "Warning: no variables were fixed."
+            print("Warning: no variables were fixed.")
         newModel = Model(model.cost, model, model.substitutions)
         newModel.substitutions.update(fixsubs)
         newModel.fixsubs = fixsubs
@@ -23,4 +24,4 @@ if __name__ == "__main__":
     m, subs = SimPleAC_setup()
     sol = m.localsolve()
     f = fixedModel(m,sol)
-    print f.substitutions
+    print(f.substitutions)

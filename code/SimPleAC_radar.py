@@ -1,3 +1,9 @@
+from __future__ import print_function
+from __future__ import division
+from builtins import zip
+from builtins import str
+from builtins import range
+from past.utils import old_div
 from SimPleAC_setup import SimPleAC_setup
 from gpkit import units, Model
 from gpkit.constraints.bounded import Bounded
@@ -40,7 +46,7 @@ def gen_SimPleAC_radar(marray, objectives, keyOrder, baseobj):
         theta = radar_factory(N, frame='polygon')
         spoke_labels = data.pop(0)
 
-        fig, axes = plt.subplots(figsize=(N,N), nrows=int(ceil(float(N)/2.)), ncols=2,
+        fig, axes = plt.subplots(figsize=(N,N), nrows=int(ceil(N/2.)), ncols=2,
                                  subplot_kw=dict(projection='radar'))
         fig.subplots_adjust(wspace=0.10, hspace=0.3, top=0.8, bottom=0.05)
 
@@ -50,7 +56,7 @@ def gen_SimPleAC_radar(marray, objectives, keyOrder, baseobj):
             ax.set_title(title, weight='bold', size='x-large', position=(0.5, 1.1),
                          horizontalalignment='center', verticalalignment='center')
             for d, color in zip(case_data, colors):
-                print d/maxesindata
+                print(d/maxesindata)
                 ax.plot(theta, d/maxesindata, color=color)
                 ax.fill(theta, d/maxesindata, facecolor=color, alpha=0.25)
             ax.set_varlabels(spoke_labels)

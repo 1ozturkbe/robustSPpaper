@@ -1,3 +1,5 @@
+from __future__ import print_function
+from builtins import str
 from SimPleAC_setup import SimPleAC_setup
 from gpkit import Model
 from robust.robust import RobustModel
@@ -44,17 +46,17 @@ if __name__ == "__main__":
 
     for i in ['L/D', 'A', 'Re', 'S', 'V', 't_s', 'W_w', 'W_{w_{strc}}', 'W_{w_{surf}}',
               'W_{fuse}','V_{f_{avail}}', 'V_{f_{fuse}}', 'V_{f_{wing}}']:
-        print i + " "
+        print(i + " ")
         if i in ['L/D', 'Re', 'V']:
             a = [mag(np.mean(s(i))) for s in soltab]
         elif i in [ 't_s']:
             a = [mag(np.sum(s(i))) for s in soltab]
         else:
             a = [mag(s(i))  for s in soltab]
-        print ["& " + str(round_sig(j,3)) for j in a]
-    print ['cost']
+        print(["& " + str(round_sig(j,3)) for j in a])
+    print(['cost'])
     for i in soltab:
-        print i['cost']
+        print(i['cost'])
 
     colors = ['blue', 'orange', 'red', 'green']
     labels = ['nominal', 'margins', 'box', 'elliptical']
