@@ -56,7 +56,6 @@ class SimPleACP(Model):
                     C_D >= self.fuseP['C_{D_{fuse}}'] + self.wingP['C_{D_{wpar}}'] + self.wingP['C_{D_{ind}}'],
                     D >= 0.5 * state['\\rho'] * self.aircraft['S'] * C_D * V ** 2,
                     self.wingP['Re'] == (state['\\rho'] / state['\\mu']) * V * (self.aircraft['S'] / self.aircraft['A']) ** 0.5,
-                    self.wingP['C_f'] >= 0.074 / self.wingP['Re'] ** 0.2,
                     self.fuseP['Re_{fuse}'] == state['\\rho']*V*self.aircraft.fuse['l_{fuse}']/state['\\mu'],
                     LoD == self.wingP['C_L'] / C_D]
 
@@ -113,6 +112,7 @@ class Wing(Model):
         N_ult      = Variable("N_{ult}", 3, "-", "ultimate load factor", pr=15.)
         # S_wetratio = Variable("(\\frac{S}{S_{wet}})", "-", "wetted area ratio")
         tau        = Variable("\\tau", "-", "airfoil thickness to chord ratio")
+        tau_ref    = Variable("\\tau_{ref}", 0.12, "-", "reference airfoil thickness to chord ratio")
 
         # Dimensional constants
         W_w_coeff1 = Variable("W_{w_{coeff1}}", 2e-5, "1/m",
@@ -136,10 +136,7 @@ class Wing(Model):
 
       # Wing fuel and form factor model
         constraints += [V_f_wing**2 <= 0.0009*S**3/A*tau**2, # linear with b and tau, quadratic with chord
-                        # S_wetratio >= 1.977 + 0.52*tau, # Raymer, Aircraft Design: A Conceptual Approach
-                        # tau >= 0.05, #tau <= 0.2,
-                        # k >= 1. + 2*tau + 60*tau**4, # Hoerner, Fluid Dynamic Drag
-                        # 0.081*(A**0.68) + e <= 1.14,
+                        tau >= 0.10, tau <= 0.19,
                         ]
 
         # Form factor model
@@ -153,33 +150,23 @@ class WingP(Model):
     def setup(self,wing,state):
         self.wing = wing
         # Free Variables
-        C_f       = Variable("C_f", "-", "skin friction coefficient")
         C_D_ind   = Variable('C_{D_{ind}}', '-', "wing induced drag")
         C_D_wpar  = Variable('C_{D_{wpar}}', '-', 'wing profile drag')
         C_L       = Variable("C_L", "-", "wing lift coefficient")
-        Cl0       = Variable("C_{l,0}", "-","wing lift coefficient at 0 aoa")
         Re        = Variable("Re", "-", "Reynolds number")
-        Re_ref    = Variable("Re_{ref}", 100000, "-", "reference Reynolds number")
-
-        # Parameters
-        Cd0       = Variable("C_{d,0}", 0.020, "-", "drag fit coefficient 0")
-        Cd1       = Variable("C_{d,1}", 0.005, "-", "drag fit coefficient 1")
-        Cd2       = Variable("C_{d,2}", 0.160, "-", "drag fit coefficient 2")
-        Cd8       = Variable("C_{d,8}", 1.000, "-", "drag fit coefficient 8")
-
+        Re_ref    = Variable("Re_{ref}", 1500000, "-", "reference Reynolds number")
 
         constraints = []
 
         # Drag model
-        tau = self.wing["\\tau"]
+        w = C_D_wpar
+        u_1 = C_L
+        u_2 = Re/Re_ref
+        u_3 = self.wing['\\tau']/self.wing['\\tau_{ref}']
         constraints += [C_D_ind == C_L ** 2 / (np.pi * self.wing['A'] * self.wing['e']),
-                        3*tau + Cl0 <= 1.25]
-        with SignomialsEnabled():
-            diff = C_L - Cl0
-            constraints += [C_D_wpar >= (Re/Re_ref)**(-0.75)*
-                        (Cd0*(1+tau**2) - Cd1/(1+6*tau)*diff + Cd2/(1+60*tau)*diff**2 + Cd8*diff**8)]
-
-                        #C_D_wpar == self.wing['k'] * C_f * self.wing["(\\frac{S}{S_{wet}})"]]
+                        w**0.0130619 >= 0.925991 * (u_1)**-0.00680122 * (u_2)**-0.00127553 * (u_3)**-0.00875827 +
+                        0.000783115 * (u_1)**6.9801 * (u_2)**0.00829072 * (u_3)**-0.576542 +
+                        0.00766093 * (u_1)**0.306904 * (u_2)**-0.20342 * (u_3)**1.38062]
 
         return constraints
 

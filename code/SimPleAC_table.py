@@ -16,8 +16,8 @@ def round_sig(x, sig=2):
 
 if __name__ == "__main__":
     m, subs = SimPleAC_setup()
-    # m.cost = m['W_{f_m}']#+m['C_m']*m['t_m']*units('N')
-    m.cost = m['W_{engine}']
+    m.cost = m['W_{f_m}']#+m['C_m']*m['t_m']*units('N')
+    # m.cost = m['W_e']
     sol = m.localsolve(verbosity=2)
 
     methods = [{'name': 'Best Pairs', 'twoTerm': True, 'boyd': False, 'simpleModel': False}]
@@ -45,10 +45,10 @@ if __name__ == "__main__":
     except:
         soltab = [sol, bsol, esol]
 
-    for i in ['L/D', 'A', 'S',  '\\tau', 'Re', 'e', 'V', 't_s', 'W_w', 'W_{w_{strc}}', 'W_{w_{surf}}',
+    for i in ['L/D', 'C_{D_{wpar}}', 'C_{D_{ind}}', 'C_{D_{fuse}}', 'Re', 'V', 't_s', 'A', 'S', '\\tau', 'W_w', 'W_{w_{strc}}', 'W_{w_{surf}}',
               'W_{fuse}','V_{f_{avail}}', 'V_{f_{fuse}}', 'V_{f_{wing}}']:
         print(i + " ")
-        if i in ['L/D', 'Re', 'V']:
+        if i in ['L/D', 'Re', 'V', 'C_{D_{fuse}}', 'C_{D_{wpar}}', 'C_{D_{ind}}']:
             a = [mag(np.mean(s(i))) for s in soltab]
         elif i in [ 't_s']:
             a = [mag(np.sum(s(i))) for s in soltab]
@@ -58,10 +58,6 @@ if __name__ == "__main__":
     print(['cost'])
     for i in soltab:
         print(i['cost'])
-
-    # Debugging
-    for i in soltab:
-        print(i('\\tau'), i('k'), i("(\\frac{S}{S_{wet}})"))
 
     colors = ['blue', 'orange', 'red', 'green']
     labels = ['nominal', 'margins', 'box', 'elliptical']
