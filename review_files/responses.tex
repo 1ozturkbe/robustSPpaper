@@ -87,9 +87,12 @@ To avoid confusion, we have modified "bound" to "size".
 
 \textit{pg. 15, Table 1: In my view, the airfoil thickness ratio would be a design variable.}
 
-We agree with the reviewer, and have converted airfoil thickness to be a design variable, 
-and added an additional constraint to relate airfoil thickness to the wing wetted area and by extension drag. 
-This required changing an example in Section II which explained that margin allocation for wing thickness 
+We agree with the reviewer, and have converted airfoil thickness to be a design variable. 
+This has required the removal of airfoil thickness and wetted area ratio from the uncertain parameters
+and the addition of two constraints to the model. This has significantly improved the model since 
+airfoil thickness now is coupled to all relevant aircraft disciplines: aerodynamics, structures and 
+fuel volume. This also required changing an example in Section II 
+which explained that margin allocation for wing thickness 
 is unintuitive, where air density was used as an example instead. 
 
 \textit{pg. 15: A figure illustrating the types of uncertainty would be useful.}

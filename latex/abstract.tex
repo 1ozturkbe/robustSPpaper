@@ -3,22 +3,27 @@
     and performance can have large sensitivities to uncertain parameters.
     Legacy methods of protecting against uncertainty do not adequately
     explain the trade-offs between feasibility and optimality, and require prior engineering knowledge
-    which may not be available for novel aerospace vehicle concepts. This paper proposes a solution method
+    which may not be available for novel aerospace vehicle concepts. {\color{blue}Furthermore,
+    high-dimensional nonlinear optimization problems such as those in aircraft design
+    are computationally intractable using stochastic optimization methods based on parameter
+    probability distributions.}
+    This paper proposes an efficient solution method
     for engineering design optimization problems under uncertainty using robust signomial programs (RSPs).
-    The method transforms stochastic optimization problems to deterministic problems by considering
-    the worst-case robust counterpart of each design constraint.
-    The formulation leverages an existing approximate robust geometric program (RGP)
-    formulation and extends it by allowing difference-of-log-convex constraints that appear
-    in many design problems. Signomial programs have demonstrated
+    {\color{blue} Signomial programs (SPs) have demonstrated
     potential in the solution of multidisciplinary non-convex optimization problems
-    such as aircraft design, and
-    the formulation of RSPs allows
+    such as aircraft design, and the formulation of RSPs allows
     for conceptual engineering design that captures parametric uncertainty with
-    probabilistic guarantees of design feasibility.
-    The paper details a method based on solving a sequence of RGPs,
-    where each RGP is a local approximation of the RSP. Then it explores
-    the trade-off between robustness and optimality
-    rigorously by implementing RSPs on an unmanned aircraft design problem, and evaluates the effect of robustness
-    requirements on aircraft design decisions.
+    probabilistic guarantees of design feasibility.}
+    The proposed method transforms stochastic optimization problems to deterministic problems by considering
+    the worst-case robust counterpart of each design constraint over a norm uncertainty set,
+    {\color{blue} provided that each constraint is SP-representable}.
+    The RSP formulation leverages an existing approximate robust geometric program (RGP)
+    formulation and extends it by allowing difference-of-log-convex constraints that appear
+    in many design problems.
+    The {\color{blue} RSP is solved efficiently and deterministically using a sequence of local RGP
+    approximations of the RSP}. RSPs are then implemented
+    in an unmanned aircraft design problem, and
+    used to rigorously explore the trade-off between robustness and optimality
+    in aircraft design decisions.
 
 \end{abstract}
