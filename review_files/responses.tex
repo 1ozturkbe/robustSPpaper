@@ -41,23 +41,21 @@ Abstract has been updated to emphasize the caveat: "provided that each constrain
 
 The bullets have been reworded and converted to prose as suggested. 
 
-\textit{pg. 3: The following references use a multimission/multipoint approach that go beyond the naive approach mentioned in the introduction. They are based on probability density functions and/or actual flight data and should be cited:}
+\textit{pg. 3: The following references use a multimission/multipoint approach that go beyond the naive approach mentioned in the introduction. They are based on probability density functions and/or actual flight data and should be cited...}
 
 All three references have been cited and added to the the literature on multimission/multipoint approaches on pg. 3. 
-We have attempted to explain and constrast the approaches in the Gallard and Liem papers
+We have attempted to explain and contrast the approaches in the [Gallard 2013] and [Liem 2015,2017] papers
 with our method. 
 
-\textit{pg. 3: SO and RO are not well defined and their relation is not clear. An example of these two methods in a given application might help.}
+\textit{pg. 3: SO and RO are not well defined and their relation is not clear. 
+An example of these two methods in a given application might help.}
 
-TODO: Perhaps talk about Monte Carlo? Give some examples of 
+On pg. 3, I have  clarified the contexts in which each method is used, 
+and added a figure to illustrate the relationships between the parameter inputs
+and objective functions of each problem. 
 
-Simplest stochastic methods are based on Monte Carlo sampling of known distributions, and applying these to engineering
-constraints with uncertain parameters of known or estimate distributions.
-
-In reality, distributions don't exist. 
-
-
-\textit{pg. 6-7: Let's also call the functions and parameters by their names in the context of optimization to improve clarity: "objective" f0, "constraints" fi, and "design variables" x. And make clear that the uncertain parameters are other parameters that in a deterministic problem would be fixed.}
+\textit{pg. 6-7: Let's also call the functions and parameters by their names in the context of optimization to improve clarity: 
+"objective" f0, "constraints" fi, and "design variables" x. And make clear that the uncertain parameters are other parameters that in a deterministic problem would be fixed.}
 
 I have referred to the functions in the context of optimization as suggested. Furthermore, 
 a clarification has been added to Section II.A to explain the relationship between uncertain parameters and the 
@@ -70,13 +68,15 @@ The oversight has been corrected in all instances of design problem statement in
 \textit{pg. 7: Do you have issues with the max function being discontinuous and causing issues?}
 
 This is not an issue in the particular implementation of the method
-Since the method leverages existing robust linear programming
+Since the method leverages existing robust linear programming (RLP)
 methods, the maximum is a continuous and convex function. 
 In fact, the inner maximization problem can be solved analytically, using conic
 duality and the fact only parameters ($b$'s) in the robust problem are uncertain, 
 as demonstrated by Saab et al. in Appendix A, Equation 29-35 of "Robust Designs via Geometric Programming", 
 cited in the paper.
 It is this fact that allows for the robust optimization problems to be solved deterministically. 
+We did not feel that this insight warranted changes to the manuscript, since 
+Saab et al. elaborate in detail about the RLP approximation of the GP. 
 
 \textit{pg 14: "set bounds on parameters". By "parameters", you mean constraints, right? Be more precise.}
 
@@ -89,7 +89,8 @@ To avoid confusion, we have modified "bound" to "size".
 
 We agree with the reviewer, and have converted airfoil thickness to be a design variable. 
 This has required the removal of airfoil thickness and wetted area ratio from the uncertain parameters
-and the addition of two constraints to the model. This has significantly improved the model since 
+and the addition of two constraints to the model. The model definition has been
+amended to reflect these changes. The modifications have significantly improved the model since 
 airfoil thickness now is coupled to all relevant aircraft disciplines: aerodynamics, structures and 
 fuel volume. This also required changing an example in Section II 
 which explained that margin allocation for wing thickness 

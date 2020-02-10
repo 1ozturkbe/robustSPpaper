@@ -74,7 +74,7 @@ design envelope for robust aircraft design.
 Furthermore, Liem et al. generate probability distributions
 of uncertain parameters and minimize the expectation of an objective function over
 parameter distributions~\cite{Liem2017}. Much like the proposed \gls{rsp} formulation,
-Liem's method converts a stochastic design problem into a deterministic problem
+Liem et al. convert a stochastic design problem into a deterministic problem
 to improve its tractability.
 Although these multi-point methods demonstrate significant improvements over
 legacy design methods in terms of design robustness,
@@ -90,22 +90,56 @@ More notably, they lack rigorous mathematical assessments of design feasibility
 under uncertain parameters.}
 
 There are two rigorous approaches to solving design optimization problems under uncertainty,
-which are \gls{so} and \gls{ro}. Note that stochastic
+which are \gls{so} and \gls{ro}, contrasted in Figure~\ref{fig:approaches} and defined below. Note that stochastic
 optimization is an overloaded term, and exists in at least two contexts in the literature. The first is the solution
 of deterministic problems with stochastic search space exploration. The second is the solution
 of design optimization problems with stochastic parameters, which is the focus of this paper.
-In this context, \gls{so} problems deal with uncertainty by propagating the probability distributions of
-uncertain parameters through the
-physics of a design problem to ensure constraint feasibility with certain probability.
-The predominant goal of \gls{so} is to minimize some characteristics, for example moments or risk measures,
-of the probability density function of the quantity of interest~\cite{Diwekar2008}.
-\gls{ro} takes a different approach, instead choosing to make designs immune to
-uncertainties in parameters as long as the parameter values come from within a defined
-uncertainty set. As such, \gls{ro} avoids the need to propagate entire probability
-distributions by minimizing the worst-case objective outcome of a design for a
-given set over the uncertain parameters.
 
-%TODO: put stochastic vs robust optimization plots.
+{\color{blue}
+
+\begin{figure}
+\begin{center}
+    \begin{subfigure}{.51\textwidth}
+    \centering
+        \includegraphics[width=.8\linewidth]{figures/ouc.PNG}
+    \end{subfigure}
+    \begin{subfigure}{.49\textwidth}
+    \centering
+        \includegraphics[width=.9\linewidth]{figures/so.PNG}
+    \end{subfigure}
+    \begin{subfigure}{.49\textwidth}
+    \centering
+        \includegraphics[width=.9\linewidth]{figures/ro.PNG}
+    \end{subfigure}
+    \caption{\gls{so} and \gls{ro} are methods for optimization under uncertainty that use different definitions
+             of uncertain inputs and produce different objective outcomes.}
+    \label{fig:approaches}
+\end{center}
+\end{figure}
+
+\gls{so} pairs well with gradient-based approaches to solving nonlinear optimization problems
+such as those defined in ~\cite{Gallard2013},~\cite{Liem2015} and ~\cite{Liem2017}.
+These approaches implement an iterative process where
+the objective function and constraints are evaluated over an initial design, and first- and/or
+second-order information are used to converge the design towards a local optimum.
+In this context, \gls{so} problems deal with uncertainty by including
+probability distributions of the uncertain parameters in the iteration, and propagating
+the distributions through the physics of a design problem to ensure constraint feasibility with certain probability.
+The predominant goal of \gls{so} is to optimize some distributional
+characteristics, eg. the mean as in Figure~\ref{fig:approaches},
+of the probability density function of the objective~\cite{Diwekar2008}.
+
+\gls{ro} can only be applied to mathematical programs that have a robust counterpart,
+such as linear, quadratic, semidefinite and geometric programs.
+\gls{ro} takes a different approach than \gls{so} in both the form
+of uncertain inputs and the objective functions. \gls{ro} produces designs that are
+immune to constraint violations as long as the parameter values come from within a defined
+uncertainty set. The objective of \gls{ro} is to optimize the
+the worst-case objective outcome of a design for a
+given set over the uncertain parameters. As such,
+\gls{ro} avoids the need to sample and propagate probability
+distributions, and turns stochastic optimization problems into
+deterministic problems that are efficiently solved.}
 
 \subsection{Comparison of robust and stochastic optimization methods for conceptual design}
 \label{sec:robustvsstochastic}
@@ -133,8 +167,7 @@ counterpart. Thus models for \gls{ro} have to be transparent,
 and \gls{ro} cannot be applied to black box models without significant prior data
 manipulation at a minimum. A mitigating factor is that
 many classes of conceptual engineering design problems can be cast or approximated in a form that
-is compatible with robust optimization, such as linear, quadratic, semidefinite
-and geometric programs.
+is compatible with robust optimization.
 
 On the other hand, \gls{ro} is more tractable than \gls{so} due to the difference in method of uncertainty propagation.
 As aforementioned, \gls{so} methods involve the propagation of probability densities throughout a model
