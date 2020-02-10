@@ -39,7 +39,7 @@ def gen_SimPleAC_radar(marray, objectives, keyOrder, baseobj):
             except:
                 solutions[i].append(marray[i][j].robustsolve())
 
-    def plot_radar_data(solutions, objectives, keyOrder, methods, data, maxesindata, minsindata):
+    def plot_radar_data(solutions, methods, data, maxesindata, minsindata):
 
             # Plotting
         N = len(solutions)
@@ -71,7 +71,7 @@ def gen_SimPleAC_radar(marray, objectives, keyOrder, baseobj):
 
     data, maxesindata, minsindata = generate_radar_data(solutions, objectives, keyOrder, baseobj)
 
-    plot_radar_data(solutions, objectives, keyOrder, methods, data, maxesindata, minsindata)
+    plot_radar_data(solutions, methods, data, maxesindata, minsindata)
 
     return solutions
 
@@ -114,19 +114,6 @@ if __name__ == "__main__":
     m, subs = SimPleAC_setup()
     # Putting in objectives and associated substitutions
     # in a dictionary
-    # objectives = {m['W_{f_m}']                  : {'name': 'Total fuel', 'added': {}, 'removed': {}},
-    #               m['C_m']*m['t_m']                         : {'name': 'Time cost', 'added': {}, 'removed': {}},
-    #               m['W_{f_m}']+m['C_m']*m['t_m']*units('N') : {'name': 'Total cost', 'added': {}, 'removed': {}},
-    #               m['W']                                    : {'name': 'Takeoff weight', 'added': {}, 'removed': {}},
-    #               1/(m['L'][2]/m['D'][2])                   : {'name': '1/(Cruise L/D)', 'added': {}, 'removed': {}},
-    #               m['A']                                    : {'name': 'Aspect ratio', 'added': {}, 'removed': {}},
-    #               m['W_e']                                  : {'name': 'Engine weight', 'added': {}, 'removed': {}},
-    #               m['W']/m['S']                             : {'name': 'Wing loading', 'added': {}, 'removed': {}},
-    #                           }
-    # keyOrder = [m['W_{f_m}'], m['C_m']*m['t_m'], m['W_{f_m}']+m['C_m']*m['t_m']*units('N'), m['W'],
-    #             1/(m['L'][2]/m['D'][2]), m['A'], m['W_e'], m['W']/m['S']]
-
-    # Different close metrics study
     objectives = {
                   m['W_{f_m}']+m['C_m']*m['t_m']*units('N') : {'name': 'Total cost', 'added': {}, 'removed': {}},
                   m['W_{f_m}'] :                      {'name': 'Total fuel', 'added': {}, 'removed': {}},
@@ -164,7 +151,6 @@ if __name__ == "__main__":
 
     # # Saving data
     [data, maxesindata, minsindata] = generate_radar_data(solutions, objectives, keyOrder, baseobj)
-    objective_table_csv(objectives, data, keyOrder, data[1][1][0])
 
     plotno = 0
     for i in solutions:

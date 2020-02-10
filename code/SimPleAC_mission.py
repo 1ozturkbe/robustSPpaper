@@ -48,7 +48,6 @@ class SimPleACP(Model):
         C_D       = Variable("C_D", "-", "drag coefficient")
         D         = Variable("D", "N", "total drag force")
         LoD       = Variable('L/D','-','lift-to-drag ratio')
-        Re        = Variable("Re", "-", "Reynolds number")
         V         = Variable("V", "m/s", "cruising speed")
 
         constraints = []
@@ -56,8 +55,7 @@ class SimPleACP(Model):
         constraints += [self.engineP['T'] * V <= self.aircraft.engine['\\eta_{prop}'] * self.engineP['P_{shaft}'],
                     C_D >= self.fuseP['C_{D_{fuse}}'] + self.wingP['C_{D_{wpar}}'] + self.wingP['C_{D_{ind}}'],
                     D >= 0.5 * state['\\rho'] * self.aircraft['S'] * C_D * V ** 2,
-                    Re == (state['\\rho'] / state['\\mu']) * V * (self.aircraft['S'] / self.aircraft['A']) ** 0.5,
-                    self.wingP['C_f'] >= 0.074 / Re ** 0.2,
+                    self.wingP['Re'] == (state['\\rho'] / state['\\mu']) * V * (self.aircraft['S'] / self.aircraft['A']) ** 0.5,
                     self.fuseP['Re_{fuse}'] == state['\\rho']*V*self.aircraft.fuse['l_{fuse}']/state['\\mu'],
                     LoD == self.wingP['C_L'] / C_D]
 
@@ -110,10 +108,11 @@ class Wing(Model):
         # Non-dimensional constants
         C_Lmax     = Variable("C_{L,max}", 1.6, "-", "lift coefficient at stall", pr=5.)
         e          = Variable("e", 0.92, "-", "Oswald efficiency factor", pr=3.)
-        k          = Variable("k", 1.17, "-", "form factor", pr=10.)
-        N_ult      = Variable("N_{ult}", 3.3, "-", "ultimate load factor", pr=15.)
-        S_wetratio = Variable("(\\frac{S}{S_{wet}})", 2.075, "-", "wetted area ratio", pr=3.)
-        tau        = Variable("\\tau", 0.12, "-", "airfoil thickness to chord ratio", pr=10.)
+        # k          = Variable("k", "-", "form factor")
+        N_ult      = Variable("N_{ult}", 3, "-", "ultimate load factor", pr=15.)
+        # S_wetratio = Variable("(\\frac{S}{S_{wet}})", "-", "wetted area ratio")
+        tau        = Variable("\\tau", "-", "airfoil thickness to chord ratio")
+        tau_ref    = Variable("\\tau_{ref}", 0.12, "-", "reference airfoil thickness to chord ratio")
 
         # Dimensional constants
         W_w_coeff1 = Variable("W_{w_{coeff1}}", 2e-5, "1/m",
@@ -135,8 +134,12 @@ class Wing(Model):
         constraints += [W_w_surf >= W_w_coeff2 * S,
                         W_w >= W_w_surf + W_w_strc]
 
-        # Wing fuel model
-        constraints += [V_f_wing**2 <= 0.0009*S**3/A*tau**2] # linear with b and tau, quadratic with chord
+      # Wing fuel and form factor model
+        constraints += [V_f_wing**2 <= 0.0009*S**3/A*tau**2, # linear with b and tau, quadratic with chord
+                        tau >= 0.10, tau <= 0.19,
+                        ]
+
+        # Form factor model
 
         return constraints
 
@@ -147,16 +150,23 @@ class WingP(Model):
     def setup(self,wing,state):
         self.wing = wing
         # Free Variables
-        C_f       = Variable("C_f", "-", "skin friction coefficient")
         C_D_ind   = Variable('C_{D_{ind}}', '-', "wing induced drag")
         C_D_wpar  = Variable('C_{D_{wpar}}', '-', 'wing profile drag')
         C_L       = Variable("C_L", "-", "wing lift coefficient")
+        Re        = Variable("Re", "-", "Reynolds number")
+        Re_ref    = Variable("Re_{ref}", 1500000, "-", "reference Reynolds number")
 
         constraints = []
 
         # Drag model
+        w = C_D_wpar
+        u_1 = C_L
+        u_2 = Re/Re_ref
+        u_3 = self.wing['\\tau']/self.wing['\\tau_{ref}']
         constraints += [C_D_ind == C_L ** 2 / (np.pi * self.wing['A'] * self.wing['e']),
-                        C_D_wpar == self.wing['k'] * C_f * self.wing["(\\frac{S}{S_{wet}})"]]
+                        w**0.0130619 >= 0.925991 * (u_1)**-0.00680122 * (u_2)**-0.00127553 * (u_3)**-0.00875827 +
+                        0.000783115 * (u_1)**6.9801 * (u_2)**0.00829072 * (u_3)**-0.576542 +
+                        0.00766093 * (u_1)**0.306904 * (u_2)**-0.20342 * (u_3)**1.38062]
 
         return constraints
 
@@ -299,7 +309,8 @@ class Mission(Model):
 
         # Upper bounding variables
         constraints += [t_m <= 100000*units('hr'),
-            W_f_m <= 1e10*units('N')]
+            W_f_m <= 1e10*units('N'),
+            cost_index >= 1e-10*units('1/hr')]
 
         return constraints, state, self.aircraft, self.aircraftP
 

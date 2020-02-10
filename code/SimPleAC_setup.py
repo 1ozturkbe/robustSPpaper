@@ -1,5 +1,5 @@
 from __future__ import print_function
-from gpkitmodels.SP.SimPleAC.SimPleAC_mission import Mission, SimPleAC
+from SimPleAC_mission import Mission, SimPleAC
 from gpkit import Model, units
 
 def SimPleAC_setup():
@@ -15,7 +15,7 @@ def SimPleAC_setup():
     'T/O factor_m'   :2,
     }
     m.substitutions.update(subs)
-    m.cost = m['W_{f_m}']#+m['C_m']*m['t_m']*units('N')
+    m.cost = m['W_{f_m}']+m['C_m']*m['t_m']*units('N')
     return m, subs
 
 if __name__ == "__main__":
