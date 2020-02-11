@@ -136,7 +136,7 @@ class Wing(Model):
 
       # Wing fuel and form factor model
         constraints += [V_f_wing**2 <= 0.0009*S**3/A*tau**2, # linear with b and tau, quadratic with chord
-                        tau >= 0.10, tau <= 0.19,
+                        tau >= 0.08, tau <= 0.23,
                         ]
 
         # Form factor model
@@ -150,8 +150,8 @@ class WingP(Model):
     def setup(self,wing,state):
         self.wing = wing
         # Free Variables
-        C_D_ind   = Variable('C_{D_{ind}}', '-', "wing induced drag")
-        C_D_wpar  = Variable('C_{D_{wpar}}', '-', 'wing profile drag')
+        C_D_ind   = Variable('C_{D_{ind}}', '-', "wing induced drag coefficient")
+        C_D_wpar  = Variable('C_{D_{wpar}}', '-', "wing profile drag coefficient")
         C_L       = Variable("C_L", "-", "wing lift coefficient")
         Re        = Variable("Re", "-", "Reynolds number")
         Re_ref    = Variable("Re_{ref}", 1500000, "-", "reference Reynolds number")
@@ -164,9 +164,9 @@ class WingP(Model):
         u_2 = Re/Re_ref
         u_3 = self.wing['\\tau']/self.wing['\\tau_{ref}']
         constraints += [C_D_ind == C_L ** 2 / (np.pi * self.wing['A'] * self.wing['e']),
-                        w**0.0130619 >= 0.925991 * (u_1)**-0.00680122 * (u_2)**-0.00127553 * (u_3)**-0.00875827 +
-                        0.000783115 * (u_1)**6.9801 * (u_2)**0.00829072 * (u_3)**-0.576542 +
-                        0.00766093 * (u_1)**0.306904 * (u_2)**-0.20342 * (u_3)**1.38062]
+                        w**0.00488697 >= 0.000347324 * (u_1)**6.64787 * (u_2)**-0.00842527 * (u_3)**-0.406817 +
+                            0.974515 * (u_1)**-0.00206058 * (u_2)**-0.00117649 * (u_3)**-0.000597604 +
+                            0.000211504 * (u_1)**1.35483 * (u_2)**-0.252459 * (u_3)**3.91243]
 
         return constraints
 
@@ -175,17 +175,15 @@ class Engine(Model):
         # Dimensional constants
         BSFC_ref    = Variable("BSFC_{ref}", 0.32, "lbf/(hp*hr)", "reference brake specific fuel consumption")
         eta_prop    = Variable("\\eta_{prop}",0.8,'-',"propeller efficiency")
-        P_shaft_ref = Variable("P_{shaft,ref}",149,"kW","reference MSL maximum shaft power")
-        W_e_ref     = Variable("W_{e,ref}",153, "lbf","reference engine weight")
-        h_ref       = Variable("h_{ref}",15000,'ft','engine lapse reference altitude')
+        P_shaft_ref = Variable("P_{shaft,ref}", 10, "hp", "reference MSL maximum shaft power")
+        W_e_ref     = Variable("W_{e,ref}", 10, "lbf","reference engine weight")
+        h_ref       = Variable("h_{ref}", 15000,'ft','engine lapse reference altitude')
 
         # Free variables
         P_shaft_max = Variable("P_{shaft,max}","kW","MSL maximum shaft power")
         W_e         = Variable("W_e","N","engine weight")
 
-        constraints = []
-        constraints += [(W_e/W_e_ref)**1.92 >= 0.00441 * (P_shaft_max/P_shaft_ref)**0.759
-                                + 1.44 * (P_shaft_max/P_shaft_ref)**2.90]
+        constraints = [(W_e/W_e_ref) == 1.27847 * (P_shaft_max/P_shaft_ref)**0.772392]
         return constraints
 
     def dynamic(self,state):
@@ -319,10 +317,10 @@ def test():
     m.substitutions.update({
         'h_{cruise_m}'   :5000*units('m'),
         'Range_m'        :3000*units('km'),
-        'W_{p_m}'        :6250*units('N'),
+        'W_{p_m}'        :3000*units('N'),
         '\\rho_{p_m}'    :1500*units('kg/m^3'),
         'C_m'            :120*units('1/hr'),
-        'V_{min_m}'      :25*units('m/s'),
+        'V_{min_m}'      :35*units('m/s'),
         'T/O factor_m'   :2,
     })
     m.cost = m['W_{f_m}']*units('1/N') + m['C_m']*m['t_m']
@@ -335,10 +333,10 @@ if __name__ == "__main__":
     m.substitutions.update({
         'h_{cruise_m}'   :5000*units('m'),
         'Range_m'        :3000*units('km'),
-        'W_{p_m}'        :6250*units('N'),
+        'W_{p_m}'        :3000*units('N'),
         '\\rho_{p_m}'    :1500*units('kg/m^3'),
         'C_m'            :120*units('1/hr'),
-        'V_{min_m}'      :25*units('m/s'),
+        'V_{min_m}'      :35*units('m/s'),
         'T/O factor_m'   :2,
     })
     m.cost = m['W_{f_m}']*units('1/N') + m['C_m']*m['t_m']

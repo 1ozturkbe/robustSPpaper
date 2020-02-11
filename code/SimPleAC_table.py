@@ -46,7 +46,7 @@ if __name__ == "__main__":
         soltab = [sol, bsol, esol]
 
     for i in ['L/D', 'C_{D_{wpar}}', 'C_{D_{ind}}', 'C_{D_{fuse}}', 'Re', 'V', 't_s', 'A', 'S', '\\tau', 'W_w', 'W_{w_{strc}}', 'W_{w_{surf}}',
-              'W_{fuse}','V_{f_{avail}}', 'V_{f_{fuse}}', 'V_{f_{wing}}']:
+              'W_{fuse}', 'W_e', 'V_{f_{avail}}', 'V_{f_{fuse}}', 'V_{f_{wing}}']:
         print(i + " ")
         if i in ['L/D', 'Re', 'V', 'C_{D_{fuse}}', 'C_{D_{wpar}}', 'C_{D_{ind}}']:
             a = [mag(np.mean(s(i))) for s in soltab]
