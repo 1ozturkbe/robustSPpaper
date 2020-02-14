@@ -15,7 +15,7 @@ def SimPleAC_setup():
     'T/O factor_m'   :2,
     }
     m.substitutions.update(subs)
-    m.cost = m['W_{f_m}']+m['C_m']*m['t_m']*units('N')
+    m.cost = m['W_{f_m}']#+m['C_m']*m['t_m']*units('N')
     return m, subs
 
 if __name__ == "__main__":

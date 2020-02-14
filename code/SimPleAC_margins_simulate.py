@@ -21,7 +21,7 @@ if __name__ == '__main__':
 
     # Loading directly_uncertain_vars_subs
     try:
-        pickle_in = open('directly_uncertain_dict.pickle', 'r')
+        pickle_in = open('directly_uncertain_dict.pickle', 'rb')
         directly_uncertain_vars_subs = pickle.load(pickle_in)
         pickle_in.close()
     except:

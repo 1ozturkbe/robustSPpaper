@@ -20,7 +20,7 @@ from collections import OrderedDict
 
 from SimPleAC_draw import SimPleAC_draw
 
-def gen_SimPleAC_radar(marray, objectives, keyOrder, baseobj):
+def gen_SimPleAC_radar(marray, methods, objectives, keyOrder, baseobj):
     """
     Function to generate radar plots
     :param marray: 2D array of models to run
@@ -34,10 +34,11 @@ def gen_SimPleAC_radar(marray, objectives, keyOrder, baseobj):
     solutions = [[] for i in range(len(marray))]
     for i in range(len(marray)):
         for j in range(len(marray[i])):
+            print(marray[i][j].cost)
             try:
-                solutions[i].append(marray[i][j].localsolve())
+                solutions[i].append(marray[i][j].localsolve(reltol=1e-3))
             except:
-                solutions[i].append(marray[i][j].robustsolve())
+                solutions[i].append(marray[i][j].robustsolve(reltol=1e-3))
 
     def plot_radar_data(solutions, methods, data, maxesindata, minsindata):
 
@@ -106,7 +107,7 @@ def objective_table_csv(objectives, data, keyOrder, baseresult):
     for i in range(len(keyOrder)):
         count += 1
         rawdata[count] = [objectives[keyOrder[i]]['name']] + list(np.around(np.divide(np.array(data[count][1][0]),np.array(baseresult)),decimals=2))
-    with open("savefigs/objective_table.csv",'wb') as resultFile:
+    with open("savefigs/objective_table.csv",'w') as resultFile:
         wr = csv.writer(resultFile, dialect='excel')
         wr.writerows(rawdata)
 
@@ -144,7 +145,7 @@ if __name__ == "__main__":
                 marray[counti].append(nm)
         counti +=1
 
-    solutions = gen_SimPleAC_radar(marray, objectives, keyOrder, baseobj)
+    solutions = gen_SimPleAC_radar(marray, methods, objectives, keyOrder, baseobj)
 
     colors = ['blue', 'red', 'green']
     directory = 'savefigs'

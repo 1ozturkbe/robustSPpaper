@@ -22,22 +22,21 @@ if __name__ == "__main__":
     # Putting in objectives and associated substitutions
     # in a dictionary
     objectives = {m['W_{f_m}']                  : {'name': 'Total fuel', 'added': {}, 'removed': {}},
-                  m['C_m']*m['t_m']                         : {'name': 'Time cost', 'added': {}, 'removed': {}},
                   m['W_{f_m}']+m['C_m']*m['t_m']*units('N') : {'name': 'Total cost', 'added': {}, 'removed': {}},
                   m['W']                                    : {'name': 'Takeoff weight', 'added': {}, 'removed': {}},
                   1/(m['L'][2]/m['D'][2])                   : {'name': '1/(Cruise L/D)', 'added': {}, 'removed': {}},
-                  m['A']                                    : {'name': 'Aspect ratio', 'added': {}, 'removed': {}},
                   m['W_e']                                  : {'name': 'Engine weight', 'added': {}, 'removed': {}},
                   m['W']/m['S']                             : {'name': 'Wing loading', 'added': {}, 'removed': {}},
                               }
-    keyOrder = [m['W_{f_m}'], m['C_m']*m['t_m'], m['W_{f_m}']+m['C_m']*m['t_m']*units('N'), m['W'],
-                1/(m['L'][2]/m['D'][2]), m['A'], m['W_e'], m['W']/m['S']]
+    keyOrder = [m['W_{f_m}'], m['W_{f_m}']+m['C_m']*m['t_m']*units('N'), m['W'],
+                1/(m['L'][2]/m['D'][2]), m['W_e'], m['W']/m['S']]
 
     models = {}
+    methods = ['nominal']
     baseobj = m['W_{f_m}']
 
     # Adding minimizer so all objectives are tight at the optimum
-    minimizer = 10**-6*sum(i/i.units if i.units else i for i in objectives.keys())
+    minimizer = 10**-6 * sum(i/i.units if i.units else i for i in objectives.keys())
     # Nominal case must always be first!
     marray = [[] for i in range(len(keyOrder))]
     for i in range(len(keyOrder)):
@@ -48,7 +47,7 @@ if __name__ == "__main__":
         marray[i].append(nm)
 
     # Solving marray
-    solutions = gen_SimPleAC_radar(marray, objectives, keyOrder, baseobj)
+    solutions = gen_SimPleAC_radar(marray, methods, objectives, keyOrder, baseobj)
     # Tabulating data
     [data, maxesindata, minsindata] = generate_radar_data(solutions, objectives, keyOrder, baseobj)
     # Storing in csv

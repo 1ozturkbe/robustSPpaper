@@ -28,8 +28,8 @@ if __name__ == '__main__':
     for i in range(nGammas):
         for j in range(len(methods)):
             for k in range((len(uncertainty_sets))):
-                gamma['solutions'][gammas[i], methods[j]['name'], uncertainty_sets[k]] = pickle.load(open("gammaResults\\" +
-                                                                    str((gammas[i], methods[j]['name'], uncertainty_sets[k]))))
+                gamma['solutions'][gammas[i], methods[j]['name'], uncertainty_sets[k]] = pickle.load(open(
+                                        "gammaResults\\" + str((gammas[i], methods[j]['name'], uncertainty_sets[k])), 'rb'))
     gamma['solve_times'] = load_obj('gammasolve_times', 'gammaResults')
     gamma['simulation_results'] = load_obj('gammasimulation_results', 'gammaResults')
     gamma['number_of_constraints'] = load_obj('gammanumber_of_constraints', 'gammaResults')
@@ -56,7 +56,7 @@ if __name__ == '__main__':
             filteredsetup_times[i] = filteredSolutions[i]['setuptime']
         filteredSimulations =  filter_gamma_result_dict(gamma['simulation_results'], 0, gammaVal, 2, uncertainty_set)
         filteredsolve_times = filter_gamma_result_dict(gamma['solve_times'], 0, gammaVal, 2, uncertainty_set)
-        filteredCosts = {i:v[1]/nominal_solution['cost'] for i,v in filteredSimulations.iteritems()}
+        filteredCosts = {i:v[1]/nominal_solution['cost'] for i,v in filteredSimulations.items()}
         filteredn_of_constr = filter_gamma_result_dict(gamma['number_of_constraints'], 0, gammaVal, 2, uncertainty_set)
 
         relative_objective_values = [mag(v) for i,v in sorted(filteredCosts.items())]
