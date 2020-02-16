@@ -106,22 +106,7 @@ against a similar amount of risk as designs using margins or box uncertainty.
 \begin{figure}[ht]
     \centering
     \captionsetup{justification=centering, font=small}
-    \begin{subfigure}{0.49\textwidth}
-        \centering
-        \includegraphics[height=2.3in]{marginspof.eps}
-         \caption{Margins}
-    \end{subfigure}%
-    \begin{subfigure}{0.49\textwidth}
-        \centering
-        \includegraphics[height=2.3in]{box_best_pairs.eps}
-         \caption{Box Uncertainty Set}
-    \end{subfigure}%
-    \\
-    \begin{subfigure}{0.49\textwidth}
-        \centering
-        \includegraphics[height=2.3in]{ell_best_pairs.eps}
-         \caption{Elliptical Uncertainty Set}
-    \end{subfigure}
+    \includegraphics[height=3in]{pof_and_cost.eps}
     \caption{Simulated performance of the optimal robust aircraft, using margins, box and elliptical uncertainty sets,
     as a function of $\Gamma$. The robust solutions use the Best Pairs formulation.
     The dashed line and the band represent the mean and standard deviation of the performance
@@ -366,17 +351,17 @@ the two different methods match.}
 \hline
  \gls{ro} form & $\Gamma$ & $\delta$ & PoF & Goal form & $\delta$ & $\Gamma$ & PoF\\
 \hline
-& 0.00 & $1.66 \times 10^{-4}$ & 0.94 & & $1.66 \times 10^{-4}$ & - & - \\
-& 0.10 & 0.0574 & 0.86 & & 0.0574 & 0.10 & 0.86 \\
-& 0.20 & 0.119 & 0.70 & & 0.119 & 0.20 & 0.70 \\
-& 0.30 & 0.184 & 0.51 & & 0.184 & 0.30 & 0.51 \\
-& 0.40 & 0.254 & 0.28 & & 0.254 & 0.40 & 0.28 \\
-& 0.50 & 0.328 & 0.19 & & 0.328 & 0.50 & 0.20 \\
-& 0.60 & 0.409 & 0.13 & & 0.409 & 0.60 & 0.13 \\
-& 0.70 & 0.495 & 0.02 & & 0.495 & 0.70 & 0.02 \\
-& 0.80 & 0.587 & 0.01 & & 0.587 & 0.80 & 0.01 \\
-& 0.90 & 0.686 & 0.00 & & 0.686 & 0.90 & 0.00 \\
-& 1.00 & 0.793 & 0.00 & & 0.793 & 1.00 & 0.00 \\
+& 0.00 & $1.66 \times 10^{-4}$ & 0.88 & & $1.66 \times 10^{-4}$ & - & - \\
+& 0.10 & 0.0525 & 0.73 & & 0.0525 & 0.10 & 0.73 \\
+& 0.20 & 0.108 & 0.59 & & 0.108 & 0.20 & 0.59 \\
+& 0.30 & 0.168 & 0.40 & & 0.168 & 0.30 & 0.39 \\
+& 0.40 & 0.231 & 0.25 & & 0.231 & 0.40 & 0.25 \\
+& 0.50 & 0.298 & 0.10 & & 0.298 & 0.50 & 0.10 \\
+& 0.60 & 0.370 & 0.06 & & 0.370 & 0.60 & 0.07 \\
+& 0.70 & 0.447 & 0.03 & & 0.447 & 0.70 & 0.03 \\
+& 0.80 & 0.519 & 0.01 & & 0.519 & 0.80 & 0.01 \\
+& 0.90 & 0.618 & 0.00 & & 0.618 & 0.90 & 0.00 \\
+& 1.00 & 0.714 & 0.00 & & 0.714 & 1.00 & 0.00 \\
 \end{tabular}
 \end{center}
 \end{table}
@@ -392,8 +377,8 @@ Otherwise, the $\Gamma$ values found by the goal program match exactly
 with the original \gls{ro} problem. We confirm that both methods produce
 the same designs by examining the physical dimensions of the aircraft, and through the probability
 of failure found through \gls{mc} simulation in Table~\ref{tab:deltaVsGamma}.
-Note that there is a small discrepancy
-in the probability of failure, notably in the value for $\Gamma = 0.5$. This is
+Note that there are small discrepancies
+in the probability of failure, notably in the value for $\Gamma = [0.3, 0.6]$. This is
 possible because there are uncertainty realizations that can fall
 in or out of feasibility due to numerical precision. The interior point solvers
 used cannot make computations exactly~\cite{Nesterov1994}.
