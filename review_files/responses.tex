@@ -90,11 +90,15 @@ To avoid confusion, we have modified "bound" to "size".
 We agree with the reviewer, and have converted airfoil thickness to be a design variable. 
 This has required the removal of airfoil thickness and wetted area ratio from the uncertain parameters
 and the addition of two constraints to the model. The model definition has been
-amended to reflect these changes. The modifications have significantly improved the model since 
+amended to reflect these changes. 
+The modifications have significantly improved the model since 
 airfoil thickness now is coupled to all relevant aircraft disciplines: aerodynamics, structures and 
 fuel volume. This also required changing an example in Section II 
 which explained that margin allocation for wing thickness 
 is unintuitive, where air density was used as an example instead. 
+Some of the other uncertain parameters have been modified (notably
+payload weight from 6250 N to 3000N) to better illustrate tradeoffs in the objective 
+table 
 
 \textit{pg. 15: A figure illustrating the types of uncertainty would be useful.}
 

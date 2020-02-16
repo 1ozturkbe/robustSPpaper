@@ -29,7 +29,7 @@ if __name__ == "__main__":
     margin['solutions'] = {}
     for i in range(nmargins):
         margin['solutions'][margins[i]] = pickle.load(open("marginResults/" +
-                                                                    str(margins[i])))
+                                                                    str(margins[i]), 'rb'))
     margin['number_of_constraints'] = load_obj('marginnumber_of_constraints', 'marginResults')
     margin['simulation_results'] = load_obj('marginsimulation_results', 'marginResults')
 

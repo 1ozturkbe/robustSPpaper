@@ -46,7 +46,7 @@ if __name__ == "__main__":
         for j in range(len(methods)):
             for k in range((len(uncertainty_sets))):
                 gamma['solutions'][gammas[i], methods[j]['name'], uncertainty_sets[k]] = pickle.load(open("gammaResults\\" +
-                                                                    str((gammas[i], methods[j]['name'], uncertainty_sets[k]))))
+                                                                    str((gammas[i], methods[j]['name'], uncertainty_sets[k])), 'rb'))
     gamma['solve_times'] = load_obj('gammasolve_times', 'gammaResults')
     gamma['simulation_results'] = load_obj('gammasimulation_results', 'gammaResults')
     gamma['number_of_constraints'] = load_obj('gammanumber_of_constraints', 'gammaResults')

@@ -34,7 +34,6 @@ def gen_SimPleAC_radar(marray, methods, objectives, keyOrder, baseobj):
     solutions = [[] for i in range(len(marray))]
     for i in range(len(marray)):
         for j in range(len(marray[i])):
-            print(marray[i][j].cost)
             try:
                 solutions[i].append(marray[i][j].localsolve(reltol=1e-3))
             except:
@@ -117,11 +116,11 @@ if __name__ == "__main__":
     # in a dictionary
     objectives = {
                   m['W_{f_m}']+m['C_m']*m['t_m']*units('N') : {'name': 'Total cost', 'added': {}, 'removed': {}},
-                  m['W_{f_m}'] :                      {'name': 'Total fuel', 'added': {}, 'removed': {}},
+                  m['W_{f_m}']:                       {'name': 'Total fuel', 'added': {}, 'removed': {}},
                   m['W']:                             {'name': 'Takeoff weight', 'added': {}, 'removed': {}},
-                  1/(m['L'][2]/m['D'][2]) : {'name': '1/(Cruise L/D)', 'added': {}, 'removed': {}},
+                  m['W_e']                          : {'name': 'Engine weight', 'added': {}, 'removed': {}},
                   }
-    keyOrder = [m['W_{f_m}'], m['W'], m['W_{f_m}']+m['C_m']*m['t_m']*units('N'), 1/(m['L'][2]/m['D'][2])]
+    keyOrder = [m['W_{f_m}'], m['W'], m['W_{f_m}']+m['C_m']*m['t_m']*units('N'), m['W_e']]
 
     models = {}
     baseobj = m['W_{f_m}']

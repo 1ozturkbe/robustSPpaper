@@ -29,7 +29,7 @@ if __name__ == "__main__":
     delta['solutions'] = {}
     for i in range(ndeltas):
         delta['solutions'][deltas[i], methods[0]['name'], uncertainty_sets[0]] = pickle.load(open("goalResults/" +
-                                                                    str((deltas[i], methods[0]['name'], uncertainty_sets[0]))))
+                                                                    str((deltas[i], methods[0]['name'], uncertainty_sets[0])),'rb'))
     delta['solve_times'] = load_obj('deltasolve_times' + uncertainty_sets[0], 'goalResults')
     delta['simulation_results'] = load_obj('deltasimulation_results' + uncertainty_sets[0], 'goalResults')
     delta['number_of_constraints'] = load_obj('deltanumber_of_constraints' + uncertainty_sets[0], 'goalResults')
