@@ -38,6 +38,16 @@ if __name__ == '__main__':
     number_of_time_average_solves, uncertainty_sets, nominal_solution, directly_uncertain_vars_subs, parallel,
     nominal_number_of_constraints, nominal_solve_time] = pof_parameters()
 
+    # Loading directly_uncertain_vars_subs
+    try:
+        print("Pickled in...")
+        pickle_in = open('directly_uncertain_dict.pickle', 'rb')
+        directly_uncertain_vars_subs = pickle.load(pickle_in)
+        pickle_in.close()
+        pickle_in = True
+    except:
+        print('Warning: Please run pof_simulate first for consistent MC results.')
+
     solutions, solve_times, simulation_results, number_of_constraints = simulate.variable_gamma_results(
                                              model, methods, gammas, number_of_iterations,
                                              min_num_of_linear_sections,
@@ -53,6 +63,7 @@ if __name__ == '__main__':
     save_obj(number_of_constraints, 'gammanumber_of_constraints', 'gammaResults')
 
     # Saving MC inputs
-    pickle_out = open('directly_uncertain_dict.pickle', 'wb')
-    pickle.dump(directly_uncertain_vars_subs, pickle_out)
-    pickle_out.close()
+    if not pickle_in:
+        pickle_out = open('directly_uncertain_dict.pickle', 'wb')
+        pickle.dump(directly_uncertain_vars_subs, pickle_out)
+        pickle_out.close()
