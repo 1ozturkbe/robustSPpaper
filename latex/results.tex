@@ -35,32 +35,33 @@ are simulated with the same set of uncertainty realizations for consistency.
 \hline
 Free variable & Description & Units & No Uncert. & Margins & Box & Elliptical \\
 \hline
-$L/D$ & mean lift-to-drag ratio & - & 33.4 & 23.4 & 24.8 & 27.5 \\
-$AR$ & aspect ratio & - & 24.2 & 13.0 & 12.8 & 16.1 \\
-$Re$ & Reynolds number & - & $1.56 \times 10^6$ & $2.69 \times 10^6$ & $3.08\times 10^6$ & $2.53 \times 10^6$ \\
-$S$ & wing planform area &$\mathrm{m^2}$ & 13.6 & 32.9 & 32.1 & 28.2 \\
-$\tau$ & airfoil thickness ratio & - & 0.2 & 0.2 & 0.2 & 0.2 \\
-$V$ & mean flight velocity &$\mathrm{m/s}$ & 41.7 & 37.4 & 39.1 & 38.5 \\
-$T_{\rm{flight}}$ & time of flight & $\mathrm{hr}$ & 20.0 & 22.3 & 21.4 & 21.7 \\
-$W_{\rm{w}}$ & wing weight & $\mathrm{N}$ & 2840 & 4790 & 4820 & 4510 \\
-$W_{\rm{w,strc}}$ & wing structural weight &$\mathrm{N}$ & 2020 & 2610 & 2690 & 2640 \\
-$W_{\rm{w,surf}}$ & wing skin weight &$\mathrm{N}$ & 818 & 2170 & 2130 & 1870 \\
-$W_{\rm{fuse}}$ & fuselage weight &$\mathrm{N}$ & 250 & 314 & 288 & 279 \\
-$V_{\rm{f,avail}}$ & total fuel volume & $\mathrm{m^3}$ & 0.0765 & 0.148 & 0.156 & 0.137 \\
-$V_{\rm{f,fuse}}$ & fuselage fuel volume & $\mathrm{m^3}$ & 0.0396 & 0 & 0 & 0.0156 \\
-$V_{\rm{f,wing}}$ & wing fuel volume &$\mathrm{m^3}$ & 0.0368 & 0.169 & 0.166 & 0.121    \\
+$L/D$ & mean lift-to-drag ratio & - & 45.0 & 35.4 & 36.1 & 38.4 \\
+$AR$ & aspect ratio & - & 38.0 & 25.0 & 24.6 & 28.1 \\
+$Re$ & Reynolds number & - & $8.44 \times 10^5$ & $1.21 \times 10^6$ & $1.35\times 10^6$ & $1.21 \times 10^6$ \\
+$S$ & wing planform area &$\mathrm{m^2}$ & 6.27 & 14.9 & 14.6 & 12.8 \\
+$\tau$ & airfoil thickness ratio & - & 0.175 & 0.197 & 0.198 & 0.192 \\
+$V$ & mean flight velocity &$\mathrm{m/s}$ & 41.7 & 34.6 & 35.4 & 36.2 \\
+$T_{\rm{flight}}$ & time of flight & $\mathrm{hr}$ & 20.0 & 24.1 & 23.6 & 23.1 \\
+$W_{\rm{w}}$ & wing weight & $\mathrm{N}$ & 1170 & 2080 & 2090 & 1940 \\
+$W_{\rm{w,strc}}$ & wing structural weight &$\mathrm{N}$ & 792 & 1100 & 1130 & 1090 \\
+$W_{\rm{w,surf}}$ & wing skin weight &$\mathrm{N}$ & 376 & 985 & 966 & 851 \\
+$W_{\rm{fuse}}$ & fuselage weight &$\mathrm{N}$ & 151 & 192 & 177 & 168 \\
+$W_{\rm{e}}$ & engine weight &$\mathrm{N}$ & 84.4 & 111 & 122 & 115 \\
+$V_{\rm{f,avail}}$ & total fuel volume & $\mathrm{m^3}$ & 0.0267 & 0.0458 & 0.0502 & 0.0459 \\
+$V_{\rm{f,fuse}}$ & fuselage fuel volume & $\mathrm{m^3}$ & 0.0134 & 0 & 0 & 0 \\
+$V_{\rm{f,wing}}$ & wing fuel volume &$\mathrm{m^3}$ & 0.0133 & 0.0680 & 0.0667 & 0.0468    \\
 & sketches to scale & &
-    \includegraphics[trim={9.5cm 1cm 9.5cm 1cm},clip,height=3.8cm]{nominal.eps} &
-    \includegraphics[trim={9.5cm 1cm 9.5cm 1cm},clip,height=3.8cm]{margins.eps} &
-    \includegraphics[trim={9.5cm 1cm 9.5cm 1cm},clip,height=3.8cm]{box.eps} &
-    \includegraphics[trim={9.5cm 1cm 9.5cm 1cm},clip,height=3.8cm]{elliptical.eps} \\
+    \includegraphics[trim={10.5cm 1.5cm 10.5cm 1.5cm},clip,height=3.8cm]{nominal.eps} &
+    \includegraphics[trim={10.5cm 1.5cm 10.5cm 1.5cm},clip,height=3.8cm]{margins.eps} &
+    \includegraphics[trim={10.5cm 1.5cm 10.5cm 1.5cm},clip,height=3.8cm]{box.eps} &
+    \includegraphics[trim={10.5cm 1.5cm 10.5cm 1.5cm},clip,height=3.8cm]{elliptical.eps} \\
 \hline
 Objective metric & Description & Units & No Uncert. & Margins & Box & Elliptical \\
 \hline
-Objective & total fuel weight & $\mathrm{N}$ & 612 & 1182 & 1252 & 1098 \\
-E[Objective] & expected total fuel weight & $\mathrm{N}$ & 591 & 982 & 993 & 871 \\
-$\sigma$[Objective] & std. dev. of fuel weight & $\mathrm{N}$ & 9 & 32 & 32 & 29 \\
-P[failure] & probability of failure & \% & 94 & 0 & 0 & 0\\
+Objective & total fuel weight & $\mathrm{N}$ & 214 & 367 & 402 & 368 \\
+E[Objective] & expected total fuel weight & $\mathrm{N}$ & 207 & 316 & 320 & 287 \\
+$\sigma$[Objective] & std. dev. of fuel weight & $\mathrm{N}$ & 11 & 12 & 12 & 11 \\
+P[failure] & probability of failure & \% & 88 & 0 & 0 & 0\\
 \hline
 \end{tabular}
 \end{center}
@@ -68,14 +69,14 @@ P[failure] & probability of failure & \% & 94 & 0 & 0 & 0\\
 
 It is noteworthy in the probability of failure at the bottom of Table~\ref{tab:results} that,
 for the nominal problem ($\Gamma = 0$),
-only 6 percent of the \gls{mc} evaluations result in feasible solutions.
+only 12 percent of the \gls{mc} evaluations result in feasible solutions.
 This means that an aircraft designed for the average case would almost surely
 fail to satisfy the mission requirements, even with equal likelihood of favorable versus
 unfavorable uncertain outcomes from the symmetric truncated Gaussian.
 That being said, depending on the problem, it may necessary to sacrifice
 performance to achieve a high degree ($3\sigma$) of
 reliability as in the solution for $\Gamma = 1$. Furthermore, the margin aircraft, the box aircraft
-and the elliptical aircraft spend on average 66\%, 68\% and 47\% more fuel respectively
+and the elliptical aircraft spend on average 53\%, 55\% and 39\% more fuel respectively
 than the aircraft designed for the nominal case, but they also are
 robust to all uncertain outcomes in the $3\sigma$ set for the given \gls{mc} simulation.
 
@@ -97,7 +98,7 @@ We also posited that the elliptical uncertainty, although it doesn't
 protect deterministically against all $3\sigma$ uncertainties, would be less conservative than the
 margin and box designs while not significantly sacrificing probability of failure. This is
 confirmed since the elliptical design fails none of the random samples,
-and spends 11 and 12\% less fuel on average
+and spends 9\% and 10\% less fuel on average
 than the margin and box aircraft respectively.
 The significance of this cannot be understated: the use of elliptical uncertainty
 results in designs that have strictly better performance outcomes, while protecting
@@ -106,10 +107,10 @@ against a similar amount of risk as designs using margins or box uncertainty.
 \begin{figure}[ht]
     \centering
     \captionsetup{justification=centering, font=small}
-    \includegraphics[height=3in]{pof_and_cost.eps}
+    \includegraphics[width=0.9\textwidth]{pof_and_cost.pdf}
     \caption{Simulated performance of the optimal robust aircraft, using margins, box and elliptical uncertainty sets,
-    as a function of $\Gamma$. The robust solutions use the Best Pairs formulation.
-    The dashed line and the band represent the mean and standard deviation of the performance
+    as a function of $\Gamma$. The box and elliptical solutions use the Best Pairs formulation.
+    The banded lines represent the mean and standard deviation of the performance
     of aircraft, simulated with 100 \gls{mc} samples of uncertain parameters.}
     \label{fig:probOfFailure}
 \end{figure}
@@ -126,14 +127,14 @@ than the other two methods over the whole $\Gamma$ domain.
     \captionsetup{justification=centering, font=small}
     \begin{subfigure}{0.49\textwidth}
         \centering
-        \includegraphics[height=1.9in]{box_sst.eps}
+        \includegraphics[width=\linewidth]{box_sst.eps}
     \end{subfigure}
     ~
     \begin{subfigure}{0.49\textwidth}
         \centering
-        \includegraphics[height=1.9in]{ell_sst.eps}
+        \includegraphics[width=\linewidth]{ell_sst.eps}
     \end{subfigure}
-    \caption{Robust signomial simple aircraft solution and setup times, normalized by the
+    \caption{Robust aircraft optimization solution and setup times, normalized by the
     nominal problem solution time, for $\Gamma = 1$.
     Note that the problems with box uncertainty have lower setup
     time costs versus those with elliptical uncertainty, but similar solve times.}
@@ -165,29 +166,36 @@ in each inequality, and the \gls{rgp} approximation and uncertainty set used.
 
 One of the benefits of convex and difference-of-convex optimization methods is the ability to optimize for
 different objectives~\cite{York2018}. As a demonstration, we optimize the aircraft without uncertainty
-for 8 different objectives, and show
+for 6 different objectives, and show
 the non-dimensionalized figures of merit in the columns of Table~\ref{tab:nondimresults}.
-Since the model is physics based, the model can even accommodate objectives such as aspect ratio
-which are unintuitive and often not considered. The resulting aircraft
-differ drastically with respect to performance.
-As an extreme example,
-the aircraft optimized for time cost has nearly 200 times the engine weight as the aircraft
-optimized for total fuel, since drag power increases dramatically with speed. Furthermore, we can see
-that some more traditional objectives such as wing loading pull the design
-towards extreme corners of the performance envelope. This shows the importance of considering many objectives
+Since the model is physics based, the model can even accommodate objectives such as wing area
+which are often not considered. The resulting aircraft
+differ significantly with respect to certain objectives, while being similar in may others.
+As an example, takeoff weight for all aircraft are 0.87 to 1.22 times the baseline total fuel solution,
+while engine weight varies from 0.88 to 3.62 times the baseline.
+Furthermore, some more traditional objectives such as cruise lift-to-drag ratio pull the design
+away from optimality in other objectives, such as perhaps surprisingly total fuel.
+This shows the importance of considering many objectives
 in design, and demonstrates the power of \gls{sp}s in helping
 consider the multiobjective performance of engineered systems.
 
 \begin{table}
 \resizebox{\textwidth}{!}{
 \begin{tabular}{C{2.2cm} | C{1.5cm} C{1.5cm} C{1.5cm} C{1.5cm} C{1.5cm} C{1.5cm}}
-Objective & Total fuel & Total cost & Takeoff weight & 1/(Cruise L/D) & Engine weight & Wing loading \\ \hline
+Objective & Total fuel & Total cost & Takeoff weight & 1/(Cruise L/D) & Engine weight & Wing area \\ \hline
 Total fuel & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 \\
-Total cost & 2.51 & 0.64 & 0.98 & 2.55 & 3.62 & 1.00 \\
-Takeoff weight & 1.37 & 0.89 & 0.87 & 1.43 & 1.42 & 1.00 \\
-1/(Cruise L/D) & 1.29 & 1.00 & 1.11 & 0.77 & 2.48 & 0.73 \\
-Engine weight & 1.35 & 1.53 & 1.22 & 1.40 & 0.88 & 0.44 \\
-Wing loading & 198 & 18.1 & 97.93 & 205.76 & 34.02 & 0.09 \\
+Total cost & 2.51 & 0.64 & 0.98 & 2.55 & 3.62 & 0.98 \\
+Takeoff weight & 1.37 & 0.89 & 0.87 & 1.43 & 1.42 & 0.87 \\
+1/(Cruise L/D) & 1.29 & 1.00 & 1.11 & 0.77 & 2.48 & 1.53 \\
+Engine weight & 1.35 & 1.53 & 1.22 & 1.40 & 0.88 & 2.78 \\
+Wing area & 1.37 & 0.89 & 0.87 & 1.43 & 1.43 & 0.87 \\
+sketches to scale &
+    \includegraphics[trim={10.5cm 1.5cm 10.5cm 1.5cm},clip,height=3.8cm]{objtable0.eps} &
+    \includegraphics[trim={10.5cm 1.5cm 10.5cm 1.5cm},clip,height=3.8cm]{objtable1.eps} &
+    \includegraphics[trim={10.5cm 1.5cm 10.5cm 1.5cm},clip,height=3.8cm]{objtable2.eps} &
+    \includegraphics[trim={10.5cm 1.5cm 10.5cm 1.5cm},clip,height=3.8cm]{objtable3.eps} &
+    \includegraphics[trim={10.5cm 1.5cm 10.5cm 1.5cm},clip,height=3.8cm]{objtable4.eps} &
+    \includegraphics[trim={10.5cm 1.5cm 10.5cm 1.5cm},clip,height=3.8cm]{objtable5.eps}  \\
 \hline
 \end{tabular}}
 \caption{Non-dimensionalized variations in objective values with respect to the aircraft optimized
@@ -236,44 +244,44 @@ These are total (time and fuel) cost, total fuel, takeoff weight and inverse cru
         \begin{subfigure}{0.4\linewidth}
             \makebox[\textwidth]{\begin{tikzpicture}
                 \node[inner sep=0] (l) at (-2.5,0)
-                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{0nominal.eps}};
+                {\includegraphics[]{0nominal.eps}};
                 \node[inner sep=0] (c) at (-1,0)
-                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{0elliptical.eps}};
+                {\includegraphics[trim={10.5cm 2cm 10.5cm 2cm},clip,height=3.8cm]{0elliptical.eps}};
                 \node[inner sep=0] (r) at (.5,0)
-                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{0box.eps}};
+                {\includegraphics[trim={10.5cm 2cm 10.5cm 2cm},clip,height=3.8cm]{0box.eps}};
             \end{tikzpicture}}
             \caption{Total fuel}
         \end{subfigure}
         \begin{subfigure}{0.4\linewidth}
             \makebox[\textwidth]{\begin{tikzpicture}
                 \node[inner sep=0] (l) at (-2.5,0)
-                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{1nominal.eps}};
+                {\includegraphics[trim={10.5cm 2cm 10.5cm 2cm},clip,height=3.8cm]{1nominal.eps}};
                 \node[inner sep=0] (c) at (-1,0)
-                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{1elliptical.eps}};
+                {\includegraphics[trim={10.5cm 2cm 10.5cm 2cm},clip,height=3.8cm]{1elliptical.eps}};
                 \node[inner sep=0] (r) at (.5,0)
-                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{1box.eps}};
+                {\includegraphics[trim={10.5cm 2cm 10.5cm 2cm},clip,height=3.8cm]{1box.eps}};
             \end{tikzpicture}}
             \caption{Takeoff weight}
         \end{subfigure}
         \begin{subfigure}{0.4\linewidth}
             \makebox[\textwidth]{\begin{tikzpicture}
                 \node[inner sep=0] (l) at (-2.5,0)
-                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{2nominal.eps}};
+                {\includegraphics[trim={10.5cm 2cm 10.5cm 2cm},clip,height=3.8cm]{2nominal.eps}};
                 \node[inner sep=0] (c) at (-1,0)
-                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{2elliptical.eps}};
+                {\includegraphics[trim={10.5cm 2cm 10.5cm 2cm},clip,height=3.8cm]{2elliptical.eps}};
                 \node[inner sep=0] (r) at (.5,0)
-                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{2box.eps}};
+                {\includegraphics[trim={10.5cm 2cm 10.5cm 2cm},clip,height=3.8cm]{2box.eps}};
             \end{tikzpicture}}
             \caption{Total cost}
         \end{subfigure}
         \begin{subfigure}{0.4\linewidth}
             \makebox[\textwidth]{\begin{tikzpicture}
                 \node[inner sep=0] (l) at (-2.5,0)
-                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{3nominal.eps}};
+                {\includegraphics[trim={10.5cm 2cm 10.5cm 2cm},clip,height=3.8cm]{3nominal.eps}};
                 \node[inner sep=0] (c) at (-1,0)
-                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{3elliptical.eps}};
+                {\includegraphics[trim={10.5cm 2cm 10.5cm 2cm},clip,height=3.8cm]{3elliptical.eps}};
                 \node[inner sep=0] (r) at (.5,0)
-                {\includegraphics[trim={9.5cm 1cm 8.5cm 1cm},clip,height=3.8cm]{3box.eps}};
+                {\includegraphics[trim={10.5cm 2cm 10.5cm 2cm},clip,height=3.8cm]{3box.eps}};
             \end{tikzpicture}}
             \caption{1/(Cruise L/D)}
         \end{subfigure}
@@ -351,7 +359,7 @@ the two different methods match.}
 \hline
  \gls{ro} form & $\Gamma$ & $\delta$ & PoF & Goal form & $\delta$ & $\Gamma$ & PoF\\
 \hline
-& 0.00 & $1.66 \times 10^{-4}$ & 0.88 & & $1.66 \times 10^{-4}$ & - & - \\
+& 0.00 & $7.95 \times 10^{-5}$ & 0.88 & & $7.95 \times 10^{-5}$ & - & - \\
 & 0.10 & 0.0525 & 0.73 & & 0.0525 & 0.10 & 0.73 \\
 & 0.20 & 0.108 & 0.59 & & 0.108 & 0.20 & 0.59 \\
 & 0.30 & 0.168 & 0.40 & & 0.168 & 0.30 & 0.39 \\
