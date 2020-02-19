@@ -4,6 +4,7 @@ import numpy as np
 from gpkit import Model, units
 from SimPleAC_setup import SimPleAC_setup
 from SimPleAC_radar import generate_radar_data, gen_SimPleAC_radar
+from SimPleAC_draw import SimPleAC_draw
 
 def objective_table_csv(objectives, data, keyOrder, baseresult):
     rawdata = [None] * (len(objectives) + 1)
@@ -26,10 +27,10 @@ if __name__ == "__main__":
                   m['W']                                    : {'name': 'Takeoff weight', 'added': {}, 'removed': {}},
                   1/(m['L'][2]/m['D'][2])                   : {'name': '1/(Cruise L/D)', 'added': {}, 'removed': {}},
                   m['W_e']                                  : {'name': 'Engine weight', 'added': {}, 'removed': {}},
-                  m['W']/m['S']                             : {'name': 'Wing loading', 'added': {}, 'removed': {}},
-                              }
+                  m['S']                                    : {'name': 'Wing area', 'added': {}, 'removed': {}},
+                                                }
     keyOrder = [m['W_{f_m}'], m['W_{f_m}']+m['C_m']*m['t_m']*units('N'), m['W'],
-                1/(m['L'][2]/m['D'][2]), m['W_e'], m['W']/m['S']]
+                1/(m['L'][2]/m['D'][2]), m['W_e'], m['S']]
 
     models = {}
     methods = ['nominal']
@@ -54,4 +55,8 @@ if __name__ == "__main__":
     baseresult = data[1][1][0] # result for fuel burn for comparison
     objective_table_csv(objectives, data, keyOrder, baseresult)
 
-
+    # Drawing solutions
+    count = 0
+    for sol in solutions:
+        SimPleAC_draw(sol[0], color='blue', directory = 'objectiveTableResults', name='objtable'+str(count))
+        count += 1

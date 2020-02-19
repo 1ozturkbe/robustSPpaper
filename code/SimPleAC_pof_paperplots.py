@@ -77,13 +77,13 @@ if __name__ == "__main__":
                          alpha=0.5, edgecolor = edgecolors[i], facecolor = facecolors[i])
         lines.append(ax2.plot(gammas, pofs, color=edgecolors[i], label=legend_keys[i] + ', PoF'))
 
-    ax1.set_xlabel(r'Uncertainty Set Scaling Factor $\Gamma$', fontsize=14)
-    ax1.set_ylabel(objective_name + ' (' + objective_units.capitalize() + ')', fontsize=14)
-    ax2.set_ylabel("Probability of Failure", fontsize=14)
+    ax1.set_xlabel(r'Uncertainty Set Scaling Factor $\Gamma$', fontsize=12)
+    ax1.set_ylabel('Cost [' + objective_name + ' (' + objective_units.capitalize() + ')]', fontsize=12)
+    ax2.set_ylabel("Probability of Failure", fontsize=12)
     ax1.set_ylim([mincost, maxcost])
     ax2.set_ylim([0, 1])
-    plt.title(title, fontsize=14)
-    labs = [lines[l][0].get_label() for l in [0,2,4,1,3,5]]
+    plt.title(title, fontsize=12)
+    labs = [lines[l][0].get_label() for l in [1,3,5,0,2,4]]
     ax1.legend(labs, loc="lower right", fontsize=9, numpoints=1)
     # ax1.legend(loc="lower right", fontsize=10, numpoints=1)
     # fig.legend(loc="lower right", fontsize=10, numpoints=1)
