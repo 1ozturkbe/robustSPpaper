@@ -54,8 +54,8 @@ often difficult to quantify with a large degree of certainty.
 The payload weight and density ($W_{\rm{p}}$ and $\rho_{\rm{p}}$) have large uncertainties
 since the payload is often developed concurrently with the aircraft.
 Parameters that engineers take to be
-physical constants (sea level air viscosity and density, $\mu$ and $\rho$) and those that can be determined or manufactured with a relatively
-high degree of accuracy ($S_{\rm{wetratio}}$, $e$) have relatively low deviations.
+physical constants (sea level air viscosity and density, $\mu$ and $\rho$) and those that can be determined with
+a relatively high degree of accuracy ($e$) have relatively low deviations.
 Parameters that require testing to determine ($C_{L_{\rm{max}}}$, $C_{f_{\rm{fuse, ref}}}$,
 $V_{\rm{min}}$) have a level of uncertainty
 that reflects the expected variance of empirical studies. However, note that
@@ -88,6 +88,7 @@ rigorously defined in the context of robust linear programming in~Appendix~\ref{
             \draw[->, red] (-0.25, -0.75) -- (-0.25, 0.75) -- (0.25, 0.75) -- (0.25, -0.75) node[anchor=west] {\color{red}$\Gamma=1, ~3\sigma_i = 0.25, ~3\sigma_j=0.75$} -- cycle;
         \end{tikzpicture}
         \caption{Example L$\infty$ or box uncertainty sets.}
+        \label{fig:setsbox}
     \end{subfigure}
     % Elliptical uncertainty set
     \begin{subfigure}[b]{0.5\textwidth}
@@ -103,6 +104,7 @@ rigorously defined in the context of robust linear programming in~Appendix~\ref{
             \node[below right] at (0.15, -0.666) {\color{red}$\Gamma=1, ~3\sigma_i = 0.25,~3\sigma_j=0.75$};
         \end{tikzpicture}
         \caption{Example L2 or elliptical uncertainty sets.}
+        \label{fig:setselliptical}
     \end{subfigure}
     \caption{$\Gamma$ defines the overall size of norm uncertainty sets, while $3\sigma$ defines the relative
     size of the set in each uncertain parameter. }
@@ -110,7 +112,8 @@ rigorously defined in the context of robust linear programming in~Appendix~\ref{
 \end{figure}
 
 For box uncertainty,
-$\Gamma$ scales the width of the L$\infty$ hypercube, whose dimensionality is the same as the number of uncertain parameters (12).
+$\Gamma$ scales the width of the L$\infty$ hypercube as shown in Figure~\ref{fig:setsbox},
+whose dimensionality is the same as the number of uncertain parameters (12).
 More intuitively, $\Gamma \times 3\sigma_i$ defines the range of the possible values of uncertain parameter $u_i$,
 normalized by the mean of $u_i$.
 It can be easy to assume that using margins and box uncertainty sets will yield the same designs,
@@ -134,7 +137,8 @@ in conceptual design, since (1) margins fail to capture the level of conservativ
 information (in this case the nominal solution) is required to allocate margin effectively.
 
 For elliptical uncertainty, $\Gamma$ is the maximum diameter of the Euclidian norm
-ball of \textbf{u}, where $u_i$ is {\color{blue}one-third} the number of standard deviations of perturbation of the
+ball of $u$ as shown in Figure~\ref{fig:setselliptical},
+where $u_i$ is {\color{blue}one-third} the number of standard deviations of perturbation of the
 $i$th parameter from its nominal value.
 Elliptical uncertainty exploits the fact that the joint probability of
 multiple uncertain parameters taking values in the tails of their respective distributions is

@@ -4,9 +4,9 @@
     Legacy methods of protecting against uncertainty do not adequately
     explain the trade-offs between feasibility and optimality, and require prior engineering knowledge
     which may not be available for novel aerospace vehicle concepts. {\color{blue}Furthermore,
-    high-dimensional nonlinear optimization problems such as those in aircraft design
-    are computationally intractable using stochastic optimization methods over parameter
-    probability distributions.}
+    stochastic optimization methods over parameter distributions have had
+    limited success solving
+    high-dimensional nonlinear optimization problems such as those in aircraft design.}
     This paper proposes an efficient solution method
     for engineering design optimization problems under uncertainty using robust signomial programs (RSPs).
     {\color{blue} Signomial programs (SPs) have demonstrated
@@ -15,15 +15,14 @@
     for conceptual engineering design that captures parametric uncertainty with
     probabilistic guarantees of design feasibility.}
     The proposed method transforms stochastic optimization problems to deterministic problems by considering
-    the worst-case robust counterpart of each design constraint over a norm uncertainty set,
+    the worst-case robust counterpart of each design constraint over an uncertainty set,
     {\color{blue} provided that each constraint is SP-representable}.
     The RSP formulation leverages an existing approximate robust geometric program (RGP)
     formulation and extends it by allowing difference-of-log-convex constraints that appear
     in many design problems.
     The {\color{blue} RSP is solved efficiently and deterministically using a sequence of local RGP
-    approximations of the RSP}. RSPs are then implemented
-    in an unmanned aircraft design problem, and
-    used to rigorously explore the trade-off between robustness and optimality
+    approximations of the RSP}. RSPs are then applied to a
+    conceptual unmanned aircraft design problem, and used to
+    rigorously explore the trade-off between robustness and optimality
     in aircraft design decisions.
-
 \end{abstract}

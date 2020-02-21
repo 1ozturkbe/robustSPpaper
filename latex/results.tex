@@ -12,8 +12,9 @@ to the outcomes of uncertain parameters. Then, using the sign of
 sensitivities of the nominal solution, we assign $3\sigma$ margins for each parameter
 and generate a design using margins. These two solutions are compared with \gls{ro} results for
 box and elliptical uncertainty sets at $\Gamma = 1$. From here onward we refer to
-aircraft designed under margins, under box uncertainty and
-under elliptical uncertainty as `the margin aircraft', `the box aircraft' and `the elliptical aircraft' respectively.
+aircraft designed under no uncertainty, under margins, under box uncertainty and
+under elliptical uncertainty as `the nominal aircraft',
+`the margin aircraft', `the box aircraft' and `the elliptical aircraft' respectively.
 
 The design variables are then fixed for each solution, and the designs are simulated for
 different realizations of the uncertain parameters.
@@ -25,8 +26,8 @@ are simulated from independent and identically distributed $3\sigma$ truncated G
 We simulate from the truncated Gaussian since this makes it possible to
 confirm mathematically that for $\Gamma = 1$, all simulations of $3\sigma$ uncertain parameters are
 deterministically feasible for the box uncertainty set. The results are in Table~\ref{tab:uncertainties}.
-Designs for each solution
-are simulated with the same set of uncertainty realizations for consistency.
+Designs for each solution for the rest of the section
+are simulated with the same \gls{mc} samples for consistency.
 
 \begin{table}[!h]
 \begin{center}
@@ -51,12 +52,12 @@ $V_{\rm{f,avail}}$ & total fuel volume & $\mathrm{m^3}$ & 0.0267 & 0.0458 & 0.05
 $V_{\rm{f,fuse}}$ & fuselage fuel volume & $\mathrm{m^3}$ & 0.0134 & 0 & 0 & 0 \\
 $V_{\rm{f,wing}}$ & wing fuel volume &$\mathrm{m^3}$ & 0.0133 & 0.0680 & 0.0667 & 0.0468    \\
 & sketches to scale & &
-    \includegraphics[trim={10.5cm 1.5cm 10.5cm 1.5cm},clip,height=3.8cm]{nominal.eps} &
-    \includegraphics[trim={10.5cm 1.5cm 10.5cm 1.5cm},clip,height=3.8cm]{margins.eps} &
-    \includegraphics[trim={10.5cm 1.5cm 10.5cm 1.5cm},clip,height=3.8cm]{box.eps} &
-    \includegraphics[trim={10.5cm 1.5cm 10.5cm 1.5cm},clip,height=3.8cm]{elliptical.eps} \\
+    \includegraphics[trim={10.5cm 1.5cm 10.5cm 1.5cm},clip,scale=0.7]{nominal.eps} &
+    \includegraphics[trim={10.5cm 1.5cm 10.5cm 1.5cm},clip,scale=0.7]{margins.eps} &
+    \includegraphics[trim={10.5cm 1.5cm 10.5cm 1.5cm},clip,scale=0.7]{box.eps} &
+    \includegraphics[trim={10.5cm 1.5cm 10.5cm 1.5cm},clip,scale=0.7]{elliptical.eps} \\
 \hline
-Objective metric & Description & Units & No Uncert. & Margins & Box & Elliptical \\
+Metric & Description & Units & No Uncert. & Margins & Box & Elliptical \\
 \hline
 Objective & total fuel weight & $\mathrm{N}$ & 214 & 367 & 402 & 368 \\
 E[Objective] & expected total fuel weight & $\mathrm{N}$ & 207 & 316 & 320 & 287 \\
@@ -78,7 +79,7 @@ performance to achieve a high degree ($3\sigma$) of
 reliability as in the solution for $\Gamma = 1$. Furthermore, the margin aircraft, the box aircraft
 and the elliptical aircraft spend on average 53\%, 55\% and 39\% more fuel respectively
 than the aircraft designed for the nominal case, but they also are
-robust to all uncertain outcomes in the $3\sigma$ set for the given \gls{mc} simulation.
+robust to all uncertain outcomes in the $3\sigma$ set for the \gls{mc} simulation.
 
 Table~\ref{tab:results} also indicates that margins are not a good method of
 allocating uncertainty. The claim for the use of margins is that they protect against
@@ -119,8 +120,8 @@ An analysis on the range $\Gamma=[0,1]$ was performed to confirm that the trends
 Table~\ref{tab:results} hold for all $\Gamma$. Figure~\ref{fig:probOfFailure}
 shows that probability of failure goes monotonically
 towards zero as $\Gamma$ increases for all three methods, where box uncertainty is
-more conservative than margins, and elliptical uncertainty is less conservative
-than the other two methods over the whole $\Gamma$ domain.
+more conservative than elliptical uncertainty over the whole $\Gamma$ domain, with no
+such guarantees for margins.
 
 \begin{figure}[h!]
     \centering
@@ -134,7 +135,7 @@ than the other two methods over the whole $\Gamma$ domain.
         \centering
         \includegraphics[width=\linewidth]{ell_sst.eps}
     \end{subfigure}
-    \caption{Robust aircraft optimization solution and setup times, normalized by the
+    \caption{Robust aircraft optimization setup and solution times, normalized by the
     nominal problem solution time, for $\Gamma = 1$.
     Note that the problems with box uncertainty have lower setup
     time costs versus those with elliptical uncertainty, but similar solve times.}
@@ -146,8 +147,9 @@ terms, the nominal \gls{sp} under zero uncertainty or with margins
 takes just under 0.9 seconds to solve on a modern laptop computer using Mosek~\cite{mosek},
 an interior point solver that is free for academic use; the authors
 refer to ~\cite{Kirschen2018Log} and \cite{York2018} for more in-depth \gls{sp} solution time analyses.
-Here we examine briefly in relative terms about how the different \gls{rsp} methodologies compare in terms of setup and
-run times in Figure~\ref{compare_signomial}. Since the setup time of the nominal problem is minimal,
+In Figure~\ref{compare_signomial} we examine briefly in relative terms
+how the different \gls{rsp} methodologies compare in terms of setup and
+run times. Since the setup time of the nominal problem is minimal,
 we have normalized the results by the solution time of the nominal problem.
 The bottom axis ranks the methods by their level of conservativeness, Best Pairs
 and Simple Conservative formulations being the least and most conservative respectively,
@@ -169,73 +171,49 @@ different objectives~\cite{York2018}. As a demonstration, we optimize the aircra
 for 6 different objectives, and show
 the non-dimensionalized figures of merit in the columns of Table~\ref{tab:nondimresults}.
 Since the model is physics based, the model can even accommodate objectives such as wing area
-which are often not considered. The resulting aircraft
+which are often unintuitive and not considered. {\color{blue}The resulting aircraft
 differ significantly with respect to certain objectives, while being similar in may others.
 As an example, takeoff weight for all aircraft are 0.87 to 1.22 times the baseline total fuel solution,
 while engine weight varies from 0.88 to 3.62 times the baseline.
-Furthermore, some more traditional objectives such as cruise lift-to-drag ratio pull the design
-away from optimality in other objectives, such as perhaps surprisingly total fuel.
-This shows the importance of considering many objectives
-in design, and demonstrates the power of \gls{sp}s in helping
-consider the multiobjective performance of engineered systems.
+These demonstrate the importance of considering many objectives
+in design, and underline the power of \gls{sp}s in helping
+consider the multiobjective performance of engineered systems.}
 
 \begin{table}
-\resizebox{\textwidth}{!}{
-\begin{tabular}{C{2.2cm} | C{1.5cm} C{1.5cm} C{1.5cm} C{1.5cm} C{1.5cm} C{1.5cm}}
-Objective & Total fuel & Total cost & Takeoff weight & 1/(Cruise L/D) & Engine weight & Wing area \\ \hline
-Total fuel & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 \\
-Total cost & 2.51 & 0.64 & 0.98 & 2.55 & 3.62 & 0.98 \\
-Takeoff weight & 1.37 & 0.89 & 0.87 & 1.43 & 1.42 & 0.87 \\
-1/(Cruise L/D) & 1.29 & 1.00 & 1.11 & 0.77 & 2.48 & 1.53 \\
-Engine weight & 1.35 & 1.53 & 1.22 & 1.40 & 0.88 & 2.78 \\
-Wing area & 1.37 & 0.89 & 0.87 & 1.43 & 1.43 & 0.87 \\
-sketches to scale &
-    \includegraphics[trim={10.5cm 1.5cm 10.5cm 1.5cm},clip,height=3.8cm]{objtable0.eps} &
-    \includegraphics[trim={10.5cm 1.5cm 10.5cm 1.5cm},clip,height=3.8cm]{objtable1.eps} &
-    \includegraphics[trim={10.5cm 1.5cm 10.5cm 1.5cm},clip,height=3.8cm]{objtable2.eps} &
-    \includegraphics[trim={10.5cm 1.5cm 10.5cm 1.5cm},clip,height=3.8cm]{objtable3.eps} &
-    \includegraphics[trim={10.5cm 1.5cm 10.5cm 1.5cm},clip,height=3.8cm]{objtable4.eps} &
-    \includegraphics[trim={10.5cm 1.5cm 10.5cm 1.5cm},clip,height=3.8cm]{objtable5.eps}  \\
-\hline
-\end{tabular}}
-\caption{Non-dimensionalized variations in objective values with respect to the aircraft optimized
-for different objectives. Objective values are normalized by the total fuel solution.}
+    \centering
+    \begin{tabular}{C{2.2cm} | C{1.5cm} C{1.5cm} C{1.5cm} C{1.5cm} C{1.5cm} C{1.5cm}}
+        Objective & Total fuel & Total cost & Takeoff weight & 1/(Cruise L/D) & Engine weight & Wing area \\ \hline
+        Total fuel & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 & 1.00 \\
+        Total cost & 2.51 & 0.64 & 0.98 & 2.55 & 3.62 & 0.98 \\
+        Takeoff weight & 1.37 & 0.89 & 0.87 & 1.43 & 1.42 & 0.87 \\
+        1/(Cruise L/D) & 1.29 & 1.00 & 1.11 & 0.77 & 2.48 & 1.53 \\
+        Engine weight & 1.35 & 1.53 & 1.22 & 1.40 & 0.88 & 2.78 \\
+        Wing area & 1.37 & 0.89 & 0.87 & 1.43 & 1.43 & 0.87 \\
+        \hline
+    \end{tabular}
+    \caption{Non-dimensionalized variations in objective values with respect to the aircraft optimized
+    for different objectives. Objective values are normalized by the total fuel solution.}
     \label{tab:nondimresults}
 \end{table}
 
-Aside from this caricature example, we demonstrate the capabilities of \gls{rsp}s
-by considering a more realistic scenario, now with uncertainty.
+We demonstrate the benefits of \gls{rsp}s
+by considering uncertainty while optimizing for the same objectives.
 We perform the optimization of the aircraft with no uncertainty, and both box and
 ellipsoidal uncertainty ($\Gamma = 1$)
-for 4 different objective functions, and plot the results on radar plots.
+for the objective functions in Table~\ref{tab:nondimresults}, and plot the results on radar plots.
 Radar plots are useful because they allow engineers to visualize the performance
 of designs in many dimensions. One way to envision the multi-objective
 performance of the aircraft is to consider the area of the polygon defined by the aircraft's
 performance as the figure of merit; the smaller the better.
-Due to the large disparities in the figures of merit depending on the objective function choice
-in Table~\ref{tab:nondimresults}, we choose to demonstrate this using four objective functions
-that would traditionally be used in aircraft design, and be expected to have a high degree of correlation.
-These are total (time and fuel) cost, total fuel, takeoff weight and inverse cruise lift-over-drag (L/D).
 
 \begin{figure}[!ht]
-    \begin{center}
-    \begin{tikzpicture}
-        \node[inner sep=0] (center) at (0,0)
-        {\includegraphics[trim={2cm 0 1cm 0},clip,scale=0.6]{4objradar.eps}};
-        \node[inner sep=0] (ul) at (-1.0, 0.25)
-        {\includegraphics[height=3.8cm]{0nominal.eps}};
-        \node[inner sep=0] (ur) at (1.0, 0.25)
-        {\includegraphics[height=3.8cm]{1nominal.eps}};
-        \node[inner sep=0] (ll) at (-1.0, -2)
-        {\includegraphics[height=3.8cm]{2nominal.eps}};
-        \node[inner sep=0] (lr) at (1.0, -2)
-        {\includegraphics[height=3.8cm]{3nominal.eps}};
-    \end{tikzpicture}
-    \caption{The radar plots of aircraft performance, for aircraft optimized for different objectives.
-    The bolded titles are the design objectives for each plot, whereas the individual plots
-    show the non-dimensionalized multiobjective performance of the aircraft designed under different
-    uncertainty sets. Nominal aircraft sketched for comparison. }
-    \label{fig:radar}
+\begin{center}
+\includegraphics[trim={2cm 0cm 1cm 0cm},clip,scale=0.75]{6objradar.pdf};
+\caption{The radar plots of aircraft performance, for aircraft optimized for different objectives.
+The bolded titles are the design objectives for each plot, whereas the individual plots
+show the non-dimensionalized multiobjective performance of the aircraft designed under different
+uncertainty sets. }
+\label{fig:radar}
 \end{center}
 \end{figure}
 
@@ -244,46 +222,68 @@ These are total (time and fuel) cost, total fuel, takeoff weight and inverse cru
         \begin{subfigure}{0.4\linewidth}
             \makebox[\textwidth]{\begin{tikzpicture}
                 \node[inner sep=0] (l) at (-2.5,0)
-                {\includegraphics[]{0nominal.eps}};
+                {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{0nominal.eps}};
                 \node[inner sep=0] (c) at (-1,0)
-                {\includegraphics[trim={10.5cm 2cm 10.5cm 2cm},clip,height=3.8cm]{0elliptical.eps}};
+                {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{0elliptical.eps}};
                 \node[inner sep=0] (r) at (.5,0)
-                {\includegraphics[trim={10.5cm 2cm 10.5cm 2cm},clip,height=3.8cm]{0box.eps}};
+                {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{0box.eps}};
             \end{tikzpicture}}
             \caption{Total fuel}
         \end{subfigure}
         \begin{subfigure}{0.4\linewidth}
             \makebox[\textwidth]{\begin{tikzpicture}
                 \node[inner sep=0] (l) at (-2.5,0)
-                {\includegraphics[trim={10.5cm 2cm 10.5cm 2cm},clip,height=3.8cm]{1nominal.eps}};
+                {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{1nominal.eps}};
                 \node[inner sep=0] (c) at (-1,0)
-                {\includegraphics[trim={10.5cm 2cm 10.5cm 2cm},clip,height=3.8cm]{1elliptical.eps}};
+                {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{1elliptical.eps}};
                 \node[inner sep=0] (r) at (.5,0)
-                {\includegraphics[trim={10.5cm 2cm 10.5cm 2cm},clip,height=3.8cm]{1box.eps}};
-            \end{tikzpicture}}
-            \caption{Takeoff weight}
-        \end{subfigure}
-        \begin{subfigure}{0.4\linewidth}
-            \makebox[\textwidth]{\begin{tikzpicture}
-                \node[inner sep=0] (l) at (-2.5,0)
-                {\includegraphics[trim={10.5cm 2cm 10.5cm 2cm},clip,height=3.8cm]{2nominal.eps}};
-                \node[inner sep=0] (c) at (-1,0)
-                {\includegraphics[trim={10.5cm 2cm 10.5cm 2cm},clip,height=3.8cm]{2elliptical.eps}};
-                \node[inner sep=0] (r) at (.5,0)
-                {\includegraphics[trim={10.5cm 2cm 10.5cm 2cm},clip,height=3.8cm]{2box.eps}};
+                {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{1box.eps}};
             \end{tikzpicture}}
             \caption{Total cost}
         \end{subfigure}
         \begin{subfigure}{0.4\linewidth}
             \makebox[\textwidth]{\begin{tikzpicture}
                 \node[inner sep=0] (l) at (-2.5,0)
-                {\includegraphics[trim={10.5cm 2cm 10.5cm 2cm},clip,height=3.8cm]{3nominal.eps}};
+                {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{2nominal.eps}};
                 \node[inner sep=0] (c) at (-1,0)
-                {\includegraphics[trim={10.5cm 2cm 10.5cm 2cm},clip,height=3.8cm]{3elliptical.eps}};
+                {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{2elliptical.eps}};
                 \node[inner sep=0] (r) at (.5,0)
-                {\includegraphics[trim={10.5cm 2cm 10.5cm 2cm},clip,height=3.8cm]{3box.eps}};
+                {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{2box.eps}};
+            \end{tikzpicture}}
+            \caption{Takeoff weight}
+        \end{subfigure}
+        \begin{subfigure}{0.4\linewidth}
+            \makebox[\textwidth]{\begin{tikzpicture}
+                \node[inner sep=0] (l) at (-2.5,0)
+                {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{3nominal.eps}};
+                \node[inner sep=0] (c) at (-1,0)
+                {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{3elliptical.eps}};
+                \node[inner sep=0] (r) at (.5,0)
+                {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{3box.eps}};
             \end{tikzpicture}}
             \caption{1/(Cruise L/D)}
+        \end{subfigure}
+        \begin{subfigure}{0.4\linewidth}
+            \makebox[\textwidth]{\begin{tikzpicture}
+                \node[inner sep=0] (l) at (-2.5,0)
+                {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{4nominal.eps}};
+                \node[inner sep=0] (c) at (-1,0)
+                {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{4elliptical.eps}};
+                \node[inner sep=0] (r) at (.5,0)
+                {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{4box.eps}};
+            \end{tikzpicture}}
+            \caption{Engine weight}
+        \end{subfigure}
+        \begin{subfigure}{0.4\linewidth}
+            \makebox[\textwidth]{\begin{tikzpicture}
+                \node[inner sep=0] (l) at (-2.5,0)
+                {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{5nominal.eps}};
+                \node[inner sep=0] (c) at (-1,0)
+                {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{5elliptical.eps}};
+                \node[inner sep=0] (r) at (.5,0)
+                {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{5box.eps}};
+            \end{tikzpicture}}
+            \caption{Wing area}
         \end{subfigure}
         \caption{Sketches of the aircraft drawn for corresponding radar plots. Drawn to scale for comparison.}
     \end{center}
@@ -291,21 +291,21 @@ These are total (time and fuel) cost, total fuel, takeoff weight and inverse cru
 
 Figure~\ref{fig:radar} shows the effects of robustness on
 the different worst-case performance metrics of the different aircraft.
-As expected, the box uncertainty set is strictly more conservative than the elliptical uncertainty set for
-all objectives. Note that the radar plots show the worst-case performance of the vehicles, although
+As expected, the box uncertainty set is strictly more conservative than the elliptical uncertainty set
+in the optimized objective. However, the tradeoffs in the others are less clear.
+Note that the radar plots show the worst-case performance of the vehicles, although
 this analysis can also be performed for the mean performance
 of the aircraft determined through ~\gls{mc} simulation.
 
-This multiobjective comparison underscores the importance of optimization under uncertainty
-in conceptual design especially when multiple, potentially conflicting objectives are present.
-If the inverse cruise L/D solution
-on the lower-right of Figure~\ref{fig:radar} is compared with the nominal total fuel solution on the upper-left, their
-performance profiles are similar. When parametric uncertainty is added however, we see that aircraft
-that maximize cruise L/D perform badly in the worst-case
-in all other objectives. This means that robust requirements can
-affect the efficacy of different objective functions in ensuring multiobjective performance.
+{\color{blue} This multiobjective comparison underscores the sensitivity of different
+objectives to level of robustness and by extension parameter uncertainty.
+For example, the engine weight of the 1/(Cruise L/D) solution is highly sensitive to level of robustness,
+whereas the engine weight of the total (time and fuel) cost aircraft is insensitive.
+Therefore, we might want to consider total cost to be our overall objective instead of 1/(Cruise L/D)
+if we are relatively averse to risk in engine versus airframe design.
+Robustness can affect the efficacy of different choices of objective function in ensuring multiobjective performance.
 Since \gls{rsp}s can be solved quickly and reliably over a variety of objective functions,
-they allow engineers to understand these kinds of complex trade-offs early on in the design process.
+they allow engineers to understand these kinds of complex trade-offs early on in the design process.}
 
 Based on these observations, we argue that there could be significant value left on the table
 if uncertainty is not considered with sufficient mathematical rigor in early phases of
@@ -313,10 +313,8 @@ the design process. \gls{rsp}s allow engineers to capture complex
 trade-offs in nonlinear optimization problems while considering uncertainty,
 resulting in \emph{less conservative} solutions
 than solutions that implement margins and other less mathematically
-rigorous methods for risk mitigation.
-Thus \gls{rsp}s improve significantly on the
-the paradigms of design under uncertainty in use
-in the aerospace industry today.
+rigorous methods for risk mitigation. Thus \gls{rsp}s improve significantly on the
+the paradigms of design under uncertainty in use in the aerospace industry today.
 
 \subsection{Risk minimization problems}
 
@@ -342,7 +340,8 @@ the goal of maximizing the total size of the uncertainty $\Gamma$ we can handle.
 
 The goal programming problem in Formulation~\ref{eq:goalprogramming} is clearly
 not equivalent to the problem in Formulation~\ref{eq:normform},
-but should yield the same results if both methods are optimal.
+but should yield the same results if there is no
+optimality gap between the methods.
 To show this, we use the worst-case objective values from the probability of failure study
 shown in Figure~\ref{fig:probOfFailure} as the $\delta$ inputs to the goal programming model, and compare the results.
 The results are presented in
@@ -386,7 +385,7 @@ with the original \gls{ro} problem. We confirm that both methods produce
 the same designs by examining the physical dimensions of the aircraft, and through the probability
 of failure found through \gls{mc} simulation in Table~\ref{tab:deltaVsGamma}.
 Note that there are small discrepancies
-in the probability of failure, notably in the value for $\Gamma = [0.3, 0.6]$. This is
+in the probability of failure, notably in the values for $\Gamma = [0.3, 0.6]$. This is
 possible because there are uncertainty realizations that can fall
 in or out of feasibility due to numerical precision. The interior point solvers
 used cannot make computations exactly~\cite{Nesterov1994}.
@@ -429,7 +428,7 @@ One example of this would be to impose an  L1-norm on the integer number of unce
 as well as an L2-norm on the overall size of uncertainty set.
 This method can be used to set the total size of the uncertainty set in a Euclidian sense,
 but then also to restrict the uncertainty to a subset of all of the uncertain parameters.
-This also turns the problem into an integer robust
+This also turns the problem into an mixed integer robust
 optimization problem which poses interesting computational challenges.
 
 With respect to interesting studies, \gls{ro} opens up the possibility to discover and analyze
