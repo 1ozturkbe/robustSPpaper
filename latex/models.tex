@@ -41,11 +41,11 @@ The wing structure model is based on a beam model with a distributed lift load,
 and a point mass in the center representing the fuselage.
 Wing fuel volume is modeled as a fraction of the internal volume available in the wing.
 The weight of the wing is the sum of skin and spar weights.
-Its drag is the sum of induced and profile drags, the latter of which is
+{\color{blue}Its drag is the sum of induced and profile drags, the latter of which is
 constrained by a 3-term softmax-affine posynomial fit~\cite{Hoburg2016} of drag polars
 generated in XFOIL~\cite{XFOIL}.
 The airfoil used was designed by Prof. Mark Drela of MIT and
-is a variant of those implemented in~\cite{Burton2017}.
+is a variant of those implemented in~\cite{Burton2017}.}
 
 \subsubsection{Fuselage}
 
@@ -56,9 +56,9 @@ The fuselage is assumed not to contain any structural members, and so its weight
 \subsubsection{Engine}
 
 The aircraft is powered by a naturally aspirated piston engine. It is subject to
-power lapse at lower air densities at higher altitudes. Engine weight versus maximum sea level power,
+power lapse at lower air densities at higher altitudes. {\color{blue}Engine weight versus maximum sea level power,
 and brake specific fuel consumption versus thrust and altitude
-are modeled using the posynomial fits of engine performance data from ~\cite{Ozturk2017}.
+are modeled using the posynomial fits of engine performance data from ~\cite{Ozturk2017}.}
 
 \subsection{Source of non-log-convexity: fuel volume}
 The fuel models have been detailed in the previous sections, but it is noteworthy that

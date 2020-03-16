@@ -47,7 +47,7 @@ $W_{\rm{w}_{\rm{coeff,surf}}}$ & wing surface weight coefficient & 60 $\mathrm{N
 
 In this case of a conceptual aircraft design with no prior data,
 the parameter uncertainties reflect aerospace engineering intuition.
-The wing weight coefficients $W_{\rm{w}_{\rm{coeff,strc}}}$ and $W_{\rm{w}_{\rm{coeff,surf}}}$,
+{\color{blue} The wing weight coefficients $W_{\rm{w}_{\rm{coeff,strc}}}$ and $W_{\rm{w}_{\rm{coeff,surf}}}$,
 and the ultimate load factor $N_{\rm{ult}}$ have
 large $3\sigma$'s because the build quality of aircraft components is
 often difficult to quantify with a large degree of certainty.
@@ -58,12 +58,12 @@ physical constants (sea level air viscosity and density, $\mu$ and $\rho$) and t
 a relatively high degree of accuracy ($e$) have relatively low deviations.
 Parameters that require testing to determine ($C_{L_{\rm{max}}}$, $C_{f_{\rm{fuse, ref}}}$,
 $V_{\rm{min}}$) have a level of uncertainty
-that reflects the expected variance of empirical studies. However, note that
+that reflects the expected variance of empirical studies.} However, note that
 these quantities are ultimately picked by the designer using prior experience and data,
 and the level of conservativeness in the
 design will be greatly affected by the chosen $3\sigma$'s.
 
-\subsection{Uncertainty sets considered}
+{\color{blue}\subsection{Uncertainty sets considered}
 \label{sec:global}
 
 The robust design problem is solved for box and elliptical uncertainty sets,
@@ -110,6 +110,7 @@ rigorously defined in the context of robust linear programming in~Appendix~\ref{
     size of the set in each uncertain parameter. }
     \label{fig:sets}
 \end{figure}
+}
 
 For box uncertainty,
 $\Gamma$ scales the width of the L$\infty$ hypercube as shown in Figure~\ref{fig:setsbox},

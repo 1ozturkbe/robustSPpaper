@@ -68,7 +68,7 @@ legacy methods are often too conservative, ruling out potentially beneficial tec
 and configurations due to the inability to adequately trade off performance and risk.
 
 There are two rigorous approaches to solving design optimization problems under uncertainty,
-which are \gls{so} and \gls{ro}, contrasted in Figure~\ref{fig:approaches} and defined below. Note that stochastic
+which are \gls{so} and \gls{ro}, {\color{blue}contrasted in Figure~\ref{fig:approaches} and defined below}. Note that stochastic
 optimization is an overloaded term, and exists in at least two contexts in the literature. The first is the solution
 of deterministic problems with stochastic search space exploration. The second is the solution
 of design optimization problems with stochastic parameters, which is the focus of this paper.
@@ -180,7 +180,7 @@ possible scenarios. This propagation method
 results in a combinatorial explosion of possible outcomes which need to be evaluated to determine constraint
 satisfaction and the distribution of the objective. Few problems can be addressed purely
 through stochastic optimization
-(eg. recourse problems~\cite{Kall1982},\cite{Higle1991}; energy planning problems~\cite{Pereira1991};
+(eg. recourse problems~\cite{Kall1982},\cite{Higle1991}; the energy planning problem~\cite{Pereira1991};
 and certain aircraft design problems ~\cite{Liem2015},\cite{Liem2017}), and
 even these are limited by combinatorics and costly system evaluations. Furthermore, they require
 problem-specific approximations, so that generality is compromised.
