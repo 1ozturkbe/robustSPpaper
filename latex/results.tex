@@ -6,9 +6,7 @@ to be minimized given a payload and range requirement.
 
 \subsection{Mitigation of probability of failure}
 
-First, the optimization problem is solved in presence of no uncertainty. It is expected
-that this aircraft has a high probability of failure due to its sensitivity
-to the outcomes of uncertain parameters. Then, using the sign of
+First, the optimization problem is solved in presence of no uncertainty. Then, using the sign of
 sensitivities of the nominal solution, we assign $3\sigma$ margins for each parameter
 and generate a design using margins. These two solutions are compared with \gls{ro} results for
 box and elliptical uncertainty sets at $\Gamma = 1$. From here onward we refer to
@@ -20,7 +18,7 @@ The design variables are then fixed for each solution, and the designs are simul
 different realizations of the uncertain parameters.
 This allows for statistical analysis of design performance, and
 an estimate of each design's probability of constraint
-violation, which we define as its probability of failure.
+violation, which we define as its \gls{pof}.
 In this~\gls{mc} scheme, the random variables
 are simulated from independent and identically distributed $3\sigma$ truncated Gaussians.
 We simulate from the truncated Gaussian since this makes it possible to
@@ -68,7 +66,7 @@ P[failure] & probability of failure & \% & 88 & 0 & 0 & 0\\
 \end{center}
 \end{table}
 
-It is noteworthy in the probability of failure at the bottom of Table~\ref{tab:results} that,
+It is noteworthy in the \gls{pof} at the bottom of Table~\ref{tab:results} that,
 for the nominal problem ($\Gamma = 0$),
 only 12 percent of the \gls{mc} evaluations result in feasible solutions.
 This means that an aircraft designed for the average case would almost surely
@@ -97,7 +95,7 @@ whereas box uncertainty guarantees deterministically that the constraints are sa
 
 We also posited that the elliptical uncertainty, although it doesn't
 protect deterministically against all $3\sigma$ uncertainties, would be less conservative than the
-margin and box designs while not significantly sacrificing probability of failure. This is
+margin and box designs while not significantly sacrificing \gls{pof}. This is
 confirmed since the elliptical design fails none of the random samples,
 and spends 9\% and 10\% less fuel on average
 than the margin and box aircraft respectively.
@@ -118,7 +116,7 @@ against a similar amount of risk as designs using margins or box uncertainty.
 
 An analysis on the range $\Gamma=[0,1]$ was performed to confirm that the trends from
 Table~\ref{tab:results} hold for all $\Gamma$. Figure~\ref{fig:probOfFailure}
-shows that probability of failure goes monotonically
+shows that \gls{pof} goes monotonically
 towards zero as $\Gamma$ increases for all three methods, where box uncertainty is
 more conservative than elliptical uncertainty over the whole $\Gamma$ domain, with no
 such guarantees for margins.
@@ -154,10 +152,10 @@ we have normalized the results by the solution time of the nominal problem.
 The bottom axis ranks the methods by their level of conservativeness, Best Pairs
 and Simple Conservative formulations being the least and most conservative respectively,
 and where the elliptical formulations are less conservative than the box formulations.
-For this aircraft design problem, the preferred Best Pairs methodology
-is competitive in solution and setup times for both types of uncertainty set. Furthermore
-the box uncertainty set generally requires lower setup time (other than the Simple Conservative case)
-than the elliptical uncertainty set.
+{\color{blue}For this aircraft design problem, the preferred Best Pairs methodology
+with an elliptical uncertainty set
+is competitive in solution and setup times relative to other methods, while providing
+the least conservative solutions.}
 Note that setup and solution times for \gls{rsp}s are highly problem-specific, so it is not possible
 to predict the time performance of other \gls{rsp}-compatible problems from these results.
 Time performance will vary depending on the number of inequality constraints,
@@ -169,7 +167,7 @@ in each inequality, and the \gls{rgp} approximation and uncertainty set used.
 One of the benefits of convex and difference-of-convex optimization methods is the ability to optimize for
 different objectives~\cite{York2018}. As a demonstration, we optimize the aircraft without uncertainty
 for 6 different objectives, and show
-the non-dimensionalized figures of merit in the columns of Table~\ref{tab:nondimresults}.
+the non-dimensionalized figures of merit in Table~\ref{tab:nondimresults}.
 Since the model is physics based, {\color{blue}the model can even accommodate objectives such as wing area
 which are often unintuitive and not considered. The resulting aircraft
 differ significantly with respect to certain objectives, while being similar in may others.
@@ -196,7 +194,7 @@ consider the multiobjective performance of engineered systems.}
     \label{tab:nondimresults}
 \end{table}
 
-We demonstrate the benefits of \gls{rsp}s
+We demonstrate the benefits of \gls{rsp}s in multiobjective optimization
 by considering uncertainty while optimizing for the same objectives.
 We perform the optimization of the aircraft with no uncertainty, and both box and
 ellipsoidal uncertainty ($\Gamma = 1$)
@@ -336,22 +334,22 @@ is a fractional penalty on the objective that we are willing to sacrifice for ro
 gives $(1+\delta)f_0^*$ as the upper bound on the objective value. Intuitively,
 this is a form of goal programming,
 where we specify the exact maximum worst-case value of an objective we can tolerate with
-the goal of maximizing the total size of the uncertainty $\Gamma$ we can handle.
+the goal of maximizing the size of the uncertainty set we can handle.
 
 The goal programming problem in Formulation~\ref{eq:goalprogramming} is clearly
 not equivalent to the problem in Formulation~\ref{eq:normform},
 but should yield the same results if there is no
 optimality gap between the methods.
-To show this, we use the worst-case objective values from the probability of failure study
+To show this, we use the worst-case objective values from the \gls{pof} study
 shown in Figure~\ref{fig:probOfFailure} as the $\delta$ inputs to the goal programming model, and compare the results.
 The results are presented in
 Table~\ref{tab:deltaVsGamma}. Note that the two methods were evaluated \gls{mc} runs using the same 100 realizations
-of the uncertainty, for consistency in probability of failure results.
+of the uncertainty, for consistency in \gls{pof} results.
 
 \begin{table}
 \begin{center}
 \caption{\label{tab:deltaVsGamma} Results of original \gls{ro} problem versus goal program in terms
-of size of uncertainty set $\Gamma$, objective penalty $\delta$, and probability of failure. Both methods
+of size of uncertainty set $\Gamma$, objective penalty $\delta$, and \gls{pof}. Both methods
 use the Best Pairs formulation under elliptical uncertainty. The designs obtained through
 the two different methods match.}
 \begin{tabular}{c c c c c c c c}
@@ -385,7 +383,7 @@ with the original \gls{ro} problem. We confirm that both methods produce
 the same designs by examining the physical dimensions of the aircraft, and through the probability
 of failure found through \gls{mc} simulation in Table~\ref{tab:deltaVsGamma}.
 Note that there are small discrepancies
-in the probability of failure, notably in the values for $\Gamma = [0.3, 0.6]$. This is
+in the \gls{pof}, notably in the values for $\Gamma = [0.3, 0.6]$. This is
 possible because there are uncertainty realizations that can fall
 in or out of feasibility due to numerical precision. The interior point solvers
 used cannot make computations exactly~\cite{Nesterov1994}.
@@ -424,8 +422,8 @@ significantly than others.
 Another potentially valuable extension to the proposed framework is the concurrent implementation
 of multiple sets to contain the uncertain parameters, with the purpose of restricting uncertain
 outcomes further and reducing conservativeness.
-One example of this would be to impose an  L1-norm on the integer number of uncertain parameters
-as well as an L2-norm on the overall size of uncertainty set.
+One example of this would be to impose {\color{blue}an L0-norm as well as an L2-norm}
+to bound the size of uncertainty set.
 This method can be used to set the total size of the uncertainty set in a Euclidian sense,
 but then also to restrict the uncertainty to a subset of all of the uncertain parameters.
 This also turns the problem into an mixed integer robust

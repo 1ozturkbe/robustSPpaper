@@ -1,7 +1,7 @@
 \section{Uncertainties and Sets}
 \label{uncertainties_and_sets}
 
-As aforementioned in Section~\ref{sec:robustvsstochastic}, {\color{blue}one of the advantages
+As mentioned in Section~\ref{sec:robustvsstochastic}, {\color{blue}one of the advantages
 of \gls{ro} over \gls{so} is the fact that it only requires as inputs
 the uncertainty set size instead of complete probability distributions
 over each parameter.
@@ -74,7 +74,7 @@ hedged against, and affects all parameter uncertainties simultaneously. $\Gamma 
 implies that all of the parameters take their nominal values with zero uncertainty,
 which we call the nominal problem,
 and larger $\Gamma$ protects against greater uncertainty. $\Gamma$ is more
-rigorously defined in the context of robust linear programming in~Appendix~\ref{LP_to_GP}.
+rigorously defined in the context of robust linear programming in~Appendix~\ref{LP_to_GP}.}
 
 \begin{figure}
     % Box uncertainty set
@@ -110,7 +110,6 @@ rigorously defined in the context of robust linear programming in~Appendix~\ref{
     size of the set in each uncertain parameter. }
     \label{fig:sets}
 \end{figure}
-}
 
 For box uncertainty,
 $\Gamma$ scales the width of the L$\infty$ hypercube as shown in Figure~\ref{fig:setsbox},
@@ -145,5 +144,5 @@ Elliptical uncertainty exploits the fact that the joint probability of
 multiple uncertain parameters taking values in the tails of their respective distributions is
 very low. So while it does not protect deterministically for all outcomes of the uncertain
 parameters within $3\sigma$, it is expected to protect against uncertain outcomes
-less conservatively than the box uncertainty set, with little compromise in probability of failure
-of the design.
+less conservatively than the box uncertainty set, with little compromise in the
+ability of the design to satisfy constraints.

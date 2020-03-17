@@ -14,127 +14,155 @@
 \begin{document}
 
     \title{Responses to Referees: \\
-    "Optimal Aircraft Design Decisions Under Uncertainty \\
+    ``Optimal Aircraft Design \\ Decisions Under Uncertainty \\
     via Robust Signomial Programming"}
-    
+
     \author{Berk \"Ozt\"urk, Ali Saab}
 
-\maketitle
+    \maketitle
 
-We thank the referees for their comments on the draft manuscript. Specific comments from the reviews (\textit{in italics}) are addressed below, and have been addressed {\color{blue} in blue} in the revised manuscript. 
+    We thank the referees for their comments on the draft manuscript.
+    Specific comments from the reviews (\textit{in italics}) are addressed below, and
+    have been addressed {\color{blue} in blue} in the revised manuscript.
 
-\section{Reviewer 1}
+    \section{Reviewer 1}
 
-\textit{This paper presents a method that transforms stochastic optimization problems to
-deterministic problems by considering the worst-case robust counterpart of each design constraint.
-The authors contribute a new formulation that leverages signomial programming to achieve
-efficient optimization under uncertainty. The paper is well written and the results
-demonstrate the contributions effectively.}
+    \textit{This paper presents a method that transforms stochastic optimization problems to
+    deterministic problems by considering the worst-case robust counterpart of each design constraint.
+    The authors contribute a new formulation that leverages signomial programming to achieve
+    efficient optimization under uncertainty. The paper is well written and the results
+    demonstrate the contributions effectively.}
 
-We thank the reviewer for their positive appraisal, and address their comments below. 
+    We thank the reviewer for their positive appraisal, and address their comments below.
+    \bigskip
 
-\textit{pg. 1: You should make the point that usually, optimization under uncertainty is
-in most cases untractable for more than a few variables due to computational cost.
-However, since you can solve signomial programming problems much faster than conventional formulations,
-you are able to solve relatively large optimization under uncertainty with a relatively low computational cost.}
+    \textit{pg. 1: You should make the point that usually, optimization under uncertainty is
+    in most cases untractable for more than a few variables due to computational cost.
+    However, since you can solve signomial programming problems much faster than conventional formulations,
+    you are able to solve relatively large optimization under uncertainty with a relatively low computational cost.}
 
-The abstract has been updated to highlight the fact that RSPs are tractable and efficient. 
+    The abstract has been updated to highlight that stochastic optimization is in most cases
+    intractable, and that RSPs are tractable and efficient.
+    \bigskip
 
-\textit{pg. 1: You should also emphasize the obvious caveat: The whole approach
-is limited to problems that can be described using signomial programming, which is by no means general.}
+    \textit{pg. 1: You should also emphasize the obvious caveat: The whole approach
+    is limited to problems that can be described using signomial programming, which is by no means general.}
 
-Abstract has been updated to emphasize the caveat: "provided that each constraint is SP-representable."
+    Abstract has been updated to emphasize the caveat: ``provided that each constraint is SP-representable."
+    \bigskip
 
-\textit{pg. 2: Remove bullets and convert to prose.}
+    \textit{pg. 2: Remove bullets and convert to prose.}
 
-The bullets have been reworded and converted to prose as suggested. 
+    The bullets have been reworded and converted to prose as suggested.
+    \bigskip
 
-\textit{pg. 3: The following references use a multimission/multipoint approach that go beyond the naive approach mentioned in the introduction. They are based on probability density functions and/or actual flight data and should be cited...}
+    \textit{pg. 3: The following references use a multimission/multipoint approach
+    that go beyond the naive approach mentioned in the introduction.
+    They are based on probability density functions and/or actual flight data and should be cited...}
 
-All three references have been cited and added to the the literature on multimission/multipoint approaches on pg. 3. 
-We have attempted to explain and contrast the approaches in the [Gallard 2013] and [Liem 2015,2017] papers
-with our method. 
+    All three references have been cited and added to the the literature on multimission/multipoint approaches on pg. 3.
+    We have attempted to explain and contrast the approaches in the [Gallard 2013] and [Liem 2015, 2017] papers
+    with our method.
+    \bigskip
 
-\textit{pg. 3: SO and RO are not well defined and their relation is not clear. 
-An example of these two methods in a given application might help.}
+    \textit{pg. 3: SO and RO are not well defined and their relation is not clear.
+    An example of these two methods in a given application might help.}
 
-On pg. 3, I have  clarified the contexts in which each method is used, 
-and added a figure to illustrate the relationships between the parameter inputs
-and objective functions of each problem. 
+    On pg. 3, I have clarified the contexts in which each method is used,
+    and added a figure to illustrate the relationships between the parameter inputs
+    and objective functions of each problem.
+    \bigskip
 
-\textit{pg. 6-7: Let's also call the functions and parameters by their names in the context of optimization to improve clarity: 
-"objective" f0, "constraints" fi, and "design variables" x. And make clear that the uncertain parameters are other parameters that in a deterministic problem would be fixed.}
 
-I have referred to the functions in the context of optimization as suggested. Furthermore, 
-a clarification has been added to Section II.A to explain the relationship between uncertain parameters and the 
-deterministic problem, by explaining that fixed $u$ are recovered when $\mathcal{U}$ is a set with a single element. 
+    \textit{pg. 6-7: Let's also call the functions and parameters by their names in the context of optimization to improve clarity:
+    "objective" f0, "constraints" fi, and "design variables" x. And make clear that the uncertain parameters are other parameters that in a deterministic problem would be fixed.}
 
-\textit{pg. 6: Wouldn't f0 be a function of u in general? It certainly is when you look at Table 1.}
+    I have referred to the functions in the context of optimization as suggested. Furthermore,
+    a clarification has been added to Section II.A to explain the relationship between uncertain parameters and the
+    deterministic problem, by explaining that the `certain' problem is
+    recovered when $\mathcal{U}$ is a set with a single element.
+    \bigskip
 
-The oversight has been corrected in all instances of design problem statement in Section II.A. 
 
-\textit{pg. 7: Do you have issues with the max function being discontinuous and causing issues?}
+    \textit{pg. 6: Wouldn't f0 be a function of u in general? It certainly is when you look at Table 1.}
 
-This is not an issue in the particular implementation of the method
-Since the method leverages existing robust linear programming (RLP)
-methods, the maximum is a continuous and convex function. 
-In fact, the inner maximization problem can be solved analytically, using conic
-duality and the fact only parameters ($b$'s) in the robust problem are uncertain, 
-as demonstrated by Saab et al. in Appendix A, Equation 29-35 of "Robust Designs via Geometric Programming", 
-cited in the paper.
-It is this fact that allows for the robust optimization problems to be solved deterministically. 
-We did not feel that this insight warranted changes to the manuscript, since 
-Saab et al. elaborate in detail about the RLP approximation of the GP. 
+    The oversight has been corrected in all instances of design problem statement in Section II.A.
+    \bigskip
 
-\textit{pg 14: "set bounds on parameters". By "parameters", you mean constraints, right? Be more precise.}
+    \textit{pg. 7: Do you have issues with the max function being discontinuous and causing issues?}
 
-The reviewer was astute in noting that "bound" was the improper word to describe the $3\sigma$ values
-defined by the designer. These $3\sigma$ values define the relative size
-of the uncertainty set in each parameter, whether the set is a box or an ellipsoid.
-To avoid confusion, we have modified "bound" to "size". 
+    This is not an issue in the particular implementation of the method.
+    Since the method leverages existing robust linear programming (RLP)
+    methods, the maximum is a continuous and convex function.
+    In fact, the inner maximization problem can be solved analytically, using conic
+    duality and the fact only parameters ($b$'s) in the robust problem are uncertain,
+    as demonstrated by Saab et al. in Appendix A, Equation 29-35 of ``Robust Designs via Geometric Programming",
+    cited in the paper.
+    It is this fact that allows for the robust optimization problems to be solved deterministically.
+    We did not feel that this insight warranted changes to the manuscript, since
+    Saab et al. elaborate in detail about the RLP approximation of the GP.
+    \bigskip
 
-\textit{pg. 15, Table 1: In my view, the airfoil thickness ratio would be a design variable.}
+    \textit{pg 14: ``set bounds on parameters". By ``parameters", you mean constraints, right? Be more precise.}
 
-We agree with the reviewer, and have converted airfoil thickness to be a design variable. 
-This has required the removal of airfoil thickness and wetted area ratio from the uncertain parameters
-and the addition of two constraints to the model. The model definition has been
-amended to reflect these changes. 
-The modifications have significantly improved the model since 
-airfoil thickness now is coupled to all relevant aircraft disciplines: aerodynamics, structures and 
-fuel volume. This also required changing an example in Section II 
-which explained that margin allocation for wing thickness 
-is unintuitive, where air density was used as an example instead. 
-Some of the other uncertain parameters have been changed (notably
-payload weight from 6250 N to 3000N) to better illustrate tradeoffs in the objective 
-table. 
+    The reviewer was astute in noting that "bound" was the improper word to describe the $3\sigma$ values
+    defined by the designer. These $3\sigma$ values define the relative size
+    of the uncertainty set in each parameter, whether the set is a box or an ellipsoid.
+    To avoid confusion, we have modified ``bound" to ``size".
+    \bigskip
 
-\textit{pg. 15: A figure illustrating the types of uncertainty would be useful.}
+    \textit{pg. 15, Table 1: In my view, the airfoil thickness ratio would be a design variable.}
 
-Figure 4 has been added to illustrate the types of uncertainty considered, 
-as well as the effects of changes in $\Gamma$ and $3\sigma$ more concretely. 
+    We agree with the reviewer, and have converted airfoil thickness to be a design variable.
+    This has required the removal of airfoil thickness and wetted area ratio from the uncertain parameters
+    and the addition of two constraints to the model. The model definition has been
+    amended to reflect these changes.
+    The modifications have significantly improved the model since
+    airfoil thickness is coupled to all relevant aircraft disciplines: aerodynamics, structures and
+    fuel volume. This required updating all of the results,
+    but the overall findings and takeaways have not changed. I have also
+    modified an example in Section II
+    which explained that margin allocation for wing thickness
+    is unintuitive, where air density was used as an example instead.
+    Some of the other uncertain parameters have been changed (notably
+    payload weight from 6250 N to 3000N) to better illustrate tradeoffs in the objective
+    table.
+    \bigskip
 
-\textit{Fig. 4: All 3 fuel weight results should be plotted in on figure, and same for the probability of failure (in separate figure).}
+    \textit{pg. 15: A figure illustrating the types of uncertainty would be useful.}
 
-Figure 4 definitely initiated some debates with the authors prior to paper submission
-and revision. After several iterations, the authors thought the best compromise was putting
-all 6 lines on the same plot, since this allowed for adequate comparison of probability of
-failure and cost metrics for the three methods. We hope the editor will agree that
-the figures are clearer with the change.
+    Figure 5 has been added to illustrate the types of uncertainty considered,
+    as well as the effects of changes in $\Gamma$ and $3\sigma$ more concretely.
+    \bigskip
 
-\textit{Conclusions: You have an insightful set of well expressed conclusions. You should remind the readers of a big caveat. The whole approach is limited to problems that can be described using signomial programming, which is by no means general.}
+    \textit{Fig. 4: All 3 fuel weight results should be plotted in on figure,
+    and same for the probability of failure (in separate figure).}
 
-We thank the reviewer for their feedback, which has been critical for making improvements to the manuscript. We 
-have revisited the paper to better define the scope of design problems that can be expressed as signomial 
-programs, and addressed each comment to the best of our abilities. 
+    After several iterations, the authors thought the best compromise for improving now-Figure 6
+    was putting
+    all 6 lines on the same plot, since this allowed for adequate comparison of probability of
+    failure and cost metrics for the three methods. We hope the editor will agree that
+    the figures are clearer with the change.
+    \bigskip
 
-\section{Reviewer 2}
+    \textit{Conclusions: You have an insightful set of well expressed conclusions.
+    You should remind the readers of a big caveat. The whole approach is limited to problems
+    that can be described using signomial programming, which is by no means general.}
 
-\textit{The paper presents an interesting and valuable addition to the toolset of stochastic optimization methods. 
-The presentation style is clear and the mathematics seems to be correct.}
+    We thank the reviewer for their feedback, which has been critical for making improvements to the manuscript. We
+    have revisited the paper to better define the scope of design problems that can be expressed as signomial
+    programs, and addressed each comment to the best of our abilities.
+    \bigskip
 
-We thank the reviewer for their positive review. We hope that the reviewer
-will agree with the revisions made in response to other reviews, since
-they do not substantially change the conclusions of the paper
-and improve its narrative. 
+    \section{Reviewer 2}
+
+    \textit{The paper presents an interesting and valuable addition to the toolset of stochastic optimization methods.
+    The presentation style is clear and the mathematics seems to be correct.}
+
+    We thank the reviewer for their positive review. We hope that the reviewer
+    will agree with the revisions made in response to other reviews, since
+    they do not substantially change the conclusions of the paper
+    and improve its narrative.
+    \bigskip
 
 \end{document}
