@@ -16,7 +16,7 @@
     \title{Responses to Referees: \\
     2019-06-J058724.R1 \\
     ``Optimal Aircraft Design \\ Decisions Under Uncertainty \\
-    via Robust Signomial Programming"}
+    Using Robust Signomial Programming"}
 
     \author{Berk \"Ozt\"urk, Ali Saab}
 
@@ -76,7 +76,7 @@
 
 
     \textit{pg. 6-7: Let's also call the functions and parameters by their names in the context of optimization to improve clarity:
-    "objective" f0, "constraints" fi, and "design variables" x. And make clear that the uncertain parameters are other parameters that in a deterministic problem would be fixed.}
+    ``objective" f0, ``constraints" fi, and ``design variables" x. And make clear that the uncertain parameters are other parameters that in a deterministic problem would be fixed.}
 
     I have referred to the functions in the context of optimization as suggested. Furthermore,
     a clarification has been added to Section II.A to explain the relationship between uncertain parameters and the
@@ -106,7 +106,7 @@
 
     \textit{pg 14: ``set bounds on parameters". By ``parameters", you mean constraints, right? Be more precise.}
 
-    The reviewer was astute in noting that "bound" was the improper word to describe the $3\sigma$ values
+    The reviewer was astute in noting that ``bound" was the improper word to describe the $3\sigma$ values
     defined by the designer. These $3\sigma$ values define the relative size
     of the uncertainty set in each parameter, whether the set is a box or an ellipsoid.
     To avoid confusion, we have modified ``bound" to ``size".
@@ -116,18 +116,18 @@
 
     We agree with the reviewer, and have converted airfoil thickness to be a design variable.
     This has required the removal of airfoil thickness and wetted area ratio from the uncertain parameters
-    and the addition of two constraints to the model. The model definition has been
-    amended to reflect these changes.
+    and the addition of two constraints to the model. The model definition and all of the results
+    have been updated to reflect these changes.
     The modifications have significantly improved the model since
     airfoil thickness is coupled to all relevant aircraft disciplines: aerodynamics, structures and
-    fuel volume. This required updating all of the results,
-    but the overall findings and takeaways have not changed. I have also
+    fuel volume. The overall findings and takeaways have not changed. The radar plots 
+    in Figure 8 have been updated with 2 more objectives (6 instead of 4). I have also
     modified an example in Section II
     which explained that margin allocation for wing thickness
     is unintuitive, where air density was used as an example instead.
     Some of the other uncertain parameters have been changed (notably
-    payload weight from 6250 N to 3000N) to better illustrate tradeoffs in the objective
-    table.
+    payload weight from 6250 N to 3000N) to better illustrate multiobjective
+    tradeoffs in Table 3 and Figure 8. 
     \bigskip
 
     \textit{pg. 15: A figure illustrating the types of uncertainty would be useful.}
@@ -151,7 +151,7 @@
     that can be described using signomial programming, which is by no means general.}
 
     We thank the reviewer for their feedback, which has been critical for making improvements to the manuscript. We
-    have revisited the paper to better define the scope of design problems that can be expressed as signomial
+    have revisited the paper to better define the scope of design problems that can be expressed as robust signomial
     programs, and addressed each comment to the best of our abilities.
     \bigskip
 
@@ -161,9 +161,8 @@
     The presentation style is clear and the mathematics seems to be correct.}
 
     We thank the reviewer for their positive review. We hope that the reviewer
-    will agree with the revisions made in response to other reviews, since
-    they do not substantially change the conclusions of the paper
-    and improve its narrative.
+    will agree that the revisions made in response to other reviews improve the paper's narrative
+    and do not substantially change the conclusions of the paper. 
     \bigskip
 
 \end{document}
