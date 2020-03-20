@@ -4,21 +4,21 @@
 
 Given a general optimization problem under parametric uncertainty, we define the set of possible
 realizations of uncertain vector of parameters $u$ in the uncertainty set $\mathcal{U}$. This
-allows us to define the problem under uncertainty below{\color{blue}, with objective $f_0$ and constraints $f_i$ over
-design variables $x$ and uncertain parameters $u$}.
+allows us to define the problem under uncertainty below, with objective $f_0$ and constraints $f_i$ over
+design variables $x$ and uncertain parameters $u$.
 \begin{align*}
-    \text{min} &~~{\color{blue}f_0(x,u)} \\
+    \text{min} &~~f_0(x,u) \\
     \text{s.t.}     &~~f_i(x,u) \leq 0,~\forall u \in \mathcal{U},~i = 1,\ldots,n
 \end{align*}
-{\color{blue}In the trivial case when $\mathcal{U}$ has a single element, we recover
+In the trivial case when $\mathcal{U}$ has a single element, we recover
 the deterministic problem where parameters $u$ are fixed and certain.
 The problem of interest however has parametric uncertainty over continuous variables, for which
-$\mathcal{U}$ is a non-empty set with countably infinite members.}
+$\mathcal{U}$ is a non-empty set with countably infinite members.
 This general problem is infinite-dimensional, since it is possible to formulate an infinite number of constraints
 with the countably infinite number of possible realizations of $u \in \mathcal{U}$. To circumvent this issue,
 we can define the following robust formulation of the uncertain problem below.
 \begin{align*}
-    \text{min} &~~{\color{blue}f_0(x,u)} \\
+    \text{min} &~~f_0(x,u) \\
     \text{s.t.}     &~~\underset{u \in \mathcal{U}}{\text{max}}~f_i(x,u) \leq 0,~i = 1,\ldots,n
 \end{align*}
 This formulation hedges against the worst-case realization of the uncertainty in the defined uncertainty
@@ -26,7 +26,7 @@ set. The set is often described by a norm, which contains possible uncertain out
 bounded support
 \begin{equation}
     \begin{split}
-        \text{min} &~~{\color{blue}f_0(x,u)} \\
+        \text{min} &~~f_0(x,u) \\
     \text{s.t.}     &~~\underset{u}{\text{max}}~f_i(x,u) \leq 0,~i = 1,\ldots,n \\
                     &~~\left\lVert u \right\rVert \leq \Gamma \\
         \end{split}

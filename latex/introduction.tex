@@ -16,7 +16,7 @@ has been identified by academia and industry as an area of opportunity
 in multiple review papers (\cite{Zang2002},~\cite{Yao2011}),
 and we detail some of its potential benefits below.
 
-{\color{blue} The uptake of new design tools in the aerospace industry has been low
+The uptake of new design tools in the aerospace industry has been low
 due to heavy reliance on legacy design methods and prior experience when
 faced with risky design propositions. Legacy tools
 have been predominant even in the design of novel configurations where experience in
@@ -25,17 +25,17 @@ will better evaluate risk than legacy tools,
 there will be increased confidence in and uptake of new design tools.
 
 Design under uncertainty will allow for a better understanding of the trade-off between risk and
-performance. {\color{blue} Optimization tools that rigorously consider uncertainty will yield designs that are
+performance. Optimization tools that rigorously consider uncertainty will yield designs that are
 less conservative than
 traditional designs while meeting the same reliability requirements. These tools
 will also better evaluate the viability of new concepts and configurations relative to legacy methods,
-since they will capture the effects of technological uncertainty.}
+since they will capture the effects of technological uncertainty.
 
 Finally, design under uncertainty will enable guarantees
 of constraint satisfaction under uncertainty. Designs
 will be more robust to uncertainties in manufacturing quality,
 environmental factors, technology level and markets, and better able to
-handle off-nominal operating conditions.}
+handle off-nominal operating conditions.
 
 In economics, the idea that risk is related to profit is well understood and leveraged.
 In aerospace engineering however we often forget that risk aversity necessarily results in lower performance.
@@ -68,7 +68,7 @@ legacy methods are often too conservative, ruling out potentially beneficial tec
 and configurations due to the inability to adequately trade off performance and risk.
 
 There are two rigorous approaches to solving design optimization problems under uncertainty,
-which are \gls{so} and \gls{ro}, {\color{blue}contrasted in Figure~\ref{fig:approaches} and defined below}.
+which are \gls{so} and \gls{ro}, contrasted in Figure~\ref{fig:approaches} and defined below.
 Note that stochastic
 optimization is an overloaded term, and exists in at least two contexts in the literature. The first is the solution
 of deterministic problems with stochastic search space exploration. The second is the solution
@@ -94,7 +94,7 @@ of design optimization problems with stochastic parameters, which is the focus o
 \end{center}
 \end{figure}
 
-{\color{blue}\gls{so} pairs well with gradient-based approaches to solving nonlinear optimization problems
+\gls{so} pairs well with gradient-based approaches to solving nonlinear optimization problems
 such as those defined in ~\cite{Gallard2013},~\cite{Liem2015} and ~\cite{Liem2017}.
 These approaches implement an iterative process where
 the objective function and constraints are evaluated over an initial design, and first- and/or
@@ -104,9 +104,9 @@ probability distributions of the uncertain parameters in the iteration, and prop
 the distributions through the physics of a design problem to ensure constraint feasibility with certain probability.
 The predominant goal of \gls{so} is to optimize some distributional
 characteristics, eg. the mean as in Figure~\ref{fig:approaches},
-of the probability density function of the objective~\cite{Diwekar2008}.}
+of the probability density function of the objective~\cite{Diwekar2008}.
 
-{\color{blue}There have been recent developments in multi-mission aircraft design
+There have been recent developments in multi-mission aircraft design
 using \gls{so}.
 Liem et. al~\cite{Liem2015} propose the use of optimally
 weighted objective functions over an aircraft's operational
@@ -126,7 +126,7 @@ effectiveness of the methods in conceptual design.
 They have large computational costs that are somewhat mitigated through
 surrogate modeling, but would be detrimental in the conceptual design phase.
 Most importantly, they lack rigorous mathematical assessments of design feasibility
-under uncertain parameters.}
+under uncertain parameters.
 
 In contrast to \gls{so},
 \gls{ro} can only be applied to mathematical programs that have a robust counterpart,
@@ -191,12 +191,12 @@ there are no separate optimization and evaluation
 loops by construction, and thus \gls{ro} problems can be solved to optimality
 many orders of magnitude faster than \gls{so} problems of the same form~\cite{Bertsimas2011}.
 
-Conceptual design optimization values both generality and tractability, {\color{blue}the former
+Conceptual design optimization values both generality and tractability, the former
 because engineers would like to
 apply methods for optimization under uncertainty without significant mathematical groundwork,
 and the latter because fast solution times are critical
 to reduce program risk early on in the design process when more aspects
-of the design are fluid.} From this perspective, the relative intractability of
+of the design are fluid. From this perspective, the relative intractability of
 \gls{so}-based approaches makes them unreliable for conceptual design, since significant time is
 needed both to develop problem-specific tractable formulations, and to find satisfactory optima.
 Furthermore,
@@ -274,8 +274,8 @@ of the conceptual design phase, reduce program risk, and increase overall system
 
 This paper proposes a tractable \gls{rsp} which we solve as a sequential \gls{rgp},
 allowing us to implement robustness in non-log-convex problems such as aircraft design.
-We extend the \gls{rgp} framework developed by Saab~\cite{Saab2018} to \gls{sp}s, {\color{blue}and implement
-it as part of an existing open source optimization framework in Python~(\cite{robust}, \cite{gpkit}).}
+We extend the \gls{rgp} framework developed by Saab~\cite{Saab2018} to \gls{sp}s, and implement
+it as part of an existing open source optimization framework in Python~(\cite{robust}, \cite{gpkit}).
 We implement the \gls{rsp} formulation on a conceptual aircraft design problem with over a hundred
 variables as defined in~\cite{Ozturk2018}.
 The benefits of \gls{ro} are demonstrated both in ensuring design feasibility and performance

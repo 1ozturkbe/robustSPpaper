@@ -1,7 +1,7 @@
 \section{Uncertainties and Sets}
 \label{uncertainties_and_sets}
 
-As mentioned in Section~\ref{sec:robustvsstochastic}, {\color{blue}one of the advantages
+As mentioned in Section~\ref{sec:robustvsstochastic}, one of the advantages
 of \gls{ro} over \gls{so} is the fact that it only requires as inputs
 the uncertainty set size instead of complete probability distributions
 over each parameter.
@@ -17,7 +17,7 @@ The relative size of the uncertainty set in each uncertain variable is
 given by three times the \gls{cv}\footnote{The \gls{cv}
 is defined as follows: $\text{CV} = \frac{\sigma}{|\mu|}$,
 where $\sigma$ is the standard deviation and $\mu$ is the mean of the parameter.},
-as listed in Table~\ref{tab:uncertainties}.} Since for the rest of this work
+as listed in Table~\ref{tab:uncertainties}. Since for the rest of this work
 all standard deviations ($\sigma$) are normalized by the means of the parameters, we will use $3\sigma$
 to represent $3\text{CV}$.
 
@@ -47,7 +47,7 @@ $W_{\rm{coeff,surf}}$ & wing surface weight coefficient & 60 $\mathrm{N/m^2}$ & 
 
 In this case of a conceptual aircraft design with no prior data,
 the parameter uncertainties reflect aerospace engineering intuition.
-{\color{blue} The wing weight coefficients $W_{\rm{coeff, strc}}$ and $W_{\rm{coeff,surf}}$,
+The wing weight coefficients $W_{\rm{coeff, strc}}$ and $W_{\rm{coeff,surf}}$,
 and the ultimate load factor $N_{\rm{ult}}$ have
 large $3\sigma$'s because the build quality of aircraft components is
 often difficult to quantify with a large degree of certainty.
@@ -58,12 +58,12 @@ physical constants (sea level air viscosity and density, $\mu$ and $\rho$) and t
 a relatively high degree of accuracy ($e$) have relatively low deviations.
 Parameters that require testing to determine ($C_{L,\rm{max}}$, $C_{f,\rm{ref}}$,
 $V_{\rm{min}}$) have a level of uncertainty
-that reflects the expected variance of empirical studies.} However, note that
+that reflects the expected variance of empirical studies. However, note that
 these quantities are ultimately picked by the designer using prior experience and data,
 and the level of conservativeness in the
 design will be greatly affected by the chosen $3\sigma$'s.
 
-{\color{blue}\subsection{Uncertainty sets considered}
+\subsection{Uncertainty sets considered}
 \label{sec:global}
 
 The robust design problem is solved for box and elliptical uncertainty sets,
@@ -74,7 +74,7 @@ hedged against, and affects all parameter uncertainties simultaneously. $\Gamma 
 implies that all of the parameters take their nominal values with zero uncertainty,
 which we call the nominal problem,
 and larger $\Gamma$ protects against greater uncertainty. $\Gamma$ is more
-rigorously defined in the context of robust linear programming in~Appendix~\ref{LP_to_GP}.}
+rigorously defined in the context of robust linear programming in~Appendix~\ref{LP_to_GP}.
 
 \begin{figure}
     % Box uncertainty set
@@ -124,11 +124,11 @@ by margins. Furthermore, there is no guarantee (and it is unlikely)
 that the chosen corner, i.e. particular allocation of margins,
 is the most conservative point in the uncertainty set.
 It is even possible that the \emph{the wrong sign of margin} is allocated for certain parameters,
-since \gls{sp}s are nonlinear and local sensitivities cannot be used reliably to intuit global behavior. {\color{blue}Consider
+since \gls{sp}s are nonlinear and local sensitivities cannot be used reliably to intuit global behavior. Consider
 in this particular example the sea level air density $\rho$.
 Higher air density is better for takeoff performance and naturally aspirated engine performance,
 but results in higher drag, so it is difficult
-for a designer to determine how to best allocate margin on $\rho$.} Thus for the rest
+for a designer to determine how to best allocate margin on $\rho$. Thus for the rest
 of this paper the direction of margins is determined using the local sensitivities of the nominal solution,
 which are obtained at no extra computational cost in the solution of the terminal \gls{gp} approximation of the \gls{sp}.
 With these considerations in mind, box uncertainty is expected to be strictly more conservative
@@ -138,7 +138,7 @@ information (in this case the nominal solution) is required to allocate margin e
 
 For elliptical uncertainty, $\Gamma$ is the maximum diameter of the Euclidian norm
 ball of $u$ as shown in Figure~\ref{fig:setselliptical},
-where $u_i$ is {\color{blue}one-third} the number of standard deviations of perturbation of the
+where $u_i$ is one-third the number of standard deviations of perturbation of the
 $i$th parameter from its nominal value.
 Elliptical uncertainty exploits the fact that the joint probability of
 multiple uncertain parameters taking values in the tails of their respective distributions is

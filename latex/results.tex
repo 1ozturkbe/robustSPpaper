@@ -151,10 +151,10 @@ we have normalized the results by the solution time of the nominal problem.
 The bottom axis ranks the methods by their level of conservativeness, Best Pairs
 and Simple Conservative formulations being the least and most conservative respectively,
 and where the elliptical formulations are less conservative than the box formulations.
-{\color{blue}For this aircraft design problem, the preferred Best Pairs methodology
+For this aircraft design problem, the preferred Best Pairs methodology
 with an elliptical uncertainty set
 is competitive in solution and setup times relative to other methods, while providing
-the least conservative solutions.}
+the least conservative solutions.
 Note that setup and solution times for \gls{rsp}s are highly problem-specific, so it is not possible
 to predict the time performance of other \gls{rsp}-compatible problems from these results.
 Time performance will vary depending on the number of inequality constraints,
@@ -167,14 +167,14 @@ One of the benefits of convex and difference-of-convex optimization methods is t
 different objectives~\cite{York2018}. As a demonstration, we optimize the aircraft without uncertainty
 for 6 different objectives, and show
 the non-dimensionalized figures of merit in Table~\ref{tab:nondimresults}.
-Since the model is physics based, {\color{blue}the model can even accommodate objectives such as wing area
+Since the model is physics based, the model can even accommodate objectives such as wing area
 which are often unintuitive and not considered. The resulting aircraft
 differ significantly with respect to certain objectives, while being similar in may others.
 As an example, takeoff weight for all aircraft are 0.87 to 1.22 times the baseline total fuel solution,
 while engine weight varies from 0.88 to 3.62 times the baseline.
 These demonstrate the importance of considering many objectives
 in design, and underline the power of \gls{sp}s in helping
-consider the multiobjective performance of engineered systems.}
+consider the multiobjective performance of engineered systems.
 
 \begin{table}
     \centering
@@ -294,7 +294,7 @@ Note that the radar plots show the worst-case performance of the vehicles, altho
 this analysis can also be performed for the mean performance
 of the aircraft determined through ~\gls{mc} simulation.
 
-{\color{blue} This multiobjective comparison underscores the sensitivity of different
+This multiobjective comparison underscores the sensitivity of different
 objectives to level of robustness and by extension parameter uncertainty.
 For example, the engine weight of the 1/(Cruise L/D) solution is highly sensitive to level of robustness,
 whereas the engine weight of the total (time and fuel) cost aircraft is insensitive.
@@ -302,7 +302,7 @@ Therefore, we might want to consider total cost to be our overall objective inst
 if we are relatively averse to risk in engine versus airframe design.
 Robustness can affect the efficacy of different choices of objective function in ensuring multiobjective performance.
 Since \gls{rsp}s can be solved quickly and reliably over a variety of objective functions,
-they allow engineers to understand these kinds of complex trade-offs early on in the design process.}
+they allow engineers to understand these kinds of complex trade-offs early on in the design process.
 
 Based on these observations, we argue that there could be significant value left on the table
 if uncertainty is not considered with sufficient mathematical rigor in early phases of
@@ -421,7 +421,7 @@ significantly than others.
 Another potentially valuable extension to the proposed framework is the concurrent implementation
 of multiple sets to contain the uncertain parameters, with the purpose of restricting uncertain
 outcomes further and reducing conservativeness.
-One example of this would be to impose {\color{blue}an L0-norm as well as an L2-norm}
+One example of this would be to impose an L0-norm as well as an L2-norm
 to bound the size of uncertainty set.
 This method can be used to set the total size of the uncertainty set in a Euclidian sense,
 but then also to restrict the uncertainty to a subset of all of the uncertain parameters.
