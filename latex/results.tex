@@ -9,7 +9,8 @@ to be minimized given a payload and range requirement.
 First, the optimization problem is solved in presence of no uncertainty. Then, using the sign of
 sensitivities of the nominal solution, we assign $3\sigma$ margins for each parameter
 and generate a design using margins. These two solutions are compared with \gls{ro} results for
-box and elliptical uncertainty sets at $\Gamma = 1$. From here onward we refer to
+box and elliptical uncertainty sets at $\Gamma = 1$, using the Best Pairs robustification method.
+From here onward we refer to
 aircraft designed under no uncertainty, under margins, under box uncertainty and
 under elliptical uncertainty as `the nominal aircraft',
 `the margin aircraft', `the box aircraft' and `the elliptical aircraft' respectively.
@@ -107,10 +108,10 @@ against a similar amount of risk as designs using margins or box uncertainty.
     \centering
     \captionsetup{justification=centering, font=small}
     \includegraphics[width=0.9\textwidth]{pof_and_cost.pdf}
-    \caption{Simulated performance of the optimal robust aircraft, using margins, box and elliptical uncertainty sets,
-    as a function of $\Gamma$. The box and elliptical solutions use the Best Pairs formulation.
-    The banded lines represent the mean and standard deviation of the performance
-    of aircraft, simulated with 100 \gls{mc} samples of uncertain parameters.}
+    \caption{Simulated cost and \gls{pof} of the optimal margin, box, and elliptical aircraft
+    as a function of $\Gamma$.
+    The banded lines represent the mean and standard deviation of total fuel burn,
+    simulated with 100 \gls{mc} samples of uncertain parameters.}
     \label{fig:probOfFailure}
 \end{figure}
 
@@ -134,9 +135,7 @@ such guarantees for margins.
         \includegraphics[width=\linewidth]{ell_sst.eps}
     \end{subfigure}
     \caption{Robust aircraft optimization setup and solution times, normalized by the
-    nominal problem solution time, for $\Gamma = 1$.
-    Note that the problems with box uncertainty have lower setup
-    time costs versus those with elliptical uncertainty, but similar solve times.}
+    nominal problem solution time, for $\Gamma = 1$.}
     \label{compare_signomial}
 \end{figure}
 
@@ -207,10 +206,10 @@ performance as the figure of merit; the smaller the better.
 \begin{figure}[!ht]
 \begin{center}
 \includegraphics[trim={2cm 0cm 1cm 0cm},clip,scale=0.75]{6objradar.pdf};
-\caption{The radar plots of aircraft performance, for aircraft optimized for different objectives.
-The bolded titles are the design objectives for each plot, whereas the individual plots
-show the non-dimensionalized multiobjective performance of the aircraft designed under different
-uncertainty sets. }
+\caption{Radar plots of aircraft performance.
+The bolded titles are the optimized objectives for each plot, and the individual plots
+show the non-dimensionalized multiobjective performance of the aircraft, designed under different
+uncertainty sets.}
 \label{fig:radar}
 \end{center}
 \end{figure}

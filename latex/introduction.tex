@@ -21,15 +21,15 @@ due to heavy reliance on legacy design methods and prior experience when
 faced with risky design propositions. Legacy tools
 have been predominant even in the design of novel configurations where experience in
 and understanding of the design tradespaces is lacking. Since new tools for design under uncertainty
-will better capture uncertainty and evaluate risk than legacy tools,
+will better evaluate risk than legacy tools,
 there will be increased confidence in and uptake of new design tools.
 
 Design under uncertainty will allow for a better understanding of the trade-off between risk and
-performance. As a result, it will allow for designs that are less conservative than
-traditional designs while meeting the same reliability requirements. It will also allow
-designers to rigorously evaluate the effects of
-technological uncertainty on the benefits of new configurations,
-potentially improving the viability of new concepts.
+performance. {\color{blue} Optimization tools that rigorously consider uncertainty will yield designs that are
+less conservative than
+traditional designs while meeting the same reliability requirements. These tools
+will also better evaluate the viability of new concepts and configurations relative to legacy methods,
+since they will capture the effects of technological uncertainty.}
 
 Finally, design under uncertainty will enable guarantees
 of constraint satisfaction under uncertainty. Designs
@@ -172,7 +172,7 @@ many classes of conceptual engineering design problems can be cast or approximat
 is compatible with robust optimization.
 
 On the other hand, \gls{ro} is more tractable than \gls{so} due to the difference in method of uncertainty propagation.
-As mentioned in Section~\ref{sec:sp},
+As mentioned in Section~\ref{sec:robustvsstochastic},
 \gls{so} methods involve the propagation of probability densities throughout a model
 to determine their effects on constraint feasibility and the objective function.
 This requires the integration of the product of probability distributions with potential outcomes,
@@ -193,12 +193,12 @@ there are no separate optimization and evaluation
 loops by construction, and thus \gls{ro} problems can be solved to optimality
 many orders of magnitude faster than \gls{so} problems of the same form~\cite{Bertsimas2011}.
 
-Conceptual design optimization values both generality and tractability, the former
+Conceptual design optimization values both generality and tractability, {\color{blue}the former
 because engineers would like to
 apply methods for optimization under uncertainty without significant mathematical groundwork,
 and the latter because fast solution times are critical
 to reduce program risk early on in the design process when more aspects
-of the design are fluid. From this perspective, the relative intractability of
+of the design are fluid.} From this perspective, the relative intractability of
 \gls{so}-based approaches makes them unreliable for conceptual design, since significant time is
 needed both to develop problem-specific tractable formulations, and to find satisfactory optima.
 Furthermore,
@@ -229,10 +229,10 @@ to all possible realizations of parameters in an uncertainty set~\cite{Bertsimas
 There is extensive literature on \gls{ro} methods
 that offer differing levels of conservativeness~\cite{Bertsimas2004}
 depending on the kind of uncertainty set considered, that are guaranteed
-to be feasible over the set of interest.
+to be feasible over the uncertainty set of interest.
 
 \gls{so} formulations provide no probabilistic guarantees
-since the optimum depends on realizations of random variables\cite{Shmoys2004}.
+since the optimum depends on realizations of random variables~\cite{Shmoys2004}.
 This is not satisfactory from an engineering perspective, since
 optimization runs over the same parameters may result in different
 solutions. Furthermore, designs
@@ -276,7 +276,8 @@ of the conceptual design phase, reduce program risk, and increase overall system
 
 This paper proposes a tractable \gls{rsp} which we solve as a sequential \gls{rgp},
 allowing us to implement robustness in non-log-convex problems such as aircraft design.
-We extend the \gls{rgp} framework developed by Saab~\cite{Saab2018} to \gls{sp}s.
+We extend the \gls{rgp} framework developed by Saab~\cite{Saab2018} to \gls{sp}s, {\color{blue}and implement
+it as part of an existing open source optimization framework in Python~[\cite{robust}, \cite{gpkit}]}.
 We implement the \gls{rsp} formulation on a conceptual aircraft design problem with over a hundred
 variables as defined in~\cite{Ozturk2018}.
 The benefits of \gls{ro} are demonstrated both in ensuring design feasibility and performance

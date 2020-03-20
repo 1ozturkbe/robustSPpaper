@@ -31,15 +31,15 @@ Parameters & Description & Value & \% Uncert. ($3\sigma$) \\
 e & span efficiency & 0.92 & 3\\
 $\mu$ & air viscosity (SL) & $1.78 \times 10^{-5}~\mathrm{kg/(ms)}$ & 4 \\
 $\rho$ & air density (SL) & 1.23 $\mathrm{kg/m^3}$ & 5 \\
-$C_{L_{\rm{max}}}$ & stall lift coefficient & 1.6 & 5\\
+$C_{L,\rm{max}}$ & stall lift coefficient & 1.6 & 5\\
 k & fuselage form factor & 1.17 & 10\\
-$C_{f_{\rm{fuse, ref}}}$ & fuselage skin friction factor & 0.455 & 10 \\
+$C_{f,\rm{ref}}$ & reference fuselage skin friction factor & 0.455 & 10 \\
 $\rho_{\rm{p}}$ & payload density & 1.5 $\mathrm{kg/m^3}$ & 10 \\
 $N_{\rm{ult}}$ & ultimate load factor & 3.3 & 15\\
 $V_{\rm{min}}$ & takeoff speed & $35 \mathrm{m/s}$ & 20\\
 $W_{\rm{p}}$ & payload weight & 3000 N & 20\\
-$W_{\rm{w}_{\rm{coeff,strc}}}$ & wing structural weight coefficient & $2 \times 10^{-5}~1/\mathrm{m}$ & 20\\
-$W_{\rm{w}_{\rm{coeff,surf}}}$ & wing surface weight coefficient & 60 $\mathrm{N/m^2}$ & 20\\
+$W_{\rm{coeff, strc}}$ & wing structural weight coefficient & $2 \times 10^{-5}~1/\mathrm{m}$ & 20\\
+$W_{\rm{coeff,surf}}$ & wing surface weight coefficient & 60 $\mathrm{N/m^2}$ & 20\\
 \hline
 \end{tabular}
 \end{center}
@@ -47,7 +47,7 @@ $W_{\rm{w}_{\rm{coeff,surf}}}$ & wing surface weight coefficient & 60 $\mathrm{N
 
 In this case of a conceptual aircraft design with no prior data,
 the parameter uncertainties reflect aerospace engineering intuition.
-{\color{blue} The wing weight coefficients $W_{\rm{w}_{\rm{coeff,strc}}}$ and $W_{\rm{w}_{\rm{coeff,surf}}}$,
+{\color{blue} The wing weight coefficients $W_{\rm{coeff, strc}}$ and $W_{\rm{coeff,surf}}$,
 and the ultimate load factor $N_{\rm{ult}}$ have
 large $3\sigma$'s because the build quality of aircraft components is
 often difficult to quantify with a large degree of certainty.
@@ -56,7 +56,7 @@ since the payload is often developed concurrently with the aircraft.
 Parameters that engineers take to be
 physical constants (sea level air viscosity and density, $\mu$ and $\rho$) and those that can be determined with
 a relatively high degree of accuracy ($e$) have relatively low deviations.
-Parameters that require testing to determine ($C_{L_{\rm{max}}}$, $C_{f_{\rm{fuse, ref}}}$,
+Parameters that require testing to determine ($C_{L,\rm{max}}$, $C_{f,\rm{ref}}$,
 $V_{\rm{min}}$) have a level of uncertainty
 that reflects the expected variance of empirical studies.} However, note that
 these quantities are ultimately picked by the designer using prior experience and data,

@@ -4,7 +4,7 @@ This section presents a heuristic algorithm to solve a \gls{rsp}
 based on our previous discussion on robust geometric programming.
 
 \subsection{General \gls{rsp} Solver}
-As aforementioned, a common heuristic algorithm to solve a \gls{sp} is
+As mentioned in Section~\ref{sec:sp}, a common heuristic algorithm to solve a \gls{sp} is
 by sequentially solving local \gls{gp} approximations.
 Similarly, our approach to solve a \gls{rsp} is based on solving
 a sequence of local \gls{rgp} approximations. In Figure~\ref{fig:rspsolve},
@@ -21,7 +21,7 @@ The deterministic solution of the uncertain \gls{sp} is in general a good candid
         \node[block, name=localGP] at (4,0) (localGP) {Make local GP approximation};
         \node[block, name=localRGP] at (10,0) (localRGP) {Formulate local RGP};
         \node[block, name=solveRGP] at (14,0) (solveRGP) {Solve local RGP};
-        \node[block, name=xi] at (14,-2) (xi) {$\Delta x \leq reltol$?};
+        \node[block, name=xi] at (14,-2) (xi) {$\Delta \rm{objective} \leq \epsilon$?};
         \node[block, name=solution] at (14,-4) (solution) {Solution $x_{n}$};
 
         \draw[->] (detSP) -- node[name=x0] {$x_0$} (localGP);
