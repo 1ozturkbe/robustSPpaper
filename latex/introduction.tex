@@ -74,8 +74,6 @@ optimization is an overloaded term, and exists in at least two contexts in the l
 of deterministic problems with stochastic search space exploration. The second is the solution
 of design optimization problems with stochastic parameters, which is the focus of this paper.
 
-{\color{blue}
-
 \begin{figure}
 \begin{center}
     \begin{subfigure}{.51\textwidth}
@@ -141,7 +139,7 @@ the worst-case objective outcome of a design for a
 given set over the uncertain parameters. As such,
 \gls{ro} avoids the need to sample and propagate probability
 distributions, and turns \gls{so} problems into
-deterministic problems that are efficiently solved.}
+deterministic problems that are efficiently solved.
 
 \subsection{Comparison of robust and stochastic optimization methods for conceptual design}
 \label{sec:robustvsstochastic}
@@ -277,7 +275,7 @@ of the conceptual design phase, reduce program risk, and increase overall system
 This paper proposes a tractable \gls{rsp} which we solve as a sequential \gls{rgp},
 allowing us to implement robustness in non-log-convex problems such as aircraft design.
 We extend the \gls{rgp} framework developed by Saab~\cite{Saab2018} to \gls{sp}s, {\color{blue}and implement
-it as part of an existing open source optimization framework in Python~[\cite{robust}, \cite{gpkit}]}.
+it as part of an existing open source optimization framework in Python~(\cite{robust}, \cite{gpkit}).}
 We implement the \gls{rsp} formulation on a conceptual aircraft design problem with over a hundred
 variables as defined in~\cite{Ozturk2018}.
 The benefits of \gls{ro} are demonstrated both in ensuring design feasibility and performance
