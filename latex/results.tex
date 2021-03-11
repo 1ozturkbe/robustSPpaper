@@ -9,11 +9,11 @@ to be minimized given a payload and range requirement.
 First, the optimization problem is solved in presence of no uncertainty. Then, using the sign of
 sensitivities of the nominal solution, we assign $3\sigma$ margins for each parameter
 and generate a design using margins. These two solutions are compared with \gls{ro} results for
-box and elliptical uncertainty sets at $\Gamma = 1$, using the Best Pairs robustification method.
+box and ellipsoidal uncertainty sets at $\Gamma = 1$, using the Best Pairs robustification method.
 From here onward we refer to
 aircraft designed under no uncertainty, under margins, under box uncertainty and
-under elliptical uncertainty as `the nominal aircraft',
-`the margin aircraft', `the box aircraft' and `the elliptical aircraft' respectively.
+under ellipsoidal uncertainty as `the nominal aircraft',
+`the margin aircraft', `the box aircraft' and `the ellipsoidal aircraft' respectively.
 
 The design variables are then fixed for each solution, and the designs are simulated for
 different realizations of the uncertain parameters.
@@ -33,7 +33,7 @@ are simulated with the same \gls{mc} samples for consistency.
 \caption{\label{tab:results} SP Aircraft Optimization Results, for $\Gamma = 1$}
 \begin{tabular}{C{2cm} C{3.8cm} C{1.25cm} C{1.6cm} C{1.6cm} C{1.6cm} C{1.6cm}}
 \hline
-Free variable & Description & Units & No Uncert. & Margins & Box & Elliptical \\
+Free variable & Description & Units & No Uncert. & Margins & Box & Ellipsoidal \\
 \hline
 $L/D$ & mean lift-to-drag ratio & - & 45.0 & 35.4 & 36.1 & 38.4 \\
 $AR$ & aspect ratio & - & 38.0 & 25.0 & 24.6 & 28.1 \\
@@ -54,9 +54,9 @@ $V_{\rm{f,wing}}$ & wing fuel volume &$\mathrm{m^3}$ & 0.0133 & 0.0680 & 0.0667 
     \includegraphics[trim={10.5cm 1.5cm 10.5cm 1.5cm},clip,scale=0.7]{nominal.eps} &
     \includegraphics[trim={10.5cm 1.5cm 10.5cm 1.5cm},clip,scale=0.7]{margins.eps} &
     \includegraphics[trim={10.5cm 1.5cm 10.5cm 1.5cm},clip,scale=0.7]{box.eps} &
-    \includegraphics[trim={10.5cm 1.5cm 10.5cm 1.5cm},clip,scale=0.7]{elliptical.eps} \\
+    \includegraphics[trim={10.5cm 1.5cm 10.5cm 1.5cm},clip,scale=0.7]{ellipsoidal.eps} \\
 \hline
-Metric & Description & Units & No Uncert. & Margins & Box & Elliptical \\
+Metric & Description & Units & No Uncert. & Margins & Box & Ellipsoidal \\
 \hline
 Objective & total fuel weight & $\mathrm{N}$ & 214 & 367 & 402 & 368 \\
 E[Objective] & expected total fuel weight & $\mathrm{N}$ & 207 & 316 & 320 & 287 \\
@@ -76,7 +76,7 @@ unfavorable uncertain outcomes from the symmetric truncated Gaussian.
 That being said, depending on the problem, it may necessary to sacrifice
 performance to achieve a high degree ($3\sigma$) of
 reliability as in the solution for $\Gamma = 1$. Furthermore, the margin aircraft, the box aircraft
-and the elliptical aircraft spend on average 53\%, 55\% and 39\% more fuel respectively
+and the ellipsoidal aircraft spend on average 53\%, 55\% and 39\% more fuel respectively
 than the aircraft designed for the nominal case, but they also are
 robust to all uncertain outcomes in the $3\sigma$ set for the \gls{mc} simulation.
 
@@ -94,13 +94,13 @@ it is almost surely true that some \gls{mc} simulations will violate feasibility
 for the design with margins,
 whereas box uncertainty guarantees deterministically that the constraints are satisfied.
 
-We also posited that the elliptical uncertainty, although it doesn't
+We also posited that the ellipsoidal uncertainty, although it doesn't
 protect deterministically against all $3\sigma$ uncertainties, would be less conservative than the
 margin and box designs while not significantly sacrificing \gls{pof}. This is
-confirmed since the elliptical design fails none of the random samples,
+confirmed since the ellipsoidal design fails none of the random samples,
 and spends 9\% and 10\% less fuel on average
 than the margin and box aircraft respectively.
-The significance of this cannot be understated: the use of elliptical uncertainty
+The significance of this cannot be understated: the use of ellipsoidal uncertainty
 results in designs that have strictly better performance outcomes, while protecting
 against a similar amount of risk as designs using margins or box uncertainty.
 
@@ -108,7 +108,7 @@ against a similar amount of risk as designs using margins or box uncertainty.
     \centering
     \captionsetup{justification=centering, font=small}
     \includegraphics[width=0.9\textwidth]{pof_and_cost.pdf}
-    \caption{Simulated cost and \gls{pof} of the optimal margin, box, and elliptical aircraft
+    \caption{Simulated cost and \gls{pof} of the optimal margin, box, and ellipsoidal aircraft
     as a function of $\Gamma$.
     The banded lines represent the mean and standard deviation of total fuel burn,
     simulated with 100 \gls{mc} samples of uncertain parameters.}
@@ -119,7 +119,7 @@ An analysis on the range $\Gamma=[0,1]$ was performed to confirm that the trends
 Table~\ref{tab:results} hold for all $\Gamma$. Figure~\ref{fig:probOfFailure}
 shows that \gls{pof} goes monotonically
 towards zero as $\Gamma$ increases for all three methods, where box uncertainty is
-more conservative than elliptical uncertainty over the whole $\Gamma$ domain, with no
+more conservative than ellipsoidal uncertainty over the whole $\Gamma$ domain, with no
 such guarantees for margins.
 
 \begin{figure}[h!]
@@ -150,9 +150,9 @@ run times. Since the setup time of the nominal problem is minimal,
 we have normalized the results by the solution time of the nominal problem.
 The bottom axis ranks the methods by their level of conservativeness, Best Pairs
 and Simple Conservative formulations being the least and most conservative respectively,
-and where the elliptical formulations are less conservative than the box formulations.
+and where the ellipsoidal formulations are less conservative than the box formulations.
 For this aircraft design problem, the preferred Best Pairs methodology
-with an elliptical uncertainty set
+with an ellipsoidal uncertainty set
 is competitive in solution and setup times relative to other methods, while providing
 the least conservative solutions.
 Note that setup and solution times for \gls{rsp}s are highly problem-specific, so it is not possible
@@ -221,7 +221,7 @@ uncertainty sets.}
                 \node[inner sep=0] (l) at (-2.5,0)
                 {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{0nominal.eps}};
                 \node[inner sep=0] (c) at (-1,0)
-                {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{0elliptical.eps}};
+                {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{0ellipsoidal.eps}};
                 \node[inner sep=0] (r) at (.5,0)
                 {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{0box.eps}};
             \end{tikzpicture}}
@@ -232,7 +232,7 @@ uncertainty sets.}
                 \node[inner sep=0] (l) at (-2.5,0)
                 {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{1nominal.eps}};
                 \node[inner sep=0] (c) at (-1,0)
-                {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{1elliptical.eps}};
+                {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{1ellipsoidal.eps}};
                 \node[inner sep=0] (r) at (.5,0)
                 {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{1box.eps}};
             \end{tikzpicture}}
@@ -243,7 +243,7 @@ uncertainty sets.}
                 \node[inner sep=0] (l) at (-2.5,0)
                 {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{2nominal.eps}};
                 \node[inner sep=0] (c) at (-1,0)
-                {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{2elliptical.eps}};
+                {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{2ellipsoidal.eps}};
                 \node[inner sep=0] (r) at (.5,0)
                 {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{2box.eps}};
             \end{tikzpicture}}
@@ -254,7 +254,7 @@ uncertainty sets.}
                 \node[inner sep=0] (l) at (-2.5,0)
                 {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{3nominal.eps}};
                 \node[inner sep=0] (c) at (-1,0)
-                {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{3elliptical.eps}};
+                {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{3ellipsoidal.eps}};
                 \node[inner sep=0] (r) at (.5,0)
                 {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{3box.eps}};
             \end{tikzpicture}}
@@ -265,7 +265,7 @@ uncertainty sets.}
                 \node[inner sep=0] (l) at (-2.5,0)
                 {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{4nominal.eps}};
                 \node[inner sep=0] (c) at (-1,0)
-                {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{4elliptical.eps}};
+                {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{4ellipsoidal.eps}};
                 \node[inner sep=0] (r) at (.5,0)
                 {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{4box.eps}};
             \end{tikzpicture}}
@@ -276,7 +276,7 @@ uncertainty sets.}
                 \node[inner sep=0] (l) at (-2.5,0)
                 {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{5nominal.eps}};
                 \node[inner sep=0] (c) at (-1,0)
-                {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{5elliptical.eps}};
+                {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{5ellipsoidal.eps}};
                 \node[inner sep=0] (r) at (.5,0)
                 {\includegraphics[trim={10.5cm 0.5cm 10.5cm 0.5cm},clip,height=3.8cm]{5box.eps}};
             \end{tikzpicture}}
@@ -288,7 +288,7 @@ uncertainty sets.}
 
 Figure~\ref{fig:radar} shows the effects of robustness on
 the different worst-case performance metrics of the different aircraft.
-As expected, the box uncertainty set is strictly more conservative than the elliptical uncertainty set
+As expected, the box uncertainty set is strictly more conservative than the ellipsoidal uncertainty set
 in the optimized objective. However, the tradeoffs in the others are less clear.
 Note that the radar plots show the worst-case performance of the vehicles, although
 this analysis can also be performed for the mean performance
@@ -349,7 +349,7 @@ of the uncertainty, for consistency in \gls{pof} results.
 \begin{center}
 \caption{\label{tab:deltaVsGamma} Results of original \gls{ro} problem versus goal program in terms
 of size of uncertainty set $\Gamma$, objective penalty $\delta$, and \gls{pof}. Both methods
-use the Best Pairs formulation under elliptical uncertainty. The designs obtained through
+use the Best Pairs formulation under ellipsoidal uncertainty. The designs obtained through
 the two different methods match.}
 \begin{tabular}{c c c c c c c c}
 \hline
