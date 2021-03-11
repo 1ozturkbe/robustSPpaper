@@ -18,9 +18,9 @@ if __name__ == "__main__":
     number_of_time_average_solves, uncertainty_sets, nominal_solution, directly_uncertain_vars_subs, parallel,
             nominal_number_of_constraints, nominal_solve_time] = pof_parameters()
 
-    # Restricting method and uncertainty set to Best Pairs, elliptical for demonstration
+    # Restricting method and uncertainty set to Best Pairs, ellipsoidal for demonstration
     methods = [{'name': 'Best Pairs', 'twoTerm': True, 'boyd': False, 'simpleModel': False}]
-    uncertainty_sets = ['elliptical']
+    uncertainty_sets = ['ellipsoidal']
 
     # # Loading goal programming results
     delta = {}
@@ -39,7 +39,7 @@ if __name__ == "__main__":
     for i in range(ndeltas):
         resGammas.append(delta['solutions'][deltas[i], methods[0]['name'], uncertainty_sets[0]]('\\Gamma'))
 
-    # Plotting of cost and probability of failure for Best Pairs with elliptical uncertainty
+    # Plotting of cost and probability of failure for Best Pairs with ellipsoidal uncertainty
     filteredResult = filter_gamma_result_dict(delta['solutions'], 1, 'Best Pairs', 2, uncertainty_sets[0])
     filteredSimulations = filter_gamma_result_dict(delta['simulation_results'], 1, 'Best Pairs', 2, uncertainty_sets[0])
     objective_name = 'Total fuel weight'

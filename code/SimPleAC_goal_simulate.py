@@ -34,10 +34,10 @@ if __name__ == "__main__":
      nominal_number_of_constraints, nominal_solve_time] = pof_parameters()
     nGammas = len(gammas)
 
-    # Restricting method and uncertainty set to Best Pairs, elliptical and/or box for demonstration
+    # Restricting method and uncertainty set to Best Pairs, ellipsoidal and/or box for demonstration
     # Note: can only run this simulation one at a time!
     methods = [{'name': 'Best Pairs', 'twoTerm': True, 'boyd': False, 'simpleModel': False}]
-    uncertainty_sets = ['elliptical']
+    uncertainty_sets = ['ellipsoidal']
 
     # Loading pof results
     gamma = {}

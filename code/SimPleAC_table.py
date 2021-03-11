@@ -21,7 +21,7 @@ if __name__ == "__main__":
     sol = m.localsolve(verbosity=2)
 
     methods = [{'name': 'Best Pairs', 'twoTerm': True, 'boyd': False, 'simpleModel': False}]
-    uncertainty_sets = ['elliptical']
+    uncertainty_sets = ['ellipsoidal']
     gamma = 1
     margin_subs = {k: v + np.sign(mag(sol['sensitivities']['constants'][k.key]))*k.key.pr * v / 100.0
                                      for k, v in m.substitutions.items()
@@ -36,8 +36,8 @@ if __name__ == "__main__":
     bm = RobustModel(m, 'box', twoTerm = True, boyd = False, simpleModel = False, gamma = gamma)
     bsol = bm.robustsolve(verbosity=2)
 
-    # Model with elliptical uncertainty
-    em = RobustModel(m, 'elliptical', twoTerm = True, boyd = False, simpleModel = False, gamma = gamma)
+    # Model with ellipsoidal uncertainty
+    em = RobustModel(m, 'ellipsoidal', twoTerm = True, boyd = False, simpleModel = False, gamma = gamma)
     esol = em.robustsolve(verbosity=2)
 
     try:
@@ -60,7 +60,7 @@ if __name__ == "__main__":
         print(i['cost'])
 
     colors = ['blue', 'orange', 'red', 'green']
-    labels = ['nominal', 'margins', 'box', 'elliptical']
+    labels = ['nominal', 'margins', 'box', 'ellipsoidal']
     directory = 'savefigs'
     count = 0
     for i in soltab:

@@ -10,7 +10,7 @@ model_solution, _, _, directly_uncertain_vars_subs = generate_model_properties(m
 
 # robust_model = RobustModel(model, 'box', twoTerm = False, Gamma = 1) # generates the robust model
 
-robust_model = RobustModel(model, 'elliptical', twoTerm = False, Gamma = 1)  # generates the robust model
+robust_model = RobustModel(model, 'ellipsoidal', twoTerm = False, Gamma = 1)  # generates the robust model
 robust_model_solution = robust_model.robustsolve(verbosity=0)  # solve the robust model
 
 # Below, we are testing the SimPleAC model against failure. The free variables with attribute fixed=True are fixed using

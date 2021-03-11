@@ -77,7 +77,7 @@ if __name__ == "__main__":
     rm = None
     #plot_feasibilities(x, y, m, rm=rm, design_feasibility=True, skipfailures=True, numberofsweeps=20)
     sol , _, _, directly_uncertain_vars_subs = generate_model_properties(m, 1, 1)  # solving the SimPleAC
-    rm = RobustModel(m, 'elliptical', twoTerm=False, gamma=1)
+    rm = RobustModel(m, 'ellipsoidal', twoTerm=False, gamma=1)
     rmsol = rm.robustsolve()
     sol, robustsol = generate_flight_envelope(m, var1, var2, var1range, rm, rmsol)
 

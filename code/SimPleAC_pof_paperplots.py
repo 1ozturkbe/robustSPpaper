@@ -43,12 +43,12 @@ if __name__ == "__main__":
     title = ''
     filteredResults = [margin['solutions'],
                        filter_gamma_result_dict(gamma['solutions'], 1, method['name'], 2, 'box'),
-                       filter_gamma_result_dict(gamma['solutions'], 1, method['name'], 2, 'elliptical')]
+                       filter_gamma_result_dict(gamma['solutions'], 1, method['name'], 2, 'ellipsoidal')]
     filteredSimulations = [margin['simulation_results'],
                            filter_gamma_result_dict(gamma['simulation_results'], 1, method['name'], 2, 'box'),
-                            filter_gamma_result_dict(gamma['simulation_results'], 1, method['name'], 2, 'elliptical')]
+                            filter_gamma_result_dict(gamma['simulation_results'], 1, method['name'], 2, 'ellipsoidal')]
     objective_varkey = 'W_{f_m}'
-    legend_keys = ['margins', 'box', 'elliptical']
+    legend_keys = ['margins', 'box', 'ellipsoidal']
     edgecolors = ['#FFBF00', '#CC0000', '#008000']
     facecolors = ['#FFE135','#FF2052', '#8DB600']
 
