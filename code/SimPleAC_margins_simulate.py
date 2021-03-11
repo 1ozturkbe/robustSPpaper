@@ -44,9 +44,9 @@ if __name__ == '__main__':
         simulation_results[gammas[i]] = RobustGPTools.probability_of_failure(mm, solutions[gammas[i]], directly_uncertain_vars_subs,
                                                                              number_of_iterations)
         try:
-            number_of_constraints[gammas[i]] = len([cnstrnt for cnstrnt in mm.flat(constraintsets=False)])
+            number_of_constraints[gammas[i]] = len([cnstrnt for cnstrnt in mm.flat()])
         except AttributeError:
-            number_of_constraints[gammas[i]] = len([cnstrnt for cnstrnt in mm[-1].flat(constraintsets=False)])
+            number_of_constraints[gammas[i]] = len([cnstrnt for cnstrnt in mm[-1].flat()])
         print(simulation_results[gammas[i]])
 
     # Saving results

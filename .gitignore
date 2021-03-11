@@ -10,4 +10,10 @@
 *.pyc
 *.blg
 *.dvi
+*.bbl
+code/gammaResults
+code/goalResults
+code/marginResults
+code/objectiveTableResults
+code/savefigs
 
