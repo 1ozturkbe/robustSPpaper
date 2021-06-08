@@ -34,7 +34,7 @@ if __name__ == '__main__':
     verbosity = 1
 
     methods = [{'name': 'Best Pairs', 'twoTerm': True, 'boyd': False, 'simpleModel': False}]
-    uncertainty_sets = ['elliptical']
+    uncertainty_sets = ['ellipsoidal']
 
     # Simulating aircraft
     solutions, solve_times, simulation_results, number_of_constraints = simulate.variable_gamma_results(
@@ -56,7 +56,7 @@ if __name__ == '__main__':
     objective_name = 'Total cost'
     objective_units = 'fuel & time'
     title = ''
-    uncertainty_set = 'elliptical'
+    uncertainty_set = 'ellipsoidal'
     plot_gamma_result_PoFandCost(title, objective_name, objective_units, solutions, simulation_results)
 
     # Plotting fuel vs. time cost

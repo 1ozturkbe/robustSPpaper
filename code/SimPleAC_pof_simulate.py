@@ -15,7 +15,7 @@ def pof_parameters():
                {'name': 'Linearized Perturbations', 'twoTerm': False, 'boyd': False, 'simpleModel': False},
                {'name': 'Simple Conservative', 'twoTerm': False, 'boyd': False, 'simpleModel': True}
                ]
-    uncertainty_sets = ['box', 'elliptical']
+    uncertainty_sets = ['box', 'ellipsoidal']
     nGammas = 11
     gammas = np.linspace(0, 1.0, nGammas)
     min_num_of_linear_sections = 3
@@ -25,7 +25,7 @@ def pof_parameters():
     parallel = False
 
     nominal_solution, nominal_solve_time, nominal_number_of_constraints, directly_uncertain_vars_subs = \
-        simulate.generate_model_properties(model, number_of_time_average_solves, number_of_iterations,'normal')
+        simulate.generate_model_properties(model, number_of_time_average_solves, number_of_iterations, 'normal')
 
     return [model, methods, gammas, number_of_iterations,
     min_num_of_linear_sections, max_num_of_linear_sections, verbosity, linearization_tolerance,

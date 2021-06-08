@@ -66,7 +66,7 @@ design will be greatly affected by the chosen $3\sigma$'s.
 \subsection{Uncertainty sets considered}
 \label{sec:global}
 
-The robust design problem is solved for box and elliptical uncertainty sets,
+The robust design problem is solved for box and ellipsoidal uncertainty sets,
 which are defined by the L$\infty$- and L2-norms, and bounded
 by varying the parameter $\Gamma$.
 Intuitively, for both sets, $\Gamma$ is a global measure of how much risk is being
@@ -90,7 +90,7 @@ rigorously defined in the context of robust linear programming in~Appendix~\ref{
         \caption{Example L$\infty$ or box uncertainty sets.}
         \label{fig:setsbox}
     \end{subfigure}
-    % Elliptical uncertainty set
+    % Ellipsoidal uncertainty set
     \begin{subfigure}[b]{0.5\textwidth}
         \centering
         \begin{tikzpicture}[scale=1.5]
@@ -103,8 +103,8 @@ rigorously defined in the context of robust linear programming in~Appendix~\ref{
             \draw[red] (0,0) ellipse (0.25cm and 0.75cm);
             \node[below right] at (0.15, -0.666) {\color{red}$\Gamma=1, ~3\sigma_i = 0.25,~3\sigma_j=0.75$};
         \end{tikzpicture}
-        \caption{Example L2 or elliptical uncertainty sets.}
-        \label{fig:setselliptical}
+        \caption{Example L2 or ellipsoidal uncertainty sets.}
+        \label{fig:setsellipsoidal}
     \end{subfigure}
     \caption{$\Gamma$ defines the overall size of norm uncertainty sets, while $3\sigma$ defines the relative
     size of the set in each uncertain parameter. }
@@ -136,11 +136,11 @@ and more appropriate than the use of margins
 in conceptual design, since (1) margins fail to capture the level of conservativeness they signal, and (2) prior
 information (in this case the nominal solution) is required to allocate margin effectively.
 
-For elliptical uncertainty, $\Gamma$ is the maximum diameter of the Euclidian norm
-ball of $u$ as shown in Figure~\ref{fig:setselliptical},
+For ellipsoidal uncertainty, $\Gamma$ is the maximum diameter of the Euclidian norm
+ball of $u$ as shown in Figure~\ref{fig:setsellipsoidal},
 where $u_i$ is one-third the number of standard deviations of perturbation of the
 $i$th parameter from its nominal value.
-Elliptical uncertainty exploits the fact that the joint probability of
+Ellipsoidal uncertainty exploits the fact that the joint probability of
 multiple uncertain parameters taking values in the tails of their respective distributions is
 very low. So while it does not protect deterministically for all outcomes of the uncertain
 parameters within $3\sigma$, it is expected to protect against uncertain outcomes

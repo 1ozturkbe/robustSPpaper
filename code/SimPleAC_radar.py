@@ -33,9 +33,9 @@ def gen_SimPleAC_radar(marray, methods, objectives, keyOrder, baseobj):
     for i in range(len(marray)):
         for j in range(len(marray[i])):
             try:
-                solutions[i].append(marray[i][j].localsolve(reltol=1e-3))
+                solutions[i].append(marray[i][j].localsolve(reltol=1e-4))
             except:
-                solutions[i].append(marray[i][j].robustsolve(reltol=1e-3))
+                solutions[i].append(marray[i][j].robustsolve(reltol=1e-4))
 
     data, maxesindata, minsindata = generate_radar_data(solutions, objectives, keyOrder, baseobj)
 
@@ -103,12 +103,12 @@ if __name__ == "__main__":
     objectives = {m['W_{f_m}']                  : {'name': 'Total fuel', 'added': {}, 'removed': {}},
                   m['W_{f_m}']+m['C_m']*m['t_m']*units('N') : {'name': 'Total cost', 'added': {}, 'removed': {}},
                   m['W']                                    : {'name': 'Takeoff weight', 'added': {}, 'removed': {}},
-                  1/(m['L'][2]/m['D'][2])                   : {'name': '1/(Cruise L/D)', 'added': {}, 'removed': {}},
+                  sum(m['D'] / m['L'])                      : {'name': '1/(Cruise L/D)', 'added': {}, 'removed': {}},
                   m['W_e']                                  : {'name': 'Engine weight', 'added': {}, 'removed': {}},
                   m['S']                                    : {'name': 'Wing area', 'added': {}, 'removed': {}},
                                                 }
     keyOrder = [m['W_{f_m}'], m['W_{f_m}']+m['C_m']*m['t_m']*units('N'), m['W'],
-                1/(m['L'][2]/m['D'][2]), m['W_e'], m['S']]
+                sum(m['D'] / m['L']), m['W_e'], m['S']]
 
     models = {}
     baseobj = m['W_{f_m}']
@@ -116,7 +116,7 @@ if __name__ == "__main__":
     # Adding minimizer so all objectives are tight at the optimum
     minimizer = 10**-8*sum(i/i.units if i.units else i for i in objectives.keys())
     # Nominal case must always be first!
-    methods = ['nominal','elliptical','box']
+    methods = ['nominal','ellipsoidal','box']
     marray = [[] for i in range(len(keyOrder))]
     counti = 0
     for i in range(len(keyOrder)):
@@ -130,7 +130,7 @@ if __name__ == "__main__":
             else:
                 nm = RobustModel(nm, j, twoTerm = False, gamma = 1)
                 marray[counti].append(nm)
-        counti +=1
+        counti += 1
 
     solutions = gen_SimPleAC_radar(marray, methods, objectives, keyOrder, baseobj)
 

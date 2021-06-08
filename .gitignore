@@ -7,3 +7,12 @@
 *.ist
 *.fls
 *.fdb_latexmk
+*.pyc
+*.blg
+*.dvi
+*.bbl
+code/gammaResults
+code/goalResults
+code/marginResults
+code/objectiveTableResults
+code/savefigs
